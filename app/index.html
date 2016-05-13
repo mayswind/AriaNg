@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html ng-app="ariaNg">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Aria2 Ng Frontend">
+    <title>AriaNg</title>
+    <!-- build:css css/bootstrap-3.3.6.min.css -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- endbuild -->
+    <!-- build:css css/plugins.min.css -->
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../bower_components/AdminLTE/dist/css/AdminLTE.min.css"/>
+    <link rel="stylesheet" href="../bower_components/sweetalert/dist/sweetalert.css"/>
+    <link rel="stylesheet" href="../bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"/>
+    <link rel="stylesheet" href="../bower_components/angular/angular-csp.css"/>
+    <link rel="stylesheet" href="../bower_components/angular-busy/dist/angular-busy.min.css"/>
+    <!-- endbuild -->
+    <!-- build:css css/aria-ng.min.css -->
+    <link rel="stylesheet" href="styles/aria-ng.css">
+    <!-- endbuild -->
+</head>
+<body class="hold-transition skin-aria-ng sidebar-mini">
+<div class="wrapper" ng-controller="MainController">
+    <header class="main-header">
+        <a class="logo" href="#">
+            <span class="logo-mini">Aria</span>
+            <span class="logo-lg">AriaNg</span>
+        </a>
+
+        <nav class="navbar navbar-static-top" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="pointer-cursor" title="{{'New' | translate}}">
+                        <i class="fa fa-plus"></i>
+                        <span translate>New</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="pointer-cursor" title="{{'Start' | translate}}">
+                        <i class="fa fa-play"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pointer-cursor" title="{{'Pause' | translate}}">
+                        <i class="fa fa-pause"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pointer-cursor" title="{{'Delete' | translate}}">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pointer-cursor dropdown-toggle" data-toggle="dropdown" title="{{'Display Order' | translate}}">
+                        <i class="fa fa-sort-alpha-asc"></i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('default')">
+                                <span translate>Default</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('name')">
+                                <span translate>File Name</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('percent')">
+                                <span translate>Completed Percent</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('remain')">
+                                <span translate>Remain Time</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="pointer-cursor" title="{{'Settings' | translate}}">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul id="siderbar-menu" class="sidebar-menu">
+                <li class="header" translate>Download</li>
+                <li data-href-match="/downloading">
+                    <a href="#/downloading"><i class="fa fa-arrow-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
+                </li>
+                <li data-href-match="/scheduling">
+                    <a href="#/scheduling"><i class="fa fa-hourglass-half"></i> <span ng-bind="('Scheduling' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
+                </li>
+                <li data-href-match="/stopped">
+                    <a href="#/stopped"><i class="fa fa-stop-circle-o"></i> <span ng-bind="('Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Stopped</span></a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <div id="content-wrapper" class="content-wrapper">
+        <div ng-view cg-busy="{ promise: loadPromise, message: ('Loading' | translate) }"></div>
+    </div>
+
+    <footer class="main-footer">
+        <a class="sidebar-toggle" data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}"></a>
+
+        <span>&nbsp;</span>
+
+        <div class="pull-right">
+            <span class="realtime-upload">
+                <i class="fa fa-arrow-down"></i>
+                <span ng-bind="(globalStat.downloadSpeed | readableVolumn) + '/s'"></span>
+            </span>
+            <span class="realtime-download">
+                <i class="fa fa-arrow-up"></i>
+                <span ng-bind="(globalStat.uploadSpeed | readableVolumn) + '/s'"></span>
+            </span>
+        </div>
+    </footer>
+</div>
+
+<!-- build:js js/jquery-2.2.3.min.js -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/angular-packages-1.4.10.min.js -->
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../bower_components/angular-route/angular-route.min.js"></script>
+<script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="../bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+<script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/bootstrap-3.3.6.min.js -->
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/moment-with-locales-2.13.0.min.js -->
+<script src="../bower_components/moment/min/moment.min.js"></script>
+<script src="../bower_components/moment/locale/zh-cn.js"></script>
+<script src="../bower_components/moment/locale/zh-tw.js"></script>
+<script src="../bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/echarts.simple-3.1.9.min.js -->
+<script src="../bower_components/echarts/dist/echarts.simple.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/plugins.min.js -->
+<script src="../bower_components/AdminLTE/dist/js/app.min.js"></script>
+<script src="../bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+<script src="../bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="../bower_components/angular-moment/angular-moment.min.js"></script>
+<script src="../bower_components/angular-websocket/angular-websocket.min.js"></script>
+<script src="../bower_components/angular-base64/angular-base64.min.js"></script>
+<script src="../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="../bower_components/angular-busy/dist/angular-busy.min.js"></script>
+<script src="../bower_components/angular-bootstrap-slider/slider.js"></script>
+<script src="../bower_components/ngSweetAlert/SweetAlert.js"></script>
+<!-- endbuild -->
+<!-- build:js js/aria-ng.min.js -->
+<script src="scripts/core/__core.js"></script>
+<script src="scripts/core/__fix.js"></script>
+<script src="scripts/core/app.js"></script>
+<script src="scripts/core/config.js"></script>
+<script src="scripts/core/constants.js"></script>
+<script src="scripts/core/router.js"></script>
+<script src="scripts/core/utils.js"></script>
+<script src="scripts/controllers/list.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/filters/dateDuration.js"></script>
+<script src="scripts/filters/substring.js"></script>
+<script src="scripts/filters/taskOrderBy.js"></script>
+<script src="scripts/filters/volumn.js"></script>
+<script src="scripts/langs/en-US.js"></script>
+<script src="scripts/langs/zh-CN.js"></script>
+<script src="scripts/services/aria2RpcService.js"></script>
+<script src="scripts/services/aria2WebSocketRpcService.js"></script>
+<script src="scripts/services/ariaNgSettingService.js"></script>
+<!-- endbuild -->
+</body>
+</html>

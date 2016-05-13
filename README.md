@@ -1,2 +1,2 @@
 # AriaNg
-Aria2 Ng Frontend
+A Better Frontend for Aria2 (Under construction)
