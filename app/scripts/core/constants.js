@@ -6,6 +6,7 @@
         appPrefix: 'AriaNg'
     }).constant('ariaNgDefaultOptions', {
         localeName: 'en-US',
+        protocol: 'http',
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000
     }).constant('aria2RpcConstants', {

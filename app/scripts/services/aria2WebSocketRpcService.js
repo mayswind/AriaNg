@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$websocket', 'ariaNgSettingService', function ($websocket, ariaNgSettingService) {
-        var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
+        var rpcUrl = ariaNgSettingService.getJsonRpcUrl('ws');
         var socketClient = $websocket(rpcUrl);
         var sendIdMapping = {};
 

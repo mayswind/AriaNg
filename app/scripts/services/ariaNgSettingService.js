@@ -29,12 +29,6 @@
         };
 
         return {
-            get: function (key) {
-                return getOption(key);
-            },
-            set: function (key, value) {
-                return setOption(key, value);
-            },
             getLocaleName: function () {
                 return getOption('localeName');
             },
@@ -42,14 +36,20 @@
                 setOption('localeName', value);
                 $translate.use(value);
             },
-            getJsonRpcUrl: function () {
+            getJsonRpcUrl: function (protocol) {
                 var rpcHost = getOption('aria2RpcHost');
 
                 if (!rpcHost) {
                     rpcHost = $location.$$host + ':6800';
                 }
 
-                return 'ws://' + rpcHost + '/jsonrpc';
+                return protocol + '://' + rpcHost + '/jsonrpc';
+            },
+            getProtocol: function () {
+                return getOption('protocol');
+            },
+            setProtocol: function (value) {
+                setOption('protocol', value);
             },
             getGlobalStatRefreshInterval: function () {
                 return getOption('globalStatRefreshInterval');
@@ -59,11 +59,11 @@
             },
             getDisplayOrder: function () {
                 var value = getOption('displayOrder');
-                
+
                 if (!value) {
                     value = 'default';
                 }
-                
+
                 return value;
             },
             setDisplayOrder: function (value) {
