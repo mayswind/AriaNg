@@ -1,6 +1,6 @@
 <section class="content no-padding">
     <div id="task-table" class="task-table">
-        <div class="row" ng-repeat="task in downloadTasks | taskOrderBy: getOrderType()">
+        <div class="row" ng-repeat="task in downloadTasks | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
             <div class="col-md-8">
                 <span class="task-name" ng-bind="task.taskName | substring: (titleWidth / 20)" title="{{task.taskName}}"></span>
                 <span class="task-volumn" ng-bind="task.totalLength | readableVolumn"></span>
