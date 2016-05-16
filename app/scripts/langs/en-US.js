@@ -15,7 +15,7 @@
             'Settings': 'Settings',
             'Download': 'Download',
             'Downloading': 'Downloading',
-            'Scheduling': 'Scheduling',
+            'Waiting': 'Waiting',
             'Stopped': 'Stopped',
             'Toggle Navigation': 'Toggle Navigation',
             'Loading': 'Loading...',

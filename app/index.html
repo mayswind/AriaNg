@@ -100,8 +100,8 @@
                 <li data-href-match="/downloading">
                     <a href="#/downloading"><i class="fa fa-arrow-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
                 </li>
-                <li data-href-match="/scheduling">
-                    <a href="#/scheduling"><i class="fa fa-hourglass-half"></i> <span ng-bind="('Scheduling' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
+                <li data-href-match="/waiting">
+                    <a href="#/waiting"><i class="fa fa-hourglass-half"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
                 </li>
                 <li data-href-match="/stopped">
                     <a href="#/stopped"><i class="fa fa-stop-circle-o"></i> <span ng-bind="('Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Stopped</span></a>

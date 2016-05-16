@@ -7,7 +7,7 @@
                 templateUrl: 'views/list.html',
                 controller: 'DownloadListController'
             })
-            .when('/scheduling', {
+            .when('/waiting', {
                 templateUrl: 'views/list.html',
                 controller: 'DownloadListController'
             })

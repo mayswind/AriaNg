@@ -15,7 +15,7 @@
             'Settings': '系统设置',
             'Download': '下载',
             'Downloading': '正在下载',
-            'Scheduling': '正在排队',
+            'Waiting': '正在等待',
             'Stopped': '已停止',
             'Toggle Navigation': '切换导航',
             'Loading': '正在加载...',
