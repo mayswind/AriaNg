@@ -22,6 +22,7 @@
             'AriaNg Settings': 'AriaNg Settings',
             'Language': 'Language',
             'Aria2 RPC Host': 'Aria2 RPC Host',
+            'Aria2 RPC Port': 'Aria2 RPC Port',
             'Aria2 RPC Protocol': 'Aria2 RPC Protocol',
             'Toggle Navigation': 'Toggle Navigation',
             'Loading': 'Loading...',

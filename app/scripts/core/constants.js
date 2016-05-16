@@ -3,9 +3,12 @@
 
     angular.module('ariaNg').constant('ariaNgConstants', {
         title: 'Aria Ng',
-        appPrefix: 'AriaNg'
+        appPrefix: 'AriaNg',
+        optionStorageKey: 'Options'
     }).constant('ariaNgDefaultOptions', {
         language: 'en-US',
+        rpcHost: '',
+        rpcPort: '6800',
         protocol: 'http',
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000

@@ -308,6 +308,10 @@ td {
     background-color: #f5f5f5;
 }
 
+.settings-table .input-group-addon {
+    background-color: #eee;
+}
+
 .settings-table .setting-key {
     padding-top: 6px;
 }
@@ -317,7 +321,7 @@ td {
 }
 
 .settings-table .tip {
-    background-color: #fff;
+    background-color: #fff !important;
     font-size: 12px;
     padding: 4px;
 }

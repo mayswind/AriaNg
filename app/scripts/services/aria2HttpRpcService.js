@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgSettingService', function ($http, ariaNgSettingService) {
-        var rpcUrl = ariaNgSettingService.getJsonRpcUrl('http');
+        var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
 
         return {
             request: function (context) {

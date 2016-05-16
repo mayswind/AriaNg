@@ -22,6 +22,7 @@
             'AriaNg Settings': 'AriaNg 设置',
             'Language': '语言',
             'Aria2 RPC Host': 'Aria2 RPC 主机',
+            'Aria2 RPC Port': 'Aria2 RPC 端口',
             'Aria2 RPC Protocol': 'Aria2 RPC 协议',
             'Toggle Navigation': '切换导航',
             'Loading': '正在加载...',

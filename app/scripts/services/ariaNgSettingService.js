@@ -1,18 +1,17 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$translate', 'amMoment', 'localStorageService', 'ariaNgDefaultOptions', function ($location, $translate, amMoment, localStorageService, ariaNgDefaultOptions) {
-        var getDefaultJsonRpcHost = function () {
-            var rpcHost = $location.$$host + ':6800';
-            return rpcHost;
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', function ($location, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions) {
+        var getDefaultRpcHost = function () {
+            return $location.$$host;
         };
 
         var setOptions = function (options) {
-            return localStorageService.set('Options', options);
+            return localStorageService.set(ariaNgConstants.optionStorageKey, options);
         };
 
         var getOptions = function () {
-            var options = localStorageService.get('Options');
+            var options = localStorageService.get(ariaNgConstants.optionStorageKey);
 
             if (!options) {
                 options = angular.extend({}, ariaNgDefaultOptions);
@@ -44,8 +43,8 @@
             getAllOptions: function () {
                 var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
 
-                if (!options.aria2RpcHost) {
-                    options.aria2RpcHost = getDefaultJsonRpcHost();
+                if (!options.rpcHost) {
+                    options.rpcHost = getDefaultRpcHost();
                 }
 
                 return options;
@@ -61,17 +60,22 @@
                 $translate.use(value);
                 amMoment.changeLocale(value);
             },
-            getJsonRpcUrl: function (protocol) {
-                var rpcHost = getOption('aria2RpcHost');
+            getJsonRpcUrl: function () {
+                var protocol = getOption('protocol');
+                var rpcHost = getOption('rpcHost');
+                var rpcPort = getOption('rpcPort');
 
                 if (!rpcHost) {
-                    rpcHost = getDefaultJsonRpcHost();
+                    rpcHost = getDefaultRpcHost();
                 }
 
-                return protocol + '://' + rpcHost + '/jsonrpc';
+                return protocol + '://' + rpcHost + ':' + rpcPort + '/jsonrpc';
             },
-            setJsonRpcHost: function (value) {
-                setOption('aria2RpcHost', value);
+            setRpcHost: function (value) {
+                setOption('rpcHost', value);
+            },
+            setRpcPort: function (value) {
+                setOption('rpcPort', value);
             },
             getProtocol: function () {
                 return getOption('protocol');
