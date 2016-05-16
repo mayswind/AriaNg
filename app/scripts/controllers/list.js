@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('DownloadListController', ['$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
         var location = $location.path().substring(1);
 
         var getTitleWidth = function () {
@@ -57,11 +57,7 @@
             return ariaNgSettingService.getDisplayOrder();
         };
 
-        if ($rootScope.downloadTaskRefreshTimer) {
-            $interval.cancel($rootScope.downloadTaskRefreshTimer);
-        }
-
-        $rootScope.downloadTaskRefreshTimer = $interval(function () {
+        var downloadTaskRefreshPromise = $interval(function () {
             var invokeMethod = null;
             var params = [];
 
@@ -92,5 +88,11 @@
                 });
             }
         }, ariaNgSettingService.getDownloadTaskRefreshInterval());
+
+        $scope.$on('$destroy', function () {
+            if (downloadTaskRefreshPromise) {
+                $interval.cancel(downloadTaskRefreshPromise);
+            }
+        });
     }]);
 })();

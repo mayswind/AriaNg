@@ -10,13 +10,13 @@
         $translateProvider.preferredLanguage('en-US');
         $translateProvider.useSanitizeValueStrategy('escape');
     }]).run(['$translate', 'amMoment', 'moment', 'ariaNgConstants', 'ariaNgSettingService', function ($translate, amMoment, moment, ariaNgConstants, ariaNgSettingService) {
-        $translate.use(ariaNgSettingService.getLocaleName());
+        $translate.use(ariaNgSettingService.getLanguage());
 
         moment.updateLocale('zh-cn', {
             week: null
         });
 
-        amMoment.changeLocale(ariaNgSettingService.getLocaleName());
+        amMoment.changeLocale(ariaNgSettingService.getLanguage());
     }]).run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgConstants', function ($rootScope, $location, $document, SweetAlert, ariaNgConstants) {
         var setNavbarSelected = function (location) {
             angular.element('section.sidebar > ul li').removeClass('active');

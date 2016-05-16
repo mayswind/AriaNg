@@ -1,0 +1,40 @@
+<section class="content no-padding">
+    <div class="settings-table">
+        <div class="row">
+            <div class="setting-key col-md-4">
+                <span translate>Language</span>
+            </div>
+            <div class="setting-value col-md-8">
+                <select class="form-control" style="width: 100%;" ng-model="settings.language" ng-change="settingService.setLanguage(settings.language)">
+                    <option value="en-US" translate translate-language="en-US">English</option>
+                    <option value="zh-CN" translate translate-language="zh-CN">Simplified Chinese</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="setting-key col-md-4">
+                <span translate>Aria2 RPC Host</span>
+                <span class="asterisk">*</span>
+            </div>
+            <div class="setting-value col-md-8" translate>
+                <input class="form-control" ng-model="settings.aria2RpcHost" ng-change="settingService.setJsonRpcHost(settings.aria2RpcHost)" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="setting-key col-md-4">
+                <span translate>Aria2 RPC Protocol</span>
+                <span class="asterisk">*</span>
+            </div>
+            <div class="setting-value col-md-8">
+                <select class="form-control" style="width: 100%;" ng-model="settings.protocol" ng-change="settingService.setProtocol(settings.protocol)">
+                    <option value="http" translate>Http</option>
+                    <option value="ws" translate>WebSocket</option>
+                </select>
+            </div>
+        </div>
+        <div class="row tip">
+            <span class="asterisk">*</span>
+            <span translate>Changes to the settings take effect after refreshing page.</span>
+        </div>
+    </div>
+</section>

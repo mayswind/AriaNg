@@ -15,6 +15,10 @@
                 templateUrl: 'views/list.html',
                 controller: 'DownloadListController'
             })
+            .when('/settings/ariang', {
+                templateUrl: 'views/settings-ariang.html',
+                controller: 'AriaNgSettingsController'
+            })
             .otherwise({
                 redirectTo: '/downloading'
             });

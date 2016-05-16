@@ -3,7 +3,7 @@
         <div class="row" ng-repeat="task in downloadTasks | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
             <div class="col-md-8">
                 <span class="task-name" ng-bind="task.taskName | substring: (titleWidth / 20)" title="{{task.taskName}}"></span>
-                <span class="task-volumn" ng-bind="task.totalLength | readableVolumn"></span>
+                <span class="task-volumn" ng-bind="task.fileSize | readableVolumn"></span>
             </div>
             <div class="col-md-2">
                 <div class="progress">

@@ -90,11 +90,6 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a class="pointer-cursor" title="{{'Settings' | translate}}">
-                        <i class="fa fa-cog"></i>
-                    </a>
-                </li>
             </ul>
         </nav>
     </header>
@@ -111,6 +106,10 @@
                 </li>
                 <li data-href-match="/stopped">
                     <a href="#/stopped"><i class="fa fa-stop-circle-o"></i> <span ng-bind="('Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Stopped</span></a>
+                </li>
+                <li class="header" translate>Settings</li>
+                <li data-href-match="/settings/ariang">
+                    <a href="#/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
                 </li>
             </ul>
         </section>
@@ -185,6 +184,7 @@
 <script src="scripts/core/utils.js"></script>
 <script src="scripts/controllers/list.js"></script>
 <script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/settings-ariang.js"></script>
 <script src="scripts/filters/dateDuration.js"></script>
 <script src="scripts/filters/substring.js"></script>
 <script src="scripts/filters/taskOrderBy.js"></script>

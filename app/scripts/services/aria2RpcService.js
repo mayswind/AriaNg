@@ -2,6 +2,8 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2RpcService', ['aria2RpcConstants', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', 'utils', function (aria2RpcConstants, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService, utils) {
+        var protocol = ariaNgSettingService.getProtocol();
+
         var invoke = function (method, context) {
             context.uniqueId = utils.generateUniqueId();
             context.requestBody = {
@@ -11,7 +13,7 @@
                 params: context.params
             };
 
-            if (ariaNgSettingService.getProtocol() == 'ws') {
+            if (protocol == 'ws') {
                 return aria2WebSocketRpcService.request(context);
             } else {
                 return aria2HttpRpcService.request(context);
