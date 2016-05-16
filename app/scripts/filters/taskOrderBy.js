@@ -9,6 +9,8 @@
 
             if (type == 'name') {
                 return orderByFilter(array, ['taskName'], false);
+            } else if (type == 'size') {
+                return orderByFilter(array, ['fileSize'], false);
             } else if (type == 'percent') {
                 return orderByFilter(array, ['completePercent'], true);
             } else if (type == 'remain') {

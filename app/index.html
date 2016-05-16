@@ -66,19 +66,25 @@
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('name')">
-                                <span translate>File Name</span>
+                                <span translate>By File Name</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
                             </a>
                         </li>
                         <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('size')">
+                                <span translate>By File Size</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
+                            </a>
+                        </li>
+                        <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('percent')">
-                                <span translate>Completed Percent</span>
+                                <span translate>By Completed Percent</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('remain')">
-                                <span translate>Remain Time</span>
+                                <span translate>By Remain Time</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
                             </a>
                         </li>
