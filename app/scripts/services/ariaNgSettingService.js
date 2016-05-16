@@ -18,7 +18,14 @@
         };
 
         var getOption = function (key) {
-            return getOptions()[key];
+            var options = getOptions();
+
+            if (angular.isUndefined(options[key])) {
+                options[key] = ariaNgDefaultOptions[key];
+                setOptions(options);
+            }
+
+            return options[key];
         };
 
         var setOption = function (key, value) {
