@@ -241,6 +241,12 @@ td {
     background-color: #d4dfe7;
 }
 
+@media (max-width: 767px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+}
+
 /* task-table */
 .task-table {
     margin-left: 15px;
