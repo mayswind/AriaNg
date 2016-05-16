@@ -67,7 +67,7 @@
             } else if (location == 'waiting') {
                 invokeMethod = aria2RpcService.tellWaiting;
                 params = [0, 1000];
-            } else if (location == 'downloaded') {
+            } else if (location == 'stopped') {
                 invokeMethod = aria2RpcService.tellStopped;
                 params = [0, 1000];
             }
