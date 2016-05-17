@@ -1,27 +1,69 @@
 <section class="content no-padding">
     <div id="task-table" class="task-table">
-        <div class="row" ng-repeat="task in downloadTasks | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
-            <div class="col-md-8">
-                <span class="task-name" ng-bind="task.taskName | substring: (titleWidth / 20)" title="{{task.taskName}}"></span>
-                <span class="task-volumn" ng-bind="task.fileSize | readableVolumn"></span>
-            </div>
-            <div class="col-md-2">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-primary" role="progressbar"
-                         aria-valuenow="{{task.completePercent}}" aria-valuemin="1"
-                         aria-valuemax="100" style="width: {{task.completePercent}}%;">
-                        <div ng-class="{'lower': task.completePercent < 50}"
-                            ng-bind="(task.completePercent | percent: 2) + '%'"></div>
+        <div class="task-table-title hidden-xs">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <span translate>File Name</span>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('name')}"></i>
+                        </div>
+                        <div class="col-sm-4">
+                            <span translate>File Size</span>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('size')}"></i>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <span class="task-last-time"
-                          ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
-                    <span class="task-seeders pull-right" ng-bind="(task.numSeeders ? (task.numSeeders + '/') : '') + task.connections"></span>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span translate>Completed Percent</span>
+                            <i class="fa" ng-class="{'fa-sort-desc': isSetDisplayOrder('percent')}"></i>
+                        </div>
+                        <div class="col-sm-6">
+                            <span translate>Remain Time</span>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('remain')}"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <span translate>Download Speed</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <span class="task-download-speed" ng-bind="(task.downloadSpeed | readableVolumn) + '/s'"></span>
+        </div>
+        <div class="task-table-body">
+            <div class="row" ng-repeat="task in downloadTasks | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
+                <div class="col-sm-8">
+                    <span class="task-name" ng-bind="task.taskName | substring: (titleWidth / 20)" title="{{task.taskName}}"></span>
+                    <div class="task-files">
+                        <span ng-bind="task.fileSize | readableVolumn"></span>
+                        <a ng-href="#/task/detail/{{task.gid}}">
+                            <span ng-bind="'(' + task.files.length + ' ' + ('Files' | translate) + ')'"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-primary" role="progressbar"
+                             aria-valuenow="{{task.completePercent}}" aria-valuemin="1"
+                             aria-valuemax="100" style="width: {{task.completePercent}}%;">
+                            <div ng-class="{'lower': task.completePercent < 50}"
+                                ng-bind="(task.completePercent | percent: 2) + '%'"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="task-last-time"
+                              ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
+                        <span class="task-download-speed visible-xs-inline pull-right"
+                              ng-bind="(task.downloadSpeed | readableVolumn) + '/s'"></span>
+                        <span class="task-seeders pull-right" ng-bind="(task.numSeeders ? (task.numSeeders + '/') : '') + task.connections"></span>
+                    </div>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                    <span class="task-download-speed" ng-bind="(task.downloadSpeed | readableVolumn) + '/s'"></span>
+                </div>
             </div>
         </div>
     </div>
