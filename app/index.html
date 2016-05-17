@@ -114,6 +114,27 @@
                 <li data-href-match="/settings/ariang">
                     <a href="#/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
                 </li>
+                <li class="treeview">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-cogs"></i>
+                        <span translate>Aria2 Settings</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li data-href-match="/settings/aria2/basic">
+                            <a href="#/settings/aria2/basic"><i class="fa fa-circle-o"></i> <span translate>Basic Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/bt">
+                            <a href="#/settings/aria2/bt"><i class="fa fa-circle-o"></i> <span translate>BitTorrent Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/rpc">
+                            <a href="#/settings/aria2/rpc"><i class="fa fa-circle-o"></i> <span translate>RPC Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/advanced">
+                            <a href="#/settings/aria2/advanced"><i class="fa fa-circle-o"></i> <span translate>Advanced Settings</span></a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </section>
     </aside>
@@ -188,6 +209,7 @@
 <script src="scripts/core/utils.js"></script>
 <script src="scripts/controllers/list.js"></script>
 <script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/settings-aria2.js"></script>
 <script src="scripts/controllers/settings-ariang.js"></script>
 <script src="scripts/filters/dateDuration.js"></script>
 <script src="scripts/filters/percent.js"></script>

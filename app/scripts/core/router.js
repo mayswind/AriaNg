@@ -19,6 +19,22 @@
                 templateUrl: 'views/settings-ariang.html',
                 controller: 'AriaNgSettingsController'
             })
+            .when('/settings/aria2/basic', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/bt', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/rpc', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/advanced', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
             .otherwise({
                 redirectTo: '/downloading'
             });
