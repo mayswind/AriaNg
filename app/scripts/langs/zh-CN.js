@@ -17,7 +17,7 @@
             'Download': '下载',
             'Downloading': '正在下载',
             'Waiting': '正在等待',
-            'Stopped': '已停止',
+            'Downloaded / Stopped': '已完成 / 已停止',
             'Settings': '系统设置',
             'AriaNg Settings': 'AriaNg 设置',
             'File Name': '文件名',

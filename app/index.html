@@ -108,7 +108,7 @@
                     <a href="#/waiting"><i class="fa fa-hourglass-half"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
                 </li>
                 <li data-href-match="/stopped">
-                    <a href="#/stopped"><i class="fa fa-stop-circle-o"></i> <span ng-bind="('Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Stopped</span></a>
+                    <a href="#/stopped"><i class="fa fa-stop-circle-o"></i> <span ng-bind="('Downloaded / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Downloaded / Stopped</span></a>
                 </li>
                 <li class="header" translate>Settings</li>
                 <li data-href-match="/settings/ariang">

@@ -17,7 +17,7 @@
             'Download': 'Download',
             'Downloading': 'Downloading',
             'Waiting': 'Waiting',
-            'Stopped': 'Stopped',
+            'Downloaded / Stopped': 'Downloaded / Stopped',
             'Settings': 'Settings',
             'AriaNg Settings': 'AriaNg Settings',
             'File Name': 'File Name',
