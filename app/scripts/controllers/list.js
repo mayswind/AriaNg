@@ -63,7 +63,7 @@
             }
 
             if (invokeMethod) {
-                invokeMethod({
+                return invokeMethod({
                     params: params,
                     callback: function (result) {
                         if (result && result.length > 0) {
@@ -80,7 +80,7 @@
             }
         };
 
-        refreshDownloadTask();
+        $scope.loadPromise = refreshDownloadTask();
 
         angular.element($window).bind('resize', function () {
             $scope.titleWidth = getTitleWidth();
