@@ -3,6 +3,7 @@
 
     angular.module('ariaNg').controller('DownloadListController', ['$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
         var location = $location.path().substring(1);
+        var downloadTaskRefreshPromise = null;
 
         var getTitleWidth = function () {
             var titleColumn = angular.element('.task-table > .row > .col-md-8:first-child');
@@ -47,17 +48,7 @@
             task.remainTime = calculateDownloadRemainTime(remainLength, task.downloadSpeed);
         };
 
-        $scope.titleWidth = getTitleWidth();
-
-        angular.element($window).bind('resize', function () {
-            $scope.titleWidth = getTitleWidth();
-        });
-
-        $scope.getOrderType = function () {
-            return ariaNgSettingService.getDisplayOrder();
-        };
-
-        var downloadTaskRefreshPromise = $interval(function () {
+        var refreshDownloadTask = function () {
             var invokeMethod = null;
             var params = [];
 
@@ -87,7 +78,25 @@
                     }
                 });
             }
-        }, ariaNgSettingService.getDownloadTaskRefreshInterval());
+        };
+
+        refreshDownloadTask();
+
+        angular.element($window).bind('resize', function () {
+            $scope.titleWidth = getTitleWidth();
+        });
+
+        $scope.titleWidth = getTitleWidth();
+
+        $scope.getOrderType = function () {
+            return ariaNgSettingService.getDisplayOrder();
+        };
+
+        if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
+            downloadTaskRefreshPromise = $interval(function () {
+                refreshDownloadTask();
+            }, ariaNgSettingService.getDownloadTaskRefreshInterval());
+        }
 
         $scope.$on('$destroy', function () {
             if (downloadTaskRefreshPromise) {

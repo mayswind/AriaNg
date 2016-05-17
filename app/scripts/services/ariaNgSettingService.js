@@ -81,13 +81,19 @@
                 return getOption('protocol');
             },
             setProtocol: function (value) {
-                setOption('protocol', value);
+                setOption('protocol', Math.max(parseInt(value), 0));
             },
             getGlobalStatRefreshInterval: function () {
                 return getOption('globalStatRefreshInterval');
             },
+            setGlobalStatRefreshInterval: function (value) {
+                setOption('globalStatRefreshInterval', Math.max(parseInt(value), 0));
+            },
             getDownloadTaskRefreshInterval: function () {
                 return getOption('downloadTaskRefreshInterval');
+            },
+            setDownloadTaskRefreshInterval: function (value) {
+                setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
             },
             getDisplayOrder: function () {
                 var value = getOption('displayOrder');

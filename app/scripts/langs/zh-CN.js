@@ -24,11 +24,16 @@
             'Aria2 RPC Host': 'Aria2 RPC 主机',
             'Aria2 RPC Port': 'Aria2 RPC 端口',
             'Aria2 RPC Protocol': 'Aria2 RPC 协议',
+            'Global Stat Refresh Interval': '全局状态刷新间隔',
+            'Download Task Refresh Interval': '下载任务刷新间隔',
             'Toggle Navigation': '切换导航',
             'Loading': '正在加载...',
             'More Than One Day': '超过1天',
             'Unknown': '未知',
-            'Changes to the settings take effect after refreshing page.': '设置将在刷新页面后生效.'
+            'Seconds': '秒',
+            'Milliseconds': '毫秒',
+            '(0 is disabled)': '(0为禁用)',
+            'Changes to the settings take effect after refreshing page.': '设置将在页面刷新后生效.'
         });
     }])
 })();

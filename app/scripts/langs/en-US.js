@@ -24,10 +24,15 @@
             'Aria2 RPC Host': 'Aria2 RPC Host',
             'Aria2 RPC Port': 'Aria2 RPC Port',
             'Aria2 RPC Protocol': 'Aria2 RPC Protocol',
+            'Global Stat Refresh Interval': 'Global Stat Refresh Interval',
+            'Download Task Refresh Interval': 'Download Task Refresh Interval',
             'Toggle Navigation': 'Toggle Navigation',
             'Loading': 'Loading...',
             'More Than One Day': 'More than 1 day',
             'Unknown': 'Unknown',
+            'Seconds': 'Seconds',
+            'Milliseconds': 'Milliseconds',
+            '(0 is disabled)': '(0 is disabled)',
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.'
         });
     }])

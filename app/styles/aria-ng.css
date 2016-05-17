@@ -320,6 +320,12 @@ td {
     color: red;
 }
 
+.settings-table .description {
+    color: #888;
+    font-size: 12px;
+    display: block;
+}
+
 .settings-table .tip {
     background-color: #fff !important;
     font-size: 12px;
@@ -327,6 +333,12 @@ td {
 }
 .settings-table .tip:hover {
     background-color: #fff !important;
+}
+
+@media (max-width: 767px) {
+    .settings-table .description {
+        display: inline-block;
+    }
 }
 
 /* miscellaneous */

@@ -1,10 +1,10 @@
 <section class="content no-padding">
     <div class="settings-table">
         <div class="row">
-            <div class="setting-key col-md-4">
+            <div class="setting-key col-sm-4">
                 <span translate>Language</span>
             </div>
-            <div class="setting-value col-md-8">
+            <div class="setting-value col-sm-8">
                 <select class="form-control" style="width: 100%;" ng-model="settings.language" ng-change="settingService.setLanguage(settings.language)">
                     <option value="en-US" translate translate-language="en-US">English</option>
                     <option value="zh-CN" translate translate-language="zh-CN">Simplified Chinese</option>
@@ -12,11 +12,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-md-4">
+            <div class="setting-key col-sm-4">
                 <span translate>Aria2 RPC Host</span>
                 <span class="asterisk">*</span>
             </div>
-            <div class="setting-value col-md-8">
+            <div class="setting-value col-sm-8">
                 <div class="input-group">
                     <span class="input-group-addon" ng-bind="settings.protocol + '://'"></span>
                     <input class="form-control" type="text" ng-model="settings.rpcHost" ng-change="settingService.setRpcHost(settings.rpcHost)"/>
@@ -26,24 +26,52 @@
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-md-4">
+            <div class="setting-key col-sm-4">
                 <span translate>Aria2 RPC Port</span>
                 <span class="asterisk">*</span>
             </div>
-            <div class="setting-value col-md-8">
+            <div class="setting-value col-sm-8">
                 <input class="form-control" type="text" ng-model="settings.rpcPort" ng-change="settingService.setRpcPort(settings.rpcPort)"/>
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-md-4">
+            <div class="setting-key col-sm-4">
                 <span translate>Aria2 RPC Protocol</span>
                 <span class="asterisk">*</span>
             </div>
-            <div class="setting-value col-md-8">
+            <div class="setting-value col-sm-8">
                 <select class="form-control" style="width: 100%;" ng-model="settings.protocol" ng-change="settingService.setProtocol(settings.protocol)">
                     <option value="http" translate>Http</option>
                     <option value="ws" translate>WebSocket</option>
                 </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="setting-key col-sm-4">
+                <span translate>Global Stat Refresh Interval</span>
+                <span class="asterisk">*</span>
+                <span class="description" translate>(0 is disabled)</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="settings.globalStatRefreshInterval"
+                           ng-change="settingService.setGlobalStatRefreshInterval(settings.globalStatRefreshInterval)"/>
+                    <span class="input-group-addon" style="border-left: 0" translate>Milliseconds</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="setting-key col-sm-4">
+                <span translate>Download Task Refresh Interval</span>
+                <span class="asterisk">*</span>
+                <span class="description" translate>(0 is disabled)</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="settings.downloadTaskRefreshInterval"
+                           ng-change="settingService.setDownloadTaskRefreshInterval(settings.downloadTaskRefreshInterval)"/>
+                    <span class="input-group-addon" style="border-left: 0" translate>Milliseconds</span>
+                </div>
             </div>
         </div>
         <div class="row tip">
