@@ -301,6 +301,20 @@ td {
     font-size: 12px;
 }
 
+.task-table .progress {
+    position: relative;
+}
+
+.task-table .progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+}
+
+.task-table .progress span.progress-lower {
+    color: #000;
+}
+
 /* settings-table */
 .settings-table {
     margin-left: 15px;
