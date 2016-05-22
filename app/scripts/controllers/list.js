@@ -34,7 +34,7 @@
             task.completedLength = parseInt(task.completedLength);
             task.uploadSpeed = parseInt(task.uploadSpeed);
             task.downloadSpeed = parseInt(task.downloadSpeed);
-            task.completePercent = task.completedLength / task.totalLength * 100;
+            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
             task.idle = task.downloadSpeed == 0;
 
             var remainLength = task.totalLength - task.completedLength;
