@@ -357,6 +357,10 @@ td {
     display: block;
 }
 
+.settings-table .wholeline {
+    display: block;
+}
+
 .settings-table .tip {
     background-color: #fff !important;
     font-size: 12px;
@@ -367,6 +371,14 @@ td {
 }
 
 @media (max-width: 767px) {
+    .settings-table .setting-key {
+        font-weight: bold;
+    }
+
+    .settings-table .status-key {
+        font-weight: bold;
+    }
+
     .settings-table .description {
         display: inline-block;
     }

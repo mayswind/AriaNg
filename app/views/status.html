@@ -1,0 +1,20 @@
+<section class="content no-padding">
+    <div class="settings-table">
+        <div class="row">
+            <div class="status-key col-sm-4">
+                <span translate>Aria2 Version</span>
+            </div>
+            <div class="status-value col-sm-8">
+                <span ng-bind="serverStatus.version"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="status-key col-sm-4">
+                <span translate>Enabled Features</span>
+            </div>
+            <div class="status-value col-sm-8">
+                <span class="wholeline" ng-repeat="feature in serverStatus.enabledFeatures" ng-bind="feature"></span>
+            </div>
+        </div>
+    </div>
+</section>

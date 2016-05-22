@@ -35,6 +35,10 @@
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'
             })
+            .when('/status', {
+                templateUrl: 'views/status.html',
+                controller: 'Aria2StatusController'
+            })
             .otherwise({
                 redirectTo: '/downloading'
             });
