@@ -5,30 +5,31 @@
                 <div class="col-sm-8">
                     <div class="row">
                         <div class="col-sm-8">
-                            <span translate>File Name</span>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('name')}"></i>
+                            <a ng-click="changeDisplayOrder('name:false', true)" translate>File Name</a>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('name', false), 'fa-sort-desc': isSetDisplayOrder('name', true)}"></i>
                         </div>
                         <div class="col-sm-4">
-                            <span translate>File Size</span>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('size')}"></i>
+                            <a ng-click="changeDisplayOrder('size:false', true)" translate>File Size</a>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('size', false), 'fa-sort-desc': isSetDisplayOrder('size', true)}"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="row">
                         <div class="col-sm-6">
-                            <span translate>Completed Percent</span>
-                            <i class="fa" ng-class="{'fa-sort-desc': isSetDisplayOrder('percent')}"></i>
+                            <a ng-click="changeDisplayOrder('percent:true', true)" translate>Completed Percent</a>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('percent', false), 'fa-sort-desc': isSetDisplayOrder('percent', true)}"></i>
                         </div>
                         <div class="col-sm-6">
-                            <span translate>Remain Time</span>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('remain')}"></i>
+                            <a ng-click="changeDisplayOrder('remain:false', true)" translate>Remain Time</a>
+                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('remain', false), 'fa-sort-desc': isSetDisplayOrder('remain', true)}"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="row">
-                        <span translate>Download Speed</span>
+                        <a ng-click="changeDisplayOrder('dspeed:false', true)" translate>Download Speed</a>
+                        <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('dspeed', false), 'fa-sort-desc': isSetDisplayOrder('dspeed', true)}"></i>
                     </div>
                 </div>
             </div>
@@ -38,7 +39,7 @@
                 <div class="col-sm-8">
                     <span class="task-name" ng-bind="task.taskName | substring: (titleWidth / 20)" title="{{task.taskName}}"></span>
                     <div class="task-files">
-                        <span ng-bind="task.fileSize | readableVolumn"></span>
+                        <span ng-bind="task.totalLength | readableVolumn"></span>
                         <a ng-href="#/task/detail/{{task.gid}}">
                             <span ng-bind="'(' + task.files.length + ' ' + ('Files' | translate) + ')'"></span>
                         </a>

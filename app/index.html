@@ -62,33 +62,39 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('default')">
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('default:false')">
                                 <span translate>Default</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('name')">
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('name:false')">
                                 <span translate>By File Name</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('size')">
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('size:false')">
                                 <span translate>By File Size</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('percent')">
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:true')">
                                 <span translate>By Completed Percent</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('remain')">
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:false')">
                                 <span translate>By Remain Time</span>
                                 <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:false')">
+                                <span translate>By Download Speed</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
                             </a>
                         </li>
                     </ul>

@@ -99,7 +99,7 @@
                 var value = getOption('displayOrder');
 
                 if (!value) {
-                    value = 'default';
+                    value = 'default:false';
                 }
 
                 return value;

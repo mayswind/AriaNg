@@ -14,6 +14,7 @@
             'By File Size': '按文件大小',
             'By Completed Percent': '按进度',
             'By Remain Time': '按剩余时间',
+            'By Download Speed': '按下载速度',
             'Download': '下载',
             'Downloading': '正在下载',
             'Waiting': '正在等待',

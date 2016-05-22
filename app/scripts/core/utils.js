@@ -36,6 +36,17 @@
                 }
 
                 return path.substring(index + 1);
+            },
+            parseOrderType: function (value) {
+                var values = value.split(':');
+
+                return {
+                    type: values[0],
+                    reverse: values[1] === 'true',
+                    getValue: function () {
+                        return this.type + ":" + this.reverse.toString();
+                    }
+                }
             }
         };
     }]);

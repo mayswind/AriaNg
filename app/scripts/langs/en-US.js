@@ -14,6 +14,7 @@
             'By File Size': 'By File Size',
             'By Completed Percent': 'By Completed Percent',
             'By Remain Time': 'By Remain Time',
+            'By Download Speed': 'By Download Speed',
             'Download': 'Download',
             'Downloading': 'Downloading',
             'Waiting': 'Waiting',

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$scope', '$interval', 'aria2RpcService', 'ariaNgSettingService', function ($scope, $interval, aria2RpcService, ariaNgSettingService) {
+    angular.module('ariaNg').controller('MainController', ['$scope', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $interval, aria2RpcService, ariaNgSettingService, utils) {
         var globalStatRefreshPromise = null;
 
         var processStatResult = function (stat) {
@@ -26,12 +26,25 @@
 
         refreshGlobalStat();
 
-        $scope.changeDisplayOrder = function (type) {
-            ariaNgSettingService.setDisplayOrder(type);
+        $scope.changeDisplayOrder = function (type, autoSetReverse) {
+            var oldType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var newType = utils.parseOrderType(type);
+
+            if (autoSetReverse && newType.type == oldType.type) {
+                newType.reverse = !oldType.reverse;
+            }
+
+            ariaNgSettingService.setDisplayOrder(newType.getValue());
         };
 
-        $scope.isSetDisplayOrder = function (type) {
-            return ariaNgSettingService.getDisplayOrder() === type;
+        $scope.isSetDisplayOrder = function (type, reverse) {
+            var orderType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
+
+            if (angular.isUndefined(reverse)) {
+                return orderType.type === type;
+            } else {
+                return orderType.type === type && orderType.reverse === reverse;
+            }
         };
 
         if (ariaNgSettingService.getGlobalStatRefreshInterval() > 0) {

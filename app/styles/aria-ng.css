@@ -257,6 +257,11 @@ td {
     font-size: 12px;
 }
 
+.task-table .task-table-title a {
+    color: #000;
+    cursor: pointer;
+}
+
 .task-table > .task-table-body > div.row {
     padding: 8px;
     border-top: 1px solid #ddd;

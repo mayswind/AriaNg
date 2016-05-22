@@ -30,9 +30,15 @@
         };
 
         var processDownloadTask = function (task) {
-            var totalLength = parseInt(task.totalLength);
-            var completedLength = parseInt(task.completedLength);
-            var remainLength = totalLength - completedLength;
+            task.totalLength = parseInt(task.totalLength);
+            task.completedLength = parseInt(task.completedLength);
+            task.uploadSpeed = parseInt(task.uploadSpeed);
+            task.downloadSpeed = parseInt(task.downloadSpeed);
+            task.completePercent = task.completedLength / task.totalLength * 100;
+            task.idle = task.downloadSpeed == 0;
+
+            var remainLength = task.totalLength - task.completedLength;
+            task.remainTime = calculateDownloadRemainTime(remainLength, task.downloadSpeed);
 
             if (task.bittorrent && task.bittorrent.info) {
                 task.taskName = task.bittorrent.info.name;
@@ -41,11 +47,6 @@
             } else {
                 task.taskName = translateFilter('Unknown');
             }
-
-            task.fileSize = totalLength;
-            task.completePercent = completedLength / totalLength * 100;
-            task.idle = task.downloadSpeed == 0;
-            task.remainTime = calculateDownloadRemainTime(remainLength, task.downloadSpeed);
         };
 
         var refreshDownloadTask = function () {
