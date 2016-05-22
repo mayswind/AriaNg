@@ -52,15 +52,28 @@
         var refreshDownloadTask = function () {
             var invokeMethod = null;
             var params = [];
+            var requestParams = [
+                'gid',
+                'totalLength',
+                'completedLength',
+                'uploadSpeed',
+                'downloadSpeed',
+                'connections',
+                'files',
+                'bittorrent',
+                'numSeeders',
+                'seeder'
+            ];
 
             if (location == 'downloading') {
                 invokeMethod = aria2RpcService.tellActive;
+                params = [requestParams];
             } else if (location == 'waiting') {
                 invokeMethod = aria2RpcService.tellWaiting;
-                params = [0, 1000];
+                params = [0, 1000, requestParams];
             } else if (location == 'stopped') {
                 invokeMethod = aria2RpcService.tellStopped;
-                params = [0, 1000];
+                params = [0, 1000, requestParams];
             }
 
             if (invokeMethod) {
