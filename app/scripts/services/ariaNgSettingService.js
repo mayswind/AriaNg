@@ -75,13 +75,13 @@
                 setOption('rpcHost', value);
             },
             setRpcPort: function (value) {
-                setOption('rpcPort', value);
+                setOption('rpcPort', Math.max(parseInt(value), 0));
             },
             getProtocol: function () {
                 return getOption('protocol');
             },
             setProtocol: function (value) {
-                setOption('protocol', Math.max(parseInt(value), 0));
+                setOption('protocol', value);
             },
             getGlobalStatRefreshInterval: function () {
                 return getOption('globalStatRefreshInterval');
