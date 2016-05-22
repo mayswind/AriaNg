@@ -17,21 +17,21 @@
         });
 
         amMoment.changeLocale(ariaNgSettingService.getLanguage());
-    }]).run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgConstants', function ($rootScope, $location, $document, SweetAlert, ariaNgConstants) {
+    }]).run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgConstants', 'utils', function ($rootScope, $location, $document, SweetAlert, ariaNgConstants, utils) {
         var setNavbarSelected = function (location) {
             angular.element('section.sidebar > ul li').removeClass('active');
             angular.element('section.sidebar > ul > li[data-href-match]').each(function (index, element) {
-                var prefix = angular.element(element).attr('data-href-match');
+                var match = angular.element(element).attr('data-href-match');
 
-                if (location.indexOf(prefix) == 0) {
+                if (utils.isUrlMatchUrl2(match, location)) {
                     angular.element(element).addClass('active');
                 }
             });
 
             angular.element('section.sidebar > ul > li.treeview > ul.treeview-menu > li[data-href-match]').each(function (index, element) {
-                var prefix = angular.element(element).attr('data-href-match');
+                var match = angular.element(element).attr('data-href-match');
 
-                if (location.indexOf(prefix) == 0) {
+                if (utils.isUrlMatchUrl2(match, location)) {
                     angular.element(element).addClass('active').parent().parent().addClass('active');
                 }
             });

@@ -1,5 +1,72 @@
 <section class="content no-padding">
     <div class="settings-table">
+        <div class="row" ng-repeat="option in availableOptions" data-option-key="{{option.key}}">
+            <div class="setting-key setting-key-without-desc col-sm-4">
+                <span ng-bind="option.name | translate"></span>
+                <em class="" ng-bind="'(' + option.key + ')'"></em>
+                <i class="icon-primary fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                   title="{{option.description | translate}}"
+                   ng-if="option.description && (option.description | translate) != ''"></i>
+            </div>
+            <div class="setting-value col-sm-8">
+                <div ng-class="{'input-group': option.suffix}">
+                    <div class="form-group" ng-class="{'has-success': optionStatus[option.key] && optionStatus[option.key] == 'saved'}"
+                         ng-if="option.type == 'string' || option.type == 'integer' || option.type == 'float'">
+                        <div class="has-feedback">
+                            <input class="form-control" type="text" ng-disabled="!!option.readonly"
+                                   ng-model="globalOptions[option.key]"
+                                   ng-change="setGlobalOption(option, globalOptions[option.key], true)"/>
+                            <div class="form-control-icon" ng-if="optionStatus[option.key]">
+                                <span class="fa form-control-feedback"
+                                      ng-class="{'fa-spin fa-spinner': optionStatus[option.key] == 'saving', 'fa-check': optionStatus[option.key] == 'saved'}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': optionStatus[option.key] && optionStatus[option.key] == 'saved'}"
+                         ng-if="option.type == 'text'">
+                        <div class="has-feedback">
+                            <textarea class="form-control" rows="6" ng-disabled="!!option.readonly"
+                                      ng-model="globalOptions[option.key]"
+                                      ng-change="setGlobalOption(option, globalOptions[option.key], true)"></textarea>
+                            <div class="form-control-icon" ng-if="optionStatus[option.key]">
+                                <span class="fa form-control-feedback"
+                                      ng-class="{'fa-spin fa-spinner': optionStatus[option.key] == 'saving', 'fa-check': optionStatus[option.key] == 'saved'}"></span>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="form-group" ng-class="{'has-success': optionStatus[option.key] && optionStatus[option.key] == 'saved'}"
+                         ng-if="option.type == 'boolean'">
+                        <div class="has-feedback">
+                            <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly"
+                                    ng-model="globalOptions[option.key]"
+                                    ng-change="setGlobalOption(option, globalOptions[option.key], false)">
+                                <option value="true" translate>True</option>
+                                <option value="false" translate>False</option>
+                            </select>
+                            <div class="form-control-icon" ng-if="optionStatus[option.key]">
+                                <span class="fa form-control-feedback"
+                                      ng-class="{'fa-spin fa-spinner': optionStatus[option.key] == 'saving', 'fa-check': optionStatus[option.key] == 'saved'}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-success': optionStatus[option.key] && optionStatus[option.key] == 'saved'}"
+                         ng-if="option.type == 'option'">
+                        <div class="has-feedback">
+                            <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly"
+                                    ng-model="globalOptions[option.key]"
+                                    ng-change="setGlobalOption(option, globalOptions[option.key], false)" ng-options="(value | translate) for value in option.options">
+                            </select>
+                            <div class="form-control-icon" ng-if="optionStatus[option.key]">
+                                <span class="fa form-control-feedback"
+                                      ng-class="{'fa-spin fa-spinner': optionStatus[option.key] == 'saving', 'fa-check': optionStatus[option.key] == 'saved'}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="input-group-addon" ng-if="option.suffix" ng-bind="option.suffix | translate"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row tip"></div>
     </div>
 </section>

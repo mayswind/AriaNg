@@ -23,7 +23,27 @@
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'
             })
+            .when('/settings/aria2/http-ftp-sftp', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/http', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/ftp-sftp', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/bt-metalink', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
             .when('/settings/aria2/bt', {
+                templateUrl: 'views/settings-aria2.html',
+                controller: 'Aria2SettingsController'
+            })
+            .when('/settings/aria2/metalink', {
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'
             })

@@ -1,7 +1,7 @@
 <section class="content no-padding">
     <div class="settings-table">
         <div class="row">
-            <div class="setting-key col-sm-4">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Language</span>
             </div>
             <div class="setting-value col-sm-8">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-sm-4">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Aria2 RPC Host</span>
                 <span class="asterisk">*</span>
             </div>
@@ -21,12 +21,12 @@
                     <span class="input-group-addon" ng-bind="settings.protocol + '://'"></span>
                     <input class="form-control" type="text" ng-model="settings.rpcHost" ng-change="settingService.setRpcHost(settings.rpcHost)"/>
                     <span class="input-group-addon" style="border-left: 0">:</span>
-                    <span class="input-group-addon" style="border-left: 0" ng-bind="settings.rpcPort"></span>
+                    <span class="input-group-addon" ng-bind="settings.rpcPort"></span>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-sm-4">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Aria2 RPC Port</span>
                 <span class="asterisk">*</span>
             </div>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-sm-4">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Aria2 RPC Protocol</span>
                 <span class="asterisk">*</span>
             </div>
@@ -56,7 +56,7 @@
                 <div class="input-group">
                     <input class="form-control" type="text" ng-model="settings.globalStatRefreshInterval"
                            ng-change="settingService.setGlobalStatRefreshInterval(settings.globalStatRefreshInterval)"/>
-                    <span class="input-group-addon" style="border-left: 0" translate>Milliseconds</span>
+                    <span class="input-group-addon" translate>Milliseconds</span>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <div class="input-group">
                     <input class="form-control" type="text" ng-model="settings.downloadTaskRefreshInterval"
                            ng-change="settingService.setDownloadTaskRefreshInterval(settings.downloadTaskRefreshInterval)"/>
-                    <span class="input-group-addon" style="border-left: 0" translate>Milliseconds</span>
+                    <span class="input-group-addon" translate>Milliseconds</span>
                 </div>
             </div>
         </div>

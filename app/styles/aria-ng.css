@@ -157,6 +157,10 @@
     background-color: #208fe5;
 }
 
+.skin-aria-ng .icon-primary {
+    color: #3c8dbc;
+}
+
 /* override */
 td {
     vertical-align: middle !important;
@@ -347,10 +351,6 @@ td {
     background-color: #eee;
 }
 
-.settings-table .setting-key {
-    padding-top: 6px;
-}
-
 .settings-table .asterisk {
     color: red;
 }
@@ -358,11 +358,30 @@ td {
 .settings-table .description {
     color: #888;
     font-size: 12px;
+    font-weight: normal;
     display: block;
+}
+
+.settings-table em {
+    color: #888;
+    font-size: 12px;
+    font-weight: normal;
 }
 
 .settings-table .wholeline {
     display: block;
+}
+
+.settings-table .setting-value .form-group {
+    margin-bottom: 0;
+}
+
+.settings-table .setting-value .form-group .form-control-icon {
+    color: #3c8dbc;
+}
+
+.settings-table .setting-value .form-group .form-control-feedback {
+    right: 10px;
 }
 
 .settings-table .tip {
@@ -379,12 +398,14 @@ td {
         font-weight: bold;
     }
 
-    .settings-table .status-key {
-        font-weight: bold;
-    }
-
     .settings-table .description {
         display: inline-block;
+    }
+}
+
+@media (min-width: 768px) {
+    .settings-table .setting-key-without-desc {
+        padding-top: 6px;
     }
 }
 

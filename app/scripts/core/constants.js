@@ -4,7 +4,8 @@
     angular.module('ariaNg').constant('ariaNgConstants', {
         title: 'Aria Ng',
         appPrefix: 'AriaNg',
-        optionStorageKey: 'Options'
+        optionStorageKey: 'Options',
+        lazySaveTimeout: 500
     }).constant('ariaNgDefaultOptions', {
         language: 'en-US',
         rpcHost: '',

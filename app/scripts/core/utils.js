@@ -37,6 +37,25 @@
 
                 return path.substring(index + 1);
             },
+            isUrlMatchUrl2: function (url, url2) {
+                if (url === url2) {
+                    return true;
+                }
+
+                var index = url2.indexOf(url);
+
+                if (index !== 0) {
+                    return false;
+                }
+
+                var lastPart = url2.substring(url.length);
+
+                if (lastPart.indexOf('/') == 0) {
+                    return true;
+                }
+
+                return false;
+            },
             parseOrderType: function (value) {
                 var values = value.split(':');
 
