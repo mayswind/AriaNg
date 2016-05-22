@@ -4,6 +4,10 @@
  */
 
 /* skin-aria-ng */
+.skin-aria-ng {
+    overflow-y: hidden;
+}
+
 .skin-aria-ng, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Hiragino Sans GB', 'Microsoft YaHei', 'STHeiti', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -119,12 +123,12 @@
     color: #0080ff;
 }
 
-.skin-aria-ng .content-wrapper {
-    overflow-y: scroll;
-}
-
 .skin-aria-ng .content-wrapper, .right-side {
     background-color: #fff;
+}
+
+.skin-aria-ng .content-wrapper > .content-body {
+    overflow-y: scroll;
 }
 
 @media screen and (max-width: 767px) {
