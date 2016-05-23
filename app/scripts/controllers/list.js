@@ -6,12 +6,12 @@
         var downloadTaskRefreshPromise = null;
 
         var getTitleWidth = function () {
-            var titleColumn = angular.element('.task-table > .row > .col-md-8:first-child');
+            var titleColumn = angular.element('#task-table > .row > .col-md-8:first-child');
 
             if (titleColumn.length > 0) {
                 return titleColumn.width();
             } else {
-                var taskTable = angular.element('.task-table');
+                var taskTable = angular.element('#task-table');
 
                 if ($window.innerWidth <= 767) {
                     return taskTable.width();
