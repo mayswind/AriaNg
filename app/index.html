@@ -26,7 +26,7 @@
     <!-- endbuild -->
 </head>
 <body class="hold-transition skin-aria-ng sidebar-mini fixed">
-<div class="wrapper" ng-controller="MainController">
+<div class="wrapper" ng-controller="MainController" ng-swipe-left="hideSidebar()" ng-swipe-right="showSidebar()" ng-swipe-disable-mouse>
     <header class="main-header">
         <a class="logo" href="#">
             <span class="logo-mini">Aria</span>
