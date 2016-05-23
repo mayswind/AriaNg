@@ -49,7 +49,7 @@
                     <div class="progress">
                         <div class="progress-bar progress-bar-primary" role="progressbar"
                              aria-valuenow="{{task.completePercent}}" aria-valuemin="1"
-                             aria-valuemax="100" style="width: {{task.completePercent}}%;">
+                             aria-valuemax="100" ng-style="{ width: task.completePercent + '%' }">
                             <span ng-class="{'progress-lower': task.completePercent < 50}"
                                 ng-bind="(task.completePercent | percent: 2) + '%'"></span>
                         </div>
