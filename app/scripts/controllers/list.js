@@ -21,34 +21,6 @@
             }
         };
 
-        var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {
-            if (downloadSpeed == 0) {
-                return 0;
-            }
-
-            return remainBytes / downloadSpeed;
-        };
-
-        var processDownloadTask = function (task) {
-            task.totalLength = parseInt(task.totalLength);
-            task.completedLength = parseInt(task.completedLength);
-            task.uploadSpeed = parseInt(task.uploadSpeed);
-            task.downloadSpeed = parseInt(task.downloadSpeed);
-            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
-            task.idle = task.downloadSpeed == 0;
-
-            var remainLength = task.totalLength - task.completedLength;
-            task.remainTime = calculateDownloadRemainTime(remainLength, task.downloadSpeed);
-
-            if (task.bittorrent && task.bittorrent.info) {
-                task.taskName = task.bittorrent.info.name;
-            } else if (task.files && task.files.length >= 1) {
-                task.taskName = utils.getFileNameFromPath(task.files[0].path);
-            } else {
-                task.taskName = translateFilter('Unknown');
-            }
-        };
-
         var refreshDownloadTask = function () {
             var invokeMethod = null;
             var params = [];
@@ -82,7 +54,7 @@
                     callback: function (result) {
                         if (result && result.length > 0) {
                             for (var i = 0; i < result.length; i++) {
-                                processDownloadTask(result[i]);
+                                utils.processDownloadTask(result[i]);
                             }
                         }
 
