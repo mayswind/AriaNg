@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2SettingsController', ['$scope', '$location', '$timeout', 'SweetAlert', 'translateFilter', 'ariaNgConstants', 'aria2AvailableOptions', 'aria2RpcService', function ($scope, $location, $timeout, SweetAlert, translateFilter, ariaNgConstants, aria2AvailableOptions, aria2RpcService) {
+    angular.module('ariaNg').controller('Aria2SettingsController', ['$scope', '$location', '$timeout', 'ariaNgConstants', 'aria2AvailableOptions', 'aria2RpcService', 'utils', function ($scope, $location, $timeout, ariaNgConstants, aria2AvailableOptions, aria2RpcService, utils) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
         var pendingSaveRequest = {};
 
@@ -25,12 +25,7 @@
             } else if (location == 'advanced') {
                 return aria2AvailableOptions.advancedOptions;
             } else {
-                SweetAlert.swal({
-                    title: translateFilter('Error'),
-                    text: translateFilter('Type is illegal!'),
-                    type: 'error',
-                    confirmButtonText: translateFilter('OK')
-                });
+                utils.alert('Type is illegal!');
             }
         };
 

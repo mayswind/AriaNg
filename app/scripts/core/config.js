@@ -37,12 +37,15 @@
             });
         };
 
+        $rootScope.$on('$locationChangeStart', function (event) {
+            SweetAlert.close();
+        });
+
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
             var location = $location.path();
 
             setNavbarSelected(location);
             $document.unbind('keypress');
-            SweetAlert.close();
         });
     }]);
 })();
