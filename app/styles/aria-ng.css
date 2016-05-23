@@ -161,6 +161,39 @@
     color: #3c8dbc;
 }
 
+.skin-aria-ng .nav-tabs-custom {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs {
+    border-bottom: 1px dotted #ddd;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li {
+    border-top: 0;
+    margin-top: 1px;
+    margin-right: 2px;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.active {
+    border-bottom: 2px solid #208fe5;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a {
+    color: #aaa;
+    border: 0;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a:hover,
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a:active,
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.active > a{
+    color: #208fe5;
+}
+
+
 /* override */
 td {
     vertical-align: middle !important;
@@ -301,7 +334,7 @@ td {
     display: block;
 }
 
-.task-table .task-files {
+.task-table .task-files, .task-table .task-size {
     font-size: 12px;
     display: block;
 }

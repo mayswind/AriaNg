@@ -1,0 +1,166 @@
+<section class="content no-padding">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active': context.currentTab == 'overview'}">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'overview'" translate>Overview</a>
+            </li>
+            <li ng-class="{'active': context.currentTab == 'downloadinfo'}">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'downloadinfo'" translate>Download Info</a>
+            </li>
+            <li ng-class="{'active': context.currentTab == 'filelist'}">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'filelist'" translate>File List</a>
+            </li>
+            <li ng-class="{'active': context.currentTab == 'bttrackers'}" ng-if="task.bittorrent">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'bttrackers'" translate>BT Trackers</a>
+            </li>
+        </ul>
+
+        <div class="tab-content no-padding">
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
+                <div class="settings-table">
+                    <div class="row">
+                        <div class="setting-key col-sm-4">
+                            <span translate>File Name</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task.taskName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key col-sm-4">
+                            <span translate>File Size</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task.totalLength | readableVolumn"></span>
+                            <span ng-bind="'(' + task.files.length + ' ' + ('Files' | translate) + ')'"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Task Status</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task | taskStatus"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Completed Percent</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="(task.completePercent | percent: 2) + '%'"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Download</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="(task.completedLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolumn) + '/s' : '')"></span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="task.bittorrent">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Upload</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="(task.uploadLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolumn) + '/s' : '')"></span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="task.status == 'active' && task.completedLength < task.totalLength">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Remain Time</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="task.infoHash">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Info Hash</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task.infoHash"></span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="task.status == 'active'">
+                        <div class="setting-key col-sm-4">
+                            <span ng-bind="(task.bittorrent ? ('Seeders' | translate) + ' / ' : '') + ('Connections' | translate)">Connections</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="(task.numSeeders ? (task.numSeeders + ' / ') : '') + task.connections"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Download Dir</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task.dir"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'downloadinfo'}">
+
+            </div>
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'filelist'}">
+                <div class="task-table">
+                    <div class="task-table-title hidden-xs">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <span translate>File Name</span>
+                            </div>
+                            <div class="col-sm-2">
+                                <span translate>Completed Percent</span>
+                            </div>
+                            <div class="col-sm-2">
+                                <span translate>File Size</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-table-body">
+                        <div class="row" ng-repeat="file in task.files">
+                            <div class="col-sm-8">
+                                <input type="checkbox" ng-checked="file.selected == 'true'" disabled="disabled"/>
+                                <span ng-bind="file.path | filename"></span>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar"
+                                         aria-valuenow="{{file.completePercent}}" aria-valuemin="1"
+                                         aria-valuemax="100" ng-style="{ width: file.completePercent + '%' }">
+                                        <span ng-class="{'progress-lower': file.completePercent < 50}"
+                                              ng-bind="(file.completePercent | percent: 2) + '%'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <span class="task-size" ng-bind="file.length | readableVolumn"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'bttrackers'}" ng-if="task.bittorrent">
+                <div class="task-table">
+                    <div class="task-table-title hidden-xs">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span translate>Tracker</span>
+                                <span ng-bind="'(' + task.bittorrent.announceList.length + ')'"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-table-body">
+                        <div class="row" ng-repeat="announce in task.bittorrent.announceList">
+                            <div class="col-sm-12">
+                                <span ng-bind="announce"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.nav-tabs-custom -->
+</section>

@@ -15,6 +15,10 @@
                 templateUrl: 'views/list.html',
                 controller: 'DownloadListController'
             })
+            .when('/task/detail/:gid', {
+                templateUrl: 'views/task-detail.html',
+                controller: 'TaskDetailController'
+            })
             .when('/settings/ariang', {
                 templateUrl: 'views/settings-ariang.html',
                 controller: 'AriaNgSettingsController'

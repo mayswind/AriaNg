@@ -78,7 +78,40 @@
                     task.taskName = translateFilter('Unknown');
                 }
 
+                if (task.files) {
+                    for (var i = 0; i < task.files.length; i++) {
+                        var file = task.files[i];
+                        file.length = parseInt(file.length);
+                        file.completedLength = parseInt(file.completedLength);
+                        file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
+                    }
+                }
+
                 return task;
+            },
+            copyObjectTo: function (from, to) {
+                if (!to) {
+                    return from;
+                }
+
+                for (var name in from) {
+                    if (!from.hasOwnProperty(name)) {
+                        continue;
+                    }
+
+                    var fromValue = from[name];
+                    var toValue = to[name];
+
+                    if (angular.isObject(fromValue) || angular.isArray(fromValue)) {
+                        to[name] = this.copyObjectTo(from[name], to[name]);
+                    } else {
+                        if (fromValue != toValue) {
+                            to[name] = fromValue;
+                        }
+                    }
+                }
+
+                return to;
             },
             isUrlMatchUrl2: function (url, url2) {
                 if (url === url2) {
