@@ -5,9 +5,9 @@
                 <span translate>Language</span>
             </div>
             <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="settings.language" ng-change="settingService.setLanguage(settings.language)">
-                    <option value="en-US" translate translate-language="en-US">English</option>
-                    <option value="zh-CN" translate translate-language="zh-CN">Simplified Chinese</option>
+                <select class="form-control" style="width: 100%;" ng-model="settings.language"
+                        ng-options="type as (language.name | translate) for (type, language) in languages"
+                        ng-change="settingService.setLanguage(settings.language)">
                 </select>
             </div>
         </div>
