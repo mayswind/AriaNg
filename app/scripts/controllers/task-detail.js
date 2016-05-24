@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$scope', '$routeParams', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $routeParams, $interval, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $routeParams, $interval, aria2RpcService, ariaNgSettingService, utils) {
+        var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
 
         var refreshPeers = function (task) {
@@ -16,7 +17,7 @@
                         var peer = $scope.peers[i];
                         peer.completePercent = utils.estimateCompletedPercentFromBitField(peer.bitfield) * 100;
                     }
-                    
+
                     $scope.healthPercent = utils.estimateHealthPercentFromPeers(task, $scope.peers);
                 }
             })
@@ -30,6 +31,10 @@
 
                     if (task.status == 'active' && task.bittorrent) {
                         refreshPeers(task);
+                    } else {
+                        if (tabOrders.indexOf('btpeers') >= 0) {
+                            tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
+                        }
                     }
 
                     $scope.task = utils.copyObjectTo(task, $scope.task);
@@ -43,6 +48,28 @@
 
         $scope.healthPercent = 0;
         $scope.loadPromise = refreshDownloadTask();
+
+        $rootScope.swipeActions.extentLeftSwipe = function () {
+            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+
+            if (tabIndex < tabOrders.length - 1) {
+                $scope.context.currentTab = tabOrders[tabIndex + 1];
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        $rootScope.swipeActions.extentRightSwipe = function () {
+            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+
+            if (tabIndex > 0) {
+                $scope.context.currentTab = tabOrders[tabIndex - 1];
+                return true;
+            } else {
+                return false;
+            }
+        };
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {

@@ -47,14 +47,6 @@
             }
         };
 
-        $scope.showSidebar = function () {
-            angular.element('body').removeClass('sidebar-collapse').addClass('sidebar-open');
-        };
-
-        $scope.hideSidebar = function () {
-            angular.element('body').addClass('sidebar-collapse').removeClass('sidebar-open');
-        };
-
         if (ariaNgSettingService.getGlobalStatRefreshInterval() > 0) {
             globalStatRefreshPromise = $interval(function () {
                 refreshGlobalStat();

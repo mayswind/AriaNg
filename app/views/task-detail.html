@@ -45,18 +45,10 @@
                     </div>
                     <div class="row">
                         <div class="setting-key col-sm-4">
-                            <span translate>Completed Percent</span>
+                            <span ng-bind="('Completed Percent' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percent' | translate) + ')' : '')"></span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.completePercent | percent: 2) + '%'"></span>
-                        </div>
-                    </div>
-                    <div class="row" ng-if="task.bittorrent">
-                        <div class="setting-key col-sm-4">
-                            <span translate>Health Percent</span>
-                        </div>
-                        <div class="setting-value col-sm-8">
-                            <span ng-bind="(healthPercent | percent: 2) + '%'"></span>
+                            <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (healthPercent | percent: 2) + '%' + ')' : '')"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -163,11 +155,8 @@
                             <div class="col-sm-2 col-xs-4">
                                 <span translate>Percent</span>
                             </div>
-                            <div class="col-sm-2 col-xs-4">
-                                <span translate>Download Speed</span>
-                            </div>
-                            <div class="col-sm-2 col-xs-4">
-                                <span translate>Upload Speed</span>
+                            <div class="col-sm-4 col-xs-4">
+                                <span translate>Download / Upload Speed</span>
                             </div>
                         </div>
                     </div>
@@ -182,13 +171,18 @@
                             <div class="col-sm-2 col-xs-4">
                                 <span ng-bind="(peer.completePercent | percent: 2) + '%'"></span>
                             </div>
-                            <div class="col-sm-2 col-xs-4">
-                                <i class="fa fa-arrow-down visible-xs-inline-block"></i>
-                                <span class="task-download-speed" ng-bind="(peer.downloadSpeed | readableVolumn) + '/s'"></span>
+                            <div class="col-sm-4 col-xs-8">
+                                <div class="task-download-speed">
+                                    <i class="fa fa-arrow-down"></i>
+                                    <span ng-bind="(peer.downloadSpeed | readableVolumn) + '/s'"></span>&nbsp;
+                                    <i class="fa fa-arrow-up"></i>
+                                    <span ng-bind="(peer.uploadSpeed | readableVolumn) + '/s'"></span>
+                                </div>
                             </div>
-                            <div class="col-sm-2 col-xs-4">
-                                <i class="fa fa-arrow-up visible-xs-inline-block"></i>
-                                <span class="task-download-speed" ng-bind="(peer.uploadSpeed | readableVolumn) + '/s'"></span>
+                        </div>
+                        <div class="row" ng-if="!peers || peers.length < 1">
+                            <div class="col-sm-12 text-center">
+                                <span translate>No connected peers</span>
                             </div>
                         </div>
                     </div>

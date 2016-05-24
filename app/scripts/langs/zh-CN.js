@@ -65,6 +65,8 @@
             'Address': '地址',
             'Status': '状态',
             'Percent': '完成度',
+            'Download / Upload Speed': '下载 / 上传速度',
+            'No connected peers': '没有连接到其他节点',
             'Language': '语言',
             'Aria2 RPC Host': 'Aria2 RPC 主机',
             'Aria2 RPC Port': 'Aria2 RPC 端口',

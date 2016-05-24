@@ -37,7 +37,42 @@
             });
         };
 
+        var showSidebar = function () {
+            angular.element('body').removeClass('sidebar-collapse').addClass('sidebar-open');
+        };
+
+        var hideSidebar = function () {
+            angular.element('body').addClass('sidebar-collapse').removeClass('sidebar-open');
+        };
+
+        var isSidebarShowInSmallScreen = function () {
+            return angular.element('body').hasClass('sidebar-open');
+        };
+
+        $rootScope.swipeActions = {
+            leftSwipe: function () {
+                if (isSidebarShowInSmallScreen()) {
+                    hideSidebar();
+                    return;
+                }
+
+                if (!this.extentLeftSwipe ||
+                    (angular.isFunction(this.extentLeftSwipe) && !this.extentLeftSwipe())) {
+                    hideSidebar();
+                }
+            },
+            rightSwipe: function () {
+                if (!this.extentRightSwipe ||
+                    (angular.isFunction(this.extentRightSwipe) && !this.extentRightSwipe())) {
+                    showSidebar();
+                }
+            }
+        };
+
         $rootScope.$on('$locationChangeStart', function (event) {
+            delete $rootScope.swipeActions.extentLeftSwipe;
+            delete $rootScope.swipeActions.extentRightSwipe;
+
             SweetAlert.close();
         });
 

@@ -65,6 +65,8 @@
             'Address': 'Address',
             'Status': 'Status',
             'Percent': 'Percent',
+            'Download / Upload Speed': 'Download / Upload Speed',
+            'No connected peers': 'No connected peers',
             'Language': 'Language',
             'Aria2 RPC Host': 'Aria2 RPC Host',
             'Aria2 RPC Port': 'Aria2 RPC Port',
