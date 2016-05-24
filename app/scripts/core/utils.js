@@ -27,7 +27,7 @@
                     });
                 }, 100);
             },
-            replaceArray: function (sourceArray, targetArray, keyProperty) {
+            extendArray: function (sourceArray, targetArray, keyProperty) {
                 if (!targetArray || !sourceArray || sourceArray.length != targetArray.length) {
                     return false;
                 }

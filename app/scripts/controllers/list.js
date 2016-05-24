@@ -4,6 +4,7 @@
     angular.module('ariaNg').controller('DownloadListController', ['$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
+        var needRequestWholeInfo = true;
 
         var getTitleWidth = function () {
             var titleColumn = angular.element('#task-table > .row > .col-md-8:first-child');
@@ -31,11 +32,14 @@
                 'uploadSpeed',
                 'downloadSpeed',
                 'connections',
-                'files',
-                'bittorrent',
                 'numSeeders',
                 'seeder'
             ];
+
+            if (needRequestWholeInfo) {
+                requestParams.push('files');
+                requestParams.push('bittorrent');
+            }
 
             if (location == 'downloading') {
                 invokeMethod = aria2RpcService.tellActive;
@@ -52,14 +56,21 @@
                 return invokeMethod({
                     params: params,
                     callback: function (result) {
-                        if (result && result.length > 0) {
-                            for (var i = 0; i < result.length; i++) {
-                                utils.processDownloadTask(result[i]);
+                        if (!utils.extendArray(result, $scope.downloadTasks, 'gid')) {
+                            if (needRequestWholeInfo) {
+                                $scope.downloadTasks = result;
+                                needRequestWholeInfo = false;
+                            } else {
+                                needRequestWholeInfo = true;
                             }
+                        } else {
+                            needRequestWholeInfo = false;
                         }
 
-                        if (!utils.replaceArray(result, $scope.downloadTasks, 'gid')) {
-                            $scope.downloadTasks = result;
+                        if ($scope.downloadTasks && $scope.downloadTasks.length > 0) {
+                            for (var i = 0; i < $scope.downloadTasks.length; i++) {
+                                utils.processDownloadTask($scope.downloadTasks[i]);
+                            }
                         }
                     }
                 });
