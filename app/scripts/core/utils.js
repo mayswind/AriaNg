@@ -142,6 +142,66 @@
                         return this.type + ":" + this.reverse.toString();
                     }
                 }
+            },
+            estimateCompletedPercentFromBitField: function (bitfield) {
+                var totalLength = bitfield.length * 16;
+                var completedLength = 0;
+
+                if (totalLength == 0) {
+                    return 0;
+                }
+
+                for (var i = 0; i < bitfield.length; i++) {
+                    var num = parseInt(bitfield[i], 16);
+                    completedLength += num;
+                }
+
+                return completedLength / totalLength;
+            },
+            estimateHealthPercentFromPeers: function (task, peers) {
+                if (peers.length < 1) {
+                    return task.completePercent;
+                }
+
+                var bitfieldArr = new Array(task.bitfield.length);
+                var totalLength = task.bitfield.length * 16;
+                var healthBitCount = 0;
+
+                for (var i = 0; i < task.bitfield.length; i++) {
+                    var num = parseInt(task.bitfield[i], 16);
+                    bitfieldArr[i] = num;
+                }
+
+                for (var i = 0; i < peers.length; i++) {
+                    var peer = peers[i];
+                    var bitfield = peer.bitfield;
+
+                    for (var j = 0; j < bitfield.length; j++) {
+                        var num = parseInt(bitfield[j], 16);
+                        bitfieldArr[j] += num;
+                    }
+                }
+
+                while (true) {
+                    var completed = true;
+
+                    for (var i = 0; i < bitfieldArr.length; i++) {
+                        if (bitfieldArr[i] > 16) {
+                            healthBitCount += 16;
+                            bitfieldArr[i] -= 16;
+                        } else {
+                            healthBitCount += bitfieldArr[i];
+                            bitfieldArr[i] = 0;
+                            completed = false;
+                        }
+                    }
+
+                    if (!completed) {
+                        break;
+                    }
+                }
+
+                return healthBitCount / totalLength * 100;
             }
         };
     }]);
