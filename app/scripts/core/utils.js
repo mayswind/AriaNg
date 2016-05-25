@@ -55,6 +55,27 @@
 
                 return path.substring(index + 1);
             },
+            getTaskName: function (task) {
+                var taskName = "";
+
+                if (task.bittorrent && task.bittorrent.info) {
+                    taskName = task.bittorrent.info.name;
+                }
+
+                if (!taskName && task.files && task.files.length >= 1) {
+                    taskName = this.getFileNameFromPath(task.files[0].path);
+                }
+
+                if (!taskName && task.files && task.files.length >= 1 && task.files[0].uris && task.files[0].uris.length >= 1) {
+                    taskName = this.getFileNameFromPath(task.files[0].uris[0].uri);
+                }
+
+                if (!taskName) {
+                    taskName = translateFilter('Unknown');
+                }
+
+                return taskName;
+            },
             processDownloadTask: function (task) {
                 if (!task) {
                     return task;
@@ -65,18 +86,11 @@
                 task.uploadSpeed = parseInt(task.uploadSpeed);
                 task.downloadSpeed = parseInt(task.downloadSpeed);
                 task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
+                task.taskName = this.getTaskName(task);
                 task.idle = task.downloadSpeed == 0;
 
                 var remainLength = task.totalLength - task.completedLength;
                 task.remainTime = calculateDownloadRemainTime(remainLength, task.downloadSpeed);
-
-                if (task.bittorrent && task.bittorrent.info) {
-                    task.taskName = task.bittorrent.info.name;
-                } else if (task.files && task.files.length >= 1) {
-                    task.taskName = this.getFileNameFromPath(task.files[0].path);
-                } else {
-                    task.taskName = translateFilter('Unknown');
-                }
 
                 if (task.files) {
                     for (var i = 0; i < task.files.length; i++) {
