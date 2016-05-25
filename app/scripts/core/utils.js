@@ -158,7 +158,7 @@
                 }
             },
             estimateCompletedPercentFromBitField: function (bitfield) {
-                var totalLength = bitfield.length * 16;
+                var totalLength = bitfield.length * 0xf;
                 var completedLength = 0;
 
                 if (totalLength == 0) {
@@ -177,13 +177,21 @@
                     return task.completePercent;
                 }
 
-                var bitfieldArr = new Array(task.bitfield.length);
-                var totalLength = task.bitfield.length * 16;
+                var bitfieldCompletedArr = new Array(task.bitfield.length);
+                var bitfieldPieceArr = new Array(task.bitfield.length);
+                var totalLength = task.bitfield.length * 0xf;
                 var healthBitCount = 0;
 
                 for (var i = 0; i < task.bitfield.length; i++) {
                     var num = parseInt(task.bitfield[i], 16);
-                    bitfieldArr[i] = num;
+                    bitfieldCompletedArr[i] = 0;
+                    bitfieldPieceArr[i] = 0;
+
+                    if (num == 0xf) {
+                        bitfieldCompletedArr[i] = num;
+                    } else {
+                        bitfieldPieceArr[i] = num;
+                    }
                 }
 
                 for (var i = 0; i < peers.length; i++) {
@@ -192,20 +200,29 @@
 
                     for (var j = 0; j < bitfield.length; j++) {
                         var num = parseInt(bitfield[j], 16);
-                        bitfieldArr[j] += num;
+
+                        if (num == 0xf) {
+                            bitfieldCompletedArr[j] += num;
+                        } else {
+                            bitfieldPieceArr[j] = Math.max(bitfieldPieceArr[j], num);
+                        }
                     }
+                }
+
+                for (var i = 0; i < bitfieldCompletedArr.length; i++) {
+                    bitfieldCompletedArr[i] += bitfieldPieceArr[i];
                 }
 
                 while (true) {
                     var completed = true;
 
-                    for (var i = 0; i < bitfieldArr.length; i++) {
-                        if (bitfieldArr[i] > 16) {
-                            healthBitCount += 16;
-                            bitfieldArr[i] -= 16;
+                    for (var i = 0; i < bitfieldCompletedArr.length; i++) {
+                        if (bitfieldCompletedArr[i] > 0xf) {
+                            healthBitCount += 0xf;
+                            bitfieldCompletedArr[i] -= 0xf;
                         } else {
-                            healthBitCount += bitfieldArr[i];
-                            bitfieldArr[i] = 0;
+                            healthBitCount += bitfieldCompletedArr[i];
+                            bitfieldCompletedArr[i] = 0;
                             completed = false;
                         }
                     }
@@ -215,7 +232,13 @@
                     }
                 }
 
-                return healthBitCount / totalLength * 100;
+                var healthPercent = healthBitCount / totalLength * 100;
+
+                if (healthPercent < task.completePercent) {
+                    healthPercent = task.completePercent;
+                }
+
+                return healthPercent;
             }
         };
     }]);
