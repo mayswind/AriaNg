@@ -106,6 +106,18 @@
             },
             setDisplayOrder: function (value) {
                 setOption('displayOrder', value);
+            },
+            getFileListDisplayOrder: function () {
+                var value = getOption('fileListDisplayOrder');
+
+                if (!value) {
+                    value = 'default:false';
+                }
+
+                return value;
+            },
+            setFileListDisplayOrder: function (value) {
+                setOption('fileListDisplayOrder', value);
             }
         };
     }]);

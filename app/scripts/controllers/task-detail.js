@@ -5,6 +5,12 @@
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
 
+        $scope.context = {
+            currentTab: 'overview'
+        };
+
+        $scope.healthPercent = 0;
+
         var refreshPeers = function (task) {
             return aria2RpcService.getPeers({
                 params: [task.gid],
@@ -42,13 +48,6 @@
             })
         };
 
-        $scope.context = {
-            currentTab: 'overview'
-        };
-
-        $scope.healthPercent = 0;
-        $scope.loadPromise = refreshDownloadTask();
-
         $rootScope.swipeActions.extentLeftSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
@@ -70,6 +69,33 @@
                 return false;
             }
         };
+
+        $scope.changeFileListDisplayOrder = function (type, autoSetReverse) {
+            var oldType = utils.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
+            var newType = utils.parseOrderType(type);
+
+            if (autoSetReverse && newType.type == oldType.type) {
+                newType.reverse = !oldType.reverse;
+            }
+
+            ariaNgSettingService.setFileListDisplayOrder(newType.getValue());
+        };
+
+        $scope.isSetFileListDisplayOrder = function (type, reverse) {
+            var orderType = utils.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
+
+            if (angular.isUndefined(reverse)) {
+                return orderType.type === type;
+            } else {
+                return orderType.type === type && orderType.reverse === reverse;
+            }
+        };
+        
+        $scope.getFileListOrderType = function () {
+            return ariaNgSettingService.getFileListDisplayOrder();
+        };
+
+        $scope.loadPromise = refreshDownloadTask();
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {

@@ -117,21 +117,24 @@
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-8">
-                                <span translate>File Name</span>
+                                <a ng-click="changeFileListDisplayOrder('name:false', true)" translate>File Name</a>
+                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('name', false), 'fa-sort-desc': isSetFileListDisplayOrder('name', true)}"></i>
                             </div>
                             <div class="col-sm-2">
-                                <span translate>Completed Percent</span>
+                                <a ng-click="changeFileListDisplayOrder('percent:true', true)" translate>Completed Percent</a>
+                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('percent', false), 'fa-sort-desc': isSetFileListDisplayOrder('percent', true)}"></i>
                             </div>
                             <div class="col-sm-2">
-                                <span translate>File Size</span>
+                                <a ng-click="changeFileListDisplayOrder('size:false', true)" translate>File Size</a>
+                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('size', false), 'fa-sort-desc': isSetFileListDisplayOrder('size', true)}"></i>
                             </div>
                         </div>
                     </div>
                     <div class="task-table-body">
-                        <div class="row" ng-repeat="file in task.files">
+                        <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()">
                             <div class="col-sm-8">
                                 <input type="checkbox" ng-checked="file.selected == 'true'" disabled="disabled"/>
-                                <span ng-bind="file.path | filename"></span>
+                                <span ng-bind="file.fileName"></span>
                             </div>
                             <div class="col-sm-2">
                                 <div class="progress">

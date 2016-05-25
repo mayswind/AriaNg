@@ -95,6 +95,7 @@
                 if (task.files) {
                     for (var i = 0; i < task.files.length; i++) {
                         var file = task.files[i];
+                        file.fileName = this.getFileNameFromPath(file.path);
                         file.length = parseInt(file.length);
                         file.completedLength = parseInt(file.completedLength);
                         file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
