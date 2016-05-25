@@ -150,13 +150,31 @@
             parseOrderType: function (value) {
                 var values = value.split(':');
 
-                return {
+                var obj = {
                     type: values[0],
-                    reverse: values[1] === 'true',
+                    order: values[1],
+                    equals: function (obj) {
+                        if (angular.isUndefined(obj.order)) {
+                            return this.type === obj.type;
+                        } else {
+                            return this.type === obj.type && this.order === obj.order;
+                        }
+                    },
                     getValue: function () {
-                        return this.type + ":" + this.reverse.toString();
+                        return this.type + ":" + this.order;
                     }
-                }
+                };
+
+                Object.defineProperty(obj, 'reverse', {
+                    get: function () {
+                        return this.order === 'desc';
+                    },
+                    set: function (value) {
+                        this.order = (value ? 'desc' : 'asc');
+                    }
+                });
+
+                return obj;
             },
             estimateCompletedPercentFromBitField: function (bitfield) {
                 var totalLength = bitfield.length * 0xf;

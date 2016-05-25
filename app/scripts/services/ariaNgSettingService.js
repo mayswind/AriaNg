@@ -99,7 +99,7 @@
                 var value = getOption('displayOrder');
 
                 if (!value) {
-                    value = 'default:false';
+                    value = 'default:asc';
                 }
 
                 return value;
@@ -111,7 +111,7 @@
                 var value = getOption('fileListDisplayOrder');
 
                 if (!value) {
-                    value = 'default:false';
+                    value = 'default:asc';
                 }
 
                 return value;

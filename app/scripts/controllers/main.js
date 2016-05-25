@@ -37,14 +37,11 @@
             ariaNgSettingService.setDisplayOrder(newType.getValue());
         };
 
-        $scope.isSetDisplayOrder = function (type, reverse) {
+        $scope.isSetDisplayOrder = function (type) {
             var orderType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var targetType = utils.parseOrderType(type);
 
-            if (angular.isUndefined(reverse)) {
-                return orderType.type === type;
-            } else {
-                return orderType.type === type && orderType.reverse === reverse;
-            }
+            return orderType.equals(targetType);
         };
 
         if (ariaNgSettingService.getGlobalStatRefreshInterval() > 0) {

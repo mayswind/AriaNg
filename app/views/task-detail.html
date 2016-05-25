@@ -117,16 +117,16 @@
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-8">
-                                <a ng-click="changeFileListDisplayOrder('name:false', true)" translate>File Name</a>
-                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('name', false), 'fa-sort-desc': isSetFileListDisplayOrder('name', true)}"></i>
+                                <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
+                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc': isSetFileListDisplayOrder('name:desc')}"></i>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('percent:true', true)" translate>Completed Percent</a>
-                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('percent', false), 'fa-sort-desc': isSetFileListDisplayOrder('percent', true)}"></i>
+                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Completed Percent</a>
+                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('size:false', true)" translate>File Size</a>
-                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('size', false), 'fa-sort-desc': isSetFileListDisplayOrder('size', true)}"></i>
+                                <a ng-click="changeFileListDisplayOrder('size:asc', true)" translate>File Size</a>
+                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc': isSetFileListDisplayOrder('size:desc')}"></i>
                             </div>
                         </div>
                     </div>

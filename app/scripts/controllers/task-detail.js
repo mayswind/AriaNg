@@ -81,16 +81,13 @@
             ariaNgSettingService.setFileListDisplayOrder(newType.getValue());
         };
 
-        $scope.isSetFileListDisplayOrder = function (type, reverse) {
+        $scope.isSetFileListDisplayOrder = function (type) {
             var orderType = utils.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
+            var targetType = utils.parseOrderType(type);
 
-            if (angular.isUndefined(reverse)) {
-                return orderType.type === type;
-            } else {
-                return orderType.type === type && orderType.reverse === reverse;
-            }
+            return orderType.equals(targetType);
         };
-        
+
         $scope.getFileListOrderType = function () {
             return ariaNgSettingService.getFileListDisplayOrder();
         };
