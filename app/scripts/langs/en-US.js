@@ -57,6 +57,7 @@
             'File List': 'File List',
             'Peers': 'Peers',
             'Task Status': 'Task Status',
+            'Error Description': 'Error Description',
             'Health Percent': 'Health Percent',
             'Info Hash': 'Info Hash',
             'Seeders': 'Seeders',

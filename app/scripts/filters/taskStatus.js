@@ -20,7 +20,7 @@
             } else if (task.status == 'complete') {
                 return translateFilter('Completed');
             } else if (task.status == 'error') {
-                return translateFilter('Error Occurred');
+                return translateFilter('Error Occurred') + (task.errorCode ? ' (' + task.errorCode + ')' : '');
             } else if (task.status == 'removed') {
                 return translateFilter('Removed');
             } else {

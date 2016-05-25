@@ -57,6 +57,7 @@
             'File List': '文件列表',
             'Peers': '连接状态',
             'Task Status': '任务状态',
+            'Error Description': '错误描述',
             'Health Percent': '健康度',
             'Info Hash': '特征值',
             'Seeders': '种子数',
