@@ -39,6 +39,7 @@
     "angular-cookies": "1.4.10",
     "angular-animate": "1.4.10",
     "angular-translate": "^2.11.0",
+    "angular-translate-loader-static-files": "^2.11.0",
     "angular-moment": "1.0.0-beta.6",
     "angular-websocket": "^1.1.0",
     "angular-base64": "^2.0.5",

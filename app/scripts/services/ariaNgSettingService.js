@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', function ($location, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($location, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
         var getDefaultRpcHost = function () {
             return $location.$$host;
         };
@@ -52,13 +52,23 @@
             setAllOptions: function (options) {
                 setOptions(options);
             },
+            applyLanguage: function (lang) {
+                if (!ariaNgLanguages[lang]) {
+                    return false;
+                }
+
+                $translate.use(lang);
+                amMoment.changeLocale(lang);
+                
+                return true;
+            },
             getLanguage: function () {
                 return getOption('language');
             },
             setLanguage: function (value) {
-                setOption('language', value);
-                $translate.use(value);
-                amMoment.changeLocale(value);
+                if (this.applyLanguage(value)) {
+                    setOption('language', value);
+                }
             },
             getJsonRpcUrl: function () {
                 var protocol = getOption('protocol');

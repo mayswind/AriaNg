@@ -43,6 +43,11 @@ gulp.task('html', ['styles', 'scripts'], function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('langs', function () {
+  return gulp.src('app/langs/**/*')
+    .pipe(gulp.dest('dist/langs'));
+});
+
 gulp.task('views', function () {
   return gulp.src('app/views/**/*')
     .pipe($.htmlmin({collapseWhitespace: true}))
@@ -87,6 +92,7 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], function () {
 
   gulp.watch([
     'app/*.html',
+    'app/langs/*.json',
     'app/views/*.html',
     'app/imgs/**/*',
     '.tmp/fonts/**/*'
@@ -107,7 +113,7 @@ gulp.task('serve:dist', function () {
   });
 });
 
-gulp.task('build', ['lint', 'html', 'views', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', ['lint', 'html', 'langs', 'views', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
