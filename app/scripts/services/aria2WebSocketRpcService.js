@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$websocket', 'ariaNgSettingService', function ($websocket, ariaNgSettingService) {
+    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', 'ariaNgSettingService', function ($q, $websocket, ariaNgSettingService) {
         var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
         var socketClient = null;
-        var sendIdMapping = {};
+        var sendIdStates = {};
 
         var getSocketClient = function () {
             if (socketClient == null) {
@@ -24,18 +24,29 @@
                     var uniqueId = content.id;
                     var result = content.result;
 
-                    if (!sendIdMapping[uniqueId]) {
+                    if (!sendIdStates[uniqueId]) {
                         return;
                     }
 
-                    var context = sendIdMapping[uniqueId];
+                    var state = sendIdStates[uniqueId];
+
+                    if (!state) {
+                        return;
+                    }
+
+                    var context = state.context;
                     var callbackMethod = context.callback;
+
+                    state.deferred.resolve({
+                        success: true,
+                        context: context
+                    });
 
                     if (callbackMethod) {
                         callbackMethod(result);
                     }
 
-                    delete sendIdMapping[uniqueId];
+                    delete sendIdStates[uniqueId];
                 });
             }
 
@@ -52,9 +63,16 @@
                 var uniqueId = context.uniqueId;
                 var requestBody = angular.toJson(context.requestBody);
 
-                sendIdMapping[uniqueId] = context;
+                var deferred = $q.defer();
 
-                return client.send(requestBody);
+                sendIdStates[uniqueId] = {
+                    context: context,
+                    deferred: deferred
+                };
+
+                client.send(requestBody);
+
+                return deferred.promise;
             }
         };
     }]);
