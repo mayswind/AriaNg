@@ -236,12 +236,11 @@
                     var completed = true;
 
                     for (var i = 0; i < bitfieldCompletedArr.length; i++) {
-                        if (bitfieldCompletedArr[i] > 0xf) {
-                            healthBitCount += 0xf;
-                            bitfieldCompletedArr[i] -= 0xf;
-                        } else {
-                            healthBitCount += bitfieldCompletedArr[i];
-                            bitfieldCompletedArr[i] = 0;
+                        var bitCount = Math.min(bitfieldCompletedArr[i], 0xf);
+                        healthBitCount += bitCount;
+                        bitfieldCompletedArr[i] -= bitCount;
+
+                        if (bitCount < 0xf) {
                             completed = false;
                         }
                     }
