@@ -321,6 +321,10 @@ td {
     border-top: 1px solid #ddd;
 }
 
+.task-table-firstrow-noborder > .task-table-body > div.row {
+    border-top: 0;
+}
+
 .task-table > .task-table-body > div.row:nth-of-type(odd) {
     background-color: #f9f9f9;
 }
@@ -383,6 +387,10 @@ td {
 .settings-table > div.row {
     padding: 8px;
     border-top: 1px solid #ddd;
+}
+
+.settings-table-firstrow-noborder > div.row {
+    border-top: 0;
 }
 
 .settings-table > div.row:nth-of-type(odd) {

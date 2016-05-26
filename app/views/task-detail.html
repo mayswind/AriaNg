@@ -17,7 +17,7 @@
 
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
-                <div class="settings-table">
+                <div class="settings-table settings-table-firstrow-noborder">
                     <div class="row">
                         <div class="setting-key col-sm-4">
                             <span translate>File Name</span>
@@ -113,7 +113,7 @@
 
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'filelist'}">
-                <div class="task-table">
+                <div class="task-table task-table-firstrow-noborder">
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-8">
@@ -154,7 +154,7 @@
                 </div>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task.status == 'active' && task.bittorrent">
-                <div class="task-table">
+                <div class="task-table task-table-firstrow-noborder">
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-3">
