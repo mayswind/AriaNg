@@ -6,9 +6,9 @@
             if (!angular.isArray(array)) {
                 return array;
             }
-            
+
             var orderType = utils.parseOrderType(type);
-            
+
             if (orderType == null) {
                 return array;
             }
@@ -20,7 +20,7 @@
             } else if (orderType.type == 'percent') {
                 return orderByFilter(array, ['completePercent'], orderType.reverse);
             } else if (orderType.type == 'remain') {
-                return orderByFilter(array, ['idle', 'remainTime'], orderType.reverse);
+                return orderByFilter(array, ['idle', 'remainTime', 'remainPercent'], orderType.reverse);
             } else if (orderType.type == 'dspeed') {
                 return orderByFilter(array, ['downloadSpeed'], orderType.reverse);
             } else {

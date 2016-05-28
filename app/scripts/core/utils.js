@@ -86,6 +86,7 @@
                 task.uploadSpeed = parseInt(task.uploadSpeed);
                 task.downloadSpeed = parseInt(task.downloadSpeed);
                 task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
+                task.remainPercent = 100 - task.completePercent;
                 task.taskName = this.getTaskName(task);
                 task.idle = task.downloadSpeed == 0;
 
