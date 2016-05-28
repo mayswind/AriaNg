@@ -85,6 +85,18 @@
 
         $scope.titleWidth = getTitleWidth();
 
+        $scope.filterByTaskName = function (task) {
+            if (!task || !angular.isString(task.taskName)) {
+                return false;
+            }
+
+            if (!$scope.searchContext || !$scope.searchContext.text) {
+                return true;
+            }
+
+            return (task.taskName.toLowerCase().indexOf($scope.searchContext.text.toLowerCase()) >= 0);
+        };
+
         $scope.getOrderType = function () {
             return ariaNgSettingService.getDisplayOrder();
         };

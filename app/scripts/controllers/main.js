@@ -26,6 +26,10 @@
 
         refreshGlobalStat();
 
+        $scope.searchContext = {
+            text: ''
+        };
+
         $scope.changeDisplayOrder = function (type, autoSetReverse) {
             var oldType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
             var newType = utils.parseOrderType(type);

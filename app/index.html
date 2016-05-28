@@ -34,72 +34,84 @@
         </a>
 
         <nav class="navbar navbar-static-top" role="navigation">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a class="toolbar" title="{{'New' | translate}}">
-                        <i class="fa fa-plus"></i>
-                        <span translate>New</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="toolbar" title="{{'Start' | translate}}">
-                        <i class="fa fa-play"></i>
-                    </a>
-                </li>
-                <li>
-                    <a class="toolbar" title="{{'Pause' | translate}}">
-                        <i class="fa fa-pause"></i>
-                    </a>
-                </li>
-                <li>
-                    <a class="toolbar" title="{{'Delete' | translate}}">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
-                </li>
-                <li>
-                    <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Display Order' | translate}}">
-                        <i class="fa fa-sort-alpha-asc"></i>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('default:asc')">
-                                <span translate>Default</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('name:asc')">
-                                <span translate>By File Name</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('size:asc')">
-                                <span translate>By File Size</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:desc')">
-                                <span translate>By Completed Percent</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
-                                <span translate>By Remain Time</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:desc')">
-                                <span translate>By Download Speed</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="navbar-toolbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="toolbar" title="{{'New' | translate}}">
+                            <i class="fa fa-plus"></i>
+                            <span translate>New</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="toolbar" title="{{'Start' | translate}}">
+                            <i class="fa fa-play"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="toolbar" title="{{'Pause' | translate}}">
+                            <i class="fa fa-pause"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="toolbar" title="{{'Delete' | translate}}">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Display Order' | translate}}">
+                            <i class="fa fa-sort-alpha-asc"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('default:asc')">
+                                    <span translate>Default</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('name:asc')">
+                                    <span translate>By File Name</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('size:asc')">
+                                    <span translate>By File Size</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:desc')">
+                                    <span translate>By Completed Percent</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
+                                    <span translate>By Remain Time</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:desc')">
+                                    <span translate>By Download Speed</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-searchbar hidden-xs">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <input class="form-control" placeholder="{{('Search' | translate)}}" ng-model="searchContext.text" />
+                        <div class="form-control-icon">
+                            <span class="fa fa-search form-control-feedback"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 

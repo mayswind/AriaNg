@@ -43,6 +43,16 @@
     color: #0080ff;
 }
 
+.skin-aria-ng .main-header .navbar .navbar-searchbar {
+    padding-top: 8px;
+    padding-right: 20px;
+    float: right;
+}
+
+.skin-aria-ng .main-header .navbar .navbar-searchbar .form-control-icon {
+    color: #999999;
+}
+
 @media (max-width: 767px) {
     .skin-aria-ng .main-header .navbar {
         padding-left: 20px;

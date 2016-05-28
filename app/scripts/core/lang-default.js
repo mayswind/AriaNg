@@ -16,6 +16,7 @@
             'Pause': 'Pause',
             'Delete': 'Delete',
             'Display Order': 'Display Order',
+            'Search': 'Search',
             'Default': 'Default',
             'By File Name': 'By File Name',
             'By File Size': 'By File Size',
