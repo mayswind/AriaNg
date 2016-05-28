@@ -6,11 +6,11 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <a ng-click="changeDisplayOrder('name:asc', true)" translate>File Name</a>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('name:asc'), 'fa-sort-desc': isSetDisplayOrder('name:desc')}"></i>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('name:desc')}"></i>
                         </div>
                         <div class="col-sm-4">
                             <a ng-click="changeDisplayOrder('size:asc', true)" translate>File Size</a>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('size:asc'), 'fa-sort-desc': isSetDisplayOrder('size:desc')}"></i>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('size:desc')}"></i>
                         </div>
                     </div>
                 </div>
@@ -18,19 +18,17 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <a ng-click="changeDisplayOrder('percent:desc', true)" translate>Completed Percent</a>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('percent:asc'), 'fa-sort-desc': isSetDisplayOrder('percent:desc')}"></i>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('percent:desc')}"></i>
                         </div>
                         <div class="col-sm-6">
                             <a ng-click="changeDisplayOrder('remain:asc', true)" translate>Remain Time</a>
-                            <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('remain:asc'), 'fa-sort-desc': isSetDisplayOrder('remain:desc')}"></i>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('remain:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('remain:desc')}"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div class="row">
-                        <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
-                        <i class="fa" ng-class="{'fa-sort-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc': isSetDisplayOrder('dspeed:desc')}"></i>
-                    </div>
+                    <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
+                    <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('dspeed:desc')}"></i>
                 </div>
             </div>
         </div>

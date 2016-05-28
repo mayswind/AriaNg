@@ -273,6 +273,18 @@ td {
     bottom: -6px;
 }
 
+.fa-order-asc, .fa-order-desc {
+    position: relative;
+}
+
+.fa-order-asc {
+    bottom: -2px;
+}
+
+.fa-order-desc {
+    bottom: 2px;
+}
+
 /* toolbar */
 .toolbar {
     cursor: pointer;
@@ -376,7 +388,8 @@ td {
 }
 
 .task-table > .task-table-body > div.row {
-    padding: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border-top: 1px solid #ddd;
 }
 
@@ -423,7 +436,7 @@ td {
     padding-left: 20px;
 }
 
-.task-table .task-download-speed {
+.task-table .task-download-speed, .task-table .task-peer-download-speed {
     font-size: 12px;
 }
 
@@ -441,6 +454,12 @@ td {
     color: #000;
 }
 
+@media (max-width: 767px) {
+    .task-table .task-peer-download-speed {
+        float: right;
+    }
+}
+
 /* settings-table */
 .settings-table {
     margin-left: 15px;
@@ -448,7 +467,8 @@ td {
 }
 
 .settings-table > div.row {
-    padding: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border-top: 1px solid #ddd;
 }
 
@@ -504,7 +524,7 @@ td {
 .settings-table .tip {
     background-color: #fff !important;
     font-size: 12px;
-    padding: 4px;
+    padding: 4px 8px 4px 8px;
 }
 .settings-table .tip:hover {
     background-color: #fff !important;

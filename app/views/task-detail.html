@@ -118,15 +118,15 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
-                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc': isSetFileListDisplayOrder('name:desc')}"></i>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
                             </div>
                             <div class="col-sm-2">
                                 <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Completed Percent</a>
-                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
                             </div>
                             <div class="col-sm-2">
                                 <a ng-click="changeFileListDisplayOrder('size:asc', true)" translate>File Size</a>
-                                <i class="fa" ng-class="{'fa-sort-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc': isSetFileListDisplayOrder('size:desc')}"></i>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('size:desc')}"></i>
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                                 <span ng-bind="(peer.completePercent | percent: 2) + '%'"></span>
                             </div>
                             <div class="col-sm-4 col-xs-8">
-                                <div class="task-download-speed">
+                                <div class="task-peer-download-speed">
                                     <i class="fa fa-arrow-down"></i>
                                     <span ng-bind="(peer.downloadSpeed | readableVolumn) + '/s'"></span>&nbsp;
                                     <i class="fa fa-arrow-up"></i>
