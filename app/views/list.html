@@ -37,7 +37,7 @@
         <div class="task-table-body">
             <div class="row" ng-repeat="task in downloadTasks | filter: filterByTaskName | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
                 <div class="col-sm-8">
-                    <span class="task-name" ng-bind="task.taskName | substring: (titleWidth / 20)" title="{{task.taskName}}"></span>
+                    <span class="task-name" ng-bind="task.taskName" title="{{task.taskName}}"></span>
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>
                         <a ng-href="#/task/detail/{{task.gid}}">

@@ -346,6 +346,10 @@ td {
 .task-table .task-name {
     font-size: 14px;
     display: block;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .task-table .task-files, .task-table .task-size {

@@ -6,22 +6,6 @@
         var downloadTaskRefreshPromise = null;
         var needRequestWholeInfo = true;
 
-        var getTitleWidth = function () {
-            var titleColumn = angular.element('#task-table > .row > .col-md-8:first-child');
-
-            if (titleColumn.length > 0) {
-                return titleColumn.width();
-            } else {
-                var taskTable = angular.element('#task-table');
-
-                if ($window.innerWidth <= 767) {
-                    return taskTable.width();
-                } else {
-                    return taskTable.width() / 12 * 8;
-                }
-            }
-        };
-
         var refreshDownloadTask = function () {
             var invokeMethod = null;
             var params = [];
@@ -78,12 +62,6 @@
         };
 
         $scope.loadPromise = refreshDownloadTask();
-
-        angular.element($window).bind('resize', function () {
-            $scope.titleWidth = getTitleWidth();
-        });
-
-        $scope.titleWidth = getTitleWidth();
 
         $scope.filterByTaskName = function (task) {
             if (!task || !angular.isString(task.taskName)) {
