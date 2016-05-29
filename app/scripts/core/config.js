@@ -10,10 +10,10 @@
         $translateProvider.useStaticFilesLoader({
             prefix: 'langs/',
             suffix: '.json'
-        });
-        $translateProvider.useLoaderCache(true);
-        $translateProvider.preferredLanguage('en-US');
-        $translateProvider.useSanitizeValueStrategy('escape');
+        }).useLoaderCache(true)
+            .preferredLanguage('en-US')
+            .fallbackLanguage('en-US')
+            .useSanitizeValueStrategy('escape');
     }]).run(['$translate', 'amMoment', 'moment', 'ariaNgConstants', 'ariaNgSettingService', function ($translate, amMoment, moment, ariaNgConstants, ariaNgSettingService) {
         ariaNgSettingService.applyLanguage(ariaNgSettingService.getLanguage());
 

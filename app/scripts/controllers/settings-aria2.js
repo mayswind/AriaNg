@@ -1,32 +1,41 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2SettingsController', ['$scope', '$location', '$timeout', 'ariaNgConstants', 'aria2AvailableOptions', 'aria2RpcService', 'utils', function ($scope, $location, $timeout, ariaNgConstants, aria2AvailableOptions, aria2RpcService, utils) {
+    angular.module('ariaNg').controller('Aria2SettingsController', ['$scope', '$location', '$timeout', 'ariaNgConstants', 'aria2GlobalAvailableOptions', 'aria2RpcService', 'utils', function ($scope, $location, $timeout, ariaNgConstants, aria2GlobalAvailableOptions, aria2RpcService, utils) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
         var pendingSaveRequest = {};
 
-        var getAvailableOptions = function (location) {
+        var getAvailableOptionsKeys = function (location) {
             if (location == 'basic') {
-                return aria2AvailableOptions.basicOptions;
+                return aria2GlobalAvailableOptions.basicOptions;
             } else if (location == 'http-ftp-sftp') {
-                return aria2AvailableOptions.httpFtpSFtpOptions;
+                return aria2GlobalAvailableOptions.httpFtpSFtpOptions;
             } else if (location == 'http') {
-                return aria2AvailableOptions.httpOptions;
+                return aria2GlobalAvailableOptions.httpOptions;
             } else if (location == 'ftp-sftp') {
-                return aria2AvailableOptions.ftpSFtpOptions;
-            } else if (location == 'bt-metalink') {
-                return aria2AvailableOptions.btMetalinkOptions;
+                return aria2GlobalAvailableOptions.ftpSFtpOptions;
             } else if (location == 'bt') {
-                return aria2AvailableOptions.btOptions;
+                return aria2GlobalAvailableOptions.btOptions;
             } else if (location == 'metalink') {
-                return aria2AvailableOptions.metalinkOptions;
+                return aria2GlobalAvailableOptions.metalinkOptions;
             } else if (location == 'rpc') {
-                return aria2AvailableOptions.rpcOptions;
+                return aria2GlobalAvailableOptions.rpcOptions;
             } else if (location == 'advanced') {
-                return aria2AvailableOptions.advancedOptions;
+                return aria2GlobalAvailableOptions.advancedOptions;
             } else {
                 utils.alert('Type is illegal!');
+                return false;
             }
+        };
+
+        var getAvailableOptions = function (location) {
+            var keys = getAvailableOptionsKeys(location);
+
+            if (!keys) {
+                return;
+            }
+
+            return utils.getOptions(keys);
         };
 
         $scope.optionStatus = {};

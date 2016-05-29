@@ -39,10 +39,6 @@
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'
             })
-            .when('/settings/aria2/bt-metalink', {
-                templateUrl: 'views/settings-aria2.html',
-                controller: 'Aria2SettingsController'
-            })
             .when('/settings/aria2/bt', {
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'

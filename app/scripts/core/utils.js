@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('utils', ['$location', '$timeout', '$base64', 'SweetAlert', 'translateFilter', 'ariaNgConstants', function ($location, $timeout, $base64, SweetAlert, translateFilter, ariaNgConstants) {
+    angular.module('ariaNg').factory('utils', ['$location', '$timeout', '$base64', 'SweetAlert', 'translateFilter', 'ariaNgConstants', 'aria2AllOptions', function ($location, $timeout, $base64, SweetAlert, translateFilter, ariaNgConstants, aria2AllOptions) {
         var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {
             if (downloadSpeed == 0) {
                 return 0;
@@ -42,6 +42,30 @@
 
                 return true;
             },
+            copyObjectTo: function (from, to) {
+                if (!to) {
+                    return from;
+                }
+
+                for (var name in from) {
+                    if (!from.hasOwnProperty(name)) {
+                        continue;
+                    }
+
+                    var fromValue = from[name];
+                    var toValue = to[name];
+
+                    if (angular.isObject(fromValue) || angular.isArray(fromValue)) {
+                        to[name] = this.copyObjectTo(from[name], to[name]);
+                    } else {
+                        if (fromValue != toValue) {
+                            to[name] = fromValue;
+                        }
+                    }
+                }
+
+                return to;
+            },
             getFileNameFromPath: function (path) {
                 if (!path) {
                     return path;
@@ -54,6 +78,47 @@
                 }
 
                 return path.substring(index + 1);
+            },
+            isUrlMatchUrl2: function (url, url2) {
+                if (url === url2) {
+                    return true;
+                }
+
+                var index = url2.indexOf(url);
+
+                if (index !== 0) {
+                    return false;
+                }
+
+                var lastPart = url2.substring(url.length);
+
+                if (lastPart.indexOf('/') == 0) {
+                    return true;
+                }
+
+                return false;
+            },
+            getOptions: function (keys) {
+                var options = [];
+
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+                    var option = aria2AllOptions[key];
+
+                    if (!option) {
+                        continue;
+                    }
+
+                    option = angular.extend({
+                        key: key,
+                        nameKey: 'options.' + key + '.name',
+                        descriptionKey: 'options.' + key + '.description'
+                    }, option);
+
+                    options.push(option);
+                }
+
+                return options;
             },
             getTaskName: function (task) {
                 var taskName = "";
@@ -104,49 +169,6 @@
                 }
 
                 return task;
-            },
-            copyObjectTo: function (from, to) {
-                if (!to) {
-                    return from;
-                }
-
-                for (var name in from) {
-                    if (!from.hasOwnProperty(name)) {
-                        continue;
-                    }
-
-                    var fromValue = from[name];
-                    var toValue = to[name];
-
-                    if (angular.isObject(fromValue) || angular.isArray(fromValue)) {
-                        to[name] = this.copyObjectTo(from[name], to[name]);
-                    } else {
-                        if (fromValue != toValue) {
-                            to[name] = fromValue;
-                        }
-                    }
-                }
-
-                return to;
-            },
-            isUrlMatchUrl2: function (url, url2) {
-                if (url === url2) {
-                    return true;
-                }
-
-                var index = url2.indexOf(url);
-
-                if (index !== 0) {
-                    return false;
-                }
-
-                var lastPart = url2.substring(url.length);
-
-                if (lastPart.indexOf('/') == 0) {
-                    return true;
-                }
-
-                return false;
             },
             parseOrderType: function (value) {
                 var values = value.split(':');

@@ -283,6 +283,10 @@ td {
     background-color: #fff;
 }
 
+.skin-aria-ng .content-wrapper .form-control[type='text'] {
+    padding-left: 14px;
+}
+
 @media screen and (max-width: 767px) {
     .skin-aria-ng .content-wrapper .content {
         margin-top: 5px;

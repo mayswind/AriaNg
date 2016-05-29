@@ -1,1022 +1,551 @@
 (function () {
     'use strict';
-
-    angular.module('ariaNg').constant('aria2AvailableOptions', {
-        basicOptions: [
-            {
-                key: 'dir',
-                name: 'Download Path',
-                type: 'string',
-                description: 'The directory to store the downloaded file.'
-            },
-            {
-                key: 'log',
-                name: 'Log File',
-                type: 'string',
-                description: 'The file name of the log file. If - is specified, log is written to stdout. If empty string("") is specified, or this option is omitted, no log is written to disk at all.'
-            },
-            {
-                key: 'max-concurrent-downloads',
-                name: 'Max Concurrent Downloads',
-                type: 'integer',
-                description: 'Set the maximum number of parallel downloads for every queue item.'
-            },
-            {
-                key: 'check-integrity',
-                name: 'Check Integrity',
-                type: 'boolean',
-                description: 'Check file integrity by validating piece hashes or a hash of entire file. This option has effect only in BitTorrent, Metalink downloads with checksums or HTTP(S)/FTP downloads with --checksum option.'
-            },
-            {
-                key: 'continue',
-                name: 'Resume Download',
-                type: 'boolean',
-                description: 'Continue downloading a partially downloaded file. Use this option to resume a download started by a web browser or another program which downloads files sequentially from the beginning. Currently this option is only applicable to HTTP(S)/FTP downloads.'
-            }
-        ],
-        httpFtpSFtpOptions: [
-            {
-                key: 'all-proxy',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'all-proxy-user',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'all-proxy-passwd',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'connect-timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'dry-run',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'lowest-speed-limit',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'max-connection-per-server',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'max-file-not-found',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'max-tries',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'min-split-size',
-                name: '',
-                type: 'string',
-                suffix: 'Bytes',
-                description: ''
-            },
-            {
-                key: 'netrc-path',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'no-netrc',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'no-proxy',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'proxy-method',
-                name: '',
-                type: 'option',
-                options: ['get', 'tunnel'],
-                description: ''
-            },
-            {
-                key: 'remote-time',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'reuse-uri',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'retry-wait',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'server-stat-of',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'server-stat-timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'split',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'stream-piece-selector',
-                name: '',
-                type: 'option',
-                options: ['default', 'inorder', 'random', 'geom'],
-                description: ''
-            },
-            {
-                key: 'timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'uri-selector',
-                name: '',
-                type: 'option',
-                options: ['inorder', 'feedback', 'adaptive'],
-                description: ''
-            }
-        ],
-        httpOptions: [
-            {
-                key: 'check-certificate',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'http-accept-gzip',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'http-auth-challenge',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'http-no-cache',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'http-user',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'http-passwd',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'http-proxy',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'http-proxy-user',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'http-proxy-passwd',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'https-proxy',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'https-proxy-user',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'https-proxy-passwd',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'referer',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'enable-http-keep-alive',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'enable-http-pipelining',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'header',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'save-cookies',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'use-head',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'user-agent',
-                name: '',
-                type: 'string',
-                description: ''
-            }
-        ],
-        ftpSFtpOptions: [
-            {
-                key: 'ftp-user',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'ftp-passwd',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'ftp-pasv',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'ftp-proxy',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'ftp-proxy-user',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'ftp-proxy-passwd',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'ftp-type',
-                name: '',
-                type: 'option',
-                options: ['binary', 'ascii'],
-                description: ''
-            },
-            {
-                key: 'ftp-reuse-connection',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'ssh-host-key-md',
-                name: '',
-                type: 'string',
-                description: ''
-            }
-        ],
-        btMetalinkOptions: [
-            {
-                key: 'show-files',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            }
-        ],
-        btOptions: [
-            {
-                key: 'bt-detach-seed-only',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'bt-enable-hook-after-hash-check',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-enable-lpd',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-exclude-tracker',
-                name: '',
-                type: 'text',
-                description: ''
-            },
-            {
-                key: 'bt-external-ip',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'bt-force-encryption',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-hash-check-seed',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-max-open-files',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'bt-max-peers',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'bt-metadata-only',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-min-crypto-level',
-                name: '',
-                type: 'option',
-                options: ['plain', 'arc4'],
-                description: ''
-            },
-            {
-                key: 'bt-prioritize-piece',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'bt-remove-unselected-file',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-require-crypto',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-request-peer-speed-limit',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'bt-save-metadata',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-seed-unverified',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'bt-stop-timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'bt-tracker',
-                name: '',
-                type: 'text',
-                description: ''
-            },
-            {
-                key: 'bt-tracker-connect-timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'bt-tracker-interval',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'bt-tracker-timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: ''
-            },
-            {
-                key: 'dht-file-path',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'dht-file-path6',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'dht-listen-port',
-                name: '',
-                type: 'integer',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'dht-message-timeout',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'enable-dht',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'enable-dht6',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'enable-peer-exchange',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'follow-torrent',
-                name: '',
-                type: 'option',
-                options: ['true', 'false', 'mem'],
-                description: ''
-            },
-            {
-                key: 'listen-port',
-                name: '',
-                type: 'integer',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'max-overall-upload-limit',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'max-upload-limit',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'peer-id-prefix',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'seed-ratio',
-                name: '',
-                type: 'float',
-                description: ''
-            },
-            {
-                key: 'seed-time',
-                name: '',
-                type: 'integer',
-                suffix: 'Minutes',
-                description: ''
-            }
-        ],
-        metalinkOptions: [
-            {
-                key: 'follow-metalink',
-                name: '',
-                type: 'option',
-                options: ['true', 'false', 'mem'],
-                description: ''
-            },
-            {
-                key: 'metalink-base-uri',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'metalink-language',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'metalink-location',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'metalink-os',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'metalink-version',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'metalink-preferred-protocol',
-                name: '',
-                type: 'option',
-                options: ['http', 'https', 'ftp', 'none'],
-                description: ''
-            },
-            {
-                key: 'metalink-enable-unique-protocol',
-                name: '',
-                type: 'boolean',
-                description: ''
-            }
-        ],
-        rpcOptions: [
-            {
-                key: 'enable-rpc',
-                name: 'Enable JSON-RPC/XML-RPC Server',
-                type: 'boolean',
-                description: 'Enable JSON-RPC/XML-RPC server.',
-                readonly: true
-            },
-            {
-                key: 'pause-metadata',
-                name: 'Pause After Metadata Downloaded',
-                type: 'boolean',
-                description: 'Pause downloads created as a result of metadata download. There are 3 types of metadata downloads in aria2: (1) downloading .torrent file. (2) downloading torrent metadata using magnet link. (3) downloading metalink file. These metadata downloads will generate downloads using their metadata. This option pauses these subsequent downloads. This option is effective only when --enable-rpc=true is given.'
-            },
-            {
-                key: 'rpc-allow-origin-all',
-                name: 'Allow All Origin Request',
-                type: 'boolean',
-                description: 'Add Access-Control-Allow-Origin header field with value * to the RPC response.',
-                readonly: true
-            },
-            {
-                key: 'rpc-listen-all',
-                name: 'Listen on All Network Interfaces',
-                type: 'boolean',
-                description: 'Listen incoming JSON-RPC/XML-RPC requests on all network interfaces. If false is given, listen only on local loopback interface.',
-                readonly: true
-            },
-            {
-                key: 'rpc-listen-port',
-                name: 'Listen Port',
-                type: 'integer',
-                description: 'Specify a port number for JSON-RPC/XML-RPC server to listen to.',
-                readonly: true
-            },
-            {
-                key: 'rpc-max-request-size',
-                name: 'Max Request Size',
-                type: 'string',
-                suffix: 'Bytes',
-                description: 'Set max size of JSON-RPC/XML-RPC request. If aria2 detects the request is more than SIZE bytes, it drops connection.',
-                readonly: true
-            },
-            {
-                key: 'rpc-save-upload-metadata',
-                name: 'Save Upload Metadata',
-                type: 'boolean',
-                description: 'Save the uploaded torrent or metalink meta data in the directory specified by --dir option. The file name consists of SHA-1 hash hex string of meta data plus extension. For torrent, the extension is \'.torrent\'. For metalink, it is \'.meta4\'. If false is given to this option, the downloads added by aria2.addTorrent() or aria2.addMetalink() will not be saved by --save-session option.'
-            },
-            {
-                key: 'rpc-secure',
-                name: 'Enable SSL/TLS',
-                type: 'boolean',
-                description: 'RPC transport will be encrypted by SSL/TLS. The RPC clients must use https scheme to access the server. For WebSocket client, use wss scheme. Use --rpc-certificate and --rpc-private-key options to specify the server certificate and private key.',
-                readonly: true
-            }
-        ],
-        advancedOptions: [
-            {
-                key: 'allow-overwrite',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'allow-piece-length-change',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'always-resume',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'async-dns',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'auto-file-renaming',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'auto-save-interval',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'conditional-get',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'conf-path',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'console-log-level',
-                name: '',
-                type: 'option',
-                options: ['debug', 'info', 'notice', 'warn', 'error'],
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'daemon',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'deferred-input',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'disable-ipv6',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'disk-cache',
-                name: '',
-                type: 'string',
-                suffix: 'Bytes',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'download-result',
-                name: '',
-                type: 'option',
-                options: ['default', 'full', 'hide'],
-                description: ''
-            },
-            {
-                key: 'dscp',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'rlimit-nofile',
-                name: '',
-                type: 'string',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'enable-color',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'enable-mmap',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'event-poll',
-                name: '',
-                type: 'option',
-                options: ['epoll', 'kqueue', 'port', 'poll', 'select'],
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'file-allocation',
-                name: '',
-                type: 'option',
-                options: ['none', 'prealloc', 'trunc', 'falloc'],
-                description: ''
-            },
-            {
-                key: 'force-save',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'hash-check-only',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'human-readable',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'max-download-result',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'max-mmap-limit',
-                name: '',
-                type: 'string',
-                suffix: 'Bytes',
-                description: ''
-            },
-            {
-                key: 'max-resume-failure-tries',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'min-tls-version',
-                name: '',
-                type: 'option',
-                options: ['SSLv3', 'TLSv1', 'TLSv1.1', 'TLSv1.2'],
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'log-level',
-                name: '',
-                type: 'option',
-                options: ['debug', 'info', 'notice', 'warn', 'error'],
-                description: ''
-            },
-            {
-                key: 'piece-length',
-                name: '',
-                type: 'integer',
-                description: ''
-            },
-            {
-                key: 'optimize-concurrent-downloads',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'show-console-readout',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'summary-interval',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'max-overall-download-limit',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'max-download-limit',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'no-conf',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'no-file-allocation-limit',
-                name: '',
-                type: 'string',
-                suffix: 'Bytes',
-                description: ''
-            },
-            {
-                key: 'parameterized-uri',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'quiet',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'realtime-chunk-checksum',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'remove-control-file',
-                name: '',
-                type: 'boolean',
-                description: ''
-            },
-            {
-                key: 'save-session',
-                name: '',
-                type: 'string',
-                description: ''
-            },
-            {
-                key: 'save-session-interval',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'socket-recv-buffer-size',
-                name: '',
-                type: 'string',
-                suffix: 'Bytes',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'stop',
-                name: '',
-                type: 'integer',
-                suffix: 'Seconds',
-                description: '',
-                readonly: true
-            },
-            {
-                key: 'truncate-console-readout',
-                name: '',
-                type: 'boolean',
-                description: '',
-                readonly: true
-            }
-        ]
+    angular.module('ariaNg').constant('aria2AllOptions', {
+        'dir': {
+            type: 'string'
+        },
+        'log': {
+            type: 'string'
+        },
+        'max-concurrent-downloads': {
+            type: 'integer'
+        },
+        'check-integrity': {
+            type: 'boolean'
+        },
+        'continue': {
+            type: 'boolean'
+        },
+        'all-proxy': {
+            type: 'string'
+        },
+        'all-proxy-user': {
+            type: 'string'
+        },
+        'all-proxy-passwd': {
+            type: 'string'
+        },
+        'connect-timeout': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'dry-run': {
+            type: 'boolean'
+        },
+        'lowest-speed-limit': {
+            type: 'string',
+            suffix: 'Bytes'
+        },
+        'max-connection-per-server': {
+            type: 'integer'
+        },
+        'max-file-not-found': {
+            type: 'integer'
+        },
+        'max-tries': {
+            type: 'integer'
+        },
+        'min-split-size': {
+            type: 'string',
+            suffix: 'Bytes'
+        },
+        'netrc-path': {
+            type: 'string',
+            readonly: true
+        },
+        'no-netrc': {
+            type: 'boolean'
+        },
+        'no-proxy': {
+            type: 'string'
+        },
+        'proxy-method': {
+            type: 'option',
+            options: ['get', 'tunnel']
+        },
+        'remote-time': {
+            type: 'boolean'
+        },
+        'reuse-uri': {
+            type: 'boolean'
+        },
+        'retry-wait': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'server-stat-of': {
+            type: 'string'
+        },
+        'server-stat-timeout': {
+            type: 'integer',
+            suffix: 'Seconds',
+            readonly: true
+        },
+        'split': {
+            type: 'integer'
+        },
+        'stream-piece-selector': {
+            type: 'option',
+            options: ['default', 'inorder', 'random', 'geom']
+        },
+        'timeout': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'uri-selector': {
+            type: 'option',
+            options: ['inorder', 'feedback', 'adaptive']
+        },
+        'check-certificate': {
+            type: 'boolean',
+            readonly: true
+        },
+        'http-accept-gzip': {
+            type: 'boolean'
+        },
+        'http-auth-challenge': {
+            type: 'boolean'
+        },
+        'http-no-cache': {
+            type: 'boolean'
+        },
+        'http-user': {
+            type: 'string'
+        },
+        'http-passwd': {
+            type: 'string'
+        },
+        'http-proxy': {
+            type: 'string'
+        },
+        'http-proxy-user': {
+            type: 'string'
+        },
+        'http-proxy-passwd': {
+            type: 'string'
+        },
+        'https-proxy': {
+            type: 'string'
+        },
+        'https-proxy-user': {
+            type: 'string'
+        },
+        'https-proxy-passwd': {
+            type: 'string'
+        },
+        'referer': {
+            type: 'string'
+        },
+        'enable-http-keep-alive': {
+            type: 'boolean'
+        },
+        'enable-http-pipelining': {
+            type: 'boolean'
+        },
+        'header': {
+            type: 'string'
+        },
+        'save-cookies': {
+            type: 'string'
+        },
+        'use-head': {
+            type: 'boolean'
+        },
+        'user-agent': {
+            type: 'string'
+        },
+        'ftp-user': {
+            type: 'string'
+        },
+        'ftp-passwd': {
+            type: 'string'
+        },
+        'ftp-pasv': {
+            type: 'boolean'
+        },
+        'ftp-proxy': {
+            type: 'string'
+        },
+        'ftp-proxy-user': {
+            type: 'string'
+        },
+        'ftp-proxy-passwd': {
+            type: 'string'
+        },
+        'ftp-type': {
+            type: 'option',
+            options: ['binary', 'ascii']
+        },
+        'ftp-reuse-connection': {
+            type: 'boolean'
+        },
+        'ssh-host-key-md': {
+            type: 'string'
+        },
+        'show-files': {
+            type: 'boolean',
+            readonly: true
+        },
+        'bt-detach-seed-only': {
+            type: 'boolean',
+            readonly: true
+        },
+        'bt-enable-hook-after-hash-check': {
+            type: 'boolean'
+        },
+        'bt-enable-lpd': {
+            type: 'boolean'
+        },
+        'bt-exclude-tracker': {
+            type: 'text'
+        },
+        'bt-external-ip': {
+            type: 'string'
+        },
+        'bt-force-encryption': {
+            type: 'boolean'
+        },
+        'bt-hash-check-seed': {
+            type: 'boolean'
+        },
+        'bt-max-open-files': {
+            type: 'integer'
+        },
+        'bt-max-peers': {
+            type: 'integer'
+        },
+        'bt-metadata-only': {
+            type: 'boolean'
+        },
+        'bt-min-crypto-level': {
+            type: 'option',
+            options: ['plain', 'arc4']
+        },
+        'bt-prioritize-piece': {
+            type: 'string'
+        },
+        'bt-remove-unselected-file': {
+            type: 'boolean'
+        },
+        'bt-require-crypto': {
+            type: 'boolean'
+        },
+        'bt-request-peer-speed-limit': {
+            type: 'string'
+        },
+        'bt-save-metadata': {
+            type: 'boolean'
+        },
+        'bt-seed-unverified': {
+            type: 'boolean'
+        },
+        'bt-stop-timeout': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'bt-tracker': {
+            type: 'text'
+        },
+        'bt-tracker-connect-timeout': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'bt-tracker-interval': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'bt-tracker-timeout': {
+            type: 'integer',
+            suffix: 'Seconds'
+        },
+        'dht-file-path': {
+            type: 'string',
+            readonly: true
+        },
+        'dht-file-path6': {
+            type: 'string',
+            readonly: true
+        },
+        'dht-listen-port': {
+            type: 'integer',
+            readonly: true
+        },
+        'dht-message-timeout': {
+            type: 'integer',
+            suffix: 'Seconds',
+            readonly: true
+        },
+        'enable-dht': {
+            type: 'boolean',
+            readonly: true
+        },
+        'enable-dht6': {
+            type: 'boolean',
+            readonly: true
+        },
+        'enable-peer-exchange': {
+            type: 'boolean'
+        },
+        'follow-torrent': {
+            type: 'option',
+            options: ['true', 'false', 'mem']
+        },
+        'listen-port': {
+            type: 'integer',
+            readonly: true
+        },
+        'max-overall-upload-limit': {
+            type: 'string'
+        },
+        'max-upload-limit': {
+            type: 'string'
+        },
+        'peer-id-prefix': {
+            type: 'string',
+            readonly: true
+        },
+        'seed-ratio': {
+            type: 'float'
+        },
+        'seed-time': {
+            type: 'integer',
+            suffix: 'Minutes'
+        },
+        'follow-metalink': {
+            type: 'option',
+            options: ['true', 'false', 'mem']
+        },
+        'metalink-base-uri': {
+            type: 'string'
+        },
+        'metalink-language': {
+            type: 'string'
+        },
+        'metalink-location': {
+            type: 'string'
+        },
+        'metalink-os': {
+            type: 'string'
+        },
+        'metalink-version': {
+            type: 'string'
+        },
+        'metalink-preferred-protocol': {
+            type: 'option',
+            options: ['http', 'https', 'ftp', 'none']
+        },
+        'metalink-enable-unique-protocol': {
+            type: 'boolean'
+        },
+        'enable-rpc': {
+            type: 'boolean',
+            readonly: true
+        },
+        'pause-metadata': {
+            type: 'boolean'
+        },
+        'rpc-allow-origin-all': {
+            type: 'boolean',
+            readonly: true
+        },
+        'rpc-listen-all': {
+            type: 'boolean',
+            readonly: true
+        },
+        'rpc-listen-port': {
+            type: 'integer',
+            readonly: true
+        },
+        'rpc-max-request-size': {
+            type: 'string',
+            suffix: 'Bytes',
+            readonly: true
+        },
+        'rpc-save-upload-metadata': {
+            type: 'boolean'
+        },
+        'rpc-secure': {
+            type: 'boolean',
+            readonly: true
+        },
+        'allow-overwrite': {
+            type: 'boolean'
+        },
+        'allow-piece-length-change': {
+            type: 'boolean'
+        },
+        'always-resume': {
+            type: 'boolean'
+        },
+        'async-dns': {
+            type: 'boolean'
+        },
+        'auto-file-renaming': {
+            type: 'boolean'
+        },
+        'auto-save-interval': {
+            type: 'integer',
+            suffix: 'Seconds',
+            readonly: true
+        },
+        'conditional-get': {
+            type: 'boolean'
+        },
+        'conf-path': {
+            type: 'string',
+            readonly: true
+        },
+        'console-log-level': {
+            type: 'option',
+            options: ['debug', 'info', 'notice', 'warn', 'error'],
+            readonly: true
+        },
+        'daemon': {
+            type: 'boolean',
+            readonly: true
+        },
+        'deferred-input': {
+            type: 'boolean',
+            readonly: true
+        },
+        'disable-ipv6': {
+            type: 'boolean',
+            readonly: true
+        },
+        'disk-cache': {
+            type: 'string',
+            suffix: 'Bytes',
+            readonly: true
+        },
+        'download-result': {
+            type: 'option',
+            options: ['default', 'full', 'hide']
+        },
+        'dscp': {
+            type: 'string',
+            readonly: true
+        },
+        'rlimit-nofile': {
+            type: 'string',
+            readonly: true
+        },
+        'enable-color': {
+            type: 'boolean',
+            readonly: true
+        },
+        'enable-mmap': {
+            type: 'boolean'
+        },
+        'event-poll': {
+            type: 'option',
+            options: ['epoll', 'kqueue', 'port', 'poll', 'select'],
+            readonly: true
+        },
+        'file-allocation': {
+            type: 'option',
+            options: ['none', 'prealloc', 'trunc', 'falloc']
+        },
+        'force-save': {
+            type: 'boolean'
+        },
+        'hash-check-only': {
+            type: 'boolean'
+        },
+        'human-readable': {
+            type: 'boolean',
+            readonly: true
+        },
+        'max-download-result': {
+            type: 'integer'
+        },
+        'max-mmap-limit': {
+            type: 'string',
+            suffix: 'Bytes'
+        },
+        'max-resume-failure-tries': {
+            type: 'integer'
+        },
+        'min-tls-version': {
+            type: 'option',
+            options: ['SSLv3', 'TLSv1', 'TLSv1.1', 'TLSv1.2'],
+            readonly: true
+        },
+        'log-level': {
+            type: 'option',
+            options: ['debug', 'info', 'notice', 'warn', 'error']
+        },
+        'piece-length': {
+            type: 'integer'
+        },
+        'optimize-concurrent-downloads': {
+            type: 'string'
+        },
+        'show-console-readout': {
+            type: 'boolean',
+            readonly: true
+        },
+        'summary-interval': {
+            type: 'integer',
+            suffix: 'Seconds',
+            readonly: true
+        },
+        'max-overall-download-limit': {
+            type: 'string'
+        },
+        'max-download-limit': {
+            type: 'string'
+        },
+        'no-conf': {
+            type: 'boolean',
+            readonly: true
+        },
+        'no-file-allocation-limit': {
+            type: 'string',
+            suffix: 'Bytes'
+        },
+        'parameterized-uri': {
+            type: 'boolean'
+        },
+        'quiet': {
+            type: 'boolean',
+            readonly: true
+        },
+        'realtime-chunk-checksum': {
+            type: 'boolean'
+        },
+        'remove-control-file': {
+            type: 'boolean'
+        },
+        'save-session': {
+            type: 'string'
+        },
+        'save-session-interval': {
+            type: 'integer',
+            suffix: 'Seconds',
+            readonly: true
+        },
+        'socket-recv-buffer-size': {
+            type: 'string',
+            suffix: 'Bytes',
+            readonly: true
+        },
+        'stop': {
+            type: 'integer',
+            suffix: 'Seconds',
+            readonly: true
+        },
+        'truncate-console-readout': {
+            type: 'boolean',
+            readonly: true
+        }
+    }).constant('aria2GlobalAvailableOptions', {
+        basicOptions: ['dir', 'log', 'max-concurrent-downloads', 'check-integrity', 'continue'],
+        httpFtpSFtpOptions: ['all-proxy', 'all-proxy-user', 'all-proxy-passwd', 'connect-timeout', 'dry-run', 'lowest-speed-limit', 'max-connection-per-server', 'max-file-not-found', 'max-tries', 'min-split-size', 'netrc-path', 'no-netrc', 'no-proxy', 'proxy-method', 'remote-time', 'reuse-uri', 'retry-wait', 'server-stat-of', 'server-stat-timeout', 'split', 'stream-piece-selector', 'timeout', 'uri-selector'],
+        httpOptions: ['check-certificate', 'http-accept-gzip', 'http-auth-challenge', 'http-no-cache', 'http-user', 'http-passwd', 'http-proxy', 'http-proxy-user', 'http-proxy-passwd', 'https-proxy', 'https-proxy-user', 'https-proxy-passwd', 'referer', 'enable-http-keep-alive', 'enable-http-pipelining', 'header', 'save-cookies', 'use-head', 'user-agent'],
+        ftpSFtpOptions: ['ftp-user', 'ftp-passwd', 'ftp-pasv', 'ftp-proxy', 'ftp-proxy-user', 'ftp-proxy-passwd', 'ftp-type', 'ftp-reuse-connection', 'ssh-host-key-md'],
+        btOptions: ['bt-detach-seed-only', 'bt-enable-hook-after-hash-check', 'bt-enable-lpd', 'bt-exclude-tracker', 'bt-external-ip', 'bt-force-encryption', 'bt-hash-check-seed', 'bt-max-open-files', 'bt-max-peers', 'bt-metadata-only', 'bt-min-crypto-level', 'bt-prioritize-piece', 'bt-remove-unselected-file', 'bt-require-crypto', 'bt-request-peer-speed-limit', 'bt-save-metadata', 'bt-seed-unverified', 'bt-stop-timeout', 'bt-tracker', 'bt-tracker-connect-timeout', 'bt-tracker-interval', 'bt-tracker-timeout', 'dht-file-path', 'dht-file-path6', 'dht-listen-port', 'dht-message-timeout', 'enable-dht', 'enable-dht6', 'enable-peer-exchange', 'follow-torrent', 'listen-port', 'max-overall-upload-limit', 'max-upload-limit', 'peer-id-prefix', 'seed-ratio', 'seed-time'],
+        metalinkOptions: ['follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os', 'metalink-version', 'metalink-preferred-protocol', 'metalink-enable-unique-protocol'],
+        rpcOptions: ['enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port', 'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'],
+        advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'hash-check-only', 'human-readable', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'piece-length', 'optimize-concurrent-downloads', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
     });
 })();
