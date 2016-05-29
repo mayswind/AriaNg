@@ -197,7 +197,9 @@
             type: 'boolean'
         },
         'bt-exclude-tracker': {
-            type: 'text'
+            type: 'text',
+            split: ',',
+            showCount: true
         },
         'bt-external-ip': {
             type: 'string'
@@ -244,7 +246,9 @@
             suffix: 'Seconds'
         },
         'bt-tracker': {
-            type: 'text'
+            type: 'text',
+            split: ',',
+            showCount: true
         },
         'bt-tracker-connect-timeout': {
             type: 'integer',

@@ -80,6 +80,7 @@
             'Loading': 'Loading...',
             'More Than One Day': 'More than 1 day',
             'Unknown': 'Unknown',
+            'Total Count': 'Total Count',
             'Bytes': 'Bytes',
             'Minutes': 'Minutes',
             'Seconds': 'Seconds',
