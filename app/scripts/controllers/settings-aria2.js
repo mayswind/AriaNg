@@ -71,7 +71,7 @@
                 callback: function (result) {
                     $scope.globalOptions = result;
                 }
-            })
+            });
         })();
     }]);
 })();

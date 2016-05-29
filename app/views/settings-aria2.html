@@ -3,7 +3,7 @@
         <div class="row" ng-repeat="option in availableOptions" data-option-key="{{option.key}}">
             <div class="setting-key setting-key-without-desc col-sm-4">
                 <span ng-bind="option.name | translate"></span>
-                <em class="" ng-bind="'(' + option.key + ')'"></em>
+                <em ng-bind="'(' + option.key + ')'"></em>
                 <i class="icon-primary fa fa-question-circle" data-toggle="tooltip" data-placement="right"
                    title="{{option.description | translate}}"
                    ng-if="option.description && (option.description | translate) != ''"></i>
