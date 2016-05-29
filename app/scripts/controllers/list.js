@@ -40,9 +40,9 @@
                 return invokeMethod({
                     params: params,
                     callback: function (result) {
-                        if (!utils.extendArray(result, $scope.downloadTasks, 'gid')) {
+                        if (!utils.extendArray(result, $scope.taskContext.list, 'gid')) {
                             if (needRequestWholeInfo) {
-                                $scope.downloadTasks = result;
+                                $scope.taskContext.list = result;
                                 needRequestWholeInfo = false;
                             } else {
                                 needRequestWholeInfo = true;
@@ -51,9 +51,9 @@
                             needRequestWholeInfo = false;
                         }
 
-                        if ($scope.downloadTasks && $scope.downloadTasks.length > 0) {
-                            for (var i = 0; i < $scope.downloadTasks.length; i++) {
-                                utils.processDownloadTask($scope.downloadTasks[i]);
+                        if ($scope.taskContext.list && $scope.taskContext.list.length > 0) {
+                            for (var i = 0; i < $scope.taskContext.list.length; i++) {
+                                utils.processDownloadTask($scope.taskContext.list[i]);
                             }
                         }
                     }

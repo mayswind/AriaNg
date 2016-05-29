@@ -138,11 +138,10 @@
                     <div class="task-table-body">
                         <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()">
                             <div class="col-sm-8">
-                                <div class="checkbox checkbox-info">
+                                <div class="checkbox checkbox-primary">
                                     <input id="{{'file_' + $index}}" type="checkbox" ng-checked="file.selected == 'true'" disabled="disabled"/>
                                     <label for="{{'file_' + $index}}" ng-bind="file.fileName"></label>
                                 </div>
-
                             </div>
                             <div class="col-sm-2">
                                 <div class="progress">

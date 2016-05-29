@@ -11,6 +11,7 @@
     "Start": "开始下载任务",
     "Pause": "暂停下载任务",
     "Delete": "删除下载任务",
+    "Select All": "全选",
     "Display Order": "显示顺序",
     "Search": "搜索",
     "Default": "默认",

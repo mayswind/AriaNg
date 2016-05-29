@@ -15,6 +15,7 @@
             'Start': 'Start',
             'Pause': 'Pause',
             'Delete': 'Delete',
+            'Select All': 'Select All',
             'Display Order': 'Display Order',
             'Search': 'Search',
             'Default': 'Default',

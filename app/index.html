@@ -44,23 +44,28 @@
                         </a>
                     </li>
                     <li class="divider"></li>
-                    <li class="disabled">
+                    <li ng-class="{'disabled': !isTaskSelected()}">
                         <a class="toolbar" title="{{'Start' | translate}}">
                             <i class="fa fa-play"></i>
                         </a>
                     </li>
-                    <li class="disabled">
+                    <li ng-class="{'disabled': !isTaskSelected()}">
                         <a class="toolbar" title="{{'Pause' | translate}}">
                             <i class="fa fa-pause"></i>
                         </a>
                     </li>
-                    <li class="disabled">
+                    <li ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
                         <a class="toolbar" title="{{'Delete' | translate}}">
                             <i class="fa fa-trash-o"></i>
                             <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="divider"></li>
+                    <li ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
+                        <a class="toolbar" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
+                            <i class="fa fa-th-large"></i>
+                        </a>
+                    </li>
                     <li>
                         <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Display Order' | translate}}">
                             <i class="fa fa-sort-alpha-asc"></i>

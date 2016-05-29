@@ -390,6 +390,24 @@ td {
     bottom: 2px;
 }
 
+/* awesome-bootstrap-checkbox extend */
+.checkbox.checkbox-hide {
+    padding-left: 0;
+}
+
+.checkbox.checkbox-hide > input, .checkbox.checkbox-hide > input + label::before, .checkbox.checkbox-hide > input + label::after {
+    display: none !important;
+}
+
+.checkbox.checkbox-hide > label {
+    padding-left: 0;
+}
+
+.skin-aria-ng .checkbox-primary input[type="checkbox"]:checked + label::before, .checkbox-primary input[type="radio"]:checked + label::before {
+    background-color: #208fe5;
+    border-color: #208fe5;
+}
+
 /* task-table */
 .task-table {
     margin-left: 15px;

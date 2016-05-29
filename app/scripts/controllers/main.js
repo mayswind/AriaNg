@@ -30,6 +30,55 @@
             text: ''
         };
 
+        $scope.taskContext = {
+            list: [],
+            selected: {}
+        };
+
+        $scope.isTaskSelected = function () {
+            var allTasks = $scope.taskContext.list;
+
+            if (!allTasks || allTasks.length < 1) {
+                return false;
+            }
+
+            var selectedTasks = $scope.taskContext.selected;
+
+            for (var i = 0; i < allTasks.length; i++) {
+                var task = allTasks[i];
+                if (selectedTasks[task.gid]) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        $scope.selectAllTasks = function () {
+            var allTasks = $scope.taskContext.list;
+
+            if (!allTasks || allTasks.length < 1) {
+                return;
+            }
+
+            var selectedTasks = $scope.taskContext.selected;
+            var isAllSelected = true;
+
+            for (var i = 0; i < allTasks.length; i++) {
+                var task = allTasks[i];
+
+                if (!selectedTasks[task.gid]) {
+                    isAllSelected = false;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < allTasks.length; i++) {
+                var task = allTasks[i];
+                selectedTasks[task.gid] = !isAllSelected;
+            }
+        };
+
         $scope.changeDisplayOrder = function (type, autoSetReverse) {
             var oldType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
             var newType = utils.parseOrderType(type);
