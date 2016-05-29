@@ -3,6 +3,13 @@
  * https://github.com/mayswind/AriaNg
  */
 
+body {
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
 /* skin-aria-ng */
 .skin-aria-ng {
     overflow-y: hidden;
@@ -438,6 +445,11 @@ td {
 
 .task-table .task-download-speed, .task-table .task-peer-download-speed {
     font-size: 12px;
+}
+
+.task-table .checkbox, .task-table .radio {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .task-table .progress {
