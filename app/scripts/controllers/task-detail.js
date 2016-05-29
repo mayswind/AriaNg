@@ -70,6 +70,15 @@
             }
         };
 
+        $scope.loadTaskOption = function (task) {
+            $scope.loadPromise = aria2RpcService.getOption({
+                params: [task.gid],
+                callback: function (result) {
+                    $scope.options = result;
+                }
+            });
+        };
+
         $scope.changeFileListDisplayOrder = function (type, autoSetReverse) {
             var oldType = utils.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
             var newType = utils.parseOrderType(type);

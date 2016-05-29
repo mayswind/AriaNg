@@ -13,6 +13,11 @@
             <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task.status == 'active' && task.bittorrent">
                 <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers'" translate>Peers</a>
             </li>
+            <li ng-class="{'active': context.currentTab == 'settings'}" class="slim">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'settings';loadTaskOption(task);">
+                    <i class="fa fa-gear"></i>
+                </a>
+            </li>
         </ul>
 
         <div class="tab-content no-padding">
@@ -200,6 +205,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}">
+                <div class="settings-table settings-table-firstrow-noborder">
+
                 </div>
             </div>
         </div>
