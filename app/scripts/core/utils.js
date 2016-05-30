@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('utils', ['$location', '$timeout', '$base64', 'SweetAlert', 'translateFilter', 'ariaNgConstants', 'aria2AllOptions', function ($location, $timeout, $base64, SweetAlert, translateFilter, ariaNgConstants, aria2AllOptions) {
+    angular.module('ariaNg').factory('utils', ['$location', '$timeout', '$base64', 'SweetAlert', '$translate', 'ariaNgConstants', 'aria2AllOptions', function ($location, $timeout, $base64, SweetAlert, $translate, ariaNgConstants, aria2AllOptions) {
         var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {
             if (downloadSpeed == 0) {
                 return 0;
@@ -20,10 +20,10 @@
             alert: function (text) {
                 $timeout(function () {
                     SweetAlert.swal({
-                        title: translateFilter('Error'),
-                        text: translateFilter(text),
+                        title: $translate.instant('Error'),
+                        text: $translate.instant(text),
                         type: 'error',
-                        confirmButtonText: translateFilter('OK')
+                        confirmButtonText: $translate.instant('OK')
                     });
                 }, 100);
             },
@@ -136,7 +136,7 @@
                 }
 
                 if (!taskName) {
-                    taskName = translateFilter('Unknown');
+                    taskName = $translate.instant('Unknown');
                 }
 
                 return taskName;

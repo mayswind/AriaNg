@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $window, $location, $interval, aria2RpcService, ariaNgSettingService, utils) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
         var needRequestWholeInfo = true;

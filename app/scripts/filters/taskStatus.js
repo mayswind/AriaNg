@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").filter('taskStatus', ['translateFilter', function (translateFilter) {
+    angular.module("ariaNg").filter('taskStatus', ['$translate', function ($translate) {
         return function (task) {
             if (!task) {
                 return '';
@@ -9,20 +9,20 @@
 
             if (task.status == 'active') {
                 if (task.seeder === true || task.seeder === 'true') {
-                    return translateFilter('Seeding');
+                    return $translate.instant('Seeding');
                 } else {
-                    return translateFilter('Downloading');
+                    return $translate.instant('Downloading');
                 }
             } else if (task.status == 'waiting') {
-                return translateFilter('Waiting');
+                return $translate.instant('Waiting');
             } else if (task.status == 'paused') {
-                return translateFilter('Paused');
+                return $translate.instant('Paused');
             } else if (task.status == 'complete') {
-                return translateFilter('Completed');
+                return $translate.instant('Completed');
             } else if (task.status == 'error') {
-                return translateFilter('Error Occurred') + (task.errorCode ? ' (' + task.errorCode + ')' : '');
+                return $translate.instant('Error Occurred') + (task.errorCode ? ' (' + task.errorCode + ')' : '');
             } else if (task.status == 'removed') {
-                return translateFilter('Removed');
+                return $translate.instant('Removed');
             } else {
                 return '';
             }
