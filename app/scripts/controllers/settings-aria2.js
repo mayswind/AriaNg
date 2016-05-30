@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2SettingsController', ['$scope', '$location', '$timeout', 'ariaNgConstants', 'aria2GlobalAvailableOptions', 'aria2RpcService', 'utils', function ($scope, $location, $timeout, ariaNgConstants, aria2GlobalAvailableOptions, aria2RpcService, utils) {
+    angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgConstants', 'aria2GlobalAvailableOptions', 'aria2RpcService', 'utils', function ($rootScope, $scope, $location, $timeout, ariaNgConstants, aria2GlobalAvailableOptions, aria2RpcService, utils) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
         var pendingSaveRequest = {};
 
@@ -53,7 +53,7 @@
                 $scope.optionStatus[key] = 'saving';
 
                 return aria2RpcService.changeGlobalOption({
-                    params: [data],
+                    options: data,
                     callback: function () {
                         $scope.optionStatus[key] = 'saved';
                     }
@@ -75,7 +75,7 @@
             }
         };
 
-        $scope.loadPromise = (function () {
+        $rootScope.loadPromise = (function () {
             return aria2RpcService.getGlobalOption({
                 callback: function (result) {
                     $scope.globalOptions = result;

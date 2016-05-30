@@ -78,6 +78,23 @@
 
                 return result;
             },
+            getSelectedTasks: function () {
+                var result = [];
+
+                if (!this.list || !this.selected || this.list.length < 1) {
+                    return result;
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (this.selected[task.gid]) {
+                        result.push(task);
+                    }
+                }
+
+                return result;
+            },
             selectAll: function () {
                 if (!this.list || !this.selected || this.list.length < 1) {
                     return result;
@@ -129,7 +146,9 @@
                 $rootScope.taskContext.list.length = 0;
             }
 
-            console.log($rootScope.taskContext.list);
+            if (angular.isObject($rootScope.taskContext.selected)) {
+                $rootScope.taskContext.selected = {};
+            }
 
             SweetAlert.close();
         });

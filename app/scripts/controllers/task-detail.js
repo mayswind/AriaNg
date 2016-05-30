@@ -13,7 +13,7 @@
 
         var refreshPeers = function (task) {
             return aria2RpcService.getPeers({
-                params: [task.gid],
+                gid: task.gid,
                 callback: function (result) {
                     if (!utils.extendArray(result, $scope.peers, 'peerId')) {
                         $scope.peers = result;
@@ -31,7 +31,7 @@
 
         var refreshDownloadTask = function () {
             return aria2RpcService.tellStatus({
-                params: [$routeParams.gid],
+                gid: $routeParams.gid,
                 callback: function (result) {
                     var task = utils.processDownloadTask(result);
 
@@ -44,6 +44,10 @@
                     }
 
                     $scope.task = utils.copyObjectTo(task, $scope.task);
+
+                    $rootScope.taskContext.list = [$scope.task];
+                    $rootScope.taskContext.selected = {};
+                    $rootScope.taskContext.selected[$scope.task.gid] = true;
                 }
             })
         };
@@ -71,8 +75,8 @@
         };
 
         $scope.loadTaskOption = function (task) {
-            $scope.loadPromise = aria2RpcService.getOption({
-                params: [task.gid],
+            $rootScope.loadPromise = aria2RpcService.getOption({
+                gid: task.gid,
                 callback: function (result) {
                     $scope.options = result;
                 }
@@ -101,7 +105,7 @@
             return ariaNgSettingService.getFileListDisplayOrder();
         };
 
-        $scope.loadPromise = refreshDownloadTask();
+        $rootScope.loadPromise = refreshDownloadTask();
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {

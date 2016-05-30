@@ -44,21 +44,33 @@
                         </a>
                     </li>
                     <li class="divider"></li>
-                    <li ng-class="{'disabled': !isTaskSelected()}">
-                        <a class="toolbar" title="{{'Start' | translate}}">
+                    <li ng-class="{'disabled': !isStartableTaskSelected()}">
+                        <a class="toolbar" title="{{'Start' | translate}}" ng-click="startTask()">
                             <i class="fa fa-play"></i>
                         </a>
                     </li>
-                    <li ng-class="{'disabled': !isTaskSelected()}">
-                        <a class="toolbar" title="{{'Pause' | translate}}">
+                    <li ng-class="{'disabled': !isPausableTaskSelected()}">
+                        <a class="toolbar" title="{{'Pause' | translate}}" ng-click="pauseTask()">
                             <i class="fa fa-pause"></i>
                         </a>
                     </li>
                     <li ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
-                        <a class="toolbar" title="{{'Delete' | translate}}">
+                        <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Delete' | translate}}">
                             <i class="fa fa-trash-o"></i>
                             <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
                         </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-if="isTaskSelected()">
+                                <a class="pointer-cursor" ng-click="removeTask()">
+                                    <span translate>Remove Task</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="clearFinishedTasks()">
+                                    <span translate>Clear Finished Tasks</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="divider"></li>
                     <li ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">

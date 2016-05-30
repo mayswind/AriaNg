@@ -8,37 +8,18 @@
 
         var refreshDownloadTask = function () {
             var invokeMethod = null;
-            var params = [];
-            var requestParams = [
-                'gid',
-                'totalLength',
-                'completedLength',
-                'uploadSpeed',
-                'downloadSpeed',
-                'connections',
-                'numSeeders',
-                'seeder'
-            ];
-
-            if (needRequestWholeInfo) {
-                requestParams.push('files');
-                requestParams.push('bittorrent');
-            }
 
             if (location == 'downloading') {
                 invokeMethod = aria2RpcService.tellActive;
-                params = [requestParams];
             } else if (location == 'waiting') {
                 invokeMethod = aria2RpcService.tellWaiting;
-                params = [0, 1000, requestParams];
             } else if (location == 'stopped') {
                 invokeMethod = aria2RpcService.tellStopped;
-                params = [0, 1000, requestParams];
             }
 
             if (invokeMethod) {
                 return invokeMethod({
-                    params: params,
+                    requestParams: needRequestWholeInfo ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams(),
                     callback: function (result) {
                         if (!utils.extendArray(result, $rootScope.taskContext.list, 'gid')) {
                             if (needRequestWholeInfo) {
@@ -61,7 +42,7 @@
             }
         };
 
-        $scope.loadPromise = refreshDownloadTask();
+        $rootScope.loadPromise = refreshDownloadTask();
 
         $scope.filterByTaskName = function (task) {
             if (!task || !angular.isString(task.taskName)) {

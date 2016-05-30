@@ -27,6 +27,30 @@
                     });
                 }, 100);
             },
+            confirm: function (title, text, type, callback) {
+                var options = {
+                    title: $translate.instant(title),
+                    text: $translate.instant(text),
+                    type: type,
+                    showCancelButton: true,
+                    confirmButtonText: $translate.instant('OK'),
+                    cancelButtonText: $translate.instant('Cancel')
+                };
+
+                if (type == 'warning') {
+                    options.confirmButtonColor = '#F39C12';
+                }
+
+                SweetAlert.swal(options, function (isConfirm) {
+                    if (!isConfirm) {
+                        return;
+                    }
+
+                    if (callback) {
+                        callback();
+                    }
+                });
+            },
             extendArray: function (sourceArray, targetArray, keyProperty) {
                 if (!targetArray || !sourceArray || sourceArray.length != targetArray.length) {
                     return false;
