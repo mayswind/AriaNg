@@ -54,6 +54,53 @@
             return angular.element('body').hasClass('sidebar-open');
         };
 
+        $rootScope.searchContext = {
+            text: ''
+        };
+
+        $rootScope.taskContext = {
+            list: [],
+            selected: {},
+            getSelectedTaskIds: function () {
+                var result = [];
+
+                if (!this.list || !this.selected || this.list.length < 1) {
+                    return result;
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (this.selected[task.gid]) {
+                        result.push(task.gid);
+                    }
+                }
+
+                return result;
+            },
+            selectAll: function () {
+                if (!this.list || !this.selected || this.list.length < 1) {
+                    return result;
+                }
+
+                var isAllSelected = true;
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (!this.selected[task.gid]) {
+                        isAllSelected = false;
+                        break;
+                    }
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+                    this.selected[task.gid] = !isAllSelected;
+                }
+            }
+        };
+
         $rootScope.swipeActions = {
             leftSwipe: function () {
                 if (isSidebarShowInSmallScreen()) {
@@ -77,6 +124,12 @@
         $rootScope.$on('$locationChangeStart', function (event) {
             delete $rootScope.swipeActions.extentLeftSwipe;
             delete $rootScope.swipeActions.extentRightSwipe;
+
+            if (angular.isArray($rootScope.taskContext.list) && $rootScope.taskContext.list.length > 0) {
+                $rootScope.taskContext.list.length = 0;
+            }
+
+            console.log($rootScope.taskContext.list);
 
             SweetAlert.close();
         });

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$scope', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $interval, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $interval, aria2RpcService, ariaNgSettingService, utils) {
         var globalStatRefreshPromise = null;
 
         var processStatResult = function (stat) {
@@ -26,57 +26,12 @@
 
         refreshGlobalStat();
 
-        $scope.searchContext = {
-            text: ''
-        };
-
-        $scope.taskContext = {
-            list: [],
-            selected: {}
-        };
-
         $scope.isTaskSelected = function () {
-            var allTasks = $scope.taskContext.list;
-
-            if (!allTasks || allTasks.length < 1) {
-                return false;
-            }
-
-            var selectedTasks = $scope.taskContext.selected;
-
-            for (var i = 0; i < allTasks.length; i++) {
-                var task = allTasks[i];
-                if (selectedTasks[task.gid]) {
-                    return true;
-                }
-            }
-
-            return false;
+            return $rootScope.taskContext.getSelectedTaskIds().length > 0;
         };
 
         $scope.selectAllTasks = function () {
-            var allTasks = $scope.taskContext.list;
-
-            if (!allTasks || allTasks.length < 1) {
-                return;
-            }
-
-            var selectedTasks = $scope.taskContext.selected;
-            var isAllSelected = true;
-
-            for (var i = 0; i < allTasks.length; i++) {
-                var task = allTasks[i];
-
-                if (!selectedTasks[task.gid]) {
-                    isAllSelected = false;
-                    break;
-                }
-            }
-
-            for (var i = 0; i < allTasks.length; i++) {
-                var task = allTasks[i];
-                selectedTasks[task.gid] = !isAllSelected;
-            }
+            $rootScope.taskContext.selectAll();
         };
 
         $scope.changeDisplayOrder = function (type, autoSetReverse) {

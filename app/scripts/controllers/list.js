@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'translateFilter',  'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $window, $location, $interval, translateFilter, aria2RpcService, ariaNgSettingService, utils) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
         var needRequestWholeInfo = true;
@@ -40,9 +40,9 @@
                 return invokeMethod({
                     params: params,
                     callback: function (result) {
-                        if (!utils.extendArray(result, $scope.taskContext.list, 'gid')) {
+                        if (!utils.extendArray(result, $rootScope.taskContext.list, 'gid')) {
                             if (needRequestWholeInfo) {
-                                $scope.taskContext.list = result;
+                                $rootScope.taskContext.list = result;
                                 needRequestWholeInfo = false;
                             } else {
                                 needRequestWholeInfo = true;
@@ -51,9 +51,9 @@
                             needRequestWholeInfo = false;
                         }
 
-                        if ($scope.taskContext.list && $scope.taskContext.list.length > 0) {
-                            for (var i = 0; i < $scope.taskContext.list.length; i++) {
-                                utils.processDownloadTask($scope.taskContext.list[i]);
+                        if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
+                            for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
+                                utils.processDownloadTask($rootScope.taskContext.list[i]);
                             }
                         }
                     }
@@ -68,11 +68,11 @@
                 return false;
             }
 
-            if (!$scope.searchContext || !$scope.searchContext.text) {
+            if (!$rootScope.searchContext || !$rootScope.searchContext.text) {
                 return true;
             }
 
-            return (task.taskName.toLowerCase().indexOf($scope.searchContext.text.toLowerCase()) >= 0);
+            return (task.taskName.toLowerCase().indexOf($rootScope.searchContext.text.toLowerCase()) >= 0);
         };
 
         $scope.getOrderType = function () {
