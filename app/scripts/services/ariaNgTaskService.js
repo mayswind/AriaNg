@@ -169,6 +169,14 @@
                     callback: callback
                 });
             },
+            changeTaskPosition: function (gid, position, callback) {
+                return aria2RpcService.changePosition({
+                    gid: gid,
+                    pos: position,
+                    how: 'POS_SET',
+                    callback: callback
+                })
+            },
             processDownloadTasks: function (tasks) {
                 if (!angular.isArray(tasks)) {
                     return;

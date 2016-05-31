@@ -15,6 +15,7 @@
         'LocalStorageModule',
         'cgBusy',
         'ui.bootstrap-slider',
-        'oitozero.ngSweetAlert'
+        'oitozero.ngSweetAlert',
+        angularDragula(angular)
     ]);
 })();

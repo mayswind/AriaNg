@@ -1,12 +1,17 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTaskService', function ($rootScope, $scope, $window, $location, $interval, ariaNgCommonService, ariaNgSettingService, ariaNgTaskService) {
+    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$route', '$interval', 'dragulaService', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTaskService', function ($rootScope, $scope, $window, $location, $route, $interval, dragulaService, ariaNgCommonService, ariaNgSettingService, ariaNgTaskService) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
+        var pauseDownloadTaskRefresh = false;
         var needRequestWholeInfo = true;
 
         var refreshDownloadTask = function () {
+            if (pauseDownloadTaskRefresh) {
+                return;
+            }
+
             return ariaNgTaskService.getTaskList(location, needRequestWholeInfo, function (result) {
                 if (!ariaNgCommonService.extendArray(result, $rootScope.taskContext.list, 'gid')) {
                     if (needRequestWholeInfo) {
@@ -42,11 +47,36 @@
             return ariaNgSettingService.getDisplayOrder();
         };
 
+        $scope.isSupportDragTask = function () {
+            var displayOrder = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
+
+            return location == 'waiting' && displayOrder.type == 'default';
+        };
+
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
                 refreshDownloadTask();
             }, ariaNgSettingService.getDownloadTaskRefreshInterval());
         }
+
+        dragulaService.options($scope, 'task-list', {
+            revertOnSpill: true,
+            moves: function (el, container, handle) {
+                return $scope.isSupportDragTask();
+            }
+        });
+
+        $scope.$on('task-list.drop-model', function (el, target, source) {
+            var element = angular.element(target);
+            var gid = element.attr('data-gid');
+            var index = element.index();
+
+            pauseDownloadTaskRefresh = true;
+
+            ariaNgTaskService.changeTaskPosition(gid, index, function (result) {
+                pauseDownloadTaskRefresh = false;
+            });
+        });
 
         $scope.$on('$destroy', function () {
             if (downloadTaskRefreshPromise) {

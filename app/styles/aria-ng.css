@@ -408,6 +408,13 @@ td {
     border-color: #208fe5;
 }
 
+/* angular-dragula extend */
+.gu-mirror {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
 /* task-table */
 .task-table {
     margin-left: 15px;
@@ -427,6 +434,13 @@ td {
 .task-table .task-table-title a {
     color: #000;
     cursor: pointer;
+}
+
+.task-table > .task-table-body.draggable {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
 }
 
 .task-table > .task-table-body > div.row {

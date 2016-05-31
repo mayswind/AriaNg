@@ -234,9 +234,12 @@
 
                 return invoke('tellStopped', requestContext);
             },
-            // changePosition: function (context) {
-            //     return invoke('changePosition', context);
-            // },
+            changePosition: function (context) {
+                return invoke('changePosition', {
+                    params: [context.gid, context.pos, context.how],
+                    callback: context.callback
+                });
+            },
             // changeUri: function (context) {
             //     return invoke('changeUri', context);
             // },
