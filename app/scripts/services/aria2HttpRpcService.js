@@ -17,7 +17,7 @@
                 };
 
                 return $http(requestContext).success(function (data, header, config, status) {
-                    if (!data || !data.result) {
+                    if (!data) {
                         return;
                     }
 
