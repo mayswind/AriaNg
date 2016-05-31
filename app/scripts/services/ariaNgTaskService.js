@@ -53,15 +53,17 @@
 
             task.totalLength = parseInt(task.totalLength);
             task.completedLength = parseInt(task.completedLength);
+            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
+            task.remainLength = task.totalLength - task.completedLength;
+            task.remainPercent = 100 - task.completePercent;
+
             task.uploadSpeed = parseInt(task.uploadSpeed);
             task.downloadSpeed = parseInt(task.downloadSpeed);
-            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
-            task.remainPercent = 100 - task.completePercent;
+
             task.taskName = getTaskName(task);
             task.idle = task.downloadSpeed == 0;
 
-            var remainLength = task.totalLength - task.completedLength;
-            task.remainTime = calculateDownloadRemainTime(remainLength, task.downloadSpeed);
+            task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
 
             if (task.files) {
                 for (var i = 0; i < task.files.length; i++) {
@@ -171,7 +173,7 @@
                 if (!angular.isArray(tasks)) {
                     return;
                 }
-                
+
                 for (var i = 0; i < tasks.length; i++) {
                     processDownloadTask(tasks[i]);
                 }
