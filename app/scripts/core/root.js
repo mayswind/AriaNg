@@ -1,34 +1,33 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').config(['$translateProvider', 'localStorageServiceProvider', 'ariaNgConstants', function ($translateProvider, localStorageServiceProvider, ariaNgConstants) {
-        localStorageServiceProvider
-            .setPrefix(ariaNgConstants.appPrefix)
-            .setStorageType('localStorage')
-            .setStorageCookie(365, '/');
+    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'SweetAlert', function ($rootScope, $location, $document, SweetAlert) {
+        var isUrlMatchUrl2 = function (url, url2) {
+            if (url === url2) {
+                return true;
+            }
 
-        $translateProvider.useStaticFilesLoader({
-            prefix: 'langs/',
-            suffix: '.json'
-        }).useLoaderCache(true)
-            .preferredLanguage('en-US')
-            .fallbackLanguage('en-US')
-            .useSanitizeValueStrategy('escape');
-    }]).run(['$translate', 'amMoment', 'moment', 'ariaNgConstants', 'ariaNgSettingService', function ($translate, amMoment, moment, ariaNgConstants, ariaNgSettingService) {
-        ariaNgSettingService.applyLanguage(ariaNgSettingService.getLanguage());
+            var index = url2.indexOf(url);
 
-        moment.updateLocale('zh-cn', {
-            week: null
-        });
+            if (index !== 0) {
+                return false;
+            }
 
-        amMoment.changeLocale(ariaNgSettingService.getLanguage());
-    }]).run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgConstants', 'utils', function ($rootScope, $location, $document, SweetAlert, ariaNgConstants, utils) {
+            var lastPart = url2.substring(url.length);
+
+            if (lastPart.indexOf('/') == 0) {
+                return true;
+            }
+
+            return false;
+        };
+
         var setNavbarSelected = function (location) {
             angular.element('section.sidebar > ul li').removeClass('active');
             angular.element('section.sidebar > ul > li[data-href-match]').each(function (index, element) {
                 var match = angular.element(element).attr('data-href-match');
 
-                if (utils.isUrlMatchUrl2(match, location)) {
+                if (isUrlMatchUrl2(match, location)) {
                     angular.element(element).addClass('active');
                 }
             });
@@ -36,7 +35,7 @@
             angular.element('section.sidebar > ul > li.treeview > ul.treeview-menu > li[data-href-match]').each(function (index, element) {
                 var match = angular.element(element).attr('data-href-match');
 
-                if (utils.isUrlMatchUrl2(match, location)) {
+                if (isUrlMatchUrl2(match, location)) {
                     angular.element(element).addClass('active').parent().parent().addClass('active');
                 }
             });
@@ -61,6 +60,7 @@
         $rootScope.taskContext = {
             list: [],
             selected: {},
+            enableSelectAll: false,
             getSelectedTaskIds: function () {
                 var result = [];
 
@@ -149,6 +149,8 @@
             if (angular.isObject($rootScope.taskContext.selected)) {
                 $rootScope.taskContext.selected = {};
             }
+
+            $rootScope.taskContext.enableSelectAll = false;
 
             SweetAlert.close();
         });

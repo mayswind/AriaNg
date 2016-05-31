@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $routeParams, $interval, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTaskService', function ($rootScope, $scope, $routeParams, $interval, ariaNgCommonService, ariaNgSettingService, ariaNgTaskService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
 
@@ -11,45 +11,32 @@
 
         $scope.healthPercent = 0;
 
-        var refreshPeers = function (task) {
-            return aria2RpcService.getPeers({
-                gid: task.gid,
-                callback: function (result) {
-                    if (!utils.extendArray(result, $scope.peers, 'peerId')) {
-                        $scope.peers = result;
-                    }
-
-                    for (var i = 0; i < $scope.peers.length; i++) {
-                        var peer = $scope.peers[i];
-                        peer.completePercent = utils.estimateCompletedPercentFromBitField(peer.bitfield) * 100;
-                    }
-
-                    $scope.healthPercent = utils.estimateHealthPercentFromPeers(task, $scope.peers);
+        var refreshBtPeers = function (task) {
+            return ariaNgTaskService.getBtTaskPeers(task.gid, function (result) {
+                if (!ariaNgCommonService.extendArray(result, $scope.peers, 'peerId')) {
+                    $scope.peers = result;
                 }
-            })
+
+                $scope.healthPercent = ariaNgTaskService.estimateHealthPercentFromPeers(task, $scope.peers);
+            });
         };
 
         var refreshDownloadTask = function () {
-            return aria2RpcService.tellStatus({
-                gid: $routeParams.gid,
-                callback: function (result) {
-                    var task = utils.processDownloadTask(result);
-
-                    if (task.status == 'active' && task.bittorrent) {
-                        refreshPeers(task);
-                    } else {
-                        if (tabOrders.indexOf('btpeers') >= 0) {
-                            tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
-                        }
+            return ariaNgTaskService.getTaskStatus($routeParams.gid, function (result) {
+                if (result.status == 'active' && result.bittorrent) {
+                    refreshBtPeers(result);
+                } else {
+                    if (tabOrders.indexOf('btpeers') >= 0) {
+                        tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
                     }
-
-                    $scope.task = utils.copyObjectTo(task, $scope.task);
-
-                    $rootScope.taskContext.list = [$scope.task];
-                    $rootScope.taskContext.selected = {};
-                    $rootScope.taskContext.selected[$scope.task.gid] = true;
                 }
-            })
+
+                $scope.task = ariaNgCommonService.copyObjectTo(result, $scope.task);
+
+                $rootScope.taskContext.list = [$scope.task];
+                $rootScope.taskContext.selected = {};
+                $rootScope.taskContext.selected[$scope.task.gid] = true;
+            });
         };
 
         $rootScope.swipeActions.extentLeftSwipe = function () {
@@ -75,17 +62,14 @@
         };
 
         $scope.loadTaskOption = function (task) {
-            $rootScope.loadPromise = aria2RpcService.getOption({
-                gid: task.gid,
-                callback: function (result) {
-                    $scope.options = result;
-                }
+            $rootScope.loadPromise = ariaNgTaskService.getTaskOption(task.gid, function (result) {
+                $scope.options = result;
             });
         };
 
         $scope.changeFileListDisplayOrder = function (type, autoSetReverse) {
-            var oldType = utils.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
-            var newType = utils.parseOrderType(type);
+            var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
+            var newType = ariaNgCommonService.parseOrderType(type);
 
             if (autoSetReverse && newType.type == oldType.type) {
                 newType.reverse = !oldType.reverse;
@@ -95,8 +79,8 @@
         };
 
         $scope.isSetFileListDisplayOrder = function (type) {
-            var orderType = utils.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
-            var targetType = utils.parseOrderType(type);
+            var orderType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
+            var targetType = ariaNgCommonService.parseOrderType(type);
 
             return orderType.equals(targetType);
         };
@@ -104,8 +88,6 @@
         $scope.getFileListOrderType = function () {
             return ariaNgSettingService.getFileListDisplayOrder();
         };
-
-        $rootScope.loadPromise = refreshDownloadTask();
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
@@ -118,5 +100,7 @@
                 $interval.cancel(downloadTaskRefreshPromise);
             }
         });
+
+        $rootScope.loadPromise = refreshDownloadTask();
     }]);
 })();

@@ -59,7 +59,7 @@
 
                 $translate.use(lang);
                 amMoment.changeLocale(lang);
-                
+
                 return true;
             },
             getLanguage: function () {

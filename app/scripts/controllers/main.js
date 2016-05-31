@@ -1,76 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $route, $interval, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$interval', 'aria2SettingService', 'ariaNgCommonService', 'ariaNgTaskService', 'ariaNgSettingService', function ($rootScope, $scope, $route, $interval, aria2SettingService, ariaNgCommonService, ariaNgTaskService, ariaNgSettingService) {
         var globalStatRefreshPromise = null;
 
-        var processStatResult = function (stat) {
-            var activeCount = parseInt(stat.numActive);
-            var waitingCount = parseInt(stat.numWaiting);
-            var totalRunningCount = activeCount + waitingCount;
-
-            stat.totalRunningCount = totalRunningCount;
-        };
-
         var refreshGlobalStat = function () {
-            aria2RpcService.getGlobalStat({
-                callback: function (result) {
-                    if (result) {
-                        processStatResult(result);
-                    }
-
-                    $scope.globalStat = result;
-                }
-            });
-        };
-
-        refreshGlobalStat();
-
-        $scope.startTask = function () {
-            var gids = $rootScope.taskContext.getSelectedTaskIds();
-
-            if (!gids || gids.length < 1) {
-                return;
-            }
-
-            $rootScope.loadPromise = aria2RpcService.unpauseMulti({
-                gids: gids,
-                callback: function (result) {
-                    $route.reload();
-                }
-            });
-        };
-
-        $scope.pauseTask = function () {
-            var gids = $rootScope.taskContext.getSelectedTaskIds();
-
-            if (!gids || gids.length < 1) {
-                return;
-            }
-
-            $rootScope.loadPromise = aria2RpcService.forcePauseMulti({
-                gids: gids,
-                callback: function (result) {
-                    $route.reload();
-                }
-            });
-        };
-
-        $scope.removeTask = function () {
-            var gids = $rootScope.taskContext.getSelectedTaskIds();
-
-            if (!gids || gids.length < 1) {
-                return;
-            }
-
-            utils.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
-
-            });
-        };
-
-        $scope.clearFinishedTasks = function () {
-            utils.confirm('Confirm Clear', 'Are you sure you want to clear finished tasks?', 'warning', function () {
-
+            return aria2SettingService.getGlobalStat(function (result) {
+                $scope.globalStat = result;
             });
         };
 
@@ -78,7 +14,7 @@
             return $rootScope.taskContext.getSelectedTaskIds().length > 0;
         };
 
-        $scope.isStartableTaskSelected = function () {
+        $scope.isSpecifiedTaskSelected = function (status) {
             var selectedTasks = $rootScope.taskContext.getSelectedTasks();
 
             if (selectedTasks.length < 1) {
@@ -86,7 +22,7 @@
             }
 
             for (var i = 0; i < selectedTasks.length; i++) {
-                if (selectedTasks[i].status == 'paused') {
+                if (selectedTasks[i].status == status) {
                     return true;
                 }
             }
@@ -94,20 +30,44 @@
             return false;
         };
 
-        $scope.isPausableTaskSelected = function () {
-            var selectedTasks = $rootScope.taskContext.getSelectedTasks();
+        $scope.changeTasksState = function (state) {
+            var gids = $rootScope.taskContext.getSelectedTaskIds();
 
-            if (selectedTasks.length < 1) {
-                return false;
+            if (!gids || gids.length < 1) {
+                return;
             }
 
-            for (var i = 0; i < selectedTasks.length; i++) {
-                if (selectedTasks[i].status == 'active') {
-                    return true;
-                }
+            var invoke = null;
+
+            if (state == 'start') {
+                invoke = ariaNgTaskService.startTasks;
+            } else if (state == 'pause') {
+                invoke = ariaNgTaskService.pauseTasks;
+            } else {
+                return;
             }
 
-            return false;
+            $rootScope.loadPromise = invoke(gids, function (result) {
+                $route.reload();
+            });
+        };
+
+        $scope.removeTasks = function () {
+            var gids = $rootScope.taskContext.getSelectedTaskIds();
+
+            if (!gids || gids.length < 1) {
+                return;
+            }
+
+            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
+
+            });
+        };
+
+        $scope.clearFinishedTasks = function () {
+            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear finished tasks?', 'warning', function () {
+
+            });
         };
 
         $scope.selectAllTasks = function () {
@@ -115,8 +75,8 @@
         };
 
         $scope.changeDisplayOrder = function (type, autoSetReverse) {
-            var oldType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
-            var newType = utils.parseOrderType(type);
+            var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var newType = ariaNgCommonService.parseOrderType(type);
 
             if (autoSetReverse && newType.type == oldType.type) {
                 newType.reverse = !oldType.reverse;
@@ -126,8 +86,8 @@
         };
 
         $scope.isSetDisplayOrder = function (type) {
-            var orderType = utils.parseOrderType(ariaNgSettingService.getDisplayOrder());
-            var targetType = utils.parseOrderType(type);
+            var orderType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var targetType = ariaNgCommonService.parseOrderType(type);
 
             return orderType.equals(targetType);
         };
@@ -143,5 +103,7 @@
                 $interval.cancel(globalStatRefreshPromise);
             }
         });
+
+        refreshGlobalStat();
     }]);
 })();

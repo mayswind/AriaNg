@@ -1,48 +1,30 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'aria2RpcService', 'ariaNgSettingService', 'utils', function ($rootScope, $scope, $window, $location, $interval, aria2RpcService, ariaNgSettingService, utils) {
+    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTaskService', function ($rootScope, $scope, $window, $location, $interval, ariaNgCommonService, ariaNgSettingService, ariaNgTaskService) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
         var needRequestWholeInfo = true;
 
         var refreshDownloadTask = function () {
-            var invokeMethod = null;
-
-            if (location == 'downloading') {
-                invokeMethod = aria2RpcService.tellActive;
-            } else if (location == 'waiting') {
-                invokeMethod = aria2RpcService.tellWaiting;
-            } else if (location == 'stopped') {
-                invokeMethod = aria2RpcService.tellStopped;
-            }
-
-            if (invokeMethod) {
-                return invokeMethod({
-                    requestParams: needRequestWholeInfo ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams(),
-                    callback: function (result) {
-                        if (!utils.extendArray(result, $rootScope.taskContext.list, 'gid')) {
-                            if (needRequestWholeInfo) {
-                                $rootScope.taskContext.list = result;
-                                needRequestWholeInfo = false;
-                            } else {
-                                needRequestWholeInfo = true;
-                            }
-                        } else {
-                            needRequestWholeInfo = false;
-                        }
-
-                        if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
-                            for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
-                                utils.processDownloadTask($rootScope.taskContext.list[i]);
-                            }
-                        }
+            return ariaNgTaskService.getTaskList(location, needRequestWholeInfo, function (result) {
+                if (!ariaNgCommonService.extendArray(result, $rootScope.taskContext.list, 'gid')) {
+                    if (needRequestWholeInfo) {
+                        $rootScope.taskContext.list = result;
+                        needRequestWholeInfo = false;
+                    } else {
+                        needRequestWholeInfo = true;
                     }
-                });
-            }
-        };
+                } else {
+                    needRequestWholeInfo = false;
+                }
 
-        $rootScope.loadPromise = refreshDownloadTask();
+                if ($rootScope.taskContext.list) {
+                    ariaNgTaskService.processDownloadTasks($rootScope.taskContext.list);
+                    $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list.length > 1;
+                }
+            });
+        };
 
         $scope.filterByTaskName = function (task) {
             if (!task || !angular.isString(task.taskName)) {
@@ -71,5 +53,7 @@
                 $interval.cancel(downloadTaskRefreshPromise);
             }
         });
+
+        $rootScope.loadPromise = refreshDownloadTask();
     }]);
 })();

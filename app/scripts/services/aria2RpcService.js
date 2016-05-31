@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', 'utils', function ($q, aria2RpcConstants, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService, utils) {
+    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var protocol = ariaNgSettingService.getProtocol();
 
         var getAria2MethodFullName = function (methodName) {
@@ -9,10 +9,10 @@
         };
 
         var invoke = function (method, context) {
-            context.uniqueId = utils.generateUniqueId();
+            context.uniqueId = ariaNgCommonService.generateUniqueId();
             context.requestBody = {
                 jsonrpc: aria2RpcConstants.rpcServiceVersion,
-                method: (method.indexOf('system.') != 0 ? getAria2MethodFullName(method) : method),
+                method: (method.indexOf(aria2RpcConstants.rpcSystemServiceName +  '.') != 0 ? getAria2MethodFullName(method) : method),
                 id: context.uniqueId,
                 params: context.params
             };

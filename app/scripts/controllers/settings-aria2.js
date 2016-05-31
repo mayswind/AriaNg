@@ -1,45 +1,24 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgConstants', 'aria2GlobalAvailableOptions', 'aria2RpcService', 'utils', function ($rootScope, $scope, $location, $timeout, ariaNgConstants, aria2GlobalAvailableOptions, aria2RpcService, utils) {
+    angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgConstants', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, $location, $timeout, ariaNgConstants, ariaNgCommonService, aria2SettingService) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
-        var pendingSaveRequest = {};
+        var pendingSaveRequests = {};
 
-        var getAvailableOptionsKeys = function (location) {
-            if (location == 'basic') {
-                return aria2GlobalAvailableOptions.basicOptions;
-            } else if (location == 'http-ftp-sftp') {
-                return aria2GlobalAvailableOptions.httpFtpSFtpOptions;
-            } else if (location == 'http') {
-                return aria2GlobalAvailableOptions.httpOptions;
-            } else if (location == 'ftp-sftp') {
-                return aria2GlobalAvailableOptions.ftpSFtpOptions;
-            } else if (location == 'bt') {
-                return aria2GlobalAvailableOptions.btOptions;
-            } else if (location == 'metalink') {
-                return aria2GlobalAvailableOptions.metalinkOptions;
-            } else if (location == 'rpc') {
-                return aria2GlobalAvailableOptions.rpcOptions;
-            } else if (location == 'advanced') {
-                return aria2GlobalAvailableOptions.advancedOptions;
-            } else {
-                utils.alert('Type is illegal!');
-                return false;
-            }
-        };
-
-        var getAvailableOptions = function (location) {
-            var keys = getAvailableOptionsKeys(location);
+        var getAvailableOptions = function (type) {
+            var keys = aria2SettingService.getAvailableOptionsKeys(type);
 
             if (!keys) {
+                ariaNgCommonService.alert('Type is illegal!');
                 return;
             }
 
-            return utils.getOptions(keys);
+            return aria2SettingService.getSpecifiedOptions(keys);
         };
 
         $scope.optionStatus = {};
         $scope.availableOptions = getAvailableOptions(location);
+
         $scope.setGlobalOption = function (option, value, lazySave) {
             if (!option || !option.key || option.readonly) {
                 return;
@@ -47,27 +26,21 @@
 
             var key = option.key;
             var invoke = function () {
-                var data = {};
-                data[key] = value;
-
                 $scope.optionStatus[key] = 'saving';
 
-                return aria2RpcService.changeGlobalOption({
-                    options: data,
-                    callback: function () {
-                        $scope.optionStatus[key] = 'saved';
-                    }
+                return aria2SettingService.setGlobalOption(key, value, function (result) {
+                    $scope.optionStatus[key] = 'saved';
                 });
             };
 
             delete $scope.optionStatus[key];
 
             if (lazySave) {
-                if (pendingSaveRequest[key]) {
-                    $timeout.cancel(pendingSaveRequest[key]);
+                if (pendingSaveRequests[key]) {
+                    $timeout.cancel(pendingSaveRequests[key]);
                 }
 
-                pendingSaveRequest[key] = $timeout(function () {
+                pendingSaveRequests[key] = $timeout(function () {
                     invoke();
                 }, ariaNgConstants.lazySaveTimeout);
             } else {
@@ -76,10 +49,8 @@
         };
 
         $rootScope.loadPromise = (function () {
-            return aria2RpcService.getGlobalOption({
-                callback: function (result) {
-                    $scope.globalOptions = result;
-                }
+            return aria2SettingService.getGlobalOption(function (result) {
+                $scope.globalOptions = result;
             });
         })();
     }]);

@@ -31,7 +31,7 @@
                             <span ng-bind="task.taskName"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>File Size</span>
                         </div>
@@ -40,7 +40,7 @@
                             <span ng-bind="'(' + task.files.length + ' ' + ('Files' | translate) + ')'"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Status</span>
                         </div>
@@ -48,7 +48,7 @@
                             <span ng-bind="task | taskStatus"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task.status == 'error' && task.errorMessage">
+                    <div class="row" ng-if="task && task.status == 'error' && task.errorMessage">
                         <div class="setting-key col-sm-4">
                             <span translate>Error Description</span>
                         </div>
@@ -56,7 +56,7 @@
                             <span ng-bind="task.errorMessage"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="('Completed Percent' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percent' | translate) + ')' : '')"></span>
                         </div>
@@ -64,7 +64,7 @@
                             <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (healthPercent | percent: 2) + '%' + ')' : '')"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download</span>
                         </div>
@@ -72,7 +72,7 @@
                             <span ng-bind="(task.completedLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolumn) + '/s' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task.bittorrent">
+                    <div class="row" ng-if="task && task.bittorrent">
                         <div class="setting-key col-sm-4">
                             <span translate>Upload</span>
                         </div>
@@ -80,7 +80,7 @@
                             <span ng-bind="(task.uploadLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolumn) + '/s' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task.status == 'active' && task.completedLength < task.totalLength">
+                    <div class="row" ng-if="task && task.status == 'active' && task.completedLength < task.totalLength">
                         <div class="setting-key col-sm-4">
                             <span translate>Remain Time</span>
                         </div>
@@ -88,7 +88,7 @@
                             <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task.infoHash">
+                    <div class="row" ng-if="task && task.infoHash">
                         <div class="setting-key col-sm-4">
                             <span translate>Info Hash</span>
                         </div>
@@ -96,7 +96,7 @@
                             <span ng-bind="task.infoHash"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task.status == 'active'">
+                    <div class="row" ng-if="task && task.status == 'active'">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="(task.bittorrent ? ('Seeders' | translate) + ' / ' : '') + ('Connections' | translate)">Connections</span>
                         </div>
@@ -104,7 +104,7 @@
                             <span ng-bind="(task.numSeeders ? (task.numSeeders + ' / ') : '') + task.connections"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Dir</span>
                         </div>

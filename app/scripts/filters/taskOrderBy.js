@@ -1,13 +1,13 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").filter('taskOrderBy', ['orderByFilter', 'utils', function (orderByFilter, utils) {
+    angular.module("ariaNg").filter('taskOrderBy', ['orderByFilter', 'ariaNgCommonService', function (orderByFilter, ariaNgCommonService) {
         return function (array, type) {
             if (!angular.isArray(array)) {
                 return array;
             }
 
-            var orderType = utils.parseOrderType(type);
+            var orderType = ariaNgCommonService.parseOrderType(type);
 
             if (orderType == null) {
                 return array;

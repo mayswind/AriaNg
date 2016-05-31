@@ -44,13 +44,13 @@
                         </a>
                     </li>
                     <li class="divider"></li>
-                    <li ng-class="{'disabled': !isStartableTaskSelected()}">
-                        <a class="toolbar" title="{{'Start' | translate}}" ng-click="startTask()">
+                    <li ng-class="{'disabled': !isSpecifiedTaskSelected('paused')}">
+                        <a class="toolbar" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
                             <i class="fa fa-play"></i>
                         </a>
                     </li>
-                    <li ng-class="{'disabled': !isPausableTaskSelected()}">
-                        <a class="toolbar" title="{{'Pause' | translate}}" ng-click="pauseTask()">
+                    <li ng-class="{'disabled': !isSpecifiedTaskSelected('active')}">
+                        <a class="toolbar" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
                             <i class="fa fa-pause"></i>
                         </a>
                     </li>
@@ -61,7 +61,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li ng-if="isTaskSelected()">
-                                <a class="pointer-cursor" ng-click="removeTask()">
+                                <a class="pointer-cursor" ng-click="removeTasks()">
                                     <span translate>Remove Task</span>
                                 </a>
                             </li>
@@ -73,7 +73,7 @@
                         </ul>
                     </li>
                     <li class="divider"></li>
-                    <li ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
+                    <li ng-class="{'disabled': !taskContext.enableSelectAll || !taskContext.list || taskContext.list.length < 1}">
                         <a class="toolbar" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
                             <i class="fa fa-th-large"></i>
                         </a>
@@ -259,31 +259,34 @@
 <script src="scripts/core/__core.js"></script>
 <script src="scripts/core/__fix.js"></script>
 <script src="scripts/core/app.js"></script>
-<script src="scripts/core/aria2options.js"></script>
-<script src="scripts/core/config.js"></script>
-<script src="scripts/core/constants.js"></script>
-<script src="scripts/core/lang-confs.js"></script>
-<script src="scripts/core/lang-default.js"></script>
 <script src="scripts/core/router.js"></script>
-<script src="scripts/core/utils.js"></script>
-<script src="scripts/controllers/list.js"></script>
+<script src="scripts/core/root.js"></script>
+<script src="scripts/config/constants.js"></script>
+<script src="scripts/config/configuration.js"></script>
+<script src="scripts/config/initiator.js"></script>
+<script src="scripts/config/languages.js"></script>
+<script src="scripts/config/language-default.js"></script>
+<script src="scripts/config/aria2options.js"></script>
 <script src="scripts/controllers/main.js"></script>
-<script src="scripts/controllers/settings-aria2.js"></script>
-<script src="scripts/controllers/settings-ariang.js"></script>
-<script src="scripts/controllers/status.js"></script>
+<script src="scripts/controllers/list.js"></script>
 <script src="scripts/controllers/task-detail.js"></script>
+<script src="scripts/controllers/settings-ariang.js"></script>
+<script src="scripts/controllers/settings-aria2.js"></script>
+<script src="scripts/controllers/status.js"></script>
 <script src="scripts/directives/placeholder.js"></script>
 <script src="scripts/filters/dateDuration.js"></script>
-<script src="scripts/filters/filename.js"></script>
 <script src="scripts/filters/fileOrderBy.js"></script>
 <script src="scripts/filters/percent.js"></script>
 <script src="scripts/filters/taskOrderBy.js"></script>
 <script src="scripts/filters/taskStatus.js"></script>
 <script src="scripts/filters/volumn.js"></script>
-<script src="scripts/services/aria2HttpRpcService.js"></script>
-<script src="scripts/services/aria2RpcService.js"></script>
-<script src="scripts/services/aria2WebSocketRpcService.js"></script>
+<script src="scripts/services/ariaNgCommonService.js"></script>
 <script src="scripts/services/ariaNgSettingService.js"></script>
+<script src="scripts/services/ariaNgTaskService.js"></script>
+<script src="scripts/services/aria2SettingService.js"></script>
+<script src="scripts/services/aria2RpcService.js"></script>
+<script src="scripts/services/aria2HttpRpcService.js"></script>
+<script src="scripts/services/aria2WebSocketRpcService.js"></script>
 <!-- endbuild -->
 </body>
 </html>

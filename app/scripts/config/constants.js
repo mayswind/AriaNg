@@ -15,6 +15,7 @@
         downloadTaskRefreshInterval: 1000
     }).constant('aria2RpcConstants', {
         rpcServiceVersion: '2.0',
-        rpcServiceName: 'aria2'
+        rpcServiceName: 'aria2',
+        rpcSystemServiceName: 'system'
     });
 })();
