@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTaskService', function ($rootScope, $scope, $routeParams, $interval, ariaNgCommonService, ariaNgSettingService, ariaNgTaskService) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $scope, $routeParams, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
 
@@ -12,17 +12,17 @@
         $scope.healthPercent = 0;
 
         var refreshBtPeers = function (task) {
-            return ariaNgTaskService.getBtTaskPeers(task.gid, function (result) {
+            return aria2TaskService.getBtTaskPeers(task.gid, function (result) {
                 if (!ariaNgCommonService.extendArray(result, $scope.peers, 'peerId')) {
                     $scope.peers = result;
                 }
 
-                $scope.healthPercent = ariaNgTaskService.estimateHealthPercentFromPeers(task, $scope.peers);
+                $scope.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.peers);
             });
         };
 
         var refreshDownloadTask = function () {
-            return ariaNgTaskService.getTaskStatus($routeParams.gid, function (result) {
+            return aria2TaskService.getTaskStatus($routeParams.gid, function (result) {
                 if (result.status == 'active' && result.bittorrent) {
                     refreshBtPeers(result);
                 } else {
@@ -62,7 +62,7 @@
         };
 
         $scope.loadTaskOption = function (task) {
-            $rootScope.loadPromise = ariaNgTaskService.getTaskOption(task.gid, function (result) {
+            $rootScope.loadPromise = aria2TaskService.getTaskOption(task.gid, function (result) {
                 $scope.options = result;
             });
         };

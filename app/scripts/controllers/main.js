@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$interval', 'aria2SettingService', 'ariaNgCommonService', 'ariaNgTaskService', 'ariaNgSettingService', function ($rootScope, $scope, $route, $interval, aria2SettingService, ariaNgCommonService, ariaNgTaskService, ariaNgSettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
         var refreshGlobalStat = function () {
@@ -40,9 +40,9 @@
             var invoke = null;
 
             if (state == 'start') {
-                invoke = ariaNgTaskService.startTasks;
+                invoke = aria2TaskService.startTasks;
             } else if (state == 'pause') {
-                invoke = ariaNgTaskService.pauseTasks;
+                invoke = aria2TaskService.pauseTasks;
             } else {
                 return;
             }

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgTaskService', ['$translate', 'aria2RpcService', function ($translate, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$translate', 'aria2RpcService', function ($translate, aria2RpcService) {
         var getFileNameFromPath = function (path) {
             if (!path) {
                 return path;

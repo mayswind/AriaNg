@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$route', '$interval', 'dragulaService', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTaskService', function ($rootScope, $scope, $window, $location, $route, $interval, dragulaService, ariaNgCommonService, ariaNgSettingService, ariaNgTaskService) {
+    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$route', '$interval', 'dragulaService', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $scope, $window, $location, $route, $interval, dragulaService, ariaNgCommonService, ariaNgSettingService, aria2TaskService) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
@@ -12,7 +12,7 @@
                 return;
             }
 
-            return ariaNgTaskService.getTaskList(location, needRequestWholeInfo, function (result) {
+            return aria2TaskService.getTaskList(location, needRequestWholeInfo, function (result) {
                 if (!ariaNgCommonService.extendArray(result, $rootScope.taskContext.list, 'gid')) {
                     if (needRequestWholeInfo) {
                         $rootScope.taskContext.list = result;
@@ -25,7 +25,7 @@
                 }
 
                 if ($rootScope.taskContext.list) {
-                    ariaNgTaskService.processDownloadTasks($rootScope.taskContext.list);
+                    aria2TaskService.processDownloadTasks($rootScope.taskContext.list);
                     $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list.length > 1;
                 }
             });
@@ -73,7 +73,7 @@
 
             pauseDownloadTaskRefresh = true;
 
-            ariaNgTaskService.changeTaskPosition(gid, index, function (result) {
+            aria2TaskService.changeTaskPosition(gid, index, function (result) {
                 pauseDownloadTaskRefresh = false;
             });
         });
