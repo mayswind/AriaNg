@@ -45,17 +45,17 @@
                         </a>
                     </li>
                     <li class="divider"></li>
-                    <li ng-class="{'disabled': !isSpecifiedTaskSelected('paused')}">
+                    <li class="disabled" ng-class="{'disabled': !isSpecifiedTaskSelected('paused')}">
                         <a class="toolbar" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
                             <i class="fa fa-play"></i>
                         </a>
                     </li>
-                    <li ng-class="{'disabled': !isSpecifiedTaskSelected('active')}">
+                    <li class="disabled" ng-class="{'disabled': !isSpecifiedTaskSelected('active')}">
                         <a class="toolbar" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
                             <i class="fa fa-pause"></i>
                         </a>
                     </li>
-                    <li ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
+                    <li class="disabled" ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
                         <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Delete' | translate}}">
                             <i class="fa fa-trash-o"></i>
                             <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
@@ -74,12 +74,12 @@
                         </ul>
                     </li>
                     <li class="divider"></li>
-                    <li ng-class="{'disabled': !taskContext.enableSelectAll || !taskContext.list || taskContext.list.length < 1}">
+                    <li class="disabled" ng-class="{'disabled': !taskContext.enableSelectAll || !taskContext.list || taskContext.list.length < 1}">
                         <a class="toolbar" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
                             <i class="fa fa-th-large"></i>
                         </a>
                     </li>
-                    <li>
+                    <li class="disabled" ng-class="{'disabled': !taskContext.enableSelectAll || !taskContext.list || taskContext.list.length < 1}">
                         <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Display Order' | translate}}">
                             <i class="fa fa-sort-alpha-asc"></i>
                             <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
