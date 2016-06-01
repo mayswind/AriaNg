@@ -1,0 +1,54 @@
+<div class="row" data-option-key="{{option.key}}">
+    <div class="setting-key setting-key-without-desc col-sm-4">
+        <span ng-bind="option.nameKey | translate"></span>
+        <em ng-bind="'(' + option.key + ')'"></em>
+        <i class="icon-primary fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+           title="{{option.descriptionKey | translate}}" ng-if="(option.descriptionKey | translate) != ''"></i>
+        <span class="description" ng-if="option.showCount && option.split && optionValue"
+              ng-bind="'(' + ('Total Count' | translate) + ': ' + getTotalCount() + ')'"></span>
+    </div>
+    <div class="setting-value col-sm-8">
+        <div ng-class="{'input-group': option.suffix}">
+            <div class="form-group" ng-if="option.type == 'string' || option.type == 'integer' || option.type == 'float'"
+                 ng-class="{'has-success': status && status == 'saved'}">
+                <div class="has-feedback">
+                    <input class="form-control" type="text" ng-disabled="!!option.readonly" ng-model="optionValue" ng-change="changeValue(optionValue, true)"/>
+                    <div class="form-control-icon" ng-if="status">
+                    <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="option.type == 'text'" ng-class="{'has-success': status && status == 'saved'}">
+                <div class="has-feedback">
+                    <textarea class="form-control" rows="6" ng-disabled="!!option.readonly" ng-model="optionValue" ng-change="changeValue(optionValue, true)"></textarea>
+                    <div class="form-control-icon" ng-if="status">
+                    <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="option.type == 'boolean'" ng-class="{'has-success': status && status == 'saved'}">
+                <div class="has-feedback">
+                    <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly" ng-model="optionValue" ng-change="changeValue(optionValue, false)">
+                        <option value="true" translate>True</option>
+                        <option value="false" translate>False</option>
+                    </select>
+                    <div class="form-control-icon" ng-if="status">
+                    <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="option.type == 'option'" ng-class="{'has-success': status && status == 'saved'}">
+                <div class="has-feedback">
+                    <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly"
+                            ng-model="optionValue" ng-change="changeValue(optionValue, false)"
+                            ng-options="(value | translate) for value in option.options">
+                    </select>
+                    <div class="form-control-icon" ng-if="status">
+                        <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    </div>
+                </div>
+            </div>
+            <span class="input-group-addon" ng-if="option.suffix" ng-bind="option.suffix | translate"></span>
+        </div>
+    </div>
+</div>
