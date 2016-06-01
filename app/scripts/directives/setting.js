@@ -11,7 +11,7 @@
                 option: '=',
                 ngModel: '=',
                 status: '=',
-                beforeChangeValue: '&',
+                onPendingChangeValue: '&',
                 onChangeValue: '&'
             },
             link: function (scope, element, attrs, ngModel) {
@@ -42,8 +42,8 @@
                         value: optionValue
                     };
 
-                    if (scope.beforeChangeValue) {
-                        scope.beforeChangeValue(data);
+                    if (scope.onPendingChangeValue) {
+                        scope.onPendingChangeValue(data);
                     }
 
                     if (pendingSaveRequest) {

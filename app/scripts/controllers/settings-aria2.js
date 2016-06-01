@@ -5,7 +5,7 @@
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
 
         var getAvailableOptions = function (type) {
-            var keys = aria2SettingService.getAvailableOptionsKeys(type);
+            var keys = aria2SettingService.getAvailableGlobalOptionsKeys(type);
 
             if (!keys) {
                 ariaNgCommonService.alert('Type is illegal!');

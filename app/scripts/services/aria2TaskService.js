@@ -132,9 +132,19 @@
                     }
                 });
             },
-            getTaskOption: function (gid, callback) {
+            getTaskOptions: function (gid, callback) {
                 return aria2RpcService.getOption({
                     gid: gid,
+                    callback: callback
+                });
+            },
+            setTaskOption: function (gid, key, value, callback) {
+                var data = {};
+                data[key] = value;
+                
+                return aria2RpcService.changeOption({
+                    gid: gid,
+                    options: data,
                     callback: callback
                 });
             },

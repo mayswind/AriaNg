@@ -1,6 +1,6 @@
 <section class="content no-padding">
     <div class="settings-table">
         <ng-setting ng-repeat="option in availableOptions" option="option" ng-model="globalOptions[option.key]" status="optionStatus[option.key]"
-                    before-change-value="pendingGlobalOption(key, value)" on-change-value="setGlobalOption(key, value)"></ng-setting>
+                    on-pending-change-value="pendingOption(key, value)" on-change-value="setGlobalOption(key, value)"></ng-setting>
     </div>
 </section>

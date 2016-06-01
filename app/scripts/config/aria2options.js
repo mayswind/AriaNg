@@ -551,5 +551,8 @@
         metalinkOptions: ['follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os', 'metalink-version', 'metalink-preferred-protocol', 'metalink-enable-unique-protocol'],
         rpcOptions: ['enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port', 'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'],
         advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'hash-check-only', 'human-readable', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'piece-length', 'optimize-concurrent-downloads', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
+    }).constant('aria2TaskAvailableOptions', {
+        activeBtOptions: ['max-download-limit', 'max-upload-limit', 'bt-max-peers', 'bt-request-peer-speed-limit', 'bt-remove-unselected-file', 'force-save'],
+        activeOtherOptions: ['max-download-limit', 'max-upload-limit', 'force-save']
     });
 })();

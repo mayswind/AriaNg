@@ -1,15 +1,20 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $scope, $routeParams, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
 
-        $scope.context = {
-            currentTab: 'overview'
-        };
+        var getAvailableOptions = function (status, isBittorrent) {
+            var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
 
-        $scope.healthPercent = 0;
+            if (!keys) {
+                ariaNgCommonService.alert('Type is illegal!');
+                return;
+            }
+
+            return aria2SettingService.getSpecifiedOptions(keys);
+        };
 
         var refreshBtPeers = function (task) {
             return aria2TaskService.getBtTaskPeers(task.gid, function (result) {
@@ -31,6 +36,10 @@
                     }
                 }
 
+                if (!$scope.task || $scope.task.status != result.status) {
+                    $scope.availableOptions = getAvailableOptions(result.status, !!result.bittorrent);
+                }
+
                 $scope.task = ariaNgCommonService.copyObjectTo(result, $scope.task);
 
                 $rootScope.taskContext.list = [$scope.task];
@@ -38,6 +47,14 @@
                 $rootScope.taskContext.selected[$scope.task.gid] = true;
             });
         };
+
+        $scope.context = {
+            currentTab: 'overview'
+        };
+
+        $scope.healthPercent = 0;
+        $scope.optionStatus = {};
+        $scope.availableOptions = [];
 
         $rootScope.swipeActions.extentLeftSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
@@ -61,12 +78,6 @@
             }
         };
 
-        $scope.loadTaskOption = function (task) {
-            $rootScope.loadPromise = aria2TaskService.getTaskOption(task.gid, function (result) {
-                $scope.options = result;
-            });
-        };
-
         $scope.changeFileListDisplayOrder = function (type, autoSetReverse) {
             var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
             var newType = ariaNgCommonService.parseOrderType(type);
@@ -87,6 +98,24 @@
 
         $scope.getFileListOrderType = function () {
             return ariaNgSettingService.getFileListDisplayOrder();
+        };
+
+        $scope.loadTaskOption = function (task) {
+            $rootScope.loadPromise = aria2TaskService.getTaskOptions(task.gid, function (result) {
+                $scope.options = result;
+            });
+        };
+
+        $scope.pendingOption = function (key, value) {
+            $scope.optionStatus[key] = 'pending';
+        };
+
+        $scope.setOption = function (key, value) {
+            $scope.optionStatus[key] = 'saving';
+
+            return aria2TaskService.setTaskOption($scope.task.gid, key, value, function (result) {
+                $scope.optionStatus[key] = 'saved';
+            });
         };
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {

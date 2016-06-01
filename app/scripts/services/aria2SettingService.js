@@ -1,23 +1,23 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2RpcService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, aria2RpcService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
             }
-            
+
             var activeCount = parseInt(stat.numActive);
             var waitingCount = parseInt(stat.numWaiting);
             var totalRunningCount = activeCount + waitingCount;
 
             stat.totalRunningCount = totalRunningCount;
-            
+
             return stat;
         };
-        
+
         return {
-            getAvailableOptionsKeys: function (type) {
+            getAvailableGlobalOptionsKeys: function (type) {
                 if (type == 'basic') {
                     return aria2GlobalAvailableOptions.basicOptions;
                 } else if (type == 'http-ftp-sftp') {
@@ -34,6 +34,19 @@
                     return aria2GlobalAvailableOptions.rpcOptions;
                 } else if (type == 'advanced') {
                     return aria2GlobalAvailableOptions.advancedOptions;
+                } else {
+                    return false;
+                }
+            },
+            getAvailableTaskOptionKeys: function (status, isBittorrent) {
+                if (status == 'active' && isBittorrent) {
+                    return aria2TaskAvailableOptions.activeBtOptions;
+                } else if (status == 'active' && !isBittorrent) {
+                    return aria2TaskAvailableOptions.activeOtherOptions;
+                } else if ((status == 'waiting' || status == 'paused') && isBittorrent) {
+                    return aria2TaskAvailableOptions.activeBtOptions;
+                } else if ((status == 'waiting' || status == 'paused') && !isBittorrent) {
+                    return aria2TaskAvailableOptions.activeOtherOptions;
                 } else {
                     return false;
                 }

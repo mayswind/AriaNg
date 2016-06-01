@@ -10,10 +10,10 @@
             <li ng-class="{'active': context.currentTab == 'filelist'}">
                 <a class="pointer-cursor" ng-click="context.currentTab = 'filelist'" translate>File List</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task.status == 'active' && task.bittorrent">
+            <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
                 <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers'" translate>Peers</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'settings'}" class="slim">
+            <li ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')" class="slim">
                 <a class="pointer-cursor" ng-click="context.currentTab = 'settings';loadTaskOption(task);">
                     <i class="fa fa-gear"></i>
                 </a>
@@ -160,7 +160,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task.status == 'active' && task.bittorrent">
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
                 <div class="task-table task-table-firstrow-noborder">
                     <div class="task-table-title hidden-xs">
                         <div class="row">
@@ -206,9 +206,12 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')">
                 <div class="settings-table settings-table-firstrow-noborder">
-
+                    <ng-setting ng-repeat="option in availableOptions" option="option"
+                                ng-model="options[option.key]" status="optionStatus[option.key]"
+                                on-pending-change-value="pendingOption(key, value)"
+                                on-change-value="setOption(key, value)"></ng-setting>
                 </div>
             </div>
         </div>

@@ -139,6 +139,10 @@
         };
 
         $rootScope.$on('$locationChangeStart', function (event) {
+            SweetAlert.close();
+
+            $rootScope.loadPromise = null;
+
             delete $rootScope.swipeActions.extentLeftSwipe;
             delete $rootScope.swipeActions.extentRightSwipe;
 
@@ -151,8 +155,6 @@
             }
 
             $rootScope.taskContext.enableSelectAll = false;
-
-            SweetAlert.close();
         });
 
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
