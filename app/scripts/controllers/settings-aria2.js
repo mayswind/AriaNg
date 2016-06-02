@@ -15,18 +15,15 @@
             return aria2SettingService.getSpecifiedOptions(keys);
         };
 
-        $scope.optionStatus = {};
         $scope.availableOptions = getAvailableOptions(location);
 
-        $scope.pendingGlobalOption = function (key, value) {
-            $scope.optionStatus[key] = 'pending';
-        };
-
-        $scope.setGlobalOption = function (key, value) {
-            $scope.optionStatus[key] = 'saving';
-
+        $scope.setGlobalOption = function (key, value, optionStatus) {
             return aria2SettingService.setGlobalOption(key, value, function (result) {
-                $scope.optionStatus[key] = 'saved';
+                if (result == 'OK') {
+                    optionStatus.setSuccess();
+                } else {
+                    optionStatus.setFailed();
+                }
             });
         };
 

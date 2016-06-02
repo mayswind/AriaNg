@@ -10,8 +10,6 @@
             scope: {
                 option: '=',
                 ngModel: '=',
-                status: '=',
-                onPendingChangeValue: '&',
                 onChangeValue: '&'
             },
             link: function (scope, element, attrs, ngModel) {
@@ -21,6 +19,63 @@
                 };
 
                 angular.extend(options, attrs);
+
+                scope.optionStatus = (function () {
+                    var value = 'ready';
+
+                    return {
+                        getValue: function () {
+                            return value;
+                        },
+                        setReady: function () {
+                            value = 'ready';
+                        },
+                        setPending: function () {
+                            value = 'pending';
+                        },
+                        setSaving: function () {
+                            value = 'pending';
+                        },
+                        setSuccess: function () {
+                            value = 'success';
+                        },
+                        setFailed: function () {
+                            value = 'failed';
+                        },
+                        setError: function () {
+                            value = 'error';
+                        },
+                        getStatusFeedbackStyle: function () {
+                            if (value == 'success') {
+                                return 'has-success';
+                            } else if (value == 'failed') {
+                                return 'has-warning';
+                            } else if (value == 'error') {
+                                return 'has-error';
+                            } else {
+                                return '';
+                            }
+                        },
+                        getStatusIcon: function () {
+                            if (value == 'pending') {
+                                return 'fa-hourglass-start';
+                            } else if (value == 'saving') {
+                                return 'fa-spin fa-pulse fa-spinner';
+                            } else if (value == 'success') {
+                                return 'fa-check';
+                            } else if (value == 'failed') {
+                                return 'fa-exclamation';
+                            } else if (value == 'error') {
+                                return 'fa-times';
+                            } else {
+                                return '';
+                            }
+                        },
+                        isShowStatusIcon: function () {
+                            return this.getStatusIcon() != '';
+                        }
+                    };
+                })();
 
                 scope.getTotalCount = function () {
                     if (!scope.optionValue && !angular.isString(scope.optionValue)) {
@@ -32,6 +87,7 @@
 
                 scope.changeValue = function (optionValue, lazySave) {
                     scope.optionValue = optionValue;
+                    scope.optionStatus.setReady();
 
                     if (!scope.option || !scope.option.key || scope.option.readonly) {
                         return;
@@ -39,24 +95,28 @@
 
                     var data = {
                         key: scope.option.key,
-                        value: optionValue
+                        value: optionValue,
+                        optionStatus: scope.optionStatus
                     };
-
-                    if (scope.onPendingChangeValue) {
-                        scope.onPendingChangeValue(data);
-                    }
 
                     if (pendingSaveRequest) {
                         $timeout.cancel(pendingSaveRequest);
                     }
 
+                    var invokeChange = function () {
+                        scope.optionStatus.setSaving();
+                        scope.onChangeValue(data);
+                    };
+
                     if (scope.onChangeValue) {
                         if (lazySave) {
+                            scope.optionStatus.setPending();
+
                             pendingSaveRequest = $timeout(function () {
-                                scope.onChangeValue(data);
+                                invokeChange();
                             }, options.lazySaveTimeout);
                         } else {
-                            scope.onChangeValue(data);
+                            invokeChange();
                         }
                     }
                 };

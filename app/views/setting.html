@@ -9,42 +9,41 @@
     </div>
     <div class="setting-value col-sm-8">
         <div ng-class="{'input-group': option.suffix}">
-            <div class="form-group" ng-if="option.type == 'string' || option.type == 'integer' || option.type == 'float'"
-                 ng-class="{'has-success': status && status == 'saved'}">
+            <div class="form-group" ng-if="option.type == 'string' || option.type == 'integer' || option.type == 'float'" ng-class="[optionStatus.getStatusFeedbackStyle()]">
                 <div class="has-feedback">
                     <input class="form-control" type="text" ng-disabled="!!option.readonly" ng-model="optionValue" ng-change="changeValue(optionValue, true)"/>
-                    <div class="form-control-icon" ng-if="status">
-                    <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    <div class="form-control-icon" ng-if="optionStatus.isShowStatusIcon()">
+                        <span class="fa form-control-feedback" ng-class="[optionStatus.getStatusIcon()]"></span>
                     </div>
                 </div>
             </div>
-            <div class="form-group" ng-if="option.type == 'text'" ng-class="{'has-success': status && status == 'saved'}">
+            <div class="form-group" ng-if="option.type == 'text'" ng-class="[optionStatus.getStatusFeedbackStyle()]">
                 <div class="has-feedback">
                     <textarea class="form-control" rows="6" ng-disabled="!!option.readonly" ng-model="optionValue" ng-change="changeValue(optionValue, true)"></textarea>
-                    <div class="form-control-icon" ng-if="status">
-                    <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    <div class="form-control-icon" ng-if="optionStatus.isShowStatusIcon()">
+                        <span class="fa form-control-feedback" ng-class="[optionStatus.getStatusIcon()]"></span>
                     </div>
                 </div>
             </div>
-            <div class="form-group" ng-if="option.type == 'boolean'" ng-class="{'has-success': status && status == 'saved'}">
+            <div class="form-group" ng-if="option.type == 'boolean'" ng-class="[optionStatus.getStatusFeedbackStyle()]">
                 <div class="has-feedback">
                     <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly" ng-model="optionValue" ng-change="changeValue(optionValue, false)">
                         <option value="true" translate>True</option>
                         <option value="false" translate>False</option>
                     </select>
-                    <div class="form-control-icon" ng-if="status">
-                    <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    <div class="form-control-icon" ng-if="optionStatus.isShowStatusIcon()">
+                        <span class="fa form-control-feedback" ng-class="[optionStatus.getStatusIcon()]"></span>
                     </div>
                 </div>
             </div>
-            <div class="form-group" ng-if="option.type == 'option'" ng-class="{'has-success': status && status == 'saved'}">
+            <div class="form-group" ng-if="option.type == 'option'" ng-class="[optionStatus.getStatusFeedbackStyle()]">
                 <div class="has-feedback">
                     <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly"
                             ng-model="optionValue" ng-change="changeValue(optionValue, false)"
                             ng-options="(value | translate) for value in option.options">
                     </select>
-                    <div class="form-control-icon" ng-if="status">
-                        <span class="fa form-control-feedback" ng-class="{'fa-hourglass-start': status == 'pending', 'fa-spin fa-pulse fa-spinner': status == 'saving', 'fa-check': status == 'saved'}"></span>
+                    <div class="form-control-icon" ng-if="optionStatus.isShowStatusIcon()">
+                        <span class="fa form-control-feedback" ng-class="[optionStatus.getStatusIcon()]"></span>
                     </div>
                 </div>
             </div>

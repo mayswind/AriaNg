@@ -209,9 +209,7 @@
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')">
                 <div class="settings-table settings-table-firstrow-noborder">
                     <ng-setting ng-repeat="option in availableOptions" option="option"
-                                ng-model="options[option.key]" status="optionStatus[option.key]"
-                                on-pending-change-value="pendingOption(key, value)"
-                                on-change-value="setOption(key, value)"></ng-setting>
+                                ng-model="options[option.key]" on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                 </div>
             </div>
         </div>

@@ -25,7 +25,13 @@
                         context.callback(data.result);
                     }
                 }).error(function (data, header, config, status) {
-                    //Do Nothing
+                    if (!data) {
+                        return;
+                    }
+
+                    if (context.callback) {
+                        context.callback(data.result);
+                    }
                 });
             }
         };

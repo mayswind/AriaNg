@@ -53,7 +53,6 @@
         };
 
         $scope.healthPercent = 0;
-        $scope.optionStatus = {};
         $scope.availableOptions = [];
 
         $rootScope.swipeActions.extentLeftSwipe = function () {
@@ -106,15 +105,13 @@
             });
         };
 
-        $scope.pendingOption = function (key, value) {
-            $scope.optionStatus[key] = 'pending';
-        };
-
-        $scope.setOption = function (key, value) {
-            $scope.optionStatus[key] = 'saving';
-
+        $scope.setOption = function (key, value, optionStatus) {
             return aria2TaskService.setTaskOption($scope.task.gid, key, value, function (result) {
-                $scope.optionStatus[key] = 'saved';
+                if (result == 'OK') {
+                    optionStatus.setSuccess();
+                } else {
+                    optionStatus.setFailed();
+                }
             });
         };
 
