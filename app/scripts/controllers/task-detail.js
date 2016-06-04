@@ -9,7 +9,6 @@
             var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
 
             if (!keys) {
-                ariaNgCommonService.alert('Type is illegal!');
                 return;
             }
 
