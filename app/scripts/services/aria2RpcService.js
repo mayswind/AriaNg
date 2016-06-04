@@ -38,7 +38,7 @@
                 context.requestBody.params = finalParams;
             }
 
-            if (protocol == 'ws') {
+            if (protocol == 'ws' || protocol == 'wss') {
                 return aria2WebSocketRpcService.request(context);
             } else {
                 return aria2HttpRpcService.request(context);

@@ -42,7 +42,9 @@
             <div class="setting-value col-sm-8">
                 <select class="form-control" style="width: 100%;" ng-model="settings.protocol" ng-change="settingService.setProtocol(settings.protocol)">
                     <option value="http" translate>Http</option>
+                    <option value="https" translate>Https</option>
                     <option value="ws" translate>WebSocket</option>
+                    <option value="wss" translate>WebSocket (Security)</option>
                 </select>
             </div>
         </div>
