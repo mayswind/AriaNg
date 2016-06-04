@@ -38,6 +38,19 @@
                 context.requestBody.params = finalParams;
             }
 
+            if (!context.silent) {
+                context.errorCallback = function (error) {
+                    if (!error || !error.message) {
+                        return;
+                    }
+
+                    if (error.message == 'Unauthorized') {
+                        ariaNgCommonService.alert('rpc.error.' + error.message);
+                        return;
+                    }
+                }
+            }
+
             if (protocol == 'ws' || protocol == 'wss') {
                 return aria2WebSocketRpcService.request(context);
             } else {

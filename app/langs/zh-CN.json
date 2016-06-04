@@ -122,6 +122,11 @@
         "settings.file-count": "({{count}} 个文件)",
         "settings.total-count": "(共计: {{count}}个)"
     },
+    "rpc": {
+        "error": {
+            "Unauthorized": "认证失败!"
+        }
+    },
     "options": {
         "dir.name": "下载路径",
         "dir.description": "",

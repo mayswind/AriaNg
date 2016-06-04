@@ -34,18 +34,21 @@
                     }
 
                     var context = state.context;
-                    var callbackMethod = context.callback;
 
                     state.deferred.resolve({
                         success: true,
                         context: context
                     });
 
-                    if (callbackMethod) {
+                    if (content.error && context.errorCallback) {
+                        context.errorCallback(content.error);
+                    }
+
+                    if (context.callback) {
                         if (content.result) {
-                            callbackMethod(content.result);
+                            context.callback(content.result);
                         } else if (content.error) {
-                            callbackMethod(content.error);
+                            context.callback(content.error);
                         }
                     }
 

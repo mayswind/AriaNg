@@ -126,6 +126,11 @@
                 'settings.file-count': '({{count}} Files)',
                 'settings.total-count': '(Total Count: {{count}})'
             },
+            'rpc': {
+                'error': {
+                    'Unauthorized': 'Authorization Failed!'
+                }
+            },
             'options': {
                 'dir.name': 'Download Path',
                 'dir.description': '',

@@ -29,6 +29,10 @@
                         return;
                     }
 
+                    if (context.errorCallback) {
+                        context.errorCallback(data.error);
+                    }
+
                     if (context.callback) {
                         context.callback(data.error);
                     }
