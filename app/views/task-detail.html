@@ -37,7 +37,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="task.totalLength | readableVolumn"></span>
-                            <span ng-bind="'(' + task.files.length + ' ' + ('Files' | translate) + ')'"></span>
+                            <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.files.length})"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
@@ -45,7 +45,7 @@
                             <span translate>Task Status</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="task | taskStatus"></span>
+                            <span ng-bind="task | taskStatus | translate: {errorcode: task.errorCode}"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task && task.status == 'error' && task.errorMessage">

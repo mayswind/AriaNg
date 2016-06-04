@@ -5,7 +5,7 @@
         <i class="icon-primary fa fa-question-circle" data-toggle="tooltip" data-placement="right"
            title="{{option.descriptionKey | translate}}" ng-if="(option.descriptionKey | translate) != ''"></i>
         <span class="description" ng-if="option.showCount && option.split && optionValue"
-              ng-bind="'(' + ('Total Count' | translate) + ': ' + getTotalCount() + ')'"></span>
+              ng-bind="'format.settings.total-count' | translate: {count: getTotalCount()}"></span>
     </div>
     <div class="setting-value col-sm-8">
         <div ng-class="{'input-group': option.suffix}">

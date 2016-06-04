@@ -54,7 +54,6 @@
             'Remain Time': 'Remain',
             'Download Speed': 'Download Speed',
             'Upload Speed': 'Upload Speed',
-            'Files': 'Files',
             'Overview': 'Overview',
             'Blocks': 'Blocks',
             'File List': 'File List',
@@ -87,7 +86,6 @@
             'Loading': 'Loading...',
             'More Than One Day': 'More than 1 day',
             'Unknown': 'Unknown',
-            'Total Count': 'Total Count',
             'Bytes': 'Bytes',
             'Hours': 'Hours',
             'Minutes': 'Minutes',
@@ -119,6 +117,9 @@
                 'time.minutes': '{{value}} Minutes',
                 'time.hour': '{{value}} Hour',
                 'time.hours': '{{value}} Hours',
+                'task.error-occurred': 'Error Occurred ({{errorcode}})',
+                'settings.file-count': '({{count}} Files)',
+                'settings.total-count': '(Total Count: {{count}})'
             },
             'options': {
                 'dir.name': 'Download Path',

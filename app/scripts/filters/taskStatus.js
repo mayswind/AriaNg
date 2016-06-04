@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").filter('taskStatus', ['$translate', function ($translate) {
+    angular.module("ariaNg").filter('taskStatus', function () {
         return function (task) {
             if (!task) {
                 return '';
@@ -9,23 +9,23 @@
 
             if (task.status == 'active') {
                 if (task.seeder === true || task.seeder === 'true') {
-                    return $translate.instant('Seeding');
+                    return 'Seeding';
                 } else {
-                    return $translate.instant('Downloading');
+                    return 'Downloading';
                 }
             } else if (task.status == 'waiting') {
-                return $translate.instant('Waiting');
+                return 'Waiting';
             } else if (task.status == 'paused') {
-                return $translate.instant('Paused');
+                return 'Paused';
             } else if (task.status == 'complete') {
-                return $translate.instant('Completed');
+                return 'Completed';
             } else if (task.status == 'error') {
-                return $translate.instant('Error Occurred') + (task.errorCode ? ' (' + task.errorCode + ')' : '');
+                return (task.errorCode ? 'format.task.error-occurred' : 'Error Occurred');
             } else if (task.status == 'removed') {
-                return $translate.instant('Removed');
+                return 'Removed';
             } else {
                 return '';
             }
         }
-    }]);
+    });
 })();

@@ -44,7 +44,7 @@
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>
                         <a ng-href="#/task/detail/{{task.gid}}">
-                            <span ng-bind="'(' + task.files.length + ' ' + ('Files' | translate) + ')'"></span>
+                            <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.files.length})"></span>
                         </a>
                     </div>
                 </div>

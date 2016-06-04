@@ -50,7 +50,6 @@
     "Remain Time": "剩余时间",
     "Download Speed": "下载速度",
     "Upload Speed": "上传速度",
-    "Files": "个文件",
     "Overview": "总览",
     "Blocks": "区块信息",
     "File List": "文件列表",
@@ -83,7 +82,6 @@
     "Loading": "正在加载...",
     "More Than One Day": "超过1天",
     "Unknown": "未知",
-    "Total Count": "共计",
     "Bytes": "字节",
     "Hours": "小时",
     "Minutes": "分",
@@ -114,7 +112,10 @@
         "time.minute": "{{value}} 分钟",
         "time.minutes": "{{value}} 分钟",
         "time.hour": "{{value}} 小时",
-        "time.hours": "{{value}} 小时"
+        "time.hours": "{{value}} 小时",
+        "task.error-occurred": "发生错误 ({{errorcode}})",
+        "settings.file-count": "({{count}} 个文件)",
+        "settings.total-count": "(共计: {{count}}个)"
     },
     "options": {
         "dir.name": "下载路径",
