@@ -92,8 +92,9 @@
                     callback: callback
                 })
             },
-            getGlobalStat: function (callback) {
+            getGlobalStat: function (callback, silent) {
                 return aria2RpcService.getGlobalStat({
+                    silent: !!silent,
                     callback: function (result) {
                         if (!callback) {
                             return;

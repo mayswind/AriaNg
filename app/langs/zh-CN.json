@@ -74,6 +74,7 @@
     "Aria2 RPC Host": "Aria2 RPC 主机",
     "Aria2 RPC Port": "Aria2 RPC 端口",
     "Aria2 RPC Protocol": "Aria2 RPC 协议",
+    "Aria2 RPC Secret Token": "Aria2 RPC 密钥",
     "Global Stat Refresh Interval": "全局状态刷新间隔",
     "Download Task Refresh Interval": "下载任务刷新间隔",
     "Aria2 Version": "Aria2 版本",

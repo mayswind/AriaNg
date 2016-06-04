@@ -4,18 +4,39 @@
     angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var protocol = ariaNgSettingService.getProtocol();
 
+        var checkIsSystemMethod = function (methodName) {
+            return methodName.indexOf(aria2RpcConstants.rpcSystemServiceName + '.') == 0;
+        };
+
         var getAria2MethodFullName = function (methodName) {
             return aria2RpcConstants.rpcServiceName + '.' + methodName;
         };
 
         var invoke = function (method, context) {
+            var isSystemMethod = checkIsSystemMethod(method);
+            var rpcSecretToken = ariaNgSettingService.getSecret();
+            var finalParams = [];
+
+            if (rpcSecretToken && !isSystemMethod) {
+                finalParams.push(aria2RpcConstants.rpcTokenPrefix + rpcSecretToken);
+            }
+
+            if (angular.isArray(context.params) && context.params.length > 0) {
+                for (var i = 0; i < context.params.length; i++) {
+                    finalParams.push(context.params[i]);
+                }
+            }
+
             context.uniqueId = ariaNgCommonService.generateUniqueId();
             context.requestBody = {
                 jsonrpc: aria2RpcConstants.rpcServiceVersion,
-                method: (method.indexOf(aria2RpcConstants.rpcSystemServiceName +  '.') != 0 ? getAria2MethodFullName(method) : method),
-                id: context.uniqueId,
-                params: context.params
+                method: (!isSystemMethod ? getAria2MethodFullName(method) : method),
+                id: context.uniqueId
             };
+
+            if (finalParams.length > 0) {
+                context.requestBody.params = finalParams;
+            }
 
             if (protocol == 'ws') {
                 return aria2WebSocketRpcService.request(context);
@@ -42,6 +63,33 @@
                     callback(results);
                 }
             });
+        };
+
+        var buildRequestContext = function () {
+            var context = {};
+
+            if (arguments.length > 0) {
+                var invokeContext = arguments[0];
+
+                context.silent = invokeContext.silent === true;
+                context.callback = invokeContext.callback;
+            }
+
+            if (arguments.length > 1) {
+                var params = [];
+
+                for (var i = 1; i < arguments.length; i++) {
+                    if (arguments[i] != null && !angular.isUndefined(arguments[i])) {
+                        params.push(arguments[i]);
+                    }
+                }
+
+                if (params.length > 0) {
+                    context.params = params;
+                }
+            }
+
+            return context;
         };
 
         return {
@@ -76,16 +124,10 @@
             //     return invoke('addMetalink', context);
             // },
             remove: function (context) {
-                return invoke('remove', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('remove', buildRequestContext(context, context.gid));
             },
             forceRemove: function (context) {
-                return invoke('forceRemove', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('forceRemove', buildRequestContext(context, context.gid));
             },
             forceRemoveMulti: function (context) {
                 var contexts = [];
@@ -99,21 +141,13 @@
                 return invokeMulti(this.forceRemove, contexts, 'gid', context.callback);
             },
             pause: function (context) {
-                return invoke('pause', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('pause', buildRequestContext(context, context.gid));
             },
             pauseAll: function (context) {
-                return invoke('pauseAll', {
-                    callback: context.callback
-                });
+                return invoke('pauseAll', buildRequestContext(context));
             },
             forcePause: function (context) {
-                return invoke('forcePause', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('forcePause', buildRequestContext(context, context.gid));
             },
             forcePauseMulti: function (context) {
                 var contexts = [];
@@ -127,15 +161,10 @@
                 return invokeMulti(this.forcePause, contexts, 'gid', context.callback);
             },
             forcePauseAll: function (context) {
-                return invoke('forcePauseAll', {
-                    callback: context.callback
-                });
+                return invoke('forcePauseAll', buildRequestContext(context));
             },
             unpause: function (context) {
-                return invoke('unpause', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('unpause', buildRequestContext(context, context.gid));
             },
             unpauseMulti: function (context) {
                 var contexts = [];
@@ -149,167 +178,88 @@
                 return invokeMulti(this.unpause, contexts, 'gid', context.callback);
             },
             unpauseAll: function (context) {
-                return invoke('unpauseAll', {
-                    callback: context.callback
-                });
+                return invoke('unpauseAll', buildRequestContext(context));
             },
             tellStatus: function (context) {
-                return invoke('tellStatus', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('tellStatus', buildRequestContext(context, context.gid));
             },
             getUris: function (context) {
-                return invoke('getUris', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('getUris', buildRequestContext(context, context.gid));
             },
             getFiles: function (context) {
-                return invoke('getFiles', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('getFiles', buildRequestContext(context, context.gid));
             },
             getPeers: function (context) {
-                return invoke('getPeers', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('getPeers', buildRequestContext(context, context.gid));
             },
             getServers: function (context) {
-                return invoke('getServers', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('getServers', buildRequestContext(context, context.gid));
             },
             tellActive: function (context) {
-                var requestContext = {
-                    callback: context.callback
-                };
-
-                if (context.requestParams) {
-                    requestContext.params = [context.requestParams];
-                }
-
-                return invoke('tellActive', requestContext);
+                return invoke('tellActive', buildRequestContext(context,
+                    angular.isUndefined(context.requestParams) ? null : context.requestParams
+                ));
             },
             tellWaiting: function (context) {
-                var requestContext = {
-                    params: [0, 1000],
-                    callback: context.callback
-                };
-
-                if (!angular.isUndefined(context.offset)) {
-                    requestContext.params[0] = context.offset;
-                }
-
-                if (!angular.isUndefined(context.num)) {
-                    requestContext.params[1] = context.num;
-                }
-
-                if (context.requestParams) {
-                    requestContext.params.push(context.requestParams);
-                }
-
-                return invoke('tellWaiting', requestContext);
+                return invoke('tellWaiting', buildRequestContext(context,
+                    angular.isUndefined(context.offset) ? 0 : context.offset,
+                    angular.isUndefined(context.num) ? 1000 : context.num,
+                    angular.isUndefined(context.requestParams) ? null : context.requestParams
+                ));
             },
             tellStopped: function (context) {
-                var requestContext = {
-                    params: [0, 1000],
-                    callback: context.callback
-                };
-
-                if (!angular.isUndefined(context.offset)) {
-                    requestContext.params[0] = context.offset;
-                }
-
-                if (!angular.isUndefined(context.num)) {
-                    requestContext.params[1] = context.num;
-                }
-
-                if (context.requestParams) {
-                    requestContext.params.push(context.requestParams);
-                }
-
-                return invoke('tellStopped', requestContext);
+                return invoke('tellStopped', buildRequestContext(context,
+                    angular.isUndefined(context.offset) ? 0 : context.offset,
+                    angular.isUndefined(context.num) ? 1000 : context.num,
+                    angular.isUndefined(context.requestParams) ? null : context.requestParams
+                ));
             },
             changePosition: function (context) {
-                return invoke('changePosition', {
-                    params: [context.gid, context.pos, context.how],
-                    callback: context.callback
-                });
+                return invoke('changePosition', buildRequestContext(context, context.gid, context.pos, context.how));
             },
             // changeUri: function (context) {
             //     return invoke('changeUri', context);
             // },
             getOption: function (context) {
-                return invoke('getOption', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('getOption', buildRequestContext(context, context.gid));
             },
             changeOption: function (context) {
-                return invoke('changeOption', {
-                    params: [context.gid, context.options],
-                    callback: context.callback
-                });
+                return invoke('changeOption', buildRequestContext(context, context.gid, context.options));
             },
             getGlobalOption: function (context) {
-                return invoke('getGlobalOption', {
-                    callback: context.callback
-                });
+                return invoke('getGlobalOption', buildRequestContext(context));
             },
             changeGlobalOption: function (context) {
-                return invoke('changeGlobalOption', {
-                    params: [context.options],
-                    callback: context.callback
-                });
+                return invoke('changeGlobalOption', buildRequestContext(context, context.options));
             },
             getGlobalStat: function (context) {
-                return invoke('getGlobalStat', {
-                    callback: context.callback
-                });
+                return invoke('getGlobalStat', buildRequestContext(context));
             },
             purgeDownloadResult: function (context) {
-                return invoke('purgeDownloadResult', {
-                    callback: context.callback
-                });
+                return invoke('purgeDownloadResult', buildRequestContext(context));
             },
             removeDownloadResult: function (context) {
-                return invoke('removeDownloadResult', {
-                    params: [context.gid],
-                    callback: context.callback
-                });
+                return invoke('removeDownloadResult', buildRequestContext(context, context.gid));
             },
             getVersion: function (context) {
-                return invoke('getVersion', {
-                    callback: context.callback
-                });
+                return invoke('getVersion', buildRequestContext(context));
             },
             getSessionInfo: function (context) {
-                return invoke('getSessionInfo', {
-                    callback: context.callback
-                });
+                return invoke('getSessionInfo', buildRequestContext(context));
             },
             shutdown: function (context) {
-                return invoke('shutdown', {
-                    callback: context.callback
-                });
+                return invoke('shutdown', buildRequestContext(context));
             },
             forceShutdown: function (context) {
-                return invoke('forceShutdown', {
-                    callback: context.callback
-                });
+                return invoke('forceShutdown', buildRequestContext(context));
             },
             saveSession: function (context) {
-                return invoke('saveSession', {
-                    callback: context.callback
-                });
+                return invoke('saveSession', buildRequestContext(context));
             },
             multicall: function (context) {
                 var requestContext = {
                     params: [],
+                    silent: context.silent === true,
                     callback: context.callback
                 };
 
@@ -323,9 +273,7 @@
                 return invoke('system.multicall', requestContext);
             },
             listMethods: function (context) {
-                return invoke('system.listMethods', {
-                    callback: context.callback
-                });
+                return invoke('system.listMethods', buildRequestContext(context));
             }
         };
     }]);

@@ -4,10 +4,10 @@
     angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
-        var refreshGlobalStat = function () {
+        var refreshGlobalStat = function (silent) {
             return aria2SettingService.getGlobalStat(function (result) {
                 $scope.globalStat = result;
-            });
+            }, silent);
         };
 
         $scope.isTaskSelected = function () {
@@ -94,7 +94,7 @@
 
         if (ariaNgSettingService.getGlobalStatRefreshInterval() > 0) {
             globalStatRefreshPromise = $interval(function () {
-                refreshGlobalStat();
+                refreshGlobalStat(true);
             }, ariaNgSettingService.getGlobalStatRefreshInterval());
         }
 
@@ -104,6 +104,6 @@
             }
         });
 
-        refreshGlobalStat();
+        refreshGlobalStat(false);
     }]);
 })();

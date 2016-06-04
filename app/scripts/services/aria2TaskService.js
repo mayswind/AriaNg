@@ -95,7 +95,7 @@
         };
 
         return {
-            getTaskList: function (type, full, callback) {
+            getTaskList: function (type, full, callback, silent) {
                 var invokeMethod = null;
 
                 if (type == 'downloading') {
@@ -110,6 +110,7 @@
 
                 return invokeMethod({
                     requestParams: full ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams(),
+                    silent: !!silent,
                     callback: function (result) {
                         if (!callback) {
                             return;
@@ -119,9 +120,10 @@
                     }
                 });
             },
-            getTaskStatus: function (gid, callback) {
+            getTaskStatus: function (gid, callback, silent) {
                 return aria2RpcService.tellStatus({
                     gid: gid,
+                    silent: !!silent,
                     callback: function (result) {
                         if (!callback) {
                             return;
@@ -141,16 +143,17 @@
             setTaskOption: function (gid, key, value, callback) {
                 var data = {};
                 data[key] = value;
-                
+
                 return aria2RpcService.changeOption({
                     gid: gid,
                     options: data,
                     callback: callback
                 });
             },
-            getBtTaskPeers: function (gid, callback) {
+            getBtTaskPeers: function (gid, callback, silent) {
                 return aria2RpcService.getPeers({
                     gid: gid,
+                    silent: !!silent,
                     callback: function (result) {
                         if (!callback) {
                             return;

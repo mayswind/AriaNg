@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($location, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$base64', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($location, $base64, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
         var getDefaultRpcHost = function () {
             return $location.$$host;
         };
@@ -47,10 +47,11 @@
                     options.rpcHost = getDefaultRpcHost();
                 }
 
+                if (options.secret) {
+                    options.secret = $base64.decode(options.secret);
+                }
+
                 return options;
-            },
-            setAllOptions: function (options) {
-                setOptions(options);
             },
             applyLanguage: function (lang) {
                 if (!ariaNgLanguages[lang]) {
@@ -92,6 +93,17 @@
             },
             setProtocol: function (value) {
                 setOption('protocol', value);
+            },
+            getSecret: function () {
+                var value = getOption('secret');
+                return (value ? $base64.decode(value) : value);
+            },
+            setSecret: function (value) {
+                if (value) {
+                    value = $base64.encode(value);
+                }
+
+                setOption('secret', value);
             },
             getGlobalStatRefreshInterval: function () {
                 return getOption('globalStatRefreshInterval');

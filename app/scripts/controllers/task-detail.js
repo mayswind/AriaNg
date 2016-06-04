@@ -15,20 +15,20 @@
             return aria2SettingService.getSpecifiedOptions(keys);
         };
 
-        var refreshBtPeers = function (task) {
+        var refreshBtPeers = function (task, silent) {
             return aria2TaskService.getBtTaskPeers(task.gid, function (result) {
                 if (!ariaNgCommonService.extendArray(result, $scope.peers, 'peerId')) {
                     $scope.peers = result;
                 }
 
                 $scope.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.peers);
-            });
+            }, silent);
         };
 
-        var refreshDownloadTask = function () {
+        var refreshDownloadTask = function (silent) {
             return aria2TaskService.getTaskStatus($routeParams.gid, function (result) {
                 if (result.status == 'active' && result.bittorrent) {
-                    refreshBtPeers(result);
+                    refreshBtPeers(result, true);
                 } else {
                     if (tabOrders.indexOf('btpeers') >= 0) {
                         tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
@@ -44,7 +44,7 @@
                 $rootScope.taskContext.list = [$scope.task];
                 $rootScope.taskContext.selected = {};
                 $rootScope.taskContext.selected[$scope.task.gid] = true;
-            });
+            }, silent);
         };
 
         $scope.context = {
@@ -116,7 +116,7 @@
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
-                refreshDownloadTask();
+                refreshDownloadTask(true);
             }, ariaNgSettingService.getDownloadTaskRefreshInterval());
         }
 
@@ -126,6 +126,6 @@
             }
         });
 
-        $rootScope.loadPromise = refreshDownloadTask();
+        $rootScope.loadPromise = refreshDownloadTask(false);
     }]);
 })();

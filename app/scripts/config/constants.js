@@ -11,11 +11,13 @@
         rpcHost: '',
         rpcPort: '6800',
         protocol: 'http',
+        secret: '',
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000
     }).constant('aria2RpcConstants', {
         rpcServiceVersion: '2.0',
         rpcServiceName: 'aria2',
-        rpcSystemServiceName: 'system'
+        rpcSystemServiceName: 'system',
+        rpcTokenPrefix: 'token:'
     });
 })();

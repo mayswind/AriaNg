@@ -7,7 +7,7 @@
         var pauseDownloadTaskRefresh = false;
         var needRequestWholeInfo = true;
 
-        var refreshDownloadTask = function () {
+        var refreshDownloadTask = function (silent) {
             if (pauseDownloadTaskRefresh) {
                 return;
             }
@@ -28,7 +28,7 @@
                     aria2TaskService.processDownloadTasks($rootScope.taskContext.list);
                     $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list.length > 1;
                 }
-            });
+            }, silent);
         };
 
         $scope.filterByTaskName = function (task) {
@@ -55,7 +55,7 @@
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
-                refreshDownloadTask();
+                refreshDownloadTask(true);
             }, ariaNgSettingService.getDownloadTaskRefreshInterval());
         }
 
@@ -84,6 +84,6 @@
             }
         });
 
-        $rootScope.loadPromise = refreshDownloadTask();
+        $rootScope.loadPromise = refreshDownloadTask(false);
     }]);
 })();

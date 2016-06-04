@@ -78,6 +78,7 @@
             'Aria2 RPC Host': 'Aria2 RPC Host',
             'Aria2 RPC Port': 'Aria2 RPC Port',
             'Aria2 RPC Protocol': 'Aria2 RPC Protocol',
+            'Aria2 RPC Secret Token': 'Aria2 RPC Secret Token',
             'Global Stat Refresh Interval': 'Global Stat Refresh Interval',
             'Download Task Refresh Interval': 'Download Task Refresh Interval',
             'Aria2 Version': 'Aria2 Version',
