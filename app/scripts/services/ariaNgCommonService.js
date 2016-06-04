@@ -110,6 +110,49 @@
                 });
 
                 return obj;
+            },
+            getTimeOptions: function (timeList, withDisabled) {
+                var options = [];
+
+                if (withDisabled) {
+                    options.push({
+                        name: 'Disabled',
+                        value: 0,
+                        optionValue: 0
+                    });
+                }
+
+                if (!angular.isArray(timeList) || timeList.length < 1) {
+                    return options;
+                }
+
+                for (var i = 0; i < timeList.length; i++) {
+                    var time = timeList[i];
+                    var name = '';
+                    var value = time;
+
+                    if (time < 1000) {
+                        value = time;
+                        name = (value == 1 ? 'format.time.millisecond' : 'format.time.milliseconds');
+                    } else if (time < 1000 * 60) {
+                        value = time / 1000;
+                        name = (value == 1 ? 'format.time.second' : 'format.time.seconds');
+                    } else if (time < 1000 * 60 * 24) {
+                        value = time / 1000 / 60;
+                        name = (value == 1 ? 'format.time.minute' : 'format.time.minutes');
+                    } else {
+                        value = time / 1000 / 60 / 24;
+                        name = (value == 1 ? 'format.time.hour' : 'format.time.hours');
+                    }
+
+                    options.push({
+                        name: name,
+                        value: value,
+                        optionValue: time
+                    })
+                }
+
+                return options;
             }
         };
     }]);

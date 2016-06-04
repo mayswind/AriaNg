@@ -47,31 +47,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-sm-4">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Global Stat Refresh Interval</span>
                 <span class="asterisk">*</span>
-                <span class="description" translate>(0 is disabled)</span>
             </div>
             <div class="setting-value col-sm-8">
-                <div class="input-group">
-                    <input class="form-control" type="text" ng-model="settings.globalStatRefreshInterval"
-                           ng-change="settingService.setGlobalStatRefreshInterval(settings.globalStatRefreshInterval)"/>
-                    <span class="input-group-addon" translate>Milliseconds</span>
-                </div>
+                <select class="form-control" style="width: 100%;" ng-model="settings.globalStatRefreshInterval"
+                        ng-change="settingService.setGlobalStatRefreshInterval(settings.globalStatRefreshInterval)"
+                        ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in availableTime">
+                </select>
             </div>
         </div>
         <div class="row">
-            <div class="setting-key col-sm-4">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Download Task Refresh Interval</span>
                 <span class="asterisk">*</span>
-                <span class="description" translate>(0 is disabled)</span>
             </div>
             <div class="setting-value col-sm-8">
-                <div class="input-group">
-                    <input class="form-control" type="text" ng-model="settings.downloadTaskRefreshInterval"
-                           ng-change="settingService.setDownloadTaskRefreshInterval(settings.downloadTaskRefreshInterval)"/>
-                    <span class="input-group-addon" translate>Milliseconds</span>
-                </div>
+                <select class="form-control" style="width: 100%;" ng-model="settings.downloadTaskRefreshInterval"
+                        ng-change="settingService.setDownloadTaskRefreshInterval(settings.downloadTaskRefreshInterval)"
+                        ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in availableTime">
+                </select>
             </div>
         </div>
         <div class="row tip">
