@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2TaskService', ['$translate', 'aria2RpcService', function ($translate, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'aria2RpcService', function ($q, $translate, aria2RpcService) {
         var getFileNameFromPath = function (path) {
             if (!path) {
                 return path;
@@ -182,6 +182,48 @@
                     callback: callback
                 });
             },
+            removeTasks: function (tasks, callback) {
+                var runningTaskGids = [];
+                var stoppedTaskGids = [];
+                
+                for (var i = 0; i < tasks.length; i++) {
+                    if (tasks[i].status == 'complete' || tasks[i].status == 'error' || tasks[i].status == 'removed') {
+                        stoppedTaskGids.push(tasks[i].gid);
+                    } else {
+                        runningTaskGids.push(tasks[i].gid);
+                    }
+                }
+                
+                var promises = [];
+                var results = {
+                    runningResult: null, 
+                    stoppedResult: null
+                };
+                
+                if (runningTaskGids.length > 0) {
+                    promises.push(aria2RpcService.forceRemoveMulti({
+                        gids: runningTaskGids,
+                        callback: function (result) {
+                            results.runningResult = result;
+                        }
+                    }));
+                }
+                
+                if (stoppedTaskGids.length > 0) {
+                    promises.push(aria2RpcService.removeDownloadResultMulti({
+                        gids: stoppedTaskGids,
+                        callback: function (result) {
+                            results.stoppedResult = result;
+                        }
+                    }));
+                }
+
+                return $q.all(promises).then(function () {
+                    if (callback) {
+                        callback(results);
+                    }
+                });
+            },
             changeTaskPosition: function (gid, position, callback) {
                 return aria2RpcService.changePosition({
                     gid: gid,
@@ -189,6 +231,11 @@
                     how: 'POS_SET',
                     callback: callback
                 })
+            },
+            clearStoppedTasks: function (callback) {
+                return aria2RpcService.purgeDownloadResult({
+                    callback: callback
+                });
             },
             processDownloadTasks: function (tasks) {
                 if (!angular.isArray(tasks)) {

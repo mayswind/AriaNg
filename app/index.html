@@ -55,7 +55,7 @@
                             <i class="fa fa-pause"></i>
                         </a>
                     </li>
-                    <li class="disabled" ng-class="{'disabled': !taskContext.list || taskContext.list.length < 1}">
+                    <li class="disabled" ng-class="{'disabled': !isTaskSelected() && !isSpecifiedTaskShowing('complete', 'error', 'removed')}">
                         <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Delete' | translate}}">
                             <i class="fa fa-trash-o"></i>
                             <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
@@ -66,9 +66,9 @@
                                     <span translate>Remove Task</span>
                                 </a>
                             </li>
-                            <li>
-                                <a class="pointer-cursor" ng-click="clearFinishedTasks()">
-                                    <span translate>Clear Finished Tasks</span>
+                            <li ng-if="isSpecifiedTaskShowing('complete', 'error', 'removed')">
+                                <a class="pointer-cursor" ng-click="clearStoppedTasks()">
+                                    <span translate>Clear Stopped Tasks</span>
                                 </a>
                             </li>
                         </ul>

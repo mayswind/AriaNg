@@ -47,18 +47,17 @@
 
         var invokeMulti = function (methodFunc, contexts, keyProperty, callback) {
             var promises = [];
-            var results = {};
+            var results = [];
 
             for (var i = 0; i < contexts.length; i++) {
                 contexts[i].callback = function (result) {
-                    var key = this[keyProperty];
-                    results[key] = result;
+                    results.push(result);
                 };
 
                 promises.push(methodFunc(contexts[i]));
             }
 
-            return $q.all(promises).then(function () {
+            return $q.all(promises).finally(function () {
                 if (callback) {
                     callback(results);
                 }
@@ -240,6 +239,17 @@
             },
             removeDownloadResult: function (context) {
                 return invoke('removeDownloadResult', buildRequestContext(context, context.gid));
+            },
+            removeDownloadResultMulti: function (context) {
+                var contexts = [];
+
+                for (var i = 0; i < context.gids.length; i++) {
+                    contexts.push({
+                        gid: context.gids[i]
+                    });
+                }
+
+                return invokeMulti(this.removeDownloadResult, contexts, 'gid', context.callback);
             },
             getVersion: function (context) {
                 return invoke('getVersion', buildRequestContext(context));

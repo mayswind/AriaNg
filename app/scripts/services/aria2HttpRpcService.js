@@ -30,7 +30,7 @@
                     }
 
                     if (context.callback) {
-                        context.callback(data.result);
+                        context.callback(data.error);
                     }
                 });
             }

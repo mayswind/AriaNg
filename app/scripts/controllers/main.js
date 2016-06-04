@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
         var refreshGlobalStat = function (silent) {
@@ -14,7 +14,7 @@
             return $rootScope.taskContext.getSelectedTaskIds().length > 0;
         };
 
-        $scope.isSpecifiedTaskSelected = function (status) {
+        $scope.isSpecifiedTaskSelected = function () {
             var selectedTasks = $rootScope.taskContext.getSelectedTasks();
 
             if (selectedTasks.length < 1) {
@@ -22,8 +22,28 @@
             }
 
             for (var i = 0; i < selectedTasks.length; i++) {
-                if (selectedTasks[i].status == status) {
-                    return true;
+                for (var j = 0; j < arguments.length; j++) {
+                    if (selectedTasks[i].status == arguments[j]) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        };
+
+        $scope.isSpecifiedTaskShowing = function () {
+            var tasks = $rootScope.taskContext.list;
+
+            if (tasks.length < 1) {
+                return false;
+            }
+
+            for (var i = 0; i < tasks.length; i++) {
+                for (var j = 0; j < arguments.length; j++) {
+                    if (tasks[i].status == arguments[j]) {
+                        return true;
+                    }
                 }
             }
 
@@ -53,20 +73,24 @@
         };
 
         $scope.removeTasks = function () {
-            var gids = $rootScope.taskContext.getSelectedTaskIds();
+            var tasks = $rootScope.taskContext.getSelectedTasks();
 
-            if (!gids || gids.length < 1) {
+            if (!tasks || tasks.length < 1) {
                 return;
             }
 
             ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
-
+                $rootScope.loadPromise = aria2TaskService.removeTasks(tasks, function (result) {
+                    $location.path('/stopped');
+                });
             });
         };
 
-        $scope.clearFinishedTasks = function () {
-            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear finished tasks?', 'warning', function () {
-
+        $scope.clearStoppedTasks = function () {
+            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear stopped tasks?', 'warning', function () {
+                $rootScope.loadPromise = aria2TaskService.clearStoppedTasks(function (result) {
+                    $location.path('/stopped');
+                });
             });
         };
 

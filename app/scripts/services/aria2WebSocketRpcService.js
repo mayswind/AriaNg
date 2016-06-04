@@ -22,7 +22,6 @@
                     }
 
                     var uniqueId = content.id;
-                    var result = content.result;
 
                     if (!sendIdStates[uniqueId]) {
                         return;
@@ -43,7 +42,11 @@
                     });
 
                     if (callbackMethod) {
-                        callbackMethod(result);
+                        if (content.result) {
+                            callbackMethod(content.result);
+                        } else if (content.error) {
+                            callbackMethod(content.error);
+                        }
                     }
 
                     delete sendIdStates[uniqueId];
