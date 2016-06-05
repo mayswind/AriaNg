@@ -3,7 +3,7 @@
         <span ng-bind="option.nameKey | translate"></span>
         <em ng-bind="'(' + option.key + ')'"></em>
         <i class="icon-primary fa fa-question-circle" ng-if="(option.descriptionKey | translate) != ''"
-           data-toggle="popover" data-trigger="hover" data-placement="bottom" data-container="body" data-content="{{option.descriptionKey | translate}}"></i>
+           data-toggle="popover" data-trigger="hover" data-placement="top" data-container="body" data-content="{{option.descriptionKey | translate}}"></i>
         <span class="description" ng-if="option.showCount && option.split && optionValue"
               ng-bind="'format.settings.total-count' | translate: {count: getTotalCount()}"></span>
     </div>
