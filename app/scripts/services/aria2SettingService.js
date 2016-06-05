@@ -68,6 +68,23 @@
                         descriptionKey: 'options.' + key + '.description'
                     }, option);
 
+                    if (option.type == 'boolean') {
+                        option.options = ['true', 'false'];
+                    }
+                    
+                    if (option.options) {
+                        var availableOptions = [];
+
+                        for (var j = 0; j < option.options.length; j++) {
+                            availableOptions.push({
+                                name: 'options.' + option.options[j],
+                                value: option.options[j]
+                            });
+                        }
+
+                        option.options = availableOptions;
+                    }
+
                     options.push(option);
                 }
 

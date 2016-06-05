@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('ariaNg').constant('ariaNgLanguages', {
-        'en-US': {
+        'en': {
             name: 'English'
         },
-        'zh-CN': {
+        'zh_CN': {
             name: 'Simplified Chinese'
         }
     });

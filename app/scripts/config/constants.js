@@ -7,7 +7,7 @@
         optionStorageKey: 'Options',
         lazySaveTimeout: 500
     }).constant('ariaNgDefaultOptions', {
-        language: 'en-US',
+        language: 'en',
         rpcHost: '',
         rpcPort: '6800',
         protocol: 'http',

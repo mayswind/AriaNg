@@ -11,8 +11,8 @@
             prefix: 'langs/',
             suffix: '.json'
         }).useLoaderCache(true)
-            .preferredLanguage('en-US')
-            .fallbackLanguage('en-US')
+            .preferredLanguage('en')
+            .fallbackLanguage('en')
             .useSanitizeValueStrategy('escape');
     }]);
 })();
