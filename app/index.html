@@ -66,7 +66,7 @@
                                     <span translate>Remove Task</span>
                                 </a>
                             </li>
-                            <li ng-if="isSpecifiedTaskShowing('complete', 'error', 'removed')">
+                            <li ng-if="taskContext.enableSelectAll && isSpecifiedTaskShowing('complete', 'error', 'removed')">
                                 <a class="pointer-cursor" ng-click="clearStoppedTasks()">
                                     <span translate>Clear Stopped Tasks</span>
                                 </a>
