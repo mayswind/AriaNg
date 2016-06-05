@@ -359,6 +359,14 @@ td {
     color: #208fe5;
 }
 
+.skin-aria-ng .has-success .input-group .input-group-addon {
+    border-color: #00a65a;
+}
+
+.skin-aria-ng .has-error .input-group .input-group-addon {
+    border-color: #dd4b39;
+}
+
 /* font-awesome extend */
 .fa-half {
     font-size: 0.5em;
@@ -696,8 +704,12 @@ td {
     color: #3c8dbc;
 }
 
-.settings-table .setting-value .form-group .form-control-feedback {
+.settings-table .setting-value .form-group select.form-control + .form-control-icon > .form-control-feedback {
     right: 10px;
+}
+
+.settings-table .setting-value .input-group .form-group .form-control:focus {
+    z-index: inherit;
 }
 
 .settings-table .tip {
