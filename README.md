@@ -7,3 +7,6 @@ A Better Frontend for Aria2 (Under construction)
 3. Responsive design, support PC and mobile phone
 4. Multi-languages support
 5. Less bandwidth usage
+
+## Demo
+Please visit http://ariang.github.io/
