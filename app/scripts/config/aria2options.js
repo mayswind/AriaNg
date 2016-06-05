@@ -57,7 +57,9 @@
             type: 'boolean'
         },
         'no-proxy': {
-            type: 'string'
+            type: 'string',
+            split: ',',
+            showCount: true
         },
         'proxy-method': {
             type: 'option',
@@ -233,7 +235,8 @@
             type: 'boolean'
         },
         'bt-request-peer-speed-limit': {
-            type: 'string'
+            type: 'string',
+            suffix: 'Bytes'
         },
         'bt-save-metadata': {
             type: 'boolean'
@@ -299,10 +302,12 @@
             readonly: true
         },
         'max-overall-upload-limit': {
-            type: 'string'
+            type: 'string',
+            suffix: 'Bytes'
         },
         'max-upload-limit': {
-            type: 'string'
+            type: 'string',
+            suffix: 'Bytes'
         },
         'peer-id-prefix': {
             type: 'string',
@@ -494,10 +499,12 @@
             readonly: true
         },
         'max-overall-download-limit': {
-            type: 'string'
+            type: 'string',
+            suffix: 'Bytes'
         },
         'max-download-limit': {
-            type: 'string'
+            type: 'string',
+            suffix: 'Bytes'
         },
         'no-conf': {
             type: 'boolean',
