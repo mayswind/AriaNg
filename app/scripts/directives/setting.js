@@ -126,6 +126,12 @@
                 }, function (value) {
                     scope.optionValue = value;
                 });
+
+                scope.$watch(function () {
+                    return scope.option;
+                }, function (value) {
+                    angular.element('[data-toggle="popover"]').popover();
+                });
             }
         };
     }]);
