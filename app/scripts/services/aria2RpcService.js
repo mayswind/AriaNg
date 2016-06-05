@@ -3,6 +3,7 @@
 
     angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var protocol = ariaNgSettingService.getProtocol();
+        var secret = ariaNgSettingService.getSecret();
 
         var checkIsSystemMethod = function (methodName) {
             return methodName.indexOf(aria2RpcConstants.rpcSystemServiceName + '.') == 0;
@@ -14,11 +15,10 @@
 
         var invoke = function (method, context) {
             var isSystemMethod = checkIsSystemMethod(method);
-            var rpcSecretToken = ariaNgSettingService.getSecret();
             var finalParams = [];
 
-            if (rpcSecretToken && !isSystemMethod) {
-                finalParams.push(aria2RpcConstants.rpcTokenPrefix + rpcSecretToken);
+            if (secret && !isSystemMethod) {
+                finalParams.push(aria2RpcConstants.rpcTokenPrefix + secret);
             }
 
             if (angular.isArray(context.params) && context.params.length > 0) {
