@@ -8,7 +8,7 @@
             var keys = aria2SettingService.getAvailableGlobalOptionsKeys(type);
 
             if (!keys) {
-                ariaNgCommonService.alert('Type is illegal!');
+                ariaNgCommonService.showError('Type is illegal!');
                 return;
             }
 

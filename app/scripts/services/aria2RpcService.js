@@ -45,7 +45,7 @@
                     }
 
                     if (error.message == 'Unauthorized') {
-                        ariaNgCommonService.alert('rpc.error.' + error.message);
+                        ariaNgCommonService.showError('rpc.error.' + error.message);
                         return;
                     }
                 }

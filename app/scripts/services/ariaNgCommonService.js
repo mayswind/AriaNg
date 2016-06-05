@@ -9,22 +9,30 @@
 
                 return hashedId;
             },
-            alert: function (text) {
+            showDialog: function (title, text, type) {
                 $timeout(function () {
                     SweetAlert.swal({
-                        title: $translate.instant('Error'),
+                        title: $translate.instant(title),
                         text: $translate.instant(text),
-                        type: 'error',
+                        type: type,
                         confirmButtonText: $translate.instant('OK')
                     });
                 }, 100);
             },
-            confirm: function (title, text, type, callback) {
+            showError: function (text) {
+                this.showDialog('Error', text, 'error');
+            },
+            showOperationSucceeded: function (text) {
+                this.showDialog('Operation Succeeded', text, 'success');
+            },
+            confirm: function (title, text, type, callback, notClose) {
                 var options = {
                     title: $translate.instant(title),
                     text: $translate.instant(text),
                     type: type,
                     showCancelButton: true,
+                    showLoaderOnConfirm: !!notClose,
+                    closeOnConfirm: !notClose,
                     confirmButtonText: $translate.instant('OK'),
                     cancelButtonText: $translate.instant('Cancel')
                 };
