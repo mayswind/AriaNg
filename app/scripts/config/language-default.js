@@ -4,6 +4,7 @@
     angular.module('ariaNg').config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('en-US', {
             'English': 'English',
+            'Operation Succeeded': 'Operation Succeeded',
             'Error': 'Error',
             'OK': 'OK',
             'Cancel': 'Cancel',
@@ -83,6 +84,15 @@
             'Download Task Refresh Interval': 'Download Task Refresh Interval',
             'Aria2 Version': 'Aria2 Version',
             'Enabled Features': 'Enabled Features',
+            'Functions': 'Functions',
+            'Save Session': 'Save Session',
+            'Shutdown Aria2': 'Shutdown Aria2',
+            'Confirm Shutdown': 'Confirm Shutdown',
+            'Are you sure you want to shutdown aria2?': 'Are you sure you want to shutdown aria2?',
+            'Session has been saved successfully.': 'Session has been saved successfully.',
+            'Failed to save session.': 'Failed to save session.',
+            'Aria2 has been shutdown successfully.': 'Aria2 has been shutdown successfully.',
+            'Failed to shutdown aria2.': 'Failed to shutdown aria2.',
             'Toggle Navigation': 'Toggle Navigation',
             'Loading': 'Loading...',
             'More Than One Day': 'More than 1 day',

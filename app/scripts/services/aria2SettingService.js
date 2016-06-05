@@ -104,6 +104,16 @@
                         callback(stat);
                     }
                 });
+            },
+            saveSession: function (callback) {
+                return aria2RpcService.saveSession({
+                    callback: callback
+                })
+            },
+            shutdown: function (callback) {
+                return aria2RpcService.shutdown({
+                    callback: callback
+                })
             }
         };
     }]);
