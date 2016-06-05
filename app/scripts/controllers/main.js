@@ -68,6 +68,7 @@
             }
 
             $rootScope.loadPromise = invoke(gids, function (result) {
+                refreshGlobalStat(false);
                 $route.reload();
             });
         };
@@ -81,6 +82,7 @@
 
             ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.removeTasks(tasks, function (result) {
+                    refreshGlobalStat(false);
                     if ($location.path() == '/stopped') {
                         $route.reload();
                     } else {
@@ -93,6 +95,7 @@
         $scope.clearStoppedTasks = function () {
             ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear stopped tasks?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.clearStoppedTasks(function (result) {
+                    refreshGlobalStat(false);
                     if ($location.path() == '/stopped') {
                         $route.reload();
                     } else {
