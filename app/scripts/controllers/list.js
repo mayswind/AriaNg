@@ -26,7 +26,7 @@
 
                 if ($rootScope.taskContext.list) {
                     aria2TaskService.processDownloadTasks($rootScope.taskContext.list);
-                    $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list.length > 1;
+                    $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list.length > 0;
                 }
             }, silent);
         };

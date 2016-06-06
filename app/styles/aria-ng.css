@@ -359,12 +359,22 @@ td {
     color: #208fe5;
 }
 
-.skin-aria-ng .has-success .input-group .input-group-addon {
+.skin-aria-ng .input-group .form-group.has-success + .input-group-addon {
     border-color: #00a65a;
+    background-color: #00a65a;
+    color: #ffffff;
 }
 
-.skin-aria-ng .has-error .input-group .input-group-addon {
+.skin-aria-ng .input-group .form-group.has-warning + .input-group-addon {
+    border-color: #f39c12;
+    background-color: #f39c12;
+    color: #ffffff;
+}
+
+.skin-aria-ng .input-group .form-group.has-error + .input-group-addon {
     border-color: #dd4b39;
+    background-color: #dd4b39;
+    color: #ffffff;
 }
 
 /* font-awesome extend */
