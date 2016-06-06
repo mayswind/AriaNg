@@ -102,6 +102,27 @@
             return ariaNgSettingService.getFileListDisplayOrder();
         };
 
+        $scope.setSelectedFile = function () {
+            if (!$scope.task || !$scope.task.files) {
+                return;
+            }
+
+            var gid = $scope.task.gid;
+            var selectedFileIndex = [];
+
+            for (var i = 0; i < $scope.task.files.length; i++) {
+                var file = $scope.task.files[i];
+
+                if (file && file.selected) {
+                    selectedFileIndex.push(file.index);
+                }
+            }
+
+            return aria2TaskService.selectTaskFile(gid, selectedFileIndex, function () {
+                refreshDownloadTask(false);
+            });
+        };
+
         $scope.loadTaskOption = function (task) {
             $rootScope.loadPromise = aria2TaskService.getTaskOptions(task.gid, function (result) {
                 $scope.options = result;

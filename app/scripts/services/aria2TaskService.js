@@ -70,6 +70,7 @@
                     var file = task.files[i];
                     file.fileName = getFileNameFromPath(file.path);
                     file.length = parseInt(file.length);
+                    file.selected = (file.selected == 'true');
                     file.completedLength = parseInt(file.completedLength);
                     file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
                 }
@@ -150,6 +151,19 @@
                     callback: callback
                 });
             },
+            selectTaskFile: function (gid, selectedFileIndexArr, callback) {
+                var selectedFileIndex = '';
+                
+                for (var i = 0; i < selectedFileIndexArr.length; i++) {
+                    if (selectedFileIndex.length > 0) {
+                        selectedFileIndex += ',';
+                    }
+
+                    selectedFileIndex += selectedFileIndexArr[i];
+                }
+                
+                return this.setTaskOption(gid, 'select-file', selectedFileIndex, callback);
+            },
             getBtTaskPeers: function (gid, callback, silent) {
                 return aria2RpcService.getPeers({
                     gid: gid,
@@ -185,7 +199,7 @@
             removeTasks: function (tasks, callback) {
                 var runningTaskGids = [];
                 var stoppedTaskGids = [];
-                
+
                 for (var i = 0; i < tasks.length; i++) {
                     if (tasks[i].status == 'complete' || tasks[i].status == 'error' || tasks[i].status == 'removed') {
                         stoppedTaskGids.push(tasks[i].gid);
@@ -193,13 +207,13 @@
                         runningTaskGids.push(tasks[i].gid);
                     }
                 }
-                
+
                 var promises = [];
                 var results = {
-                    runningResult: null, 
+                    runningResult: null,
                     stoppedResult: null
                 };
-                
+
                 if (runningTaskGids.length > 0) {
                     promises.push(aria2RpcService.forceRemoveMulti({
                         gids: runningTaskGids,
@@ -208,7 +222,7 @@
                         }
                     }));
                 }
-                
+
                 if (stoppedTaskGids.length > 0) {
                     promises.push(aria2RpcService.removeDownloadResultMulti({
                         gids: stoppedTaskGids,

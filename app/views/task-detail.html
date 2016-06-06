@@ -136,11 +136,12 @@
                         </div>
                     </div>
                     <div class="task-table-body">
-                        <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()">
+                        <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()" data-file-index="{{file.index}}">
                             <div class="col-sm-8">
                                 <div class="checkbox checkbox-primary">
-                                    <input id="{{'file_' + $index}}" type="checkbox" ng-checked="file.selected == 'true'" disabled="disabled"/>
-                                    <label for="{{'file_' + $index}}" ng-bind="file.fileName"></label>
+                                    <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status != 'waiting' && task.status != 'paused')"
+                                           ng-model="file.selected" ng-change="setSelectedFile()"/>
+                                    <label for="{{'file_' + file.index}}" ng-bind="file.fileName"></label>
                                 </div>
                             </div>
                             <div class="col-sm-2">
