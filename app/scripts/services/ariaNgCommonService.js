@@ -90,6 +90,34 @@
 
                 return to;
             },
+            pushArrayTo: function (array, items) {
+                if (!angular.isArray(array)) {
+                    array = [];
+                }
+
+                if (!angular.isArray(items) || items.length < 1) {
+                    return array;
+                }
+
+                for (var i = 0; i < items.length; i++) {
+                    array.push(items[i]);
+                }
+
+                return array;
+            },
+            combineArray: function () {
+                var result = [];
+
+                for (var i = 0; i < arguments.length; i++) {
+                    if (angular.isArray(arguments[i])) {
+                        this.pushArrayTo(result, arguments[i]);
+                    } else {
+                        result.push(arguments[i]);
+                    }
+                }
+
+                return result;
+            },
             parseOrderType: function (value) {
                 var values = value.split(':');
 

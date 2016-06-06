@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'ariaNgCommonService', 'aria2RpcService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, ariaNgCommonService, aria2RpcService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
@@ -40,18 +40,30 @@
             },
             getAvailableTaskOptionKeys: function (status, isBittorrent) {
                 if (status == 'active' && isBittorrent) {
-                    return aria2TaskAvailableOptions.activeBtOptions;
+                    return {
+                        readwrite: aria2TaskAvailableOptions.activeBtTaskOptions,
+                        readonly: aria2TaskAvailableOptions.activeTaskReadonlyOptions
+                    };
                 } else if (status == 'active' && !isBittorrent) {
-                    return aria2TaskAvailableOptions.activeOtherOptions;
+                    return {
+                        readwrite: aria2TaskAvailableOptions.activeNormalTaskOptions,
+                        readonly: aria2TaskAvailableOptions.activeTaskReadonlyOptions
+                    };
                 } else if ((status == 'waiting' || status == 'paused') && isBittorrent) {
-                    return aria2TaskAvailableOptions.activeBtOptions;
+                    return {
+                        readwrite: aria2TaskAvailableOptions.inactiveBtTaskOptions,
+                        readonly: []
+                    };
                 } else if ((status == 'waiting' || status == 'paused') && !isBittorrent) {
-                    return aria2TaskAvailableOptions.activeOtherOptions;
+                    return {
+                        readwrite: aria2TaskAvailableOptions.inactiveNormalTaskOptions,
+                        readonly: []
+                    };
                 } else {
                     return false;
                 }
             },
-            getSpecifiedOptions: function (keys) {
+            getSpecifiedOptions: function (keys, readonly) {
                 var options = [];
 
                 for (var i = 0; i < keys.length; i++) {
@@ -72,6 +84,10 @@
                         option.options = ['true', 'false'];
                     }
                     
+                    if (!!readonly) {
+                        option.readonly = true;
+                    }
+
                     if (option.options) {
                         var availableOptions = [];
 

@@ -12,7 +12,11 @@
                 return;
             }
 
-            return aria2SettingService.getSpecifiedOptions(keys);
+            var options = [];
+            ariaNgCommonService.pushArrayTo(options, aria2SettingService.getSpecifiedOptions(keys.readwrite));
+            ariaNgCommonService.pushArrayTo(options, aria2SettingService.getSpecifiedOptions(keys.readonly, true));
+
+            return options;
         };
 
         var refreshBtPeers = function (task, silent) {
