@@ -4,6 +4,7 @@
     angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
+        var pauseDownloadTaskRefresh = false;
 
         var getAvailableOptions = function (status, isBittorrent) {
             var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
@@ -30,6 +31,10 @@
         };
 
         var refreshDownloadTask = function (silent) {
+            if (pauseDownloadTaskRefresh) {
+                return;
+            }
+
             return aria2TaskService.getTaskStatus($routeParams.gid, function (result) {
                 if (result.status == 'active' && result.bittorrent) {
                     refreshBtPeers(result, true);
@@ -118,7 +123,10 @@
                 }
             }
 
+            pauseDownloadTaskRefresh = true;
+
             return aria2TaskService.selectTaskFile(gid, selectedFileIndex, function () {
+                pauseDownloadTaskRefresh = false;
                 refreshDownloadTask(false);
             });
         };
