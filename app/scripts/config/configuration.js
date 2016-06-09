@@ -13,6 +13,6 @@
         }).useLoaderCache(true)
             .preferredLanguage('en')
             .fallbackLanguage('en')
-            .useSanitizeValueStrategy('escape');
+            .useSanitizeValueStrategy('escapeParameters');
     }]);
 })();
