@@ -483,11 +483,11 @@
             type: 'option',
             options: ['debug', 'info', 'notice', 'warn', 'error']
         },
-        'piece-length': {
-            type: 'integer'
-        },
         'optimize-concurrent-downloads': {
             type: 'string'
+        },
+        'piece-length': {
+            type: 'integer'
         },
         'show-console-readout': {
             type: 'boolean',
@@ -557,7 +557,7 @@
         btOptions: ['bt-detach-seed-only', 'bt-enable-hook-after-hash-check', 'bt-enable-lpd', 'bt-exclude-tracker', 'bt-external-ip', 'bt-force-encryption', 'bt-hash-check-seed', 'bt-max-open-files', 'bt-max-peers', 'bt-metadata-only', 'bt-min-crypto-level', 'bt-prioritize-piece', 'bt-remove-unselected-file', 'bt-require-crypto', 'bt-request-peer-speed-limit', 'bt-save-metadata', 'bt-seed-unverified', 'bt-stop-timeout', 'bt-tracker', 'bt-tracker-connect-timeout', 'bt-tracker-interval', 'bt-tracker-timeout', 'dht-file-path', 'dht-file-path6', 'dht-listen-port', 'dht-message-timeout', 'enable-dht', 'enable-dht6', 'enable-peer-exchange', 'follow-torrent', 'listen-port', 'max-overall-upload-limit', 'max-upload-limit', 'peer-id-prefix', 'seed-ratio', 'seed-time'],
         metalinkOptions: ['follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os', 'metalink-version', 'metalink-preferred-protocol', 'metalink-enable-unique-protocol'],
         rpcOptions: ['enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port', 'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'],
-        advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'hash-check-only', 'human-readable', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'piece-length', 'optimize-concurrent-downloads', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
+        advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'hash-check-only', 'human-readable', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
     }).constant('aria2TaskAvailableOptions', {
         activeNormalTaskOptions: ['max-download-limit', 'max-upload-limit', 'force-save'],
         activeBtTaskOptions: ['max-download-limit', 'max-upload-limit', 'bt-max-peers', 'bt-request-peer-speed-limit', 'bt-remove-unselected-file', 'force-save'],
