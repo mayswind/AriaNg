@@ -56,6 +56,8 @@
             task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
             task.remainLength = task.totalLength - task.completedLength;
             task.remainPercent = 100 - task.completePercent;
+            task.uploadLength = (task.uploadLength ? parseInt(task.uploadLength) : 0);
+            task.shareRatio = (task.uploadLength / task.completedLength);
 
             task.uploadSpeed = parseInt(task.uploadSpeed);
             task.downloadSpeed = parseInt(task.downloadSpeed);
@@ -153,7 +155,7 @@
             },
             selectTaskFile: function (gid, selectedFileIndexArr, callback) {
                 var selectedFileIndex = '';
-                
+
                 for (var i = 0; i < selectedFileIndexArr.length; i++) {
                     if (selectedFileIndex.length > 0) {
                         selectedFileIndex += ',';
@@ -161,7 +163,7 @@
 
                     selectedFileIndex += selectedFileIndexArr[i];
                 }
-                
+
                 return this.setTaskOption(gid, 'select-file', selectedFileIndex, callback);
             },
             getBtTaskPeers: function (gid, callback, silent) {

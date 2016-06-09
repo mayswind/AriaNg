@@ -80,6 +80,14 @@
                             <span ng-bind="(task.uploadLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolumn) + '/s' : '')"></span>
                         </div>
                     </div>
+                    <div class="row" ng-if="task && task.bittorrent">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Share Ratio</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="(task.shareRatio | number: 2)"></span>
+                        </div>
+                    </div>
                     <div class="row" ng-if="task && task.status == 'active' && task.completedLength < task.totalLength">
                         <div class="setting-key col-sm-4">
                             <span translate>Remain Time</span>
