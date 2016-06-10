@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
@@ -32,7 +32,7 @@
                     $scope.peers = peers;
                 }
 
-                $scope.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.peers);
+                $scope.context.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.peers);
             }, silent);
         };
 
@@ -53,9 +53,7 @@
                 var task = response.data;
 
                 if (task.status == 'active' && task.bittorrent) {
-                    if ($scope.context.currentTab == 'btpeers') {
-                        refreshBtPeers(task, true);
-                    }
+                    refreshBtPeers(task, true);
                 } else {
                     if (tabOrders.indexOf('btpeers') >= 0) {
                         tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
@@ -63,7 +61,7 @@
                 }
 
                 if (!$scope.task || $scope.task.status != task.status) {
-                    $scope.availableOptions = getAvailableOptions(task.status, !!task.bittorrent);
+                    $scope.context.availableOptions = getAvailableOptions(task.status, !!task.bittorrent);
                 }
 
                 $scope.task = ariaNgCommonService.copyObjectTo(task, $scope.task);
@@ -71,15 +69,17 @@
                 $rootScope.taskContext.list = [$scope.task];
                 $rootScope.taskContext.selected = {};
                 $rootScope.taskContext.selected[$scope.task.gid] = true;
+
+                ariaNgMonitorService.recordStat(task.gid, task);
             }, silent);
         };
 
         $scope.context = {
-            currentTab: 'overview'
+            currentTab: 'overview',
+            healthPercent: 0,
+            statusData: ariaNgMonitorService.getEmptyStatsData($routeParams.gid),
+            availableOptions: []
         };
-
-        $scope.healthPercent = 0;
-        $scope.availableOptions = [];
 
         $rootScope.swipeActions.extentLeftSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
@@ -150,10 +150,6 @@
                     refreshDownloadTask(false);
                 }
             }, true);
-        };
-        
-        $scope.loadBtPeers = function (task) {
-            $rootScope.loadPromise = refreshBtPeers(task, false);
         };
 
         $scope.loadTaskOption = function (task) {

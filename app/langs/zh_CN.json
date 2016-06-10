@@ -63,6 +63,7 @@
     "Status": "状态",
     "Percent": "完成度",
     "Download / Upload Speed": "下载 / 上传速度",
+    "No Data": "无数据",
     "No connected peers": "没有连接到其他节点",
     "Failed to change some tasks state.": "修改一些任务状态时失败.",
     "Confirm Remove": "确认删除",

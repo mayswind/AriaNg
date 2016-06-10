@@ -11,7 +11,7 @@
                 <a class="pointer-cursor" ng-click="context.currentTab = 'filelist'" translate>Files</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers';loadBtPeers(task);" translate>Peers</a>
+                <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers';" translate>Peers</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')" class="slim">
                 <a class="pointer-cursor" ng-click="context.currentTab = 'settings';loadTaskOption(task);">
@@ -61,7 +61,7 @@
                             <span ng-bind="('Completed Percent' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percent' | translate) + ')' : '')"></span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (healthPercent | percent: 2) + '%' + ')' : '')"></span>
+                            <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (context.healthPercent | percent: 2) + '%' + ')' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
@@ -118,6 +118,13 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="task.dir"></span>
+                        </div>
+                    </div>
+                    <div class="row no-hover no-background" ng-if="task && task.status == 'active'">
+                        <div class="col-sm-12">
+                            <div class="task-status-chart-wrapper">
+                                <ng-chart ng-data="context.statusData" height="200"></ng-chart>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -217,7 +224,7 @@
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')">
                 <div class="settings-table settings-table-firstrow-noborder">
-                    <ng-setting ng-repeat="option in availableOptions" option="option"
+                    <ng-setting ng-repeat="option in context.availableOptions" option="option"
                                 ng-model="options[option.key]" on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                 </div>
             </div>

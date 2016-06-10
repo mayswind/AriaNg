@@ -5,6 +5,8 @@
         title: 'Aria Ng',
         appPrefix: 'AriaNg',
         optionStorageKey: 'Options',
+        globalStatStorageCapacity: 120,
+        taskStatStorageCapacity: 300,
         lazySaveTimeout: 500
     }).constant('ariaNgDefaultOptions', {
         language: 'en',

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
         var refreshGlobalStat = function (silent) {
@@ -10,11 +10,16 @@
                     $interval.cancel(globalStatRefreshPromise);
                     return;
                 }
-                
+
                 if (response.success) {
                     $scope.globalStat = response.data;
+                    ariaNgMonitorService.recordGlobalStat(response.data);
                 }
             }, silent);
+        };
+
+        $scope.globalStatusContext = {
+            data: ariaNgMonitorService.getGlobalStatsData()
         };
 
         $scope.isTaskSelected = function () {
