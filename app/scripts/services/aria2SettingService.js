@@ -120,7 +120,7 @@
                     callback: callback
                 });
             },
-            getServerStatus: function (callback) {
+            getAria2Status: function (callback) {
                 return aria2RpcService.getVersion({
                     callback: callback
                 })

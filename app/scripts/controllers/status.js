@@ -3,8 +3,8 @@
 
     angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, ariaNgCommonService, aria2SettingService) {
         $rootScope.loadPromise = (function () {
-            return aria2SettingService.getServerStatus(function (result) {
-                $scope.serverStatus = result;
+            return aria2SettingService.getAria2Status(function (result) {
+                $scope.aria2Status = result;
             });
         })();
 

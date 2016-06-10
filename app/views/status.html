@@ -5,7 +5,7 @@
                 <span translate>Aria2 Version</span>
             </div>
             <div class="setting-value col-sm-8">
-                <span ng-bind="serverStatus.version"></span>
+                <span ng-bind="aria2Status.version"></span>
             </div>
         </div>
         <div class="row">
@@ -13,10 +13,10 @@
                 <span translate>Enabled Features</span>
             </div>
             <div class="setting-value col-sm-8">
-                <span class="wholeline" ng-repeat="feature in serverStatus.enabledFeatures" ng-bind="feature"></span>
+                <span class="wholeline" ng-repeat="feature in aria2Status.enabledFeatures" ng-bind="feature"></span>
             </div>
         </div>
-        <div class="row ng-cloak" ng-if="serverStatus">
+        <div class="row ng-cloak" ng-if="aria2Status">
             <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Functions</span>
             </div>
