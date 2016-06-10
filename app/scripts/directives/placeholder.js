@@ -7,11 +7,11 @@
             scope: {
                 placeholder: '=ngPlaceholder'
             },
-            link: function (scope, elem, attr) {
+            link: function (scope, elem) {
                 scope.$watch('placeholder', function () {
                     elem[0].placeholder = scope.placeholder;
                 });
             }
-        }
+        };
     });
 })();
