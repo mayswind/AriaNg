@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
+    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var protocol = ariaNgSettingService.getProtocol();
         var secret = ariaNgSettingService.getSecret();
 
@@ -13,58 +13,43 @@
             return aria2RpcConstants.rpcServiceName + '.' + methodName;
         };
 
-        var invoke = function (method, context) {
-            var isSystemMethod = checkIsSystemMethod(method);
-            var finalParams = [];
+        var invoke = function (context) {
+            var uniqueId = ariaNgCommonService.generateUniqueId();
 
-            if (secret && !isSystemMethod) {
-                finalParams.push(aria2RpcConstants.rpcTokenPrefix + secret);
-            }
-
-            if (angular.isArray(context.params) && context.params.length > 0) {
-                for (var i = 0; i < context.params.length; i++) {
-                    finalParams.push(context.params[i]);
-                }
-            }
-
-            context.uniqueId = ariaNgCommonService.generateUniqueId();
-            context.requestBody = {
+            var requestBody = {
                 jsonrpc: aria2RpcConstants.rpcServiceVersion,
-                method: (!isSystemMethod ? getAria2MethodFullName(method) : method),
-                id: context.uniqueId
+                method: context.methodName,
+                id: uniqueId,
+                params: context.params
             };
 
-            if (finalParams.length > 0) {
-                context.requestBody.params = finalParams;
-            }
-
-            if (!context.silent) {
-                context.errorCallback = function (error) {
-                    if (!error || !error.message) {
-                        return;
-                    }
-
-                    if (error.message == 'Unauthorized') {
-                        ariaNgCommonService.showError('rpc.error.' + error.message);
-                        return;
-                    }
-                }
-            }
+            var requestContext = {
+                uniqueId: uniqueId,
+                requestBody: requestBody,
+                successCallback: context.successCallback,
+                errorCallback: context.errorCallback
+            };
 
             if (protocol == 'ws' || protocol == 'wss') {
-                return aria2WebSocketRpcService.request(context);
+                return aria2WebSocketRpcService.request(requestContext);
             } else {
-                return aria2HttpRpcService.request(context);
+                return aria2HttpRpcService.request(requestContext);
             }
         };
 
-        var invokeMulti = function (methodFunc, contexts, keyProperty, callback) {
+        var invokeMulti = function (methodFunc, contexts, callback) {
             var promises = [];
+
+            var hasSuccess = false;
+            var hasError = false;
             var results = [];
 
             for (var i = 0; i < contexts.length; i++) {
-                contexts[i].callback = function (result) {
-                    results.push(result);
+                contexts[i].callback = function (response) {
+                    results.push(response);
+
+                    hasSuccess = hasSuccess | response.success;
+                    hasError = hasError | !response.success;
                 };
 
                 promises.push(methodFunc(contexts[i]));
@@ -72,33 +57,83 @@
 
             return $q.all(promises).finally(function () {
                 if (callback) {
-                    callback(results);
+                    callback({
+                        hasSuccess: !!hasSuccess,
+                        hasError: !!hasError,
+                        results: results
+                    });
                 }
             });
         };
 
+        var processError = function (error) {
+            if (!error || !error.message) {
+                return false;
+            }
+
+            if (error.message == aria2RpcErrors.Unauthorized.message) {
+                ariaNgCommonService.showError('rpc.error.' + error.message);
+                return true;
+            } else {
+                ariaNgCommonService.showError(error.message);
+                return true;
+            }
+        };
+
         var buildRequestContext = function () {
-            var context = {};
+            var methodName = arguments[0];
+            var isSystemMethod = checkIsSystemMethod(methodName);
+            var finalParams = [];
 
-            if (arguments.length > 0) {
-                var invokeContext = arguments[0];
+            var context = {
+                methodName: (!isSystemMethod ? getAria2MethodFullName(methodName) : methodName)
+            };
 
-                context.silent = invokeContext.silent === true;
-                context.callback = invokeContext.callback;
+            if (secret && !isSystemMethod) {
+                finalParams.push(aria2RpcConstants.rpcTokenPrefix + secret);
             }
 
             if (arguments.length > 1) {
-                var params = [];
+                var invokeContext = arguments[1];
 
-                for (var i = 1; i < arguments.length; i++) {
+                context.successCallback = function (id, result) {
+                    if (invokeContext.callback) {
+                        invokeContext.callback({
+                            id: id,
+                            success: true,
+                            data: result
+                        });
+                    }
+                };
+
+                context.errorCallback = function (id, error) {
+                    var errorProcessed = false;
+
+                    if (!invokeContext.silent) {
+                        errorProcessed = processError(error);
+                    }
+
+                    if (invokeContext.callback) {
+                        invokeContext.callback({
+                            id: id,
+                            success: false,
+                            data: error,
+                            errorProcessed: errorProcessed
+                        });
+                    }
+                };
+            }
+
+            if (arguments.length > 2) {
+                for (var i = 2; i < arguments.length; i++) {
                     if (arguments[i] != null && !angular.isUndefined(arguments[i])) {
-                        params.push(arguments[i]);
+                        finalParams.push(arguments[i]);
                     }
                 }
+            }
 
-                if (params.length > 0) {
-                    context.params = params;
-                }
+            if (finalParams.length > 0) {
+                context.params = finalParams;
             }
 
             return context;
@@ -136,167 +171,158 @@
             //     return invoke('addMetalink', context);
             // },
             remove: function (context) {
-                return invoke('remove', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('remove', context, context.gid));
             },
             forceRemove: function (context) {
-                return invoke('forceRemove', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('forceRemove', context, context.gid));
             },
             forceRemoveMulti: function (context) {
                 var contexts = [];
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
+                        silent: !!context.silent,
                         gid: context.gids[i]
                     });
                 }
 
-                return invokeMulti(this.forceRemove, contexts, 'gid', context.callback);
+                return invokeMulti(this.forceRemove, contexts, context.callback);
             },
             pause: function (context) {
-                return invoke('pause', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('pause', context, context.gid));
             },
             pauseAll: function (context) {
-                return invoke('pauseAll', buildRequestContext(context));
+                return invoke(buildRequestContext('pauseAll', context));
             },
             forcePause: function (context) {
-                return invoke('forcePause', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('forcePause', context, context.gid));
             },
             forcePauseMulti: function (context) {
                 var contexts = [];
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
+                        silent: !!context.silent,
                         gid: context.gids[i]
                     });
                 }
 
-                return invokeMulti(this.forcePause, contexts, 'gid', context.callback);
+                return invokeMulti(this.forcePause, contexts, context.callback);
             },
             forcePauseAll: function (context) {
-                return invoke('forcePauseAll', buildRequestContext(context));
+                return invoke(buildRequestContext('forcePauseAll', context));
             },
             unpause: function (context) {
-                return invoke('unpause', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('unpause', context, context.gid));
             },
             unpauseMulti: function (context) {
                 var contexts = [];
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
+                        silent: !!context.silent,
                         gid: context.gids[i]
                     });
                 }
 
-                return invokeMulti(this.unpause, contexts, 'gid', context.callback);
+                return invokeMulti(this.unpause, contexts, context.callback);
             },
             unpauseAll: function (context) {
-                return invoke('unpauseAll', buildRequestContext(context));
+                return invoke(buildRequestContext('unpauseAll', context));
             },
             tellStatus: function (context) {
-                return invoke('tellStatus', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('tellStatus', context, context.gid));
             },
             getUris: function (context) {
-                return invoke('getUris', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('getUris', context, context.gid));
             },
             getFiles: function (context) {
-                return invoke('getFiles', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('getFiles', context, context.gid));
             },
             getPeers: function (context) {
-                return invoke('getPeers', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('getPeers', context, context.gid));
             },
             getServers: function (context) {
-                return invoke('getServers', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('getServers', context, context.gid));
             },
             tellActive: function (context) {
-                return invoke('tellActive', buildRequestContext(context,
+                return invoke(buildRequestContext('tellActive', context,
                     angular.isUndefined(context.requestParams) ? null : context.requestParams
                 ));
             },
             tellWaiting: function (context) {
-                return invoke('tellWaiting', buildRequestContext(context,
+                return invoke(buildRequestContext('tellWaiting', context,
                     angular.isUndefined(context.offset) ? 0 : context.offset,
                     angular.isUndefined(context.num) ? 1000 : context.num,
                     angular.isUndefined(context.requestParams) ? null : context.requestParams
                 ));
             },
             tellStopped: function (context) {
-                return invoke('tellStopped', buildRequestContext(context,
+                return invoke(buildRequestContext('tellStopped', context,
                     angular.isUndefined(context.offset) ? 0 : context.offset,
                     angular.isUndefined(context.num) ? 1000 : context.num,
                     angular.isUndefined(context.requestParams) ? null : context.requestParams
                 ));
             },
             changePosition: function (context) {
-                return invoke('changePosition', buildRequestContext(context, context.gid, context.pos, context.how));
+                return invoke(buildRequestContext('changePosition', context, context.gid, context.pos, context.how));
             },
             // changeUri: function (context) {
             //     return invoke('changeUri', context);
             // },
             getOption: function (context) {
-                return invoke('getOption', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('getOption', context, context.gid));
             },
             changeOption: function (context) {
-                return invoke('changeOption', buildRequestContext(context, context.gid, context.options));
+                return invoke(buildRequestContext('changeOption', context, context.gid, context.options));
             },
             getGlobalOption: function (context) {
-                return invoke('getGlobalOption', buildRequestContext(context));
+                return invoke(buildRequestContext('getGlobalOption', context));
             },
             changeGlobalOption: function (context) {
-                return invoke('changeGlobalOption', buildRequestContext(context, context.options));
+                return invoke(buildRequestContext('changeGlobalOption', context, context.options));
             },
             getGlobalStat: function (context) {
-                return invoke('getGlobalStat', buildRequestContext(context));
+                return invoke(buildRequestContext('getGlobalStat', context));
             },
             purgeDownloadResult: function (context) {
-                return invoke('purgeDownloadResult', buildRequestContext(context));
+                return invoke(buildRequestContext('purgeDownloadResult', context));
             },
             removeDownloadResult: function (context) {
-                return invoke('removeDownloadResult', buildRequestContext(context, context.gid));
+                return invoke(buildRequestContext('removeDownloadResult', context, context.gid));
             },
             removeDownloadResultMulti: function (context) {
                 var contexts = [];
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
+                        silent: !!context.silent,
                         gid: context.gids[i]
                     });
                 }
 
-                return invokeMulti(this.removeDownloadResult, contexts, 'gid', context.callback);
+                return invokeMulti(this.removeDownloadResult, contexts, context.callback);
             },
             getVersion: function (context) {
-                return invoke('getVersion', buildRequestContext(context));
+                return invoke(buildRequestContext('getVersion', context));
             },
             getSessionInfo: function (context) {
-                return invoke('getSessionInfo', buildRequestContext(context));
+                return invoke(buildRequestContext('getSessionInfo', context));
             },
             shutdown: function (context) {
-                return invoke('shutdown', buildRequestContext(context));
+                return invoke(buildRequestContext('shutdown', context));
             },
             forceShutdown: function (context) {
-                return invoke('forceShutdown', buildRequestContext(context));
+                return invoke(buildRequestContext('forceShutdown', context));
             },
             saveSession: function (context) {
-                return invoke('saveSession', buildRequestContext(context));
+                return invoke(buildRequestContext('saveSession', context));
             },
             multicall: function (context) {
-                var requestContext = {
-                    params: [],
-                    silent: context.silent === true,
-                    callback: context.callback
-                };
-
-                if (angular.isArray(context.methods) && context.methods.length > 0) {
-                    for (var i = 0; i < context.methods.length; i++) {
-                        var method = context.methods[i];
-                        requestContext.params.push([method]);
-                    }
-                }
-
-                return invoke('system.multicall', requestContext);
+                return invoke(buildRequestContext('system.multicall', context, context.methods));
             },
             listMethods: function (context) {
-                return invoke('system.listMethods', buildRequestContext(context));
+                return invoke(buildRequestContext('system.listMethods', context));
             }
         };
     }]);

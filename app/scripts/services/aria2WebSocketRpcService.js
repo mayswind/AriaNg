@@ -40,16 +40,12 @@
                         context: context
                     });
 
-                    if (content.error && context.errorCallback) {
-                        context.errorCallback(content.error);
+                    if (content.result && context.successCallback) {
+                        context.successCallback(context.id, content.result);
                     }
 
-                    if (context.callback) {
-                        if (content.result) {
-                            context.callback(content.result);
-                        } else if (content.error) {
-                            context.callback(content.error);
-                        }
+                    if (content.error && context.errorCallback) {
+                        context.errorCallback(context.id, content.error);
                     }
 
                     delete sendIdStates[uniqueId];

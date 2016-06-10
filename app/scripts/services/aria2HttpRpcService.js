@@ -21,8 +21,8 @@
                         return;
                     }
 
-                    if (context.callback) {
-                        context.callback(data.result);
+                    if (context.successCallback) {
+                        context.successCallback(data.id, data.result);
                     }
                 }).error(function (data, header, config, status) {
                     if (!data) {
@@ -30,11 +30,7 @@
                     }
 
                     if (context.errorCallback) {
-                        context.errorCallback(data.error);
-                    }
-
-                    if (context.callback) {
-                        context.callback(data.error);
+                        context.errorCallback(data.id, data.error);
                     }
                 });
             }

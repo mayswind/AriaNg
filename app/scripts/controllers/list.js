@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$route', '$interval', 'dragulaService', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $scope, $window, $location, $route, $interval, dragulaService, ariaNgCommonService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('DownloadListController', ['$rootScope', '$scope', '$window', '$location', '$route', '$interval', 'dragulaService', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $scope, $window, $location, $route, $interval, dragulaService, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2TaskService) {
         var location = $location.path().substring(1);
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
@@ -12,10 +12,20 @@
                 return;
             }
 
-            return aria2TaskService.getTaskList(location, needRequestWholeInfo, function (result) {
-                if (!ariaNgCommonService.extendArray(result, $rootScope.taskContext.list, 'gid')) {
+            return aria2TaskService.getTaskList(location, needRequestWholeInfo, function (response) {
+                if (!response.success) {
+                    if (response.data.message == aria2RpcErrors.Unauthorized.message) {
+                        $interval.cancel(downloadTaskRefreshPromise);
+                    }
+
+                    return;
+                }
+
+                var taskList = response.data;
+
+                if (!ariaNgCommonService.extendArray(taskList, $rootScope.taskContext.list, 'gid')) {
                     if (needRequestWholeInfo) {
-                        $rootScope.taskContext.list = result;
+                        $rootScope.taskContext.list = taskList;
                         needRequestWholeInfo = false;
                     } else {
                         needRequestWholeInfo = true;
@@ -73,9 +83,9 @@
 
             pauseDownloadTaskRefresh = true;
 
-            aria2TaskService.changeTaskPosition(gid, index, function (result) {
+            aria2TaskService.changeTaskPosition(gid, index, function () {
                 pauseDownloadTaskRefresh = false;
-            });
+            }, true);
         });
 
         $scope.$on('$destroy', function () {

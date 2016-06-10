@@ -4,7 +4,7 @@
     angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', 'ariaNgConstants', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, $location, ariaNgConstants, ariaNgCommonService, aria2SettingService) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
 
-        var getAvailableOptions = function (type) {
+        $scope.availableOptions = (function (type) {
             var keys = aria2SettingService.getAvailableGlobalOptionsKeys(type);
 
             if (!keys) {
@@ -13,23 +13,23 @@
             }
 
             return aria2SettingService.getSpecifiedOptions(keys);
-        };
-
-        $scope.availableOptions = getAvailableOptions(location);
+        })(location);
 
         $scope.setGlobalOption = function (key, value, optionStatus) {
-            return aria2SettingService.setGlobalOption(key, value, function (result) {
-                if (result == 'OK') {
+            return aria2SettingService.setGlobalOption(key, value, function (response) {
+                if (response.success && response.data == 'OK') {
                     optionStatus.setSuccess();
                 } else {
                     optionStatus.setFailed();
                 }
-            });
+            }, true);
         };
 
         $rootScope.loadPromise = (function () {
-            return aria2SettingService.getGlobalOption(function (result) {
-                $scope.globalOptions = result;
+            return aria2SettingService.getGlobalOption(function (response) {
+                if (response.success) {
+                    $scope.globalOptions = response.data;
+                }
             });
         })();
     }]);

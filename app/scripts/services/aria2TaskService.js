@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'aria2RpcService', function ($q, $translate, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'aria2RpcService', 'ariaNgCommonService', function ($q, $translate, aria2RpcService, ariaNgCommonService) {
         var getFileNameFromPath = function (path) {
             if (!path) {
                 return path;
@@ -114,12 +114,12 @@
                 return invokeMethod({
                     requestParams: full ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams(),
                     silent: !!silent,
-                    callback: function (result) {
+                    callback: function (response) {
                         if (!callback) {
                             return;
                         }
 
-                        callback(result);
+                        callback(response);
                     }
                 });
             },
@@ -127,33 +127,38 @@
                 return aria2RpcService.tellStatus({
                     gid: gid,
                     silent: !!silent,
-                    callback: function (result) {
+                    callback: function (response) {
                         if (!callback) {
                             return;
                         }
 
-                        var task = processDownloadTask(result);
-                        callback(task);
+                        if (response.success) {
+                            processDownloadTask(response.data);
+                        }
+
+                        callback(response);
                     }
                 });
             },
-            getTaskOptions: function (gid, callback) {
+            getTaskOptions: function (gid, callback, silent) {
                 return aria2RpcService.getOption({
                     gid: gid,
+                    silent: !!silent,
                     callback: callback
                 });
             },
-            setTaskOption: function (gid, key, value, callback) {
+            setTaskOption: function (gid, key, value, callback, silent) {
                 var data = {};
                 data[key] = value;
 
                 return aria2RpcService.changeOption({
                     gid: gid,
                     options: data,
+                    silent: !!silent,
                     callback: callback
                 });
             },
-            selectTaskFile: function (gid, selectedFileIndexArr, callback) {
+            selectTaskFile: function (gid, selectedFileIndexArr, callback, silent) {
                 var selectedFileIndex = '';
 
                 for (var i = 0; i < selectedFileIndexArr.length; i++) {
@@ -164,41 +169,45 @@
                     selectedFileIndex += selectedFileIndexArr[i];
                 }
 
-                return this.setTaskOption(gid, 'select-file', selectedFileIndex, callback);
+                return this.setTaskOption(gid, 'select-file', selectedFileIndex, callback, silent);
             },
             getBtTaskPeers: function (gid, callback, silent) {
                 return aria2RpcService.getPeers({
                     gid: gid,
                     silent: !!silent,
-                    callback: function (result) {
+                    callback: function (response) {
                         if (!callback) {
                             return;
                         }
 
-                        if (result) {
-                            for (var i = 0; i < result.length; i++) {
-                                var peer = result[i];
+                        if (response.success) {
+                            var peers = response.data;
+
+                            for (var i = 0; i < peers.length; i++) {
+                                var peer = peers[i];
                                 peer.completePercent = estimateCompletedPercentFromBitField(peer.bitfield) * 100;
                             }
                         }
 
-                        callback(result);
+                        callback(response);
                     }
                 });
             },
-            startTasks: function (gids, callback) {
+            startTasks: function (gids, callback, silent) {
                 return aria2RpcService.unpauseMulti({
                     gids: gids,
+                    silent: !!silent,
                     callback: callback
                 });
             },
-            pauseTasks: function (gids, callback) {
+            pauseTasks: function (gids, callback, silent) {
                 return aria2RpcService.forcePauseMulti({
                     gids: gids,
+                    silent: !!silent,
                     callback: callback
                 });
             },
-            removeTasks: function (tasks, callback) {
+            removeTasks: function (tasks, callback, silent) {
                 var runningTaskGids = [];
                 var stoppedTaskGids = [];
 
@@ -211,16 +220,19 @@
                 }
 
                 var promises = [];
-                var results = {
-                    runningResult: null,
-                    stoppedResult: null
-                };
+
+                var hasSuccess = false;
+                var hasError = false;
+                var results = [];
 
                 if (runningTaskGids.length > 0) {
                     promises.push(aria2RpcService.forceRemoveMulti({
                         gids: runningTaskGids,
-                        callback: function (result) {
-                            results.runningResult = result;
+                        silent: !!silent,
+                        callback: function (response) {
+                            ariaNgCommonService.pushArrayTo(results, response.results);
+                            hasSuccess = hasSuccess | response.hasSuccess;
+                            hasError = hasError | response.hasError;
                         }
                     }));
                 }
@@ -228,28 +240,37 @@
                 if (stoppedTaskGids.length > 0) {
                     promises.push(aria2RpcService.removeDownloadResultMulti({
                         gids: stoppedTaskGids,
-                        callback: function (result) {
-                            results.stoppedResult = result;
+                        silent: !!silent,
+                        callback: function (response) {
+                            ariaNgCommonService.pushArrayTo(results, response.results);
+                            hasSuccess = hasSuccess | response.hasSuccess;
+                            hasError = hasError | response.hasError;
                         }
                     }));
                 }
 
                 return $q.all(promises).then(function () {
                     if (callback) {
-                        callback(results);
+                        callback({
+                            hasSuccess: !!hasSuccess,
+                            hasError: !!hasError,
+                            results: results
+                        });
                     }
                 });
             },
-            changeTaskPosition: function (gid, position, callback) {
+            changeTaskPosition: function (gid, position, callback, silent) {
                 return aria2RpcService.changePosition({
                     gid: gid,
                     pos: position,
                     how: 'POS_SET',
+                    silent: !!silent,
                     callback: callback
                 })
             },
-            clearStoppedTasks: function (callback) {
+            clearStoppedTasks: function (callback, silent) {
                 return aria2RpcService.purgeDownloadResult({
+                    silent: !!silent,
                     callback: callback
                 });
             },

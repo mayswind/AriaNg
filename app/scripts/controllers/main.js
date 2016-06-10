@@ -1,12 +1,19 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$interval', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $interval, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
         var refreshGlobalStat = function (silent) {
-            return aria2SettingService.getGlobalStat(function (result) {
-                $scope.globalStat = result;
+            return aria2SettingService.getGlobalStat(function (response) {
+                if (!response.success && response.data.message == aria2RpcErrors.Unauthorized.message) {
+                    $interval.cancel(globalStatRefreshPromise);
+                    return;
+                }
+                
+                if (response.success) {
+                    $scope.globalStat = response.data;
+                }
             }, silent);
         };
 
@@ -67,10 +74,31 @@
                 return;
             }
 
-            $rootScope.loadPromise = invoke(gids, function (result) {
+            $rootScope.loadPromise = invoke(gids, function (response) {
+                if (response.hasError && gids.length > 1) {
+                    ariaNgCommonService.showError('Failed to change some tasks state.');
+                }
+
+                if (!response.hasSuccess) {
+                    return;
+                }
+
                 refreshGlobalStat(true);
-                $route.reload();
-            });
+
+                if (!response.hasError && state == 'start') {
+                    if ($location.path() == '/waiting') {
+                        $location.path('/downloading');
+                    } else {
+                        $route.reload();
+                    }
+                } else if (!response.hasError && state == 'pause') {
+                    if ($location.path() == '/downloading') {
+                        $location.path('/waiting');
+                    } else {
+                        $route.reload();
+                    }
+                }
+            }, (gids.length > 1));
         };
 
         $scope.removeTasks = function () {
@@ -81,21 +109,37 @@
             }
 
             ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
-                $rootScope.loadPromise = aria2TaskService.removeTasks(tasks, function (result) {
-                    refreshGlobalStat(true);
-                    if ($location.path() == '/stopped') {
-                        $route.reload();
-                    } else {
-                        $location.path('/stopped');
+                $rootScope.loadPromise = aria2TaskService.removeTasks(tasks, function (response) {
+                    if (response.hasError && tasks.length > 1) {
+                        ariaNgCommonService.showError('Failed to remove some task(s).');
                     }
-                });
+
+                    if (!response.hasSuccess) {
+                        return;
+                    }
+
+                    refreshGlobalStat(true);
+
+                    if (!response.hasError) {
+                        if ($location.path() == '/stopped') {
+                            $route.reload();
+                        } else {
+                            $location.path('/stopped');
+                        }
+                    }
+                }, (tasks.length > 1));
             });
         };
 
         $scope.clearStoppedTasks = function () {
             ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear stopped tasks?', 'warning', function () {
-                $rootScope.loadPromise = aria2TaskService.clearStoppedTasks(function (result) {
+                $rootScope.loadPromise = aria2TaskService.clearStoppedTasks(function (response) {
+                    if (!response.success) {
+                        return;
+                    }
+
                     refreshGlobalStat(true);
+
                     if ($location.path() == '/stopped') {
                         $route.reload();
                     } else {

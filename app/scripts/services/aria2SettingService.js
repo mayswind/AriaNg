@@ -83,7 +83,7 @@
                     if (option.type == 'boolean') {
                         option.options = ['true', 'false'];
                     }
-                    
+
                     if (!!readonly) {
                         option.readonly = true;
                     }
@@ -106,22 +106,25 @@
 
                 return options;
             },
-            getGlobalOption: function (callback) {
+            getGlobalOption: function (callback, silent) {
                 return aria2RpcService.getGlobalOption({
+                    silent: !!silent,
                     callback: callback
                 });
             },
-            setGlobalOption: function (key, value, callback) {
+            setGlobalOption: function (key, value, callback, silent) {
                 var data = {};
                 data[key] = value;
 
                 return aria2RpcService.changeGlobalOption({
                     options: data,
+                    silent: !!silent,
                     callback: callback
                 });
             },
-            getAria2Status: function (callback) {
+            getAria2Status: function (callback, silent) {
                 return aria2RpcService.getVersion({
+                    silent: !!silent,
                     callback: callback
                 })
             },
@@ -138,13 +141,15 @@
                     }
                 });
             },
-            saveSession: function (callback) {
+            saveSession: function (callback, silent) {
                 return aria2RpcService.saveSession({
+                    silent: !!silent,
                     callback: callback
                 })
             },
-            shutdown: function (callback) {
+            shutdown: function (callback, silent) {
                 return aria2RpcService.shutdown({
+                    silent: !!silent,
                     callback: callback
                 })
             }

@@ -11,7 +11,7 @@
                 <a class="pointer-cursor" ng-click="context.currentTab = 'filelist'" translate>Files</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers'" translate>Peers</a>
+                <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers';loadBtPeers(task);" translate>Peers</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')" class="slim">
                 <a class="pointer-cursor" ng-click="context.currentTab = 'settings';loadTaskOption(task);">
