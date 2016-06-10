@@ -57,7 +57,7 @@
             type: 'boolean'
         },
         'no-proxy': {
-            type: 'string',
+            type: 'text',
             split: ',',
             showCount: true
         },
