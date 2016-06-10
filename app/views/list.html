@@ -40,6 +40,7 @@
                         <label for="{{'task_' + task.gid}}">
                             <span class="task-name" ng-bind="task.taskName" title="{{task.taskName}}"></span>
                         </label>
+                        <i class="icon-upload fa fa-arrow-up" title="{{'Seeding' | translate}}" ng-if="task && task.status == 'active' && (task.seeder === true || task.seeder === 'true')"></i>
                     </div>
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>

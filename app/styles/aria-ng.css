@@ -317,6 +317,14 @@ td {
     color: #3c8dbc;
 }
 
+.skin-aria-ng .icon-download {
+    color: #3a89e9;
+}
+
+.skin-aria-ng .icon-upload {
+    color: #74a329;
+}
+
 .skin-aria-ng .nav-tabs-custom {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -748,16 +756,10 @@ td {
 }
 
 /* miscellaneous */
-span.realtime-upload, span.realtime-download {
+span.realtime-speed {
     padding: 0 15px 0 15px;
 }
 
-span.realtime-upload > i {
-    color: #3a89e9;
-    padding-right: 2px;
-}
-
-span.realtime-download > i {
-    color: #74a329;
+span.realtime-speed > i {
     padding-right: 2px;
 }
