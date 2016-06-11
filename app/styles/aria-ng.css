@@ -649,6 +649,10 @@ td {
     margin-right: 4px;
 }
 
+.piece-legend .piece {
+    margin-right: 2px;
+}
+
 .piece-map .piece, .piece-legend .piece {
     width: 10px;
     height: 10px;
