@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").filter('taskOrderBy', ['orderByFilter', 'ariaNgCommonService', function (orderByFilter, ariaNgCommonService) {
+    angular.module('ariaNg').filter('taskOrderBy', ['orderByFilter', 'ariaNgCommonService', function (orderByFilter, ariaNgCommonService) {
         return function (array, type) {
             if (!angular.isArray(array)) {
                 return array;

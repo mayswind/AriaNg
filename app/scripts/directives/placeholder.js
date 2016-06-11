@@ -1,15 +1,15 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").directive('ngPlaceholder', function () {
+    angular.module('ariaNg').directive('ngPlaceholder', function () {
         return {
             restrict: 'A',
             scope: {
                 placeholder: '=ngPlaceholder'
             },
-            link: function (scope, elem) {
+            link: function (scope, element) {
                 scope.$watch('placeholder', function () {
-                    elem[0].placeholder = scope.placeholder;
+                    element[0].placeholder = scope.placeholder;
                 });
             }
         };

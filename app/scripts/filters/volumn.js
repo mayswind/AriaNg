@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").filter('readableVolumn', ['numberFilter', function (numberFilter) {
+    angular.module('ariaNg').filter('readableVolumn', ['numberFilter', function (numberFilter) {
         var units = [ 'B', 'KB', 'MB', 'GB' ];
         var defaultFractionSize = 2;
 

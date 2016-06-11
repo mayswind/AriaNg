@@ -33,9 +33,7 @@
                     scope.$apply();
                 });
 
-                scope.$watch(function () {
-                    return scope.options;
-                }, function (value) {
+                scope.$watch('options', function (value) {
                     if (value) {
                         setOptions(value);
                     }
@@ -94,9 +92,7 @@
                     }
                 };
 
-                scope.$watch(function () {
-                    return scope.options;
-                }, function (value) {
+                scope.$watch('options', function (value) {
                     if (value) {
                         setOptions(value);
                     }

@@ -6,10 +6,10 @@
         var windowHeight = $(window).height();
         var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
 
-        $(".content-body").css('height', windowHeight - neg);
+        $('.content-body').css('height', windowHeight - neg);
     };
 
-    $(window, ".wrapper").resize(function () {
+    $(window, '.wrapper').resize(function () {
         fixContentWrapperHeight();
     });
 

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").filter('taskStatus', function () {
+    angular.module('ariaNg').filter('taskStatus', function () {
         return function (task) {
             if (!task) {
                 return '';

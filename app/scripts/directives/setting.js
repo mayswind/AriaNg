@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module("ariaNg").directive('ngSetting', ['$timeout', 'ariaNgConstants', function ($timeout, ariaNgConstants) {
+    angular.module('ariaNg').directive('ngSetting', ['$timeout', 'ariaNgConstants', function ($timeout, ariaNgConstants) {
         return {
             restrict: 'E',
-            templateUrl: "views/setting.html",
+            templateUrl: 'views/setting.html',
             require: '?ngModel',
             replace: true,
             scope: {
@@ -127,10 +127,8 @@
                     scope.optionValue = value;
                 });
 
-                scope.$watch(function () {
-                    return scope.option;
-                }, function (value) {
-                    angular.element('[data-toggle="popover"]').popover();
+                scope.$watch('option', function () {
+                    element.find('[data-toggle="popover"]').popover();
                 });
             }
         };
