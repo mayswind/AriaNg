@@ -23,6 +23,8 @@
                 return orderByFilter(array, ['idle', 'remainTime', 'remainLength'], orderType.reverse);
             } else if (orderType.type == 'dspeed') {
                 return orderByFilter(array, ['downloadSpeed'], orderType.reverse);
+            } else if (orderType.type == 'uspeed') {
+                return orderByFilter(array, ['uploadSpeed'], orderType.reverse);
             } else {
                 return array;
             }

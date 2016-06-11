@@ -23,6 +23,7 @@
             'By Completed Percent': 'By Completed Percent',
             'By Remain Time': 'By Remain Time',
             'By Download Speed': 'By Download Speed',
+            'By Upload Speed': 'By Upload Speed',
             'Download': 'Download',
             'Upload': 'Upload',
             'Downloading': 'Downloading',
