@@ -130,7 +130,17 @@
                 </div>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'blocks'}">
-
+                <div class="piece-legends">
+                    <div class="piece-legend">
+                        <div class="piece piece-completed"></div>
+                        <span translate>Completed</span>
+                    </div>
+                    <div class="piece-legend">
+                        <div class="piece"></div>
+                        <span translate>Uncompleted</span>
+                    </div>
+                </div>
+                <ng-piece-map bit-field="task.bitfield" piece-count="task.numPieces"></ng-piece-map>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'filelist'}">
                 <div class="task-table task-table-firstrow-noborder">
@@ -200,7 +210,9 @@
                                 <span ng-bind="peer.ip + ':' + peer.port"></span>
                             </div>
                             <div class="col-sm-3">
-
+                                <div class="piece-bar-wrapper">
+                                    <ng-piece-bar bit-field="peer.bitfield" piece-count="task.numPieces" color="#149BDF"></ng-piece-bar>
+                                </div>
                             </div>
                             <div class="col-sm-2 col-xs-4">
                                 <span ng-bind="(peer.completePercent | percent: 2) + '%'"></span>

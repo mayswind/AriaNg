@@ -283,56 +283,78 @@
                     processDownloadTask(tasks[i]);
                 }
             },
+            getPieceStatus: function (bitField, pieceCount) {
+                var pieces = [];
+
+                if (!bitField) {
+                    return pieces;
+                }
+
+                var pieceIndex = 0;
+
+                for (var i = 0; i < bitField.length; i++) {
+                    var bitSet = parseInt(bitField[i], 16);
+
+                    for (var j = 1; j <= 4; j++) {
+                        var bit = (1 << (4 - j));
+                        var isCompleted = (bitSet & bit) == bit;
+
+                        pieces.push(isCompleted ? 1 : 0);
+                        pieceIndex++;
+
+                        if (pieceIndex >= pieceCount) {
+                            break;
+                        }
+                    }
+                }
+
+                return pieces;
+            },
+            getCombinedPieces: function (bitField, pieceCount) {
+                var pieces = this.getPieceStatus(bitField, pieceCount);
+                var combinedPieces = [];
+
+                for (var i = 0; i < pieces.length; i++) {
+                    var isCompleted = (pieces[i] == 1);
+
+                    if (combinedPieces.length > 0 && combinedPieces[combinedPieces.length - 1].isCompleted == isCompleted) {
+                        combinedPieces[combinedPieces.length - 1].count++;
+                    } else {
+                        combinedPieces.push({
+                            isCompleted: isCompleted,
+                            count: 1
+                        });
+                    }
+                }
+
+                return combinedPieces;
+            },
             estimateHealthPercentFromPeers: function (task, peers) {
                 if (peers.length < 1) {
                     return task.completePercent;
                 }
 
-                var bitfieldCompletedArr = new Array(task.bitfield.length);
-                var bitfieldPieceArr = new Array(task.bitfield.length);
-                var totalLength = task.bitfield.length * 0xf;
-                var healthBitCount = 0;
-
-                for (var i = 0; i < task.bitfield.length; i++) {
-                    var num = parseInt(task.bitfield[i], 16);
-                    bitfieldCompletedArr[i] = 0;
-                    bitfieldPieceArr[i] = 0;
-
-                    if (num == 0xf) {
-                        bitfieldCompletedArr[i] = num;
-                    } else {
-                        bitfieldPieceArr[i] = num;
-                    }
-                }
+                var pieces = this.getPieceStatus(task.bitfield, task.numPieces);
 
                 for (var i = 0; i < peers.length; i++) {
                     var peer = peers[i];
-                    var bitfield = peer.bitfield;
+                    var peerPieces = this.getPieceStatus(peer.bitfield, task.numPieces);
 
-                    for (var j = 0; j < bitfield.length; j++) {
-                        var num = parseInt(bitfield[j], 16);
-
-                        if (num == 0xf) {
-                            bitfieldCompletedArr[j] += num;
-                        } else {
-                            bitfieldPieceArr[j] = Math.max(bitfieldPieceArr[j], num);
-                        }
+                    for (var j = 0; j < peerPieces.length; j++) {
+                        pieces[j] += peerPieces[j];
                     }
                 }
 
-                for (var i = 0; i < bitfieldCompletedArr.length; i++) {
-                    bitfieldCompletedArr[i] += bitfieldPieceArr[i];
-                }
+                var competedPieceCount = 0;
 
                 while (true) {
                     var completed = true;
 
-                    for (var i = 0; i < bitfieldCompletedArr.length; i++) {
-                        var bitCount = Math.min(bitfieldCompletedArr[i], 0xf);
-                        healthBitCount += bitCount;
-                        bitfieldCompletedArr[i] -= bitCount;
-
-                        if (bitCount < 0xf) {
+                    for (var i = 0; i < pieces.length; i++) {
+                        if (pieces[i] > 0) {
+                            competedPieceCount++;
+                            pieces[i]--;
+                        } else {
                             completed = false;
                         }
                     }
@@ -342,7 +364,7 @@
                     }
                 }
 
-                var healthPercent = healthBitCount / totalLength * 100;
+                var healthPercent = competedPieceCount / task.numPieces * 100;
 
                 if (healthPercent < task.completePercent) {
                     healthPercent = task.completePercent;
