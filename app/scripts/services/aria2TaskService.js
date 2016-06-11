@@ -303,7 +303,7 @@
                         pieceIndex++;
 
                         if (pieceIndex >= pieceCount) {
-                            break;
+                            return pieces;
                         }
                     }
                 }
