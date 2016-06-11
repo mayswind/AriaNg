@@ -68,7 +68,7 @@
             'Address': 'Address',
             'Status': 'Status',
             'Percent': 'Percent',
-            'Download / Upload Speed': 'Download / Upload Speed',
+            'Speed': 'Speed',
             'No Data': 'No Data',
             'No connected peers': 'No connected peers',
             'Failed to change some tasks state.': 'Failed to change some tasks state.',

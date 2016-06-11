@@ -140,6 +140,18 @@
             },
             setFileListDisplayOrder: function (value) {
                 setOption('fileListDisplayOrder', value);
+            },
+            getPeerListDisplayOrder: function () {
+                var value = getOption('peerListDisplayOrder');
+
+                if (!value) {
+                    value = 'default:asc';
+                }
+
+                return value;
+            },
+            setPeerListDisplayOrder: function (value) {
+                setOption('peerListDisplayOrder', value);
             }
         };
     }]);

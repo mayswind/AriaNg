@@ -191,21 +191,28 @@
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-3">
-                                <span translate>Address</span>
+                                <a ng-click="changePeerListDisplayOrder('address:asc', true)" translate>Address</a>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('address:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('address:desc')}"></i>
                             </div>
                             <div class="col-sm-3">
                                 <span translate>Status</span>
                             </div>
                             <div class="col-sm-2 col-xs-4">
-                                <span translate>Percent</span>
+                                <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Percent</a>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
                             </div>
                             <div class="col-sm-4 col-xs-4">
-                                <span translate>Download / Upload Speed</span>
+                                <a ng-click="changePeerListDisplayOrder('dspeed:desc', true)" translate>Download</a>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('dspeed:desc')}"></i>
+                                <span>/</span>
+                                <a ng-click="changePeerListDisplayOrder('uspeed:desc', true)" translate>Upload</a>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('uspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('uspeed:desc')}"></i>
+                                <span translate>Speed</span>
                             </div>
                         </div>
                     </div>
                     <div class="task-table-body">
-                        <div class="row" ng-repeat="peer in peers">
+                        <div class="row" ng-repeat="peer in peers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-sm-3">
                                 <span ng-bind="peer.ip + ':' + peer.port"></span>
                             </div>

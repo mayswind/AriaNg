@@ -152,6 +152,28 @@
             }, true);
         };
 
+        $scope.changePeerListDisplayOrder = function (type, autoSetReverse) {
+            var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getPeerListDisplayOrder());
+            var newType = ariaNgCommonService.parseOrderType(type);
+
+            if (autoSetReverse && newType.type == oldType.type) {
+                newType.reverse = !oldType.reverse;
+            }
+
+            ariaNgSettingService.setPeerListDisplayOrder(newType.getValue());
+        };
+
+        $scope.isSetPeerListDisplayOrder = function (type) {
+            var orderType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getPeerListDisplayOrder());
+            var targetType = ariaNgCommonService.parseOrderType(type);
+
+            return orderType.equals(targetType);
+        };
+
+        $scope.getPeerListOrderType = function () {
+            return ariaNgSettingService.getPeerListDisplayOrder();
+        };
+
         $scope.loadTaskOption = function (task) {
             $rootScope.loadPromise = aria2TaskService.getTaskOptions(task.gid, function (response) {
                 if (response.success) {
