@@ -81,20 +81,64 @@
             return task;
         };
 
-        var estimateCompletedPercentFromBitField = function (bitfield) {
-            var totalLength = bitfield.length * 0xf;
-            var completedLength = 0;
+        var getPieceStatus = function (bitField, pieceCount) {
+            var pieces = [];
 
-            if (totalLength == 0) {
-                return 0;
+            if (!bitField) {
+                return pieces;
             }
 
-            for (var i = 0; i < bitfield.length; i++) {
-                var num = parseInt(bitfield[i], 16);
-                completedLength += num;
+            var pieceIndex = 0;
+
+            for (var i = 0; i < bitField.length; i++) {
+                var bitSet = parseInt(bitField[i], 16);
+
+                for (var j = 1; j <= 4; j++) {
+                    var bit = (1 << (4 - j));
+                    var isCompleted = (bitSet & bit) == bit;
+
+                    pieces.push(isCompleted);
+                    pieceIndex++;
+
+                    if (pieceIndex >= pieceCount) {
+                        return pieces;
+                    }
+                }
             }
 
-            return completedLength / totalLength;
+            return pieces;
+        };
+
+        var getCombinedPieces = function (bitField, pieceCount) {
+            var pieces = getPieceStatus(bitField, pieceCount);
+            var combinedPieces = [];
+
+            for (var i = 0; i < pieces.length; i++) {
+                var isCompleted = pieces[i];
+
+                if (combinedPieces.length > 0 && combinedPieces[combinedPieces.length - 1].isCompleted == isCompleted) {
+                    combinedPieces[combinedPieces.length - 1].count++;
+                } else {
+                    combinedPieces.push({
+                        isCompleted: isCompleted,
+                        count: 1
+                    });
+                }
+            }
+
+            return combinedPieces;
+        };
+
+        var createLocalPeerFromTask = function (task) {
+            return {
+                local: true,
+                bitfield: task.bitfield,
+                completePercent: task.completePercent,
+                downloadSpeed: task.downloadSpeed,
+                name: '(local)',
+                seeder: task.seeder,
+                uploadSpeed: task.uploadSpeed
+            };
         };
 
         return {
@@ -171,9 +215,9 @@
 
                 return this.setTaskOption(gid, 'select-file', selectedFileIndex, callback, silent);
             },
-            getBtTaskPeers: function (gid, callback, silent) {
+            getBtTaskPeers: function (task, callback, silent, includeLocal) {
                 return aria2RpcService.getPeers({
-                    gid: gid,
+                    gid: task.gid,
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
@@ -187,11 +231,16 @@
                                 var peer = peers[i];
                                 var upstreamToSpeed = peer.uploadSpeed;
                                 var downstreamFromSpeed = peer.downloadSpeed;
+                                var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
 
                                 peer.name = peer.ip + ':' + peer.port;
-                                peer.completePercent = estimateCompletedPercentFromBitField(peer.bitfield) * 100;
+                                peer.completePercent = ariaNgCommonService.countArray(completedPieces, true) / task.numPieces * 100;
                                 peer.downloadSpeed = upstreamToSpeed;
                                 peer.uploadSpeed = downstreamFromSpeed;
+                            }
+
+                            if (includeLocal) {
+                                peers.push(createLocalPeerFromTask(task));
                             }
                         }
 
@@ -289,62 +338,11 @@
                     processDownloadTask(tasks[i]);
                 }
             },
-            createLocalPeerFromTask: function (task) {
-                return {
-                    local: true,
-                    bitfield: task.bitfield,
-                    completePercent: task.completePercent,
-                    downloadSpeed: task.downloadSpeed,
-                    name: '(local)',
-                    seeder: task.seeder,
-                    uploadSpeed: task.uploadSpeed
-                };
-            },
             getPieceStatus: function (bitField, pieceCount) {
-                var pieces = [];
-
-                if (!bitField) {
-                    return pieces;
-                }
-
-                var pieceIndex = 0;
-
-                for (var i = 0; i < bitField.length; i++) {
-                    var bitSet = parseInt(bitField[i], 16);
-
-                    for (var j = 1; j <= 4; j++) {
-                        var bit = (1 << (4 - j));
-                        var isCompleted = (bitSet & bit) == bit;
-
-                        pieces.push(isCompleted);
-                        pieceIndex++;
-
-                        if (pieceIndex >= pieceCount) {
-                            return pieces;
-                        }
-                    }
-                }
-
-                return pieces;
+                return getPieceStatus(bitField, pieceCount);
             },
             getCombinedPieces: function (bitField, pieceCount) {
-                var pieces = this.getPieceStatus(bitField, pieceCount);
-                var combinedPieces = [];
-
-                for (var i = 0; i < pieces.length; i++) {
-                    var isCompleted = pieces[i];
-
-                    if (combinedPieces.length > 0 && combinedPieces[combinedPieces.length - 1].isCompleted == isCompleted) {
-                        combinedPieces[combinedPieces.length - 1].count++;
-                    } else {
-                        combinedPieces.push({
-                            isCompleted: isCompleted,
-                            count: 1
-                        });
-                    }
-                }
-
-                return combinedPieces;
+                return getCombinedPieces(bitField, pieceCount);
             },
             estimateHealthPercentFromPeers: function (task, peers) {
                 if (peers.length < 1) {
@@ -352,7 +350,7 @@
                 }
 
                 var totalPieces = [];
-                var currentPieces = this.getPieceStatus(task.bitfield, task.numPieces);
+                var currentPieces = getPieceStatus(task.bitfield, task.numPieces);
                 var maxCompletedPieceCount = 0;
                 var maxCompletedPercent = task.completePercent;
 
@@ -364,7 +362,7 @@
 
                 for (var i = 0; i < peers.length; i++) {
                     var peer = peers[i];
-                    var peerPieces = this.getPieceStatus(peer.bitfield, task.numPieces);
+                    var peerPieces = getPieceStatus(peer.bitfield, task.numPieces);
                     var completedPieceCount = 0;
 
                     for (var j = 0; j < peerPieces.length; j++) {

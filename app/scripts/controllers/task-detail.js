@@ -21,20 +21,19 @@
         };
 
         var refreshBtPeers = function (task, silent) {
-            return aria2TaskService.getBtTaskPeers(task.gid, function (response) {
+            return aria2TaskService.getBtTaskPeers(task, function (response) {
                 if (!response.success) {
                     return;
                 }
 
                 var peers = response.data;
-                peers.push(aria2TaskService.createLocalPeerFromTask(task));
 
                 if (!ariaNgCommonService.extendArray(peers, $scope.peers, 'peerId')) {
                     $scope.peers = peers;
                 }
 
                 $scope.context.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.peers);
-            }, silent);
+            }, silent, true);
         };
 
         var refreshDownloadTask = function (silent) {

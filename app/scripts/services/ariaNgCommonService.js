@@ -118,6 +118,19 @@
 
                 return result;
             },
+            countArray: function (array, value) {
+                if (!angular.isArray(array) || array.length < 1) {
+                    return 0;
+                }
+                
+                var count = 0;
+                
+                for (var i = 0; i < array.length; i++) {
+                    count += (array[i] == value ? 1 : 0);
+                }
+                
+                return count;
+            },
             parseOrderType: function (value) {
                 var values = value.split(':');
 
