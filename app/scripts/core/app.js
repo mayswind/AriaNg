@@ -15,7 +15,6 @@
         'LocalStorageModule',
         'cgBusy',
         'angularPromiseButtons',
-        'ui.bootstrap-slider',
         'oitozero.ngSweetAlert',
         angularDragula(angular)
     ]);
