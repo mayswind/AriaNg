@@ -214,7 +214,7 @@
                     <div class="task-table-body">
                         <div class="row" ng-repeat="peer in peers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-sm-3">
-                                <span ng-bind="peer.ip + ':' + peer.port"></span>
+                                <span ng-bind="peer.name | translate"></span>
                             </div>
                             <div class="col-sm-3">
                                 <div class="piece-bar-wrapper">

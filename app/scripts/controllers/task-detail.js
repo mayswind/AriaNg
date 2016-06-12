@@ -27,6 +27,7 @@
                 }
 
                 var peers = response.data;
+                peers.push(aria2TaskService.createLocalPeerFromTask(task));
 
                 if (!ariaNgCommonService.extendArray(peers, $scope.peers, 'peerId')) {
                     $scope.peers = peers;

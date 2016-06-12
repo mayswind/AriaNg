@@ -69,6 +69,7 @@
             'Status': 'Status',
             'Percent': 'Percent',
             'Speed': 'Speed',
+            '(local)': '(local)',
             'No Data': 'No Data',
             'No connected peers': 'No connected peers',
             'Failed to change some tasks state.': 'Failed to change some tasks state.',

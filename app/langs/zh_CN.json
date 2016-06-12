@@ -65,6 +65,7 @@
     "Status": "状态",
     "Percent": "完成度",
     "Speed": "速度",
+    "(local)": "(本机)",
     "No Data": "无数据",
     "No connected peers": "没有连接到其他节点",
     "Failed to change some tasks state.": "修改一些任务状态时失败.",

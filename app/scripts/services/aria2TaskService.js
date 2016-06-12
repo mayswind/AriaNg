@@ -185,7 +185,13 @@
 
                             for (var i = 0; i < peers.length; i++) {
                                 var peer = peers[i];
+                                var upstreamToSpeed = peer.uploadSpeed;
+                                var downstreamFromSpeed = peer.downloadSpeed;
+
+                                peer.name = peer.ip + ':' + peer.port;
                                 peer.completePercent = estimateCompletedPercentFromBitField(peer.bitfield) * 100;
+                                peer.downloadSpeed = upstreamToSpeed;
+                                peer.uploadSpeed = downstreamFromSpeed;
                             }
                         }
 
@@ -282,6 +288,17 @@
                 for (var i = 0; i < tasks.length; i++) {
                     processDownloadTask(tasks[i]);
                 }
+            },
+            createLocalPeerFromTask: function (task) {
+                return {
+                    local: true,
+                    bitfield: task.bitfield,
+                    completePercent: task.completePercent,
+                    downloadSpeed: task.downloadSpeed,
+                    name: '(local)',
+                    seeder: task.seeder,
+                    uploadSpeed: task.uploadSpeed
+                };
             },
             getPieceStatus: function (bitField, pieceCount) {
                 var pieces = [];
