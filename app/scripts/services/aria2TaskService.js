@@ -299,7 +299,7 @@
                         var bit = (1 << (4 - j));
                         var isCompleted = (bitSet & bit) == bit;
 
-                        pieces.push(isCompleted ? 1 : 0);
+                        pieces.push(isCompleted);
                         pieceIndex++;
 
                         if (pieceIndex >= pieceCount) {
@@ -315,7 +315,7 @@
                 var combinedPieces = [];
 
                 for (var i = 0; i < pieces.length; i++) {
-                    var isCompleted = (pieces[i] == 1);
+                    var isCompleted = pieces[i];
 
                     if (combinedPieces.length > 0 && combinedPieces[combinedPieces.length - 1].isCompleted == isCompleted) {
                         combinedPieces[combinedPieces.length - 1].count++;
@@ -334,26 +334,45 @@
                     return task.completePercent;
                 }
 
-                var pieces = this.getPieceStatus(task.bitfield, task.numPieces);
+                var totalPieces = [];
+                var currentPieces = this.getPieceStatus(task.bitfield, task.numPieces);
+                var maxCompletedPieceCount = 0;
+                var maxCompletedPercent = task.completePercent;
+
+                for (var i = 0; i < currentPieces.length; i++) {
+                    var count = currentPieces[i] ? 1 : 0;
+                    totalPieces.push(count);
+                    maxCompletedPieceCount += count;
+                }
 
                 for (var i = 0; i < peers.length; i++) {
                     var peer = peers[i];
                     var peerPieces = this.getPieceStatus(peer.bitfield, task.numPieces);
+                    var completedPieceCount = 0;
 
                     for (var j = 0; j < peerPieces.length; j++) {
-                        pieces[j] += peerPieces[j];
+                        var count = (peerPieces[j] ? 1 : 0);
+                        totalPieces[j] += count;
+                        completedPieceCount += count;
+                    }
+
+                    if (completedPieceCount > maxCompletedPieceCount) {
+                        maxCompletedPieceCount = completedPieceCount;
+                        maxCompletedPercent = peer.completePercent;
+                    } else if (completedPieceCount == maxCompletedPieceCount && peer.completePercent > maxCompletedPercent) {
+                        maxCompletedPercent = peer.completePercent;
                     }
                 }
 
-                var competedPieceCount = 0;
+                var totalCompletedPieceCount = 0;
 
                 while (true) {
                     var completed = true;
 
-                    for (var i = 0; i < pieces.length; i++) {
-                        if (pieces[i] > 0) {
-                            competedPieceCount++;
-                            pieces[i]--;
+                    for (var i = 0; i < totalPieces.length; i++) {
+                        if (totalPieces[i] > 0) {
+                            totalCompletedPieceCount++;
+                            totalPieces[i]--;
                         } else {
                             completed = false;
                         }
@@ -364,10 +383,14 @@
                     }
                 }
 
-                var healthPercent = competedPieceCount / task.numPieces * 100;
+                if (totalCompletedPieceCount <= maxCompletedPieceCount) {
+                    return maxCompletedPercent;
+                }
 
-                if (healthPercent < task.completePercent) {
-                    healthPercent = task.completePercent;
+                var healthPercent = totalCompletedPieceCount / task.numPieces * 100;
+
+                if (healthPercent <= maxCompletedPercent) {
+                    return maxCompletedPercent;
                 }
 
                 return healthPercent;
