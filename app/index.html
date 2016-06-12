@@ -201,7 +201,9 @@
     </aside>
 
     <div id="content-wrapper" class="content-wrapper">
-        <div id="content-body" class="content-body" ng-view cg-busy="{ promise: loadPromise, message: ('Loading' | translate) }"></div>
+        <div id="content-body" class="content-body">
+            <div ng-view cg-busy="{ promise: loadPromise, message: ('Loading' | translate) }"></div>
+        </div>
     </div>
 
     <footer class="main-footer">
