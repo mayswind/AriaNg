@@ -161,9 +161,22 @@
 
                 return requestParams;
             },
-            // addUri: function (context) {
-            //     return invoke('addUri', context);
-            // },
+            addUri: function (context) {
+                return invoke(buildRequestContext('addUri', context, context.urls, context.options));
+            },
+            addUriMulti: function (context) {
+                var contexts = [];
+
+                for (var i = 0; i < context.tasks.length; i++) {
+                    contexts.push({
+                        silent: !!context.silent,
+                        urls: context.tasks[i].urls,
+                        options: context.tasks[i].options
+                    });
+                }
+
+                return invokeMulti(this.addUri, contexts, context.callback);
+            },
             // addTorrent: function (context) {
             //     return invoke('addTorrent', context);
             // },

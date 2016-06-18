@@ -15,6 +15,10 @@
                 templateUrl: 'views/list.html',
                 controller: 'DownloadListController'
             })
+            .when('/new', {
+                templateUrl: 'views/new.html',
+                controller: 'NewTaskController'
+            })
             .when('/task/detail/:gid', {
                 templateUrl: 'views/task-detail.html',
                 controller: 'TaskDetailController'
