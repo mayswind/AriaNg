@@ -22,7 +22,7 @@
 
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
-                <div class="settings-table settings-table-firstrow-noborder">
+                <div class="settings-table striped hoverable">
                     <div class="row">
                         <div class="setting-key col-sm-4">
                             <span translate>File Name</span>
@@ -143,7 +143,7 @@
                 <ng-piece-map bit-field="task.bitfield" piece-count="task.numPieces"></ng-piece-map>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'filelist'}">
-                <div class="task-table task-table-firstrow-noborder">
+                <div class="task-table">
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-8">
@@ -187,7 +187,7 @@
                 </div>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
-                <div class="task-table task-table-firstrow-noborder">
+                <div class="task-table">
                     <div class="task-table-title hidden-xs">
                         <div class="row">
                             <div class="col-sm-3">
@@ -242,7 +242,7 @@
                 </div>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')">
-                <div class="settings-table settings-table-firstrow-noborder">
+                <div class="settings-table striped hoverable">
                     <ng-setting ng-repeat="option in context.availableOptions" option="option"
                                 ng-model="options[option.key]" on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                 </div>

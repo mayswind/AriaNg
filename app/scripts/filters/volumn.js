@@ -12,6 +12,10 @@
                 fractionSize = defaultFractionSize;
             }
 
+            if (!value) {
+                value = 0;
+            }
+
             if (!angular.isNumber(value)) {
                 value = parseInt(value);
             }

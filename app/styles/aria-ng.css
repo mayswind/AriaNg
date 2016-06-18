@@ -136,6 +136,7 @@ td {
 
 .skin-aria-ng .main-header .navbar {
     background-color: #f6f6f6;
+    border-bottom: 1px solid #ddd;
 }
 
 .skin-aria-ng .main-header .navbar .navbar-nav {
@@ -701,8 +702,8 @@ td {
     border-top: 1px solid #ddd;
 }
 
-.task-table-firstrow-noborder > .task-table-body > div.row {
-    border-top: 0;
+.task-table > div.row:first-child {
+    border-top: inherit;
 }
 
 .skin-aria-ng .task-table > .task-table-body > div.row:nth-of-type(odd) {
@@ -789,24 +790,28 @@ td {
     border-top: 1px solid #ddd;
 }
 
-.settings-table-firstrow-noborder > div.row {
-    border-top: 0;
+.settings-table > div.row:first-child {
+    border-top: inherit;
 }
 
-.skin-aria-ng .settings-table > div.row:nth-of-type(odd) {
+.skin-aria-ng .settings-table.striped > div.row:nth-of-type(odd) {
     background-color: #f9f9f9;
 }
 
-.skin-aria-ng .settings-table > div.row:hover {
+.skin-aria-ng .settings-table.striped > div.row.no-background {
+    background-color: inherit;
+}
+
+.skin-aria-ng .settings-table.hoverable > div.row:hover {
     background-color: #f5f5f5;
 }
 
-.skin-aria-ng .settings-table > div.row.no-background {
+.skin-aria-ng .settings-table.hoverable > div.row.no-hover:hover {
     background-color: inherit;
 }
 
-.skin-aria-ng .settings-table > div.row.no-hover:hover {
-    background-color: inherit;
+.skin-aria-ng .settings-table.hoverable > div.row:nth-of-type(odd).no-hover:hover {
+    background-color: #f9f9f9;
 }
 
 .settings-table .input-group-addon {
@@ -851,12 +856,8 @@ td {
 }
 
 .settings-table .tip {
-    background-color: #fff !important;
     font-size: 12px;
     padding: 4px 8px 4px 8px;
-}
-.settings-table .tip:hover {
-    background-color: #fff !important;
 }
 
 @media (max-width: 767px) {
