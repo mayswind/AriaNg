@@ -706,6 +706,16 @@ td {
     border-top: inherit;
 }
 
+@media (max-width: 767px) {
+    .task-table > .task-table-title {
+        display: none !important;
+    }
+
+    .task-table > .task-table-body > div.row:first-child {
+        border-top: inherit;
+    }
+}
+
 .skin-aria-ng .task-table > .task-table-body > div.row:nth-of-type(odd) {
     background-color: #f9f9f9;
 }

@@ -144,7 +144,7 @@
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'filelist'}">
                 <div class="task-table">
-                    <div class="task-table-title hidden-xs">
+                    <div class="task-table-title">
                         <div class="row">
                             <div class="col-sm-8">
                                 <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
@@ -188,7 +188,7 @@
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
                 <div class="task-table">
-                    <div class="task-table-title hidden-xs">
+                    <div class="task-table-title">
                         <div class="row">
                             <div class="col-sm-3">
                                 <a ng-click="changePeerListDisplayOrder('address:asc', true)" translate>Address</a>

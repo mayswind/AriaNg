@@ -22,7 +22,7 @@
                         ng-options="item.value as (item.name | translate) for item in option.options">
                 </select>
                 <div class="form-control-icon" ng-if="optionStatus.isShowStatusIcon()">
-                    <span class="fa form-control-feedback" ng-class="[optionStatus.getStatusIcon()]"></span>
+                    <i class="fa form-control-feedback" ng-class="[optionStatus.getStatusIcon()]"></i>
                 </div>
             </div>
             <span class="input-group-addon" ng-if="!!option.suffix" ng-bind="option.suffix | translate"></span>
