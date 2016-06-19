@@ -10,10 +10,10 @@
     <div class="setting-value col-sm-8">
         <div ng-class="{'input-group': !!option.suffix}">
             <div class="form-group has-feedback" ng-class="[optionStatus.getStatusFeedbackStyle()]">
-                <input class="form-control" type="text" ng-disabled="!!option.readonly"
+                <input class="form-control" type="text" placeholder="{{::placeholder}}" ng-disabled="!!option.readonly"
                        ng-if="option.type == 'string' || option.type == 'integer' || option.type == 'float'"
                        ng-model="optionValue" ng-change="changeValue(optionValue, true)"/>
-                <textarea class="form-control" rows="6" ng-disabled="!!option.readonly"
+                <textarea class="form-control" rows="6" placeholder="{{::placeholder}}" ng-disabled="!!option.readonly"
                           ng-if="option.type == 'text'"
                           ng-model="optionValue" ng-change="changeValue(optionValue, true)"></textarea>
                 <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly"

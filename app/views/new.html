@@ -1,24 +1,60 @@
 <section class="content no-padding">
-    <div class="new-task-table">
-        <div class="row">
-            <div class="col-sm-12">
-                <p>
-                    <span translate>Download Links:</span>
-                    <small class="description inline" translate>Support multiple URLs, one URL per line.</small>
-                </p>
-                <textarea class="form-control" rows="8" ng-model="urls"></textarea>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active': context.currentTab == 'download'}">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'download'" translate>Download</a>
+            </li>
+            <li ng-class="{'active': context.currentTab == 'options'}">
+                <a class="pointer-cursor" ng-click="context.currentTab = 'options';loadDefaultOption();" translate>Options</a>
+            </li>
+        </ul>
+
+        <div class="tab-content no-padding">
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'download'}">
+                <form name="newTaskForm" ng-submit="startDownload()" novalidate>
+                    <div class="new-task-table">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p translate>Download Links:</p>
+                                <div class="form-group has-feedback no-margin" ng-class="{ 'has-error' : newTaskForm.urls.$invalid && newTaskForm.urls.$dirty, 'has-success' : newTaskForm.urls.$valid && newTaskForm.urls.$dirty }">
+                                <textarea name="urls" class="form-control" rows="8" ng-model="context.urls" ng-required="true"
+                                          ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
+                                          ng-pattern="/^(\n?(http|https|ftp|ssh):\/\/.+)*$/"></textarea>
+                                    <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
+                                        <i class="fa form-control-feedback" ng-class="{'fa-check':newTaskForm.urls.$valid, 'fa-times':newTaskForm.urls.$invalid}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="new-task-toollink hide">
+                                    <a class="pointer-cursor" translate>Open Torrent File</a>
+                                    <a class="pointer-cursor" translate>Open Metalink File</a>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-sm btn-default" ng-disabled="newTaskForm.$invalid" translate>Start Download</button>
+                                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu right-align">
+                                            <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Manual Download</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="new-task-toollink hide">
-                    <a class="pointer-cursor" translate>Open Torrent File</a>
-                    <a class="pointer-cursor" translate>Open Metalink File</a>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <div class="pull-right">
-                    <button class="btn btn-sm btn-default" ng-disabled="urls == ''" ng-click="startDownload()" translate>Start Download</button>
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'options'}">
+                <div class="settings-table striped hoverable">
+                    <ng-setting ng-repeat="option in context.availableOptions" option="option" lazy-save-timeout="0"
+                                placeholder="context.globalOptions[option.key]"
+                                on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                 </div>
             </div>
         </div>

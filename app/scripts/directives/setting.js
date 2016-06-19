@@ -10,6 +10,7 @@
             scope: {
                 option: '=',
                 ngModel: '=',
+                placeholder: '=?',
                 onChangeValue: '&'
             },
             link: function (scope, element, attrs, ngModel) {
@@ -121,11 +122,13 @@
                     }
                 };
 
-                scope.$watch(function () {
-                    return ngModel.$viewValue;
-                }, function (value) {
-                    scope.optionValue = value;
-                });
+                if (!angular.isUndefined(ngModel)) {
+                    scope.$watch(function () {
+                        return ngModel.$viewValue;
+                    }, function (value) {
+                        scope.optionValue = value;
+                    });
+                }
 
                 scope.$watch('option', function () {
                     element.find('[data-toggle="popover"]').popover();

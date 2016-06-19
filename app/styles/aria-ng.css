@@ -25,6 +25,11 @@ td {
     overflow-y: scroll;
 }
 
+.dropdown-menu.right-align {
+    left: inherit;
+    right: 0;
+}
+
 .default-cursor {
     cursor: default !important;
 }
@@ -907,11 +912,6 @@ td {
 
 .new-task-table .new-task-toollink > a {
     margin-right: 20px;
-}
-
-.new-task-table .description {
-    color: #a8a8a8;
-    margin-left: 5px;
 }
 
 @media (max-width: 767px) {

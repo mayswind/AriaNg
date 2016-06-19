@@ -563,6 +563,7 @@
         activeBtTaskOptions: ['max-download-limit', 'max-upload-limit', 'bt-max-peers', 'bt-request-peer-speed-limit', 'bt-remove-unselected-file', 'force-save'],
         inactiveNormalTaskOptions: ['max-download-limit', 'max-upload-limit', 'split', 'min-split-size', 'max-connection-per-server', 'force-save'],
         inactiveBtTaskOptions: ['max-download-limit', 'max-upload-limit', 'split', 'min-split-size', 'max-connection-per-server', 'bt-max-peers', 'bt-request-peer-speed-limit', 'bt-remove-unselected-file', 'force-save'],
-        activeTaskReadonlyOptions: ['split', 'min-split-size', 'max-connection-per-server']
+        activeTaskReadonlyOptions: ['split', 'min-split-size', 'max-connection-per-server'],
+        newTaskOptions: ['dir', 'max-download-limit', 'max-upload-limit']
     });
 })();
