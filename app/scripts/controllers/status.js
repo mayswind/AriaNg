@@ -2,6 +2,10 @@
     'use strict';
 
     angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, ariaNgCommonService, aria2SettingService) {
+        $scope.context = {
+            aria2Status: null
+        };
+
         $scope.saveSession = function () {
             return aria2SettingService.saveSession(function (response) {
                 if (response.success && response.data == 'OK') {
@@ -23,7 +27,7 @@
         $rootScope.loadPromise = (function () {
             return aria2SettingService.getAria2Status(function (response) {
                 if (response.success) {
-                    $scope.aria2Status = response.data;
+                    $scope.context.aria2Status = response.data;
                 }
             });
         })();

@@ -7,16 +7,14 @@
         $scope.context = {
             currentTab: 'download',
             urls: '',
+            availableOptions: (function () {
+                var keys = aria2SettingService.getNewTaskOptionKeys();
+
+                return aria2SettingService.getSpecifiedOptions(keys);
+            })(),
             globalOptions: null,
-            availableOptions: [],
             options: {}
         };
-
-        $scope.context.availableOptions = (function () {
-            var keys = aria2SettingService.getNewTaskOptionKeys();
-
-            return aria2SettingService.getSpecifiedOptions(keys);
-        })();
 
         $scope.changeTab = function (tabName) {
             if (tabName == 'options') {

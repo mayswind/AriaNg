@@ -212,7 +212,7 @@
                         </div>
                     </div>
                     <div class="task-table-body">
-                        <div class="row" ng-repeat="peer in peers | peerOrderBy: getPeerListOrderType()">
+                        <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-sm-3">
                                 <span ng-bind="peer.name | translate"></span>
                             </div>
@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-if="!peers || peers.length < 1">
+                        <div class="row" ng-if="!context.btPeers || context.btPeers.length < 1">
                             <div class="col-sm-12 text-center">
                                 <span translate>No connected peers</span>
                             </div>
@@ -244,7 +244,7 @@
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')">
                 <div class="settings-table striped hoverable">
                     <ng-setting ng-repeat="option in context.availableOptions" option="option"
-                                ng-model="options[option.key]" on-change-value="setOption(key, value, optionStatus)"></ng-setting>
+                                ng-model="context.options[option.key]" on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                 </div>
             </div>
         </div>

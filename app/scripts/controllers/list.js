@@ -71,7 +71,7 @@
 
         dragulaService.options($scope, 'task-list', {
             revertOnSpill: true,
-            moves: function (el, container, handle) {
+            moves: function () {
                 return $scope.isSupportDragTask();
             }
         });

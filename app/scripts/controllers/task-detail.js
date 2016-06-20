@@ -28,11 +28,11 @@
 
                 var peers = response.data;
 
-                if (!ariaNgCommonService.extendArray(peers, $scope.peers, 'peerId')) {
-                    $scope.peers = peers;
+                if (!ariaNgCommonService.extendArray(peers, $scope.context.btPeers, 'peerId')) {
+                    $scope.context.btPeers = peers;
                 }
 
-                $scope.context.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.peers);
+                $scope.context.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.context.btPeers);
             }, silent, true);
         };
 
@@ -76,9 +76,11 @@
 
         $scope.context = {
             currentTab: 'overview',
+            btPeers: [],
             healthPercent: 0,
             statusData: ariaNgMonitorService.getEmptyStatsData($routeParams.gid),
-            availableOptions: []
+            availableOptions: [],
+            options: []
         };
 
         $scope.changeTab = function (tabName) {
@@ -185,7 +187,7 @@
         $scope.loadTaskOption = function (task) {
             $rootScope.loadPromise = aria2TaskService.getTaskOptions(task.gid, function (response) {
                 if (response.success) {
-                    $scope.options = response.data;
+                    $scope.context.options = response.data;
                 }
             });
         };

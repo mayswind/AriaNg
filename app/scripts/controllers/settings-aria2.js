@@ -4,16 +4,19 @@
     angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', 'ariaNgConstants', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, $location, ariaNgConstants, ariaNgCommonService, aria2SettingService) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
 
-        $scope.availableOptions = (function (type) {
-            var keys = aria2SettingService.getAvailableGlobalOptionsKeys(type);
+        $scope.context = {
+            availableOptions: (function (type) {
+                var keys = aria2SettingService.getAvailableGlobalOptionsKeys(type);
 
-            if (!keys) {
-                ariaNgCommonService.showError('Type is illegal!');
-                return;
-            }
+                if (!keys) {
+                    ariaNgCommonService.showError('Type is illegal!');
+                    return;
+                }
 
-            return aria2SettingService.getSpecifiedOptions(keys);
-        })(location);
+                return aria2SettingService.getSpecifiedOptions(keys);
+            })(location),
+            globalOptions: []
+        };
 
         $scope.setGlobalOption = function (key, value, optionStatus) {
             return aria2SettingService.setGlobalOption(key, value, function (response) {
@@ -28,7 +31,7 @@
         $rootScope.loadPromise = (function () {
             return aria2SettingService.getGlobalOption(function (response) {
                 if (response.success) {
-                    $scope.globalOptions = response.data;
+                    $scope.context.globalOptions = response.data;
                 }
             });
         })();
