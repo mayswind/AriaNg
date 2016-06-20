@@ -248,9 +248,10 @@
                     }
                 });
             },
-            newUriTasks: function (tasks, callback, silent) {
+            newUriTasks: function (tasks, pauseOnAdded, callback, silent) {
                 return aria2RpcService.addUriMulti({
                     tasks: tasks,
+                    pauseOnAdded: !!pauseOnAdded,
                     silent: !!silent,
                     callback: callback
                 });

@@ -57,10 +57,6 @@
             var options = angular.copy($scope.context.options);
             var tasks = [];
 
-            if (pauseOnAdded) {
-                options.pause = 'true';
-            }
-
             for (var i = 0; i < urls.length; i++) {
                 tasks.push({
                     urls: [urls[i].trim()],
@@ -68,7 +64,7 @@
                 });
             }
 
-            $rootScope.loadPromise = aria2TaskService.newUriTasks(tasks, function (response) {
+            $rootScope.loadPromise = aria2TaskService.newUriTasks(tasks, pauseOnAdded, function (response) {
                 if (!response.hasSuccess) {
                     return;
                 }
