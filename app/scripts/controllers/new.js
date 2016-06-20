@@ -18,11 +18,19 @@
             return aria2SettingService.getSpecifiedOptions(keys);
         })();
 
+        $scope.changeTab = function (tabName) {
+            if (tabName == 'options') {
+                $scope.loadDefaultOption();
+            }
+
+            $scope.context.currentTab = tabName;
+        };
+
         $rootScope.swipeActions.extentLeftSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
             if (tabIndex < tabOrders.length - 1) {
-                $scope.context.currentTab = tabOrders[tabIndex + 1];
+                $scope.changeTab(tabOrders[tabIndex + 1]);
                 return true;
             } else {
                 return false;
@@ -33,7 +41,7 @@
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
             if (tabIndex > 0) {
-                $scope.context.currentTab = tabOrders[tabIndex - 1];
+                $scope.changeTab(tabOrders[tabIndex - 1]);
                 return true;
             } else {
                 return false;

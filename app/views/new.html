@@ -2,10 +2,10 @@
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li ng-class="{'active': context.currentTab == 'download'}">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'download'" translate>Download</a>
+                <a class="pointer-cursor" ng-click="changeTab('download')" translate>Download</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'options'}">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'options';loadDefaultOption();" translate>Options</a>
+                <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
             </li>
         </ul>
 

@@ -2,19 +2,19 @@
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li ng-class="{'active': context.currentTab == 'overview'}">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'overview'" translate>Overview</a>
+                <a class="pointer-cursor" ng-click="changeTab('overview')" translate>Overview</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'blocks'}">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'blocks'" translate>Blocks</a>
+                <a class="pointer-cursor" ng-click="changeTab('blocks')" translate>Blocks</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'filelist'}">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'filelist'" translate>Files</a>
+                <a class="pointer-cursor" ng-click="changeTab('filelist')" translate>Files</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'btpeers';" translate>Peers</a>
+                <a class="pointer-cursor" ng-click="changeTab('btpeers')" translate>Peers</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')" class="slim">
-                <a class="pointer-cursor" ng-click="context.currentTab = 'settings';loadTaskOption(task);">
+                <a class="pointer-cursor" ng-click="changeTab('settings')">
                     <i class="fa fa-gear"></i>
                 </a>
             </li>

@@ -81,11 +81,19 @@
             availableOptions: []
         };
 
+        $scope.changeTab = function (tabName) {
+            if (tabName == 'settings') {
+                $scope.loadTaskOption($scope.task);
+            }
+
+            $scope.context.currentTab = tabName;
+        };
+
         $rootScope.swipeActions.extentLeftSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
             if (tabIndex < tabOrders.length - 1) {
-                $scope.context.currentTab = tabOrders[tabIndex + 1];
+                $scope.changeTab(tabOrders[tabIndex + 1]);
                 return true;
             } else {
                 return false;
@@ -96,7 +104,7 @@
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
             if (tabIndex > 0) {
-                $scope.context.currentTab = tabOrders[tabIndex - 1];
+                $scope.changeTab(tabOrders[tabIndex - 1]);
                 return true;
             } else {
                 return false;
