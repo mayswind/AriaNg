@@ -122,7 +122,7 @@
                     }
                 };
 
-                if (!angular.isUndefined(ngModel)) {
+                if (ngModel) {
                     scope.$watch(function () {
                         return ngModel.$viewValue;
                     }, function (value) {
