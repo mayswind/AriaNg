@@ -25,23 +25,44 @@
                     return;
                 }
 
+                var isRequestWholeInfo = response.context.requestWholeInfo;
                 var taskList = response.data;
 
-                if (!ariaNgCommonService.extendArray(taskList, $rootScope.taskContext.list, 'gid')) {
-                    if (needRequestWholeInfo) {
-                        $rootScope.taskContext.list = taskList;
+                if (isRequestWholeInfo) {
+                    $rootScope.taskContext.list = taskList;
+                    needRequestWholeInfo = false;
+                } else {
+                    if (ariaNgCommonService.extendArray(taskList, $rootScope.taskContext.list, 'gid')) {
                         needRequestWholeInfo = false;
                     } else {
                         needRequestWholeInfo = true;
                     }
-                } else {
-                    needRequestWholeInfo = false;
                 }
 
-                if ($rootScope.taskContext.list) {
+                if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
                     aria2TaskService.processDownloadTasks($rootScope.taskContext.list);
-                    $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list.length > 0;
+
+                    if (!isRequestWholeInfo) {
+                        var hasFullStruct = false;
+
+                        for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
+                            var task = $rootScope.taskContext.list[i];
+
+                            if (task.hasTaskName || task.files || task.bittorrent) {
+                                hasFullStruct = true;
+                                break;
+                            }
+                        }
+
+                        if (!hasFullStruct) {
+                            needRequestWholeInfo = true;
+                            $rootScope.taskContext.list.length = 0;
+                            return;
+                        }
+                    }
                 }
+
+                $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list && $rootScope.taskContext.list.length > 0;
             }, silent);
         };
 

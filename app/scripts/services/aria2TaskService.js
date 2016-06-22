@@ -26,6 +26,7 @@
 
         var getTaskName = function (task) {
             var taskName = "";
+            var success = true;
 
             if (task.bittorrent && task.bittorrent.info) {
                 taskName = task.bittorrent.info.name;
@@ -41,9 +42,13 @@
 
             if (!taskName) {
                 taskName = $translate.instant('Unknown');
+                success = false;
             }
 
-            return taskName;
+            return {
+                name: taskName,
+                success: success
+            };
         };
 
         var processDownloadTask = function (task) {
@@ -62,10 +67,12 @@
             task.uploadSpeed = parseInt(task.uploadSpeed);
             task.downloadSpeed = parseInt(task.downloadSpeed);
 
-            task.taskName = getTaskName(task);
             task.idle = task.downloadSpeed == 0;
-
             task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
+
+            var taskNameResult = getTaskName(task);
+            task.taskName = taskNameResult.name;
+            task.hasTaskName = taskNameResult.success;
 
             if (task.files) {
                 for (var i = 0; i < task.files.length; i++) {
@@ -156,6 +163,7 @@
                 }
 
                 return invokeMethod({
+                    requestWholeInfo: full,
                     requestParams: full ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams(),
                     silent: !!silent,
                     callback: function (response) {

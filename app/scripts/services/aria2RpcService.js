@@ -101,7 +101,8 @@
                         invokeContext.callback({
                             id: id,
                             success: true,
-                            data: result
+                            data: result,
+                            context: invokeContext
                         });
                     }
                 };
@@ -118,7 +119,8 @@
                             id: id,
                             success: false,
                             data: error,
-                            errorProcessed: errorProcessed
+                            errorProcessed: errorProcessed,
+                            context: invokeContext
                         });
                     }
                 };
