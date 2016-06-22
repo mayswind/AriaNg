@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, aria2SettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, aria2SettingService, aria2TaskService) {
         var tabOrders = ['download', 'options'];
 
         $scope.context = {
@@ -92,5 +92,9 @@
 
             optionStatus.setReady();
         };
+        
+        $rootScope.loadPromise = $timeout(function () {
+            ;//Do Nothing
+        }, 100);
     }]);
 })();
