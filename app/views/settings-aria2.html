@@ -1,6 +1,7 @@
 <section class="content no-padding">
     <div class="settings-table striped hoverable">
-        <ng-setting ng-repeat="option in context.availableOptions" option="option" ng-model="context.globalOptions[option.key]"
+        <ng-setting ng-repeat="option in context.availableOptions" option="option" placeholder="option.defaultValue"
+                    ng-model="context.globalOptions[option.key]"
                     on-change-value="setGlobalOption(key, value, optionStatus)"></ng-setting>
     </div>
 </section>

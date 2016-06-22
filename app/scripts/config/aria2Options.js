@@ -8,10 +8,12 @@
             type: 'string'
         },
         'max-concurrent-downloads': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '5'
         },
         'check-integrity': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'continue': {
             type: 'boolean'
@@ -27,31 +29,39 @@
         },
         'connect-timeout': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '60'
         },
         'dry-run': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'lowest-speed-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '0'
         },
         'max-connection-per-server': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '1'
         },
         'max-file-not-found': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '0'
         },
         'max-tries': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '5'
         },
         'min-split-size': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '20M'
         },
         'netrc-path': {
             type: 'string',
-            readonly: true
+            readonly: true,
+            defaultValue: '$(HOME)/.netrc'
         },
         'no-netrc': {
             type: 'boolean'
@@ -63,17 +73,21 @@
         },
         'proxy-method': {
             type: 'option',
-            options: ['get', 'tunnel']
+            options: ['get', 'tunnel'],
+            defaultValue: 'get'
         },
         'remote-time': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'reuse-uri': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'retry-wait': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '0'
         },
         'server-stat-of': {
             type: 'string'
@@ -81,35 +95,44 @@
         'server-stat-timeout': {
             type: 'integer',
             suffix: 'Seconds',
-            readonly: true
+            readonly: true,
+            defaultValue: '86400'
         },
         'split': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '5'
         },
         'stream-piece-selector': {
             type: 'option',
-            options: ['default', 'inorder', 'random', 'geom']
+            options: ['default', 'inorder', 'random', 'geom'],
+            defaultValue: 'default'
         },
         'timeout': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '60'
         },
         'uri-selector': {
             type: 'option',
-            options: ['inorder', 'feedback', 'adaptive']
+            options: ['inorder', 'feedback', 'adaptive'],
+            defaultValue: 'feedback'
         },
         'check-certificate': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'true'
         },
         'http-accept-gzip': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'http-auth-challenge': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'http-no-cache': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'http-user': {
             type: 'string'
@@ -139,10 +162,12 @@
             type: 'string'
         },
         'enable-http-keep-alive': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'enable-http-pipelining': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'header': {
             type: 'string'
@@ -151,19 +176,24 @@
             type: 'string'
         },
         'use-head': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'user-agent': {
-            type: 'string'
+            type: 'string',
+            defaultValue: 'aria2/$VERSION'
         },
         'ftp-user': {
-            type: 'string'
+            type: 'string',
+            defaultValue: 'anonymous'
         },
         'ftp-passwd': {
-            type: 'string'
+            type: 'string',
+            defaultValue: 'ARIA2USER@'
         },
         'ftp-pasv': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'ftp-proxy': {
             type: 'string'
@@ -176,10 +206,12 @@
         },
         'ftp-type': {
             type: 'option',
-            options: ['binary', 'ascii']
+            options: ['binary', 'ascii'],
+            defaultValue: 'binary'
         },
         'ftp-reuse-connection': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'ssh-host-key-md': {
             type: 'string'
@@ -190,13 +222,16 @@
         },
         'bt-detach-seed-only': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'bt-enable-hook-after-hash-check': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'bt-enable-lpd': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-exclude-tracker': {
             type: 'text',
@@ -207,46 +242,58 @@
             type: 'string'
         },
         'bt-force-encryption': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-hash-check-seed': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'bt-max-open-files': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '100'
         },
         'bt-max-peers': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '55'
         },
         'bt-metadata-only': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-min-crypto-level': {
             type: 'option',
-            options: ['plain', 'arc4']
+            options: ['plain', 'arc4'],
+            defaultValue: 'plain'
         },
         'bt-prioritize-piece': {
             type: 'string'
         },
         'bt-remove-unselected-file': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-require-crypto': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-request-peer-speed-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '50K'
         },
         'bt-save-metadata': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-seed-unverified': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'bt-stop-timeout': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '0'
         },
         'bt-tracker': {
             type: 'text',
@@ -255,66 +302,81 @@
         },
         'bt-tracker-connect-timeout': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '60'
         },
         'bt-tracker-interval': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '0'
         },
         'bt-tracker-timeout': {
             type: 'integer',
-            suffix: 'Seconds'
+            suffix: 'Seconds',
+            defaultValue: '60'
         },
         'dht-file-path': {
             type: 'string',
-            readonly: true
+            readonly: true,
+            defaultValue: '$HOME/.aria2/dht.dat'
         },
         'dht-file-path6': {
             type: 'string',
-            readonly: true
+            readonly: true,
+            defaultValue: '$HOME/.aria2/dht6.dat'
         },
         'dht-listen-port': {
             type: 'integer',
-            readonly: true
+            readonly: true,
+            defaultValue: '6881-6999'
         },
         'dht-message-timeout': {
             type: 'integer',
             suffix: 'Seconds',
-            readonly: true
+            readonly: true,
+            defaultValue: '10'
         },
         'enable-dht': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'true'
         },
         'enable-dht6': {
             type: 'boolean',
             readonly: true
         },
         'enable-peer-exchange': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'follow-torrent': {
             type: 'option',
-            options: ['true', 'false', 'mem']
+            options: ['true', 'false', 'mem'],
+            defaultValue: 'true'
         },
         'listen-port': {
             type: 'integer',
-            readonly: true
+            readonly: true,
+            defaultValue: '6881-6999'
         },
         'max-overall-upload-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '0'
         },
         'max-upload-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '0'
         },
         'peer-id-prefix': {
             type: 'string',
-            readonly: true
+            readonly: true,
+            defaultValue: 'A2-$MAJOR-$MINOR-$PATCH-'
         },
         'seed-ratio': {
-            type: 'float'
+            type: 'float',
+            defaultValue: '1.0'
         },
         'seed-time': {
             type: 'integer',
@@ -322,7 +384,8 @@
         },
         'follow-metalink': {
             type: 'option',
-            options: ['true', 'false', 'mem']
+            options: ['true', 'false', 'mem'],
+            defaultValue: 'true'
         },
         'metalink-base-uri': {
             type: 'string'
@@ -341,94 +404,117 @@
         },
         'metalink-preferred-protocol': {
             type: 'option',
-            options: ['http', 'https', 'ftp', 'none']
+            options: ['http', 'https', 'ftp', 'none'],
+            defaultValue: 'none'
         },
         'metalink-enable-unique-protocol': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'enable-rpc': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'pause-metadata': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'rpc-allow-origin-all': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'rpc-listen-all': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'rpc-listen-port': {
             type: 'integer',
-            readonly: true
+            readonly: true,
+            defaultValue: '6800'
         },
         'rpc-max-request-size': {
             type: 'string',
             suffix: 'Bytes',
-            readonly: true
+            readonly: true,
+            defaultValue: '2M'
         },
         'rpc-save-upload-metadata': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'rpc-secure': {
             type: 'boolean',
             readonly: true
         },
         'allow-overwrite': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'allow-piece-length-change': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'always-resume': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'async-dns': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'auto-file-renaming': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'auto-save-interval': {
             type: 'integer',
             suffix: 'Seconds',
-            readonly: true
+            readonly: true,
+            defaultValue: '60'
         },
         'conditional-get': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'conf-path': {
             type: 'string',
-            readonly: true
+            readonly: true,
+            defaultValue: '$HOME/.aria2/aria2.conf'
         },
         'console-log-level': {
             type: 'option',
             options: ['debug', 'info', 'notice', 'warn', 'error'],
-            readonly: true
+            readonly: true,
+            defaultValue: 'notice'
         },
         'daemon': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'deferred-input': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'disable-ipv6': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'disk-cache': {
             type: 'string',
             suffix: 'Bytes',
-            readonly: true
+            readonly: true,
+            defaultValue: '16M'
         },
         'download-result': {
             type: 'option',
-            options: ['default', 'full', 'hide']
+            options: ['default', 'full', 'hide'],
+            defaultValue: 'default'
         },
         'dscp': {
             type: 'string',
@@ -440,10 +526,12 @@
         },
         'enable-color': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'true'
         },
         'enable-mmap': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'event-poll': {
             type: 'option',
@@ -452,59 +540,74 @@
         },
         'file-allocation': {
             type: 'option',
-            options: ['none', 'prealloc', 'trunc', 'falloc']
+            options: ['none', 'prealloc', 'trunc', 'falloc'],
+            defaultValue: 'prealloc'
         },
         'force-save': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'hash-check-only': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'human-readable': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'true'
         },
         'max-download-result': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '1000'
         },
         'max-mmap-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '9223372036854775807'
         },
         'max-resume-failure-tries': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '0'
         },
         'min-tls-version': {
             type: 'option',
             options: ['SSLv3', 'TLSv1', 'TLSv1.1', 'TLSv1.2'],
-            readonly: true
+            readonly: true,
+            defaultValue: 'TLSv1'
         },
         'log-level': {
             type: 'option',
-            options: ['debug', 'info', 'notice', 'warn', 'error']
+            options: ['debug', 'info', 'notice', 'warn', 'error'],
+            defaultValue: 'debug'
         },
         'optimize-concurrent-downloads': {
-            type: 'string'
+            type: 'string',
+            defaultValue: 'false'
         },
         'piece-length': {
-            type: 'integer'
+            type: 'integer',
+            defaultValue: '1M'
         },
         'show-console-readout': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'true'
         },
         'summary-interval': {
             type: 'integer',
             suffix: 'Seconds',
-            readonly: true
+            readonly: true,
+            defaultValue: '60'
         },
         'max-overall-download-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '0'
         },
         'max-download-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '0'
         },
         'no-conf': {
             type: 'boolean',
@@ -512,17 +615,21 @@
         },
         'no-file-allocation-limit': {
             type: 'string',
-            suffix: 'Bytes'
+            suffix: 'Bytes',
+            defaultValue: '5M'
         },
         'parameterized-uri': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'quiet': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'false'
         },
         'realtime-chunk-checksum': {
-            type: 'boolean'
+            type: 'boolean',
+            defaultValue: 'true'
         },
         'remove-control-file': {
             type: 'boolean'
@@ -533,21 +640,25 @@
         'save-session-interval': {
             type: 'integer',
             suffix: 'Seconds',
-            readonly: true
+            readonly: true,
+            defaultValue: '0'
         },
         'socket-recv-buffer-size': {
             type: 'string',
             suffix: 'Bytes',
-            readonly: true
+            readonly: true,
+            defaultValue: '0'
         },
         'stop': {
             type: 'integer',
             suffix: 'Seconds',
-            readonly: true
+            readonly: true,
+            defaultValue: '0'
         },
         'truncate-console-readout': {
             type: 'boolean',
-            readonly: true
+            readonly: true,
+            defaultValue: 'true'
         }
     }).constant('aria2GlobalAvailableOptions', {
         basicOptions: ['dir', 'log', 'max-concurrent-downloads', 'check-integrity', 'continue'],
