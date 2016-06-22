@@ -13,6 +13,10 @@
             }
 
             return aria2TaskService.getTaskList(location, needRequestWholeInfo, function (response) {
+                if (pauseDownloadTaskRefresh) {
+                    return;
+                }
+
                 if (!response.success) {
                     if (response.data.message == aria2RpcErrors.Unauthorized.message) {
                         $interval.cancel(downloadTaskRefreshPromise);
@@ -89,6 +93,8 @@
         });
 
         $scope.$on('$destroy', function () {
+            pauseDownloadTaskRefresh = true;
+
             if (downloadTaskRefreshPromise) {
                 $interval.cancel(downloadTaskRefreshPromise);
             }
