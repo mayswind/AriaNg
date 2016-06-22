@@ -1,8 +1,8 @@
 <section class="content no-padding">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li ng-class="{'active': context.currentTab == 'download'}">
-                <a class="pointer-cursor" ng-click="changeTab('download')" translate>Download</a>
+            <li ng-class="{'active': context.currentTab == 'links'}">
+                <a class="pointer-cursor" ng-click="changeTab('links')" translate>Links</a>
             </li>
             <li ng-class="{'active': context.currentTab == 'options'}">
                 <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
@@ -10,7 +10,7 @@
         </ul>
 
         <div class="tab-content no-padding">
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'download'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'links'}">
                 <form name="newTaskForm" ng-submit="startDownload()" novalidate>
                     <div class="new-task-table">
                         <div class="row">

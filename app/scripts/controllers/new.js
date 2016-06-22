@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, aria2SettingService, aria2TaskService) {
-        var tabOrders = ['download', 'options'];
+        var tabOrders = ['links', 'options'];
 
         $scope.context = {
-            currentTab: 'download',
+            currentTab: 'links',
             urls: '',
             availableOptions: (function () {
                 var keys = aria2SettingService.getNewTaskOptionKeys();
