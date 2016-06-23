@@ -19,7 +19,7 @@
                                 <div class="form-group has-feedback no-margin" ng-class="{ 'has-error' : newTaskForm.urls.$invalid && newTaskForm.urls.$dirty, 'has-success' : newTaskForm.urls.$valid && newTaskForm.urls.$dirty }">
                                 <textarea name="urls" class="form-control" rows="8" ng-model="context.urls" ng-required="true"
                                           ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
-                                          ng-pattern="/^(\n?(http|https|ftp|ssh):\/\/.+)*$/"></textarea>
+                                          ng-pattern="/^(\n?(((http|https|ftp|ssh):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
                                     <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
                                         <i class="fa form-control-feedback" ng-class="{'fa-check':newTaskForm.urls.$valid, 'fa-times':newTaskForm.urls.$invalid}"></i>
                                     </div>

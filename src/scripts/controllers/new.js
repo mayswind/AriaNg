@@ -64,6 +64,10 @@
             var tasks = [];
 
             for (var i = 0; i < urls.length; i++) {
+                if (urls[i] == '' || urls[i].trim() == '') {
+                    continue;
+                }
+
                 tasks.push({
                     urls: [urls[i].trim()],
                     options: options
@@ -92,7 +96,7 @@
 
             optionStatus.setReady();
         };
-        
+
         $rootScope.loadPromise = $timeout(function () {
             ;//Do Nothing
         }, 100);
