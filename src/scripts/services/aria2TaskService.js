@@ -2,9 +2,15 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'aria2RpcService', 'ariaNgCommonService', function ($q, $translate, aria2RpcService, ariaNgCommonService) {
-        var getFileNameFromPath = function (path) {
-            if (!path) {
-                return path;
+        var getFileName = function (file) {
+            if (!file) {
+                return '';
+            }
+
+            var path = file.path;
+
+            if (!path && file.uris && file.uris.length > 0) {
+                path = file.uris[0].uri;
             }
 
             var index = path.lastIndexOf('/');
@@ -32,12 +38,8 @@
                 taskName = task.bittorrent.info.name;
             }
 
-            if (!taskName && task.files && task.files.length >= 1) {
-                taskName = getFileNameFromPath(task.files[0].path);
-            }
-
-            if (!taskName && task.files && task.files.length >= 1 && task.files[0].uris && task.files[0].uris.length >= 1) {
-                taskName = getFileNameFromPath(task.files[0].uris[0].uri);
+            if (!taskName && task.files && task.files.length > 0) {
+                taskName = getFileName(task.files[0]);
             }
 
             if (!taskName) {
@@ -77,7 +79,7 @@
             if (task.files) {
                 for (var i = 0; i < task.files.length; i++) {
                     var file = task.files[i];
-                    file.fileName = getFileNameFromPath(file.path);
+                    file.fileName = getFileName(file);
                     file.length = parseInt(file.length);
                     file.selected = (file.selected == 'true');
                     file.completedLength = parseInt(file.completedLength);
