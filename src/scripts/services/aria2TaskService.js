@@ -266,6 +266,22 @@
                     callback: callback
                 });
             },
+            newTorrentTask: function (task, pauseOnAdded, callback, silent) {
+                return aria2RpcService.addTorrent({
+                    task: task,
+                    pauseOnAdded: !!pauseOnAdded,
+                    silent: !!silent,
+                    callback: callback
+                });
+            },
+            newMetalinkTask: function (task, pauseOnAdded, callback, silent) {
+                return aria2RpcService.addMetalink({
+                    task: task,
+                    pauseOnAdded: !!pauseOnAdded,
+                    silent: !!silent,
+                    callback: callback
+                });
+            },
             startTasks: function (gids, callback, silent) {
                 return aria2RpcService.unpauseMulti({
                     gids: gids,

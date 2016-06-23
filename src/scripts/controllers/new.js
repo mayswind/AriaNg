@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, aria2SettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'aria2SettingService', 'aria2TaskService', 'ariaNgFileService', function ($rootScope, $scope, $location, $timeout, aria2SettingService, aria2TaskService, ariaNgFileService) {
         var tabOrders = ['links', 'options'];
 
         $scope.context = {
@@ -55,6 +55,40 @@
                 if (response.success) {
                     $scope.context.globalOptions = response.data;
                 }
+            });
+        };
+
+        $scope.openTorrent = function () {
+            ariaNgFileService.openFileContent('.torrent', function (result) {
+                var task = {
+                    content: result.base64Content,
+                    options: angular.copy($scope.context.options)
+                };
+
+                $rootScope.loadPromise = aria2TaskService.newTorrentTask(task, true, function (response) {
+                    if (!response.success) {
+                        return;
+                    }
+
+                    $location.path('/task/detail/' + response.data);
+                });
+            });
+        };
+
+        $scope.openMetalink = function () {
+            ariaNgFileService.openFileContent('.meta4,.metalink', function (result) {
+                var task = {
+                    content: result.base64Content,
+                    options: angular.copy($scope.context.options)
+                };
+
+                $rootScope.loadPromise = aria2TaskService.newMetalinkTask(task, true, function (response) {
+                    if (!response.success) {
+                        return;
+                    }
+
+                    $location.path('/task/detail/' + response.data);
+                });
             });
         };
 

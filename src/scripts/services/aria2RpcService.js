@@ -186,12 +186,26 @@
 
                 return invokeMulti(this.addUri, contexts, context.callback);
             },
-            // addTorrent: function (context) {
-            //     return invoke('addTorrent', context);
-            // },
-            // addMetalink: function (context) {
-            //     return invoke('addMetalink', context);
-            // },
+            addTorrent: function (context) {
+                var content = context.task.content;
+                var options = angular.copy(context.task.options);
+
+                if (context.pauseOnAdded) {
+                    options.pause = 'true';
+                }
+
+                return invoke(buildRequestContext('addTorrent', context, content, [], options));
+            },
+            addMetalink: function (context) {
+                var content = context.task.content;
+                var options = angular.copy(context.task.options);
+
+                if (context.pauseOnAdded) {
+                    options.pause = 'true';
+                }
+
+                return invoke(buildRequestContext('addMetalink', context, content, [], options));
+            },
             remove: function (context) {
                 return invoke(buildRequestContext('remove', context, context.gid));
             },
