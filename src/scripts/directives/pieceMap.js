@@ -15,7 +15,9 @@
                     var pieces = aria2TaskService.getPieceStatus(scope.bitField, scope.pieceCount);
                     element.empty();
 
-                    for (var i = 0; i < pieces.length; i++) {
+                    var pieceCount = Math.max(1, pieces.length);
+
+                    for (var i = 0; i < pieceCount; i++) {
                         element.append('<div class="piece' + (pieces[i] ? ' piece-completed' : '') + '"></div>');
                     }
                 };
