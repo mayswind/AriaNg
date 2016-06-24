@@ -66,6 +66,7 @@
             'Info Hash': 'Info Hash',
             'Seeders': 'Seeders',
             'Connections': 'Connections',
+            'Seed Creation Time': 'Seed Creation Time',
             'Download Dir': 'Download Dir',
             'Address': 'Address',
             'Status': 'Status',
@@ -123,6 +124,7 @@
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.',
             'Type is illegal!': 'Type is illegal!',
             'format': {
+                'longdate': 'MM/DD/YYYY HH:mm:ss',
                 'time.millisecond': '{{value}} Millisecond',
                 'time.milliseconds': '{{value}} Milliseconds',
                 'time.second': '{{value}} Second',

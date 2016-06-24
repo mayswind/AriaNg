@@ -96,20 +96,28 @@
                             <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.infoHash">
-                        <div class="setting-key col-sm-4">
-                            <span translate>Info Hash</span>
-                        </div>
-                        <div class="setting-value col-sm-8">
-                            <span ng-bind="task.infoHash"></span>
-                        </div>
-                    </div>
                     <div class="row" ng-if="task && task.status == 'active'">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="(task.bittorrent ? ('Seeders' | translate) + ' / ' : '') + ('Connections' | translate)">Connections</span>
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="(task.numSeeders ? (task.numSeeders + ' / ') : '') + task.connections"></span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="task && task.bittorrent && task.bittorrent.creationDate">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Seed Creation Time</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task.bittorrent.creationDate | amFromUnix | longDate"></span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="task && task.infoHash">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Info Hash</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span ng-bind="task.infoHash"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
