@@ -97,7 +97,11 @@
             },
             selectAll: function () {
                 if (!this.list || !this.selected || this.list.length < 1) {
-                    return result;
+                    return;
+                }
+
+                if (!this.enableSelectAll) {
+                    return;
                 }
 
                 var isAllSelected = true;
