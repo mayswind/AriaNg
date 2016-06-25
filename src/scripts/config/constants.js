@@ -7,7 +7,8 @@
         optionStorageKey: 'Options',
         globalStatStorageCapacity: 120,
         taskStatStorageCapacity: 300,
-        lazySaveTimeout: 500
+        lazySaveTimeout: 500,
+        errorTooltipDelay: 200
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
         rpcHost: '',

@@ -124,6 +124,11 @@
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.',
             'Type is illegal!': 'Type is illegal!',
             'Parameter is invalid!': 'Parameter is invalid!',
+            'Option value cannot be empty!': 'Option value cannot be empty!',
+            'Input number is invalid!': 'Input number is invalid!',
+            'Input number is below min value!': 'Input number is below min value {{value}}!',
+            'Input number is above max value!': 'Input number is above max value {{value}}!',
+            'Input value is invalid!': 'Input value is invalid!',
             'format': {
                 'longdate': 'MM/DD/YYYY HH:mm:ss',
                 'time.millisecond': '{{value}} Millisecond',

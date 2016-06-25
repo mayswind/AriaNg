@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').directive('ngSetting', ['$timeout', 'ariaNgConstants', function ($timeout, ariaNgConstants) {
+    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$translate', 'ariaNgConstants', function ($timeout, $translate, ariaNgConstants) {
         return {
             restrict: 'E',
             templateUrl: 'views/setting.html',
@@ -16,26 +16,26 @@
             link: function (scope, element, attrs, ngModel) {
                 var pendingSaveRequest = null;
                 var options = {
-                    lazySaveTimeout: ariaNgConstants.lazySaveTimeout
+                    lazySaveTimeout: ariaNgConstants.lazySaveTimeout,
+                    errorTooltipDelay: ariaNgConstants.errorTooltipDelay
                 };
 
                 angular.extend(options, attrs);
 
-                scope.optionStatus = (function () {
-                    var value = 'ready';
+                var destroyTooltip = function () {
+                    angular.element(element).tooltip('destroy');
+                };
 
-                    var destroyTooltip = function () {
-                        angular.element(element).tooltip('destroy');
-                    };
+                var showTooltip = function (cause, type, causeParams) {
+                    if (!cause) {
+                        return;
+                    }
 
-                    var showTooltip = function (cause, type) {
-                        if (!cause) {
-                            return;
-                        }
-
+                    $timeout(function () {
                         angular.element(element).tooltip({
-                            title: cause,
+                            title: $translate.instant(cause, causeParams),
                             trigger: 'focus',
+                            placement: 'auto top',
                             container: element,
                             template:
                             '<div class="tooltip' + (type ? ' tooltip-' + type : '') + '" role="tooltip">' +
@@ -43,7 +43,11 @@
                                 '<div class="tooltip-inner"></div>' +
                             '</div>'
                         }).tooltip('show');
-                    };
+                    }, options.errorTooltipDelay);
+                };
+
+                scope.optionStatus = (function () {
+                    var value = 'ready';
 
                     return {
                         getValue: function () {
@@ -70,10 +74,10 @@
                             value = 'failed';
                             showTooltip(cause, 'warning');
                         },
-                        setError: function (cause) {
+                        setError: function (cause, causeParams) {
                             destroyTooltip();
                             value = 'error';
-                            showTooltip(cause, 'error');
+                            showTooltip(cause, 'error', causeParams);
                         },
                         getStatusFeedbackStyle: function () {
                             if (value == 'success') {
@@ -116,10 +120,54 @@
                 };
 
                 scope.changeValue = function (optionValue, lazySave) {
+                    if (pendingSaveRequest) {
+                        $timeout.cancel(pendingSaveRequest);
+                    }
+
                     scope.optionValue = optionValue;
                     scope.optionStatus.setReady();
 
                     if (!scope.option || !scope.option.key || scope.option.readonly) {
+                        return;
+                    }
+
+                    if (scope.option.required && optionValue == '') {
+                        scope.optionStatus.setError('Option value cannot be empty!');
+                        return;
+                    }
+
+                    if (scope.option.type == 'integer' && !/^-?\d+$/.test(optionValue)) {
+                        scope.optionStatus.setError('Input number is invalid!');
+                        return;
+                    }
+
+                    if (scope.option.type == 'float' && !/^-?(\d*\.)?\d+$/.test(optionValue)) {
+                        scope.optionStatus.setError('Input number is invalid!');
+                        return;
+                    }
+
+                    if ((scope.option.type == 'integer' || scope.option.type == 'float') && (!angular.isUndefined(scope.option.min) || !angular.isUndefined(scope.option.max))) {
+                        var number = optionValue;
+
+                        if (scope.option.type == 'integer') {
+                            number = parseInt(optionValue);
+                        } else if (scope.option.type == 'float') {
+                            number = parseFloat(optionValue);
+                        }
+
+                        if (!angular.isUndefined(scope.option.min) && number < scope.option.min) {
+                            scope.optionStatus.setError('Input number is below min value!', { value: scope.option.min });
+                            return;
+                        }
+
+                        if (!angular.isUndefined(scope.option.max) && number > scope.option.max) {
+                            scope.optionStatus.setError('Input number is above max value!', { value: scope.option.max });
+                            return;
+                        }
+                    }
+
+                    if (!angular.isUndefined(scope.option.pattern) && !(new RegExp(scope.option.pattern).test(optionValue))) {
+                        scope.optionStatus.setError('Input value is invalid!');
                         return;
                     }
 
@@ -128,10 +176,6 @@
                         value: optionValue,
                         optionStatus: scope.optionStatus
                     };
-
-                    if (pendingSaveRequest) {
-                        $timeout.cancel(pendingSaveRequest);
-                    }
 
                     var invokeChange = function () {
                         scope.optionStatus.setSaving();
