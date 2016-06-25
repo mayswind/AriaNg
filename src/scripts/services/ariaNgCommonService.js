@@ -1,11 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', '$base64', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, $base64, SweetAlert, $translate, ariaNgConstants) {
+    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, base64, SweetAlert, $translate, ariaNgConstants) {
         return {
             generateUniqueId: function () {
                 var sourceId = ariaNgConstants.appPrefix + '_' + Math.round(new Date().getTime() / 1000) + '_' + Math.random();
-                var hashedId = $base64.encode(sourceId);
+                var hashedId = base64.encode(sourceId);
 
                 return hashedId;
             },
@@ -122,13 +122,13 @@
                 if (!angular.isArray(array) || array.length < 1) {
                     return 0;
                 }
-                
+
                 var count = 0;
-                
+
                 for (var i = 0; i < array.length; i++) {
                     count += (array[i] == value ? 1 : 0);
                 }
-                
+
                 return count;
             },
             parseOrderType: function (value) {

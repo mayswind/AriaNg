@@ -11,7 +11,7 @@
         'pascalprecht.translate',
         'angularMoment',
         'ngWebSocket',
-        'base64',
+        'ab-base64',
         'LocalStorageModule',
         'cgBusy',
         'angularPromiseButtons',
