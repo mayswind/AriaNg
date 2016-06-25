@@ -24,27 +24,56 @@
                 scope.optionStatus = (function () {
                     var value = 'ready';
 
+                    var destroyTooltip = function () {
+                        angular.element(element).tooltip('destroy');
+                    };
+
+                    var showTooltip = function (cause, type) {
+                        if (!cause) {
+                            return;
+                        }
+
+                        angular.element(element).tooltip({
+                            title: cause,
+                            trigger: 'focus',
+                            container: element,
+                            template:
+                            '<div class="tooltip' + (type ? ' tooltip-' + type : '') + '" role="tooltip">' +
+                                '<div class="tooltip-arrow"></div>' +
+                                '<div class="tooltip-inner"></div>' +
+                            '</div>'
+                        }).tooltip('show');
+                    };
+
                     return {
                         getValue: function () {
                             return value;
                         },
                         setReady: function () {
+                            destroyTooltip();
                             value = 'ready';
                         },
                         setPending: function () {
+                            destroyTooltip();
                             value = 'pending';
                         },
                         setSaving: function () {
+                            destroyTooltip();
                             value = 'pending';
                         },
                         setSuccess: function () {
+                            destroyTooltip();
                             value = 'success';
                         },
-                        setFailed: function () {
+                        setFailed: function (cause) {
+                            destroyTooltip();
                             value = 'failed';
+                            showTooltip(cause, 'warning');
                         },
-                        setError: function () {
+                        setError: function (cause) {
+                            destroyTooltip();
                             value = 'error';
+                            showTooltip(cause, 'error');
                         },
                         getStatusFeedbackStyle: function () {
                             if (value == 'success') {

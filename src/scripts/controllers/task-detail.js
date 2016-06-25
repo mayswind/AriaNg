@@ -197,7 +197,7 @@
                 if (response.success && response.data == 'OK') {
                     optionStatus.setSuccess();
                 } else {
-                    optionStatus.setFailed();
+                    optionStatus.setFailed(response.data.message);
                 }
             }, true);
         };

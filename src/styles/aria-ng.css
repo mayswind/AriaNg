@@ -384,6 +384,83 @@ td {
     color: #208fe5;
 }
 
+.skin-aria-ng .tooltip.tooltip-success.in, .skin-aria-ng .tooltip.tooltip-warning.in, .skin-aria-ng .tooltip.tooltip-error.in {
+    filter: alpha(opacity=95);
+    opacity: 0.95
+}
+
+.skin-aria-ng .tooltip.tooltip-success.top .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-success.top-left .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-success.top-right .tooltip-arrow {
+    border-top-color: #00a65a;
+}
+
+.skin-aria-ng .tooltip.tooltip-warning.top .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-warning.top-left .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-warning.top-right .tooltip-arrow {
+    border-top-color: #f39c12;
+}
+
+.skin-aria-ng .tooltip.tooltip-error.top .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-error.top-left .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-error.top-right .tooltip-arrow {
+    border-top-color: #dd4b39;
+}
+
+.skin-aria-ng .tooltip.tooltip-success.left .tooltip-arrow {
+    border-left-color: #00a65a;
+}
+
+.skin-aria-ng .tooltip.tooltip-warning.left .tooltip-arrow {
+    border-left-color: #f39c12;
+}
+
+.skin-aria-ng .tooltip.tooltip-error.left .tooltip-arrow {
+    border-left-color: #dd4b39;
+}
+
+.skin-aria-ng .tooltip.tooltip-success.right .tooltip-arrow {
+    border-right-color: #00a65a;
+}
+
+.skin-aria-ng .tooltip.tooltip-warning.right .tooltip-arrow {
+    border-right-color: #f39c12;
+}
+
+.skin-aria-ng .tooltip.tooltip-error.right .tooltip-arrow {
+    border-right-color: #dd4b39;
+}
+
+.skin-aria-ng .tooltip.tooltip-success.bottom .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-success.bottom-left .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-success.bottom-right .tooltip-arrow {
+    border-bottom-color: #00a65a;
+}
+
+.skin-aria-ng .tooltip.tooltip-warning.bottom .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-warning.bottom-left .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-warning.bottom-right .tooltip-arrow {
+    border-bottom-color: #f39c12;
+}
+
+.skin-aria-ng .tooltip.tooltip-error.bottom .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-error.bottom-left .tooltip-arrow,
+.skin-aria-ng .tooltip.tooltip-error.bottom-right .tooltip-arrow {
+    border-bottom-color: #dd4b39;
+}
+
+.skin-aria-ng .tooltip.tooltip-success .tooltip-inner {
+    background-color: #00a65a;
+}
+
+.skin-aria-ng .tooltip.tooltip-warning .tooltip-inner {
+    background-color: #f39c12;
+}
+
+.skin-aria-ng .tooltip.tooltip-error .tooltip-inner {
+    background-color: #dd4b39;
+}
+
 .skin-aria-ng .input-group .form-group.has-success + .input-group-addon {
     border-color: #00a65a;
     background-color: #00a65a;
