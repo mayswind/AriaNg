@@ -123,6 +123,7 @@
             'Disabled': 'Disabled',
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.',
             'Type is illegal!': 'Type is illegal!',
+            'Parameter is invalid!': 'Parameter is invalid!',
             'format': {
                 'longdate': 'MM/DD/YYYY HH:mm:ss',
                 'time.millisecond': '{{value}} Millisecond',

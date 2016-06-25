@@ -164,23 +164,25 @@
                 return requestParams;
             },
             addUri: function (context) {
-                return invoke(buildRequestContext('addUri', context, context.urls, context.options));
+                var urls = context.task.urls;
+                var options = angular.copy(context.task.options);
+
+                if (context.pauseOnAdded) {
+                    options.pause = 'true';
+                }
+
+                return invoke(buildRequestContext('addUri', context, urls, options));
             },
             addUriMulti: function (context) {
                 var contexts = [];
 
                 for (var i = 0; i < context.tasks.length; i++) {
                     var task = context.tasks[i];
-                    var options = angular.copy(task.options);
-
-                    if (context.pauseOnAdded) {
-                        options.pause = 'true';
-                    }
 
                     contexts.push({
                         silent: !!context.silent,
-                        urls: task.urls,
-                        options: options
+                        task: task,
+                        pauseOnAdded: context.pauseOnAdded
                     });
                 }
 

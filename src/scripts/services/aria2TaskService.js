@@ -258,6 +258,14 @@
                     }
                 });
             },
+            newUriTask: function (task, pauseOnAdded, callback, silent) {
+                return aria2RpcService.addUri({
+                    task: task,
+                    pauseOnAdded: !!pauseOnAdded,
+                    silent: !!silent,
+                    callback: callback
+                });
+            },
             newUriTasks: function (tasks, pauseOnAdded, callback, silent) {
                 return aria2RpcService.addUriMulti({
                     tasks: tasks,

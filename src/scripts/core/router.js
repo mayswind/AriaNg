@@ -19,6 +19,10 @@
                 templateUrl: 'views/new.html',
                 controller: 'NewTaskController'
             })
+            .when('/new/:url', {
+                template: '',
+                controller: 'CommandController'
+            })
             .when('/task/detail/:gid', {
                 templateUrl: 'views/task-detail.html',
                 controller: 'TaskDetailController'

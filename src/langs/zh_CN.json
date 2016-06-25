@@ -119,6 +119,7 @@
     "Disabled": "禁用",
     "Changes to the settings take effect after refreshing page.": "设置将在页面刷新后生效.",
     "Type is illegal!": "类型错误!",
+    "Parameter is invalid!": "请求参数无效",
     "format": {
         "longdate": "YYYY年MM月DD日 HH:mm:ss",
         "time.millisecond": "{{value}} 毫秒",
