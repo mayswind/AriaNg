@@ -1,8 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgFileService', ['ariaNgCommonService', function (ariaNgCommonService) {
-        var isSupportFileReader = !!FileReader;
+    angular.module('ariaNg').factory('ariaNgFileService', ['$window', 'ariaNgCommonService', function ($window, ariaNgCommonService) {
+        var isSupportFileReader = !!$window.FileReader;
 
         var getAllowedExtensions = function (fileFilter) {
             var extensions = [];
