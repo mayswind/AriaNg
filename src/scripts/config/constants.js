@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ariaNg').constant('ariaNgConstants', {
-        title: 'Aria Ng',
+        title: 'AriaNg',
         appPrefix: 'AriaNg',
         optionStorageKey: 'Options',
         globalStatStorageCapacity: 120,
@@ -108,6 +108,7 @@
         ]
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
+        title: '${downspeed}, ${upspeed} - ${title}',
         rpcHost: '',
         rpcPort: '6800',
         protocol: 'http',

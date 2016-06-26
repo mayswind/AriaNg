@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
         var refreshGlobalStat = function (silent) {
@@ -13,6 +13,13 @@
 
                 if (response.success) {
                     $scope.globalStat = response.data;
+                    $document[0].title = ariaNgSettingService.getFinalTitle({
+                        downloadingCount: $scope.globalStat.numActive,
+                        waitingCount: $scope.globalStat.numWaiting,
+                        stoppedCount: $scope.globalStat.numStopped,
+                        downloadSpeed: $scope.globalStat.downloadSpeed,
+                        uploadSpeed: $scope.globalStat.uploadSpeed
+                    });
                     ariaNgMonitorService.recordGlobalStat(response.data);
                 }
             }, silent);

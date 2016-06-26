@@ -13,6 +13,16 @@
         </div>
         <div class="row">
             <div class="setting-key setting-key-without-desc col-sm-4">
+                <span translate>Page Title</span>
+                <i class="icon-primary fa fa-question-circle" ng-tooltip="{{'Supported Placeholder: AriaNg Title ${title}, Downloading Count ${downloading}, Waiting Count ${waiting}, Stopped Count ${stopped}, Download Speed ${downspeed}, Upload Speed ${upspeed}.'| translate}}"
+                   ng-tooltip-placement="right"></i>
+            </div>
+            <div class="setting-value col-sm-8">
+                <input class="form-control" type="text" ng-model="context.settings.title" ng-change="settingService.setTitle(context.settings.title)"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Aria2 RPC Host</span>
                 <span class="asterisk">*</span>
             </div>

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($location, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
         var getDefaultRpcHost = function () {
             return $location.$$host;
         };
@@ -70,6 +70,24 @@
                 if (this.applyLanguage(value)) {
                     setOption('language', value);
                 }
+            },
+            getTitle: function () {
+                return getOption('title');
+            },
+            getFinalTitle: function (context) {
+                var title = this.getTitle();
+
+                title = title.replace(/\$\{downloading\}/g, $translate.instant('Downloading') + ': ' + context.downloadingCount);
+                title = title.replace(/\$\{waiting\}/g, $translate.instant('Waiting') + ': ' + context.waitingCount);
+                title = title.replace(/\$\{stopped\}/g, $translate.instant('Downloaded / Stopped') + ': ' + context.stoppedCount);
+                title = title.replace(/\$\{downspeed\}/g, $translate.instant('Download') + ': ' + $filter('readableVolumn')(context.downloadSpeed) + '/s');
+                title = title.replace(/\$\{upspeed\}/g, $translate.instant('Upload') + ': ' + $filter('readableVolumn')(context.uploadSpeed) + '/s');
+                title = title.replace(/\$\{title\}/g, ariaNgConstants.title);
+
+                return title;
+            },
+            setTitle: function (value) {
+                setOption('title', value);
             },
             getJsonRpcUrl: function () {
                 var protocol = getOption('protocol');
