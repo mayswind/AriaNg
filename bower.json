@@ -44,9 +44,10 @@
     "angular-websocket": "^1.1.0",
     "angular-utf8-base64": "^0.0.5",
     "angular-local-storage": "^0.2.7",
+    "angular-notification": "775ee861c1737b284588bcb878ba1f4e43c70c97",
     "angular-busy": "^4.1.3",
     "angular-promise-buttons": "^0.1.14",
     "angular-dragula": "^1.2.7",
-    "ngSweetAlert": "https://github.com/oitozero/ngSweetAlert.git#8df6c30b0996f09cb4cf5e90a41115a6c09fa852"
+    "ngSweetAlert": "8df6c30b0996f09cb4cf5e90a41115a6c09fa852"
   }
 }

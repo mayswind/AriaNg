@@ -89,6 +89,12 @@
             setTitle: function (value) {
                 setOption('title', value);
             },
+            getBrowserNotification: function () {
+                return getOption('browserNotification');
+            },
+            setBrowserNotification: function (value) {
+                setOption('browserNotification', value);
+            },
             getJsonRpcUrl: function () {
                 var protocol = getOption('protocol');
                 var rpcHost = getOption('rpcHost');

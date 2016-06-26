@@ -13,6 +13,7 @@
         'ngWebSocket',
         'ab-base64',
         'LocalStorageModule',
+        'notification',
         'cgBusy',
         'angularPromiseButtons',
         'oitozero.ngSweetAlert',

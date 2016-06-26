@@ -109,6 +109,7 @@
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
         title: '${downspeed}, ${upspeed} - ${title}',
+        browserNotification: false, 
         rpcHost: '',
         rpcPort: '6800',
         protocol: 'http',

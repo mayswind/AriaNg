@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
         var globalStatRefreshPromise = null;
 
         var refreshGlobalStat = function (silent) {
@@ -24,6 +24,10 @@
                 }
             }, silent);
         };
+        
+        if (ariaNgSettingService.getBrowserNotification()) {
+            ariaNgNotificationService.requestBrowserPermission();
+        }
 
         $scope.globalStatusContext = {
             data: ariaNgMonitorService.getGlobalStatsData()

@@ -21,6 +21,17 @@
                 <input class="form-control" type="text" ng-model="context.settings.title" ng-change="settingService.setTitle(context.settings.title)"/>
             </div>
         </div>
+        <div class="row" ng-if="context.supportBrowserNotification">
+            <div class="setting-key setting-key-without-desc col-sm-4">
+                <span translate>Enable Browser Notification</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <select class="form-control" style="width: 100%;" ng-model="context.settings.browserNotification"
+                        ng-change="setEnableBrowserNotification(context.settings.browserNotification)"
+                        ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                </select>
+            </div>
+        </div>
         <div class="row">
             <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Aria2 RPC Host</span>
