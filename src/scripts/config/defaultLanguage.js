@@ -155,7 +155,7 @@
             },
             'rpc': {
                 'error': {
-                    'Unauthorized': 'Authorization Failed!'
+                    'unauthorized': 'Authorization Failed!'
                 }
             },
             'options': {

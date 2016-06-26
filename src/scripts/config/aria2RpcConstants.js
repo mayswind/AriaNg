@@ -8,7 +8,8 @@
         rpcTokenPrefix: 'token:'
     }).constant('aria2RpcErrors', {
         Unauthorized: {
-            message: 'Unauthorized'
+            message: 'Unauthorized',
+            tipTextKey: 'rpc.error.unauthorized'
         }
     });
 })();

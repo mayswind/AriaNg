@@ -71,8 +71,8 @@
                 return false;
             }
 
-            if (error.message == aria2RpcErrors.Unauthorized.message) {
-                ariaNgCommonService.showError('rpc.error.' + error.message);
+            if (aria2RpcErrors[error.message] && aria2RpcErrors[error.message].tipTextKey) {
+                ariaNgCommonService.showError(aria2RpcErrors[error.message].tipTextKey);
                 return true;
             } else {
                 ariaNgCommonService.showError(error.message);
