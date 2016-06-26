@@ -97,7 +97,7 @@
         };
 
         var isStorageExist = function (key) {
-            return !angular.isUndefined(storagesInMemory[key]);
+            return angular.isDefined(storagesInMemory[key]);
         };
 
         var pushToStorage = function (key, stat) {

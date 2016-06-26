@@ -128,7 +128,7 @@
 
             if (arguments.length > 2) {
                 for (var i = 2; i < arguments.length; i++) {
-                    if (arguments[i] != null && !angular.isUndefined(arguments[i])) {
+                    if (arguments[i] != null && angular.isDefined(arguments[i])) {
                         finalParams.push(arguments[i]);
                     }
                 }
@@ -285,21 +285,21 @@
             },
             tellActive: function (context) {
                 return invoke(buildRequestContext('tellActive', context,
-                    angular.isUndefined(context.requestParams) ? null : context.requestParams
+                    angular.isDefined(context.requestParams) ? context.requestParams: null
                 ));
             },
             tellWaiting: function (context) {
                 return invoke(buildRequestContext('tellWaiting', context,
-                    angular.isUndefined(context.offset) ? 0 : context.offset,
-                    angular.isUndefined(context.num) ? 1000 : context.num,
-                    angular.isUndefined(context.requestParams) ? null : context.requestParams
+                    angular.isDefined(context.offset) ? context.offset : 0,
+                    angular.isDefined(context.num) ? context.num : 1000,
+                    angular.isDefined(context.requestParams) ? context.requestParams : null
                 ));
             },
             tellStopped: function (context) {
                 return invoke(buildRequestContext('tellStopped', context,
-                    angular.isUndefined(context.offset) ? 0 : context.offset,
-                    angular.isUndefined(context.num) ? 1000 : context.num,
-                    angular.isUndefined(context.requestParams) ? null : context.requestParams
+                    angular.isDefined(context.offset) ? context.offset : 0,
+                    angular.isDefined(context.num) ? context.num : 1000,
+                    angular.isDefined(context.requestParams) ? context.requestParams: null
                 ));
             },
             changePosition: function (context) {

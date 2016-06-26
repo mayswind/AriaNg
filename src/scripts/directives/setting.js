@@ -146,7 +146,7 @@
                         return;
                     }
 
-                    if ((scope.option.type == 'integer' || scope.option.type == 'float') && (!angular.isUndefined(scope.option.min) || !angular.isUndefined(scope.option.max))) {
+                    if ((scope.option.type == 'integer' || scope.option.type == 'float') && (angular.isDefined(scope.option.min) || angular.isDefined(scope.option.max))) {
                         var number = optionValue;
 
                         if (scope.option.type == 'integer') {
@@ -155,18 +155,18 @@
                             number = parseFloat(optionValue);
                         }
 
-                        if (!angular.isUndefined(scope.option.min) && number < scope.option.min) {
+                        if (angular.isDefined(scope.option.min) && number < scope.option.min) {
                             scope.optionStatus.setError('Input number is below min value!', { value: scope.option.min });
                             return;
                         }
 
-                        if (!angular.isUndefined(scope.option.max) && number > scope.option.max) {
+                        if (angular.isDefined(scope.option.max) && number > scope.option.max) {
                             scope.optionStatus.setError('Input number is above max value!', { value: scope.option.max });
                             return;
                         }
                     }
 
-                    if (!angular.isUndefined(scope.option.pattern) && !(new RegExp(scope.option.pattern).test(optionValue))) {
+                    if (angular.isDefined(scope.option.pattern) && !(new RegExp(scope.option.pattern).test(optionValue))) {
                         scope.optionStatus.setError('Input value is invalid!');
                         return;
                     }
