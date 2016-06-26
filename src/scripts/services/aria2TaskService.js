@@ -64,7 +64,7 @@
             task.remainLength = task.totalLength - task.completedLength;
             task.remainPercent = 100 - task.completePercent;
             task.uploadLength = (task.uploadLength ? parseInt(task.uploadLength) : 0);
-            task.shareRatio = (task.uploadLength / task.completedLength);
+            task.shareRatio = (task.completedLength > 0 ? task.uploadLength / task.completedLength : 0);
 
             task.uploadSpeed = parseInt(task.uploadSpeed);
             task.downloadSpeed = parseInt(task.downloadSpeed);
