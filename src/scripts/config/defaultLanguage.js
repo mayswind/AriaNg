@@ -63,6 +63,8 @@
             'Blocks': 'Blocks',
             'Files': 'Files',
             'Peers': 'Peers',
+            'Task Name': 'Task Name',
+            'Task Size': 'Task Size',
             'Task Status': 'Task Status',
             'Error Description': 'Error Description',
             'Health Percent': 'Health Percent',

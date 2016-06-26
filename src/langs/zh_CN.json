@@ -59,6 +59,8 @@
     "Blocks": "区块信息",
     "Files": "文件列表",
     "Peers": "连接状态",
+    "Task Name": "任务名称",
+    "Task Size": "任务大小",
     "Task Status": "任务状态",
     "Error Description": "错误描述",
     "Health Percent": "健康度",
