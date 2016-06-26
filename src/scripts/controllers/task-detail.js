@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcErrors', 'ariaNgFileTypes', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, aria2RpcErrors, ariaNgFileTypes, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
@@ -74,8 +74,36 @@
             }, silent);
         };
 
+        var setSelectFiles = function (silent) {
+            if (!$scope.task || !$scope.task.files) {
+                return;
+            }
+
+            var gid = $scope.task.gid;
+            var selectedFileIndex = [];
+
+            for (var i = 0; i < $scope.task.files.length; i++) {
+                var file = $scope.task.files[i];
+
+                if (file && file.selected) {
+                    selectedFileIndex.push(file.index);
+                }
+            }
+
+            pauseDownloadTaskRefresh = true;
+
+            return aria2TaskService.selectTaskFile(gid, selectedFileIndex, function (response) {
+                pauseDownloadTaskRefresh = false;
+
+                if (response.success) {
+                    refreshDownloadTask(false);
+                }
+            }, silent);
+        };
+
         $scope.context = {
             currentTab: 'overview',
+            showChooseFilesToolbar: false,
             btPeers: [],
             healthPercent: 0,
             statusData: ariaNgMonitorService.getEmptyStatsData($routeParams.gid),
@@ -135,31 +163,83 @@
             return ariaNgSettingService.getFileListDisplayOrder();
         };
 
-        $scope.setSelectedFile = function () {
+        $scope.showChooseFilesToolbar = function () {
+            pauseDownloadTaskRefresh = true;
+            $scope.context.showChooseFilesToolbar = true;
+        };
+
+        $scope.getSelectedFileCount = function () {
+            var count = 0;
+
+            for (var i = 0; i < $scope.task.files.length; i++) {
+                count += $scope.task.files[i].selected ? 1 : 0;
+            }
+
+            return count;
+        };
+
+        $scope.selectFiles = function (type) {
             if (!$scope.task || !$scope.task.files) {
                 return;
             }
 
-            var gid = $scope.task.gid;
-            var selectedFileIndex = [];
+            for (var i = 0; i < $scope.task.files.length; i++) {
+                if (type == 'all') {
+                    $scope.task.files[i].selected = true;
+                } else if (type == 'none') {
+                    $scope.task.files[i].selected = false;
+                } else if (type == 'reverse') {
+                    $scope.task.files[i].selected = !$scope.task.files[i].selected;
+                }
+            }
+        };
+
+        $scope.chooseSpecifiedFiles = function (type) {
+            if (!$scope.task || !$scope.task.files || !ariaNgFileTypes[type]) {
+                return;
+            }
+            
+            var extensions = ariaNgFileTypes[type];
+            var fileIndexes = [];
+            var isAllSelected = true;
 
             for (var i = 0; i < $scope.task.files.length; i++) {
-                var file = $scope.task.files[i];
+                var extension = ariaNgCommonService.getFileExtension($scope.task.files[i].fileName);
 
-                if (file && file.selected) {
-                    selectedFileIndex.push(file.index);
+                if (extensions.indexOf(extension) >= 0) {
+                    fileIndexes.push(i);
+
+                    if (!$scope.task.files[i].selected) {
+                        isAllSelected = false;
+                    }
                 }
             }
 
-            pauseDownloadTaskRefresh = true;
+            for (var i = 0; i < fileIndexes.length; i++) {
+                var index = fileIndexes[i];
+                $scope.task.files[index].selected = !isAllSelected;
+            }
+        };
 
-            return aria2TaskService.selectTaskFile(gid, selectedFileIndex, function (response) {
+        $scope.saveChoosedFiles = function () {
+            if ($scope.context.showChooseFilesToolbar) {
+                $rootScope.loadPromise = setSelectFiles(false);
+                $scope.context.showChooseFilesToolbar = false;
+            }
+        };
+
+        $scope.cancelChooseFiles = function () {
+            if ($scope.context.showChooseFilesToolbar) {
                 pauseDownloadTaskRefresh = false;
+                refreshDownloadTask(true);
+                $scope.context.showChooseFilesToolbar = false;
+            }
+        };
 
-                if (response.success) {
-                    refreshDownloadTask(false);
-                }
-            }, true);
+        $scope.setSelectedFile = function () {
+            if (!$scope.context.showChooseFilesToolbar) {
+                setSelectFiles(true);
+            }
         };
 
         $scope.changePeerListDisplayOrder = function (type, autoSetReverse) {

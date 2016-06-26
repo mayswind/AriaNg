@@ -51,6 +51,13 @@
                     }
                 });
             },
+            getFileExtension: function (filePath) {
+                if (!filePath || filePath.lastIndexOf('.') < 0) {
+                    return filePath;
+                }
+
+                return filePath.substring(filePath.lastIndexOf('.'));
+            },
             extendArray: function (sourceArray, targetArray, keyProperty) {
                 if (!targetArray || !sourceArray || sourceArray.length != targetArray.length) {
                     return false;

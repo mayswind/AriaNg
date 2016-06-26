@@ -157,6 +157,7 @@
                             <div class="col-sm-8">
                                 <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
+                                <a ng-click="showChooseFilesToolbar()" ng-if="task && (task.status == 'waiting' || task.status == 'paused')" translate>(Choose Files)</a>
                             </div>
                             <div class="col-sm-2">
                                 <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Completed Percent</a>
@@ -165,6 +166,41 @@
                             <div class="col-sm-2">
                                 <a ng-click="changeFileListDisplayOrder('size:asc', true)" translate>File Size</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('size:desc')}"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-table-title" ng-if="context.showChooseFilesToolbar">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-xs btn-primary" ng-click="selectFiles('all')" translate>Select All</button>
+                                <button class="btn btn-xs btn-primary" ng-click="selectFiles('none')" translate>Select None</button>
+                                <button class="btn btn-xs btn-primary" ng-click="selectFiles('reverse')" translate>Select Invert</button>
+                                <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('video')">
+                                    <i class="fa fa-file-video-o"></i>
+                                    <span translate>Videos</span>
+                                </button>
+                                <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('audio')">
+                                    <i class="fa fa-file-audio-o"></i>
+                                    <span translate>Audios</span>
+                                </button>
+                                <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('picture')">
+                                    <i class="fa fa-file-picture-o"></i>
+                                    <span translate>Pictures</span>
+                                </button>
+                                <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('document')">
+                                    <i class="fa fa-file-text-o"></i>
+                                    <span translate>Documents</span>
+                                </button>
+                                <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('application')">
+                                    <i class="fa fa-file-o"></i>
+                                    <span translate>Applications</span>
+                                </button>
+                                <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('archive')">
+                                    <i class="fa fa-file-archive-o"></i>
+                                    <span translate>Archives</span>
+                                </button>
+                                <button class="btn btn-xs btn-success" ng-click="saveChoosedFiles()" ng-disabled="getSelectedFileCount() < 1" translate>Confirm</button>
+                                <button class="btn btn-xs btn-default" ng-click="cancelChooseFiles()" translate>Cancel</button>
                             </div>
                         </div>
                     </div>
