@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').filter('taskOrderBy', ['orderByFilter', 'ariaNgCommonService', function (orderByFilter, ariaNgCommonService) {
+    angular.module('ariaNg').filter('taskOrderBy', ['$filter', 'ariaNgCommonService', function ($filter, ariaNgCommonService) {
         return function (array, type) {
             if (!angular.isArray(array)) {
                 return array;
@@ -14,17 +14,17 @@
             }
 
             if (orderType.type == 'name') {
-                return orderByFilter(array, ['taskName'], orderType.reverse);
+                return $filter('orderBy')(array, ['taskName'], orderType.reverse);
             } else if (orderType.type == 'size') {
-                return orderByFilter(array, ['totalLength'], orderType.reverse);
+                return $filter('orderBy')(array, ['totalLength'], orderType.reverse);
             } else if (orderType.type == 'percent') {
-                return orderByFilter(array, ['completePercent'], orderType.reverse);
+                return $filter('orderBy')(array, ['completePercent'], orderType.reverse);
             } else if (orderType.type == 'remain') {
-                return orderByFilter(array, ['idle', 'remainTime', 'remainLength'], orderType.reverse);
+                return $filter('orderBy')(array, ['idle', 'remainTime', 'remainLength'], orderType.reverse);
             } else if (orderType.type == 'dspeed') {
-                return orderByFilter(array, ['downloadSpeed'], orderType.reverse);
+                return $filter('orderBy')(array, ['downloadSpeed'], orderType.reverse);
             } else if (orderType.type == 'uspeed') {
-                return orderByFilter(array, ['uploadSpeed'], orderType.reverse);
+                return $filter('orderBy')(array, ['uploadSpeed'], orderType.reverse);
             } else {
                 return array;
             }

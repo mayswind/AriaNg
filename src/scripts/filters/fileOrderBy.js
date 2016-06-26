@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').filter('fileOrderBy', ['orderByFilter', 'ariaNgCommonService', function (orderByFilter, ariaNgCommonService) {
+    angular.module('ariaNg').filter('fileOrderBy', ['$filter', 'ariaNgCommonService', function ($filter, ariaNgCommonService) {
         return function (array, type) {
             if (!angular.isArray(array)) {
                 return array;
@@ -14,11 +14,11 @@
             }
 
             if (orderType.type == 'name') {
-                return orderByFilter(array, ['fileName'], orderType.reverse);
+                return $filter('orderBy')(array, ['fileName'], orderType.reverse);
             } else if (orderType.type == 'size') {
-                return orderByFilter(array, ['length'], orderType.reverse);
+                return $filter('orderBy')(array, ['length'], orderType.reverse);
             } else if (orderType.type == 'percent') {
-                return orderByFilter(array, ['completePercent'], orderType.reverse);
+                return $filter('orderBy')(array, ['completePercent'], orderType.reverse);
             } else {
                 return array;
             }

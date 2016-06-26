@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgMonitorService', ['$translate', 'moment', 'ariaNgConstants', 'readableVolumnFilter', function ($translate, moment, ariaNgConstants, readableVolumnFilter) {
+    angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', '$translate', 'moment', 'ariaNgConstants', function ($filter, $translate, moment, ariaNgConstants) {
         var storagesInMemory = {};
         var globalStorageKey = 'global';
 
@@ -32,8 +32,8 @@
                         }
 
                         var time = moment(params[0].name, 'X').format('HH:mm:ss');
-                        var uploadSpeed = readableVolumnFilter(params[0].value) + '/s';
-                        var downloadSpeed = readableVolumnFilter(params[1].value) + '/s';
+                        var uploadSpeed = $filter('readableVolumn')(params[0].value) + '/s';
+                        var downloadSpeed = $filter('readableVolumn')(params[1].value) + '/s';
 
                         return '<div>' + time + '</div>'
                             + '<div><i class="icon-download fa fa-arrow-down"></i> ' + downloadSpeed +'</div>'
@@ -52,7 +52,7 @@
                     type: 'value',
                     axisLabel: {
                         formatter: function (value) {
-                            return readableVolumnFilter(value, 0);
+                            return $filter('readableVolumn')(value, 0);
                         }
                     }
                 },
