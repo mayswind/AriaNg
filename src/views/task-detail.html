@@ -259,6 +259,7 @@
                         <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-sm-3">
                                 <span ng-bind="peer.name | translate"></span>
+                                <i class="icon-seeder fa fa-magnet" title="{{'Seeding' | translate}}" ng-if="peer && (peer.seeder === true || peer.seeder === 'true')"></i>
                             </div>
                             <div class="col-sm-3">
                                 <div class="piece-bar-wrapper">
