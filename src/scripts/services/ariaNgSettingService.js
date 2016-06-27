@@ -77,6 +77,14 @@
             getFinalTitle: function (context) {
                 var title = this.getTitle();
 
+                context = angular.extend({
+                    downloadingCount: 0,
+                    waitingCount: 0,
+                    stoppedCount: 0,
+                    downloadSpeed: 0,
+                    uploadSpeed: 0
+                }, context);
+
                 title = title.replace(/\$\{downloading\}/g, $translate.instant('Downloading') + ': ' + context.downloadingCount);
                 title = title.replace(/\$\{waiting\}/g, $translate.instant('Waiting') + ': ' + context.waitingCount);
                 title = title.replace(/\$\{stopped\}/g, $translate.instant('Downloaded / Stopped') + ': ' + context.stoppedCount);
@@ -88,6 +96,12 @@
             },
             setTitle: function (value) {
                 setOption('title', value);
+            },
+            getTitleRefreshInterval: function () {
+                return getOption('titleRefreshInterval');
+            },
+            setTitleRefreshInterval: function (value) {
+                setOption('titleRefreshInterval', Math.max(parseInt(value), 0));
             },
             getBrowserNotification: function () {
                 return getOption('browserNotification');

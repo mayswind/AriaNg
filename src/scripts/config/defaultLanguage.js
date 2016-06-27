@@ -107,6 +107,7 @@
             'More Options': 'More Options',
             'Language': 'Language',
             'Page Title': 'Page Title',
+            'Page Title Refresh Interval': 'Page Title Refresh Interval',
             'Enable Browser Notification': 'Enable Browser Notification',
             'Aria2 RPC Host': 'Aria2 RPC Host',
             'Aria2 RPC Port': 'Aria2 RPC Port',

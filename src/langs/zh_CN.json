@@ -103,6 +103,7 @@
     "More Options": "更多选项",
     "Language": "语言",
     "Page Title": "页面标题",
+    "Page Title Refresh Interval": "页面标题刷新间隔",
     "Enable Browser Notification": "启用浏览器通知",
     "Aria2 RPC Host": "Aria2 RPC 主机",
     "Aria2 RPC Port": "Aria2 RPC 端口",

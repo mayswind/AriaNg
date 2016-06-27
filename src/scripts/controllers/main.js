@@ -2,9 +2,28 @@
     'use strict';
 
     angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
+        var pageTitleRefreshPromise = null;
         var globalStatRefreshPromise = null;
 
-        var refreshGlobalStat = function (silent) {
+        var refreshPageTitle = function () {
+            var context = (function (globalStat) {
+                if (!globalStat) {
+                    return null;
+                }
+
+                return {
+                    downloadingCount: globalStat.numActive,
+                    waitingCount: globalStat.numWaiting,
+                    stoppedCount: globalStat.numStopped,
+                    downloadSpeed: globalStat.downloadSpeed,
+                    uploadSpeed: globalStat.uploadSpeed
+                }
+            })($scope.globalStat);
+
+            $document[0].title = ariaNgSettingService.getFinalTitle(context);
+        };
+
+        var refreshGlobalStat = function (silent, callback) {
             return aria2SettingService.getGlobalStat(function (response) {
                 if (!response.success && response.data.message == aria2RpcErrors.Unauthorized.message) {
                     $interval.cancel(globalStatRefreshPromise);
@@ -13,18 +32,15 @@
 
                 if (response.success) {
                     $scope.globalStat = response.data;
-                    $document[0].title = ariaNgSettingService.getFinalTitle({
-                        downloadingCount: $scope.globalStat.numActive,
-                        waitingCount: $scope.globalStat.numWaiting,
-                        stoppedCount: $scope.globalStat.numStopped,
-                        downloadSpeed: $scope.globalStat.downloadSpeed,
-                        uploadSpeed: $scope.globalStat.uploadSpeed
-                    });
                     ariaNgMonitorService.recordGlobalStat(response.data);
+                }
+
+                if (callback) {
+                    callback(response);
                 }
             }, silent);
         };
-        
+
         if (ariaNgSettingService.getBrowserNotification()) {
             ariaNgNotificationService.requestBrowserPermission();
         }
@@ -187,6 +203,12 @@
             return orderType.equals(targetType);
         };
 
+        if (ariaNgSettingService.getTitleRefreshInterval() > 0) {
+            pageTitleRefreshPromise = $interval(function () {
+                refreshPageTitle();
+            }, ariaNgSettingService.getTitleRefreshInterval());
+        }
+
         if (ariaNgSettingService.getGlobalStatRefreshInterval() > 0) {
             globalStatRefreshPromise = $interval(function () {
                 refreshGlobalStat(true);
@@ -194,11 +216,17 @@
         }
 
         $scope.$on('$destroy', function () {
+            if (pageTitleRefreshPromise) {
+                $interval.cancel(pageTitleRefreshPromise);
+            }
+
             if (globalStatRefreshPromise) {
                 $interval.cancel(globalStatRefreshPromise);
             }
         });
 
-        refreshGlobalStat(true);
+        refreshGlobalStat(true, function () {
+            refreshPageTitle();
+        });
     }]);
 })();
