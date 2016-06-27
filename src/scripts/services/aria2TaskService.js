@@ -77,14 +77,20 @@
             task.hasTaskName = taskNameResult.success;
 
             if (task.files) {
+                var selectedFileCount = 0;
+
                 for (var i = 0; i < task.files.length; i++) {
                     var file = task.files[i];
                     file.fileName = getFileName(file);
                     file.length = parseInt(file.length);
-                    file.selected = (file.selected == 'true');
+                    file.selected = (file.selected === true || file.selected === 'true');
                     file.completedLength = parseInt(file.completedLength);
                     file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
+
+                    selectedFileCount += file.selected ? 1 : 0;
                 }
+
+                task.selectedFileCount = selectedFileCount;
             }
 
             return task;

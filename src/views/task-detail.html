@@ -37,7 +37,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="task.totalLength | readableVolumn"></span>
-                            <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.files.length})"></span>
+                            <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
