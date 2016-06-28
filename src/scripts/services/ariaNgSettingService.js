@@ -132,6 +132,10 @@
             setProtocol: function (value) {
                 setOption('protocol', value);
             },
+            isUseWebSocket: function () {
+                var protocol = this.getProtocol();
+                return protocol == 'ws' || protocol == 'wss';
+            },
             getSecret: function () {
                 var value = getOption('secret');
                 return (value ? base64.decode(value) : value);

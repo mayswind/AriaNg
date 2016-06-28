@@ -144,6 +144,24 @@
             return combinedPieces;
         };
 
+        var createEventCallback = function (getTaskStatusFunc, callback, type) {
+            return function (event) {
+                var context = {
+                    type: type,
+                    task: null
+                };
+
+                if (event && event.gid) {
+                    getTaskStatusFunc(event.gid, function (response) {
+                        context.task = (response.success ? response.data : null);
+                        callback(context);
+                    }, true);
+                } else {
+                    callback(context);
+                }
+            }
+        };
+
         var createLocalPeerFromTask = function (task) {
             return {
                 local: true,
@@ -383,6 +401,33 @@
                 return aria2RpcService.purgeDownloadResult({
                     silent: !!silent,
                     callback: callback
+                });
+            },
+            onTaskCompleted: function (callback) {
+                if (!callback) {
+                    return;
+                }
+
+                aria2RpcService.onDownloadComplete({
+                    callback: createEventCallback(this.getTaskStatus, callback, 'completed')
+                });
+            },
+            onBtTaskCompleted: function (callback) {
+                if (!callback) {
+                    return;
+                }
+
+                aria2RpcService.onBtDownloadComplete({
+                    callback: createEventCallback(this.getTaskStatus, callback, 'btcompleted')
+                });
+            },
+            onTaskErrorOccur: function (callback) {
+                if (!callback) {
+                    return;
+                }
+
+                aria2RpcService.onDownloadError({
+                    callback: createEventCallback(this.getTaskStatus, callback, 'error')
                 });
             },
             processDownloadTasks: function (tasks) {

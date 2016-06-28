@@ -33,6 +33,9 @@
                         context.errorCallback(data.id, data.error);
                     }
                 });
+            },
+            on: function (eventName, callback) {
+                //Not implement
             }
         };
     }]);

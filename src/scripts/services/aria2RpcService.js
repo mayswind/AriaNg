@@ -2,8 +2,15 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
-        var protocol = ariaNgSettingService.getProtocol();
+        var rpcImplementService = ariaNgSettingService.isUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
         var secret = ariaNgSettingService.getSecret();
+
+        var onDownloadStartCallbacks = [];
+        var onDownloadPauseCallbacks = [];
+        var onDownloadStopCallbacks = [];
+        var onDownloadCompleteCallbacks = [];
+        var onDownloadErrorCallbacks = [];
+        var onBtDownloadCompleteCallbacks = [];
 
         var checkIsSystemMethod = function (methodName) {
             return methodName.indexOf(aria2RpcConstants.rpcSystemServiceName + '.') == 0;
@@ -11,6 +18,10 @@
 
         var getAria2MethodFullName = function (methodName) {
             return aria2RpcConstants.rpcServiceName + '.' + methodName;
+        };
+
+        var getAria2EventFullName = function (eventName) {
+            return getAria2MethodFullName(eventName);
         };
 
         var invoke = function (context) {
@@ -30,11 +41,22 @@
                 errorCallback: context.errorCallback
             };
 
-            if (protocol == 'ws' || protocol == 'wss') {
-                return aria2WebSocketRpcService.request(requestContext);
-            } else {
-                return aria2HttpRpcService.request(requestContext);
-            }
+            return rpcImplementService.request(requestContext);
+        };
+
+        var registerEvent = function (eventName, callbacks) {
+            var fullEventName = getAria2EventFullName(eventName);
+
+            rpcImplementService.on(fullEventName, function (context) {
+                if (!angular.isArray(callbacks) || callbacks.length < 1) {
+                    return;
+                }
+
+                for (var i = 0; i < callbacks.length; i++) {
+                    var callback = callbacks[i];
+                    callback(context);
+                }
+            });
         };
 
         var invokeMulti = function (methodFunc, contexts, callback) {
@@ -140,6 +162,15 @@
 
             return context;
         };
+
+        (function () {
+            registerEvent('onDownloadStart', onDownloadStartCallbacks);
+            registerEvent('onDownloadPause', onDownloadPauseCallbacks);
+            registerEvent('onDownloadStop', onDownloadStopCallbacks);
+            registerEvent('onDownloadComplete', onDownloadCompleteCallbacks);
+            registerEvent('onDownloadError', onDownloadErrorCallbacks);
+            registerEvent('onBtDownloadComplete', onBtDownloadCompleteCallbacks);
+        })();
 
         return {
             getBasicTaskParams: function () {
@@ -361,6 +392,24 @@
             },
             listMethods: function (context) {
                 return invoke(buildRequestContext('system.listMethods', context));
+            },
+            onDownloadStart: function (context) {
+                onDownloadStartCallbacks.push(context.callback);
+            },
+            onDownloadPause: function (context) {
+                onDownloadPauseCallbacks.push(context.callback);
+            },
+            onDownloadStop: function (context) {
+                onDownloadStopCallbacks.push(context.callback);
+            },
+            onDownloadComplete: function (context) {
+                onDownloadCompleteCallbacks.push(context.callback);
+            },
+            onDownloadError: function (context) {
+                onDownloadErrorCallbacks.push(context.callback);
+            },
+            onBtDownloadComplete: function (context) {
+                onBtDownloadCompleteCallbacks.push(context.callback);
             }
         };
     }]);
