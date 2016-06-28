@@ -242,17 +242,25 @@
 
                         if (response.success) {
                             var peers = response.data;
+                            var localTaskCompletedPieces = getPieceStatus(task.bitfield, task.numPieces);
+                            var localTaskCompletedPieceCount = ariaNgCommonService.countArray(localTaskCompletedPieces, true);
+                            var localTaskCompletedPercent = task.completePercent;
 
                             for (var i = 0; i < peers.length; i++) {
                                 var peer = peers[i];
                                 var upstreamToSpeed = peer.uploadSpeed;
                                 var downstreamFromSpeed = peer.downloadSpeed;
                                 var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
+                                var completedPieceCount = ariaNgCommonService.countArray(completedPieces, true);
 
                                 peer.name = peer.ip + ':' + peer.port;
-                                peer.completePercent = ariaNgCommonService.countArray(completedPieces, true) / task.numPieces * 100;
+                                peer.completePercent = completedPieceCount / task.numPieces * 100;
                                 peer.downloadSpeed = upstreamToSpeed;
                                 peer.uploadSpeed = downstreamFromSpeed;
+
+                                if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
+                                    peer.completePercent = localTaskCompletedPercent;
+                                }
                             }
 
                             if (includeLocal) {
