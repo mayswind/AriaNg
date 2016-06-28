@@ -198,7 +198,7 @@
             if (!$scope.task || !$scope.task.files || !ariaNgFileTypes[type]) {
                 return;
             }
-            
+
             var extensions = ariaNgFileTypes[type];
             var fileIndexes = [];
             var isAllSelected = true;
@@ -284,6 +284,11 @@
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
+                if ($scope.task && ($scope.task.status == 'complete' || $scope.task.status == 'error' || $scope.task.status == 'removed')) {
+                    $interval.cancel(downloadTaskRefreshPromise);
+                    return;
+                }
+
                 refreshDownloadTask(true);
             }, ariaNgSettingService.getDownloadTaskRefreshInterval());
         }
