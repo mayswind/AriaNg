@@ -238,14 +238,18 @@ td {
 .skin-aria-ng .sidebar-menu > li.header {
     color: #707070;
     background-color: #2e343c;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .skin-aria-ng .sidebar-menu > li > a {
     border-left: 3px solid transparent;
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 .skin-aria-ng .sidebar-menu > li:hover > a {
-    color: #f8f8f8;
+    color: #dfdfdf;
     background-color: #313a42;
 }
 
@@ -254,9 +258,44 @@ td {
     background-color: #252c30;
 }
 
-.skin-aria-ng .sidebar-menu > li > .treeview-menu {
-    margin: 0 1px;
-    background-color: #2a343b;
+.skin-aria-ng .sidebar-menu > li.treeview:hover > a {
+    color: #a2b5b9;
+    background-color: #3c4852;
+}
+
+.skin-aria-ng .sidebar-menu > li.treeview.active > a, .skin-aria-ng .sidebar-menu > li.treeview.active:hover > a {
+    color: #5399e8;
+    background-color: #3c4852;
+}
+
+.skin-aria-ng .sidebar-menu > li.treeview > a:hover {
+    color: #dfdfdf;
+    background-color: #313a42;
+}
+
+.skin-aria-ng .sidebar-menu > li.treeview > ul.treeview-menu {
+    margin: 0;
+    padding: 0;
+    background-color: #3c4852;
+}
+
+.skin-aria-ng .sidebar-menu > li.treeview > ul.treeview-menu > li > a {
+    color: #8aa4af;
+    padding: 6px 5px 6px 41px;
+}
+
+.skin-aria-ng .sidebar-menu > li.treeview > ul.treeview-menu > li > a:hover {
+    color: #dfdfdf;
+    background-color: #313a42;
+}
+
+.skin-aria-ng .sidebar-menu > li.treeview > ul.treeview-menu > li.active > a {
+    color: #5399e8;
+    background-color: #252c30;
+}
+
+.skin-aria-ng .sidebar-menu i.fa {
+    font-size: 16px;
 }
 
 .skin-aria-ng .sidebar a {
@@ -271,18 +310,6 @@ td {
     .skin-aria-ng .main-sidebar {
         margin-top: 5px;
     }
-}
-
-.skin-aria-ng .treeview-menu > li > a {
-    color: #8aa4af;
-}
-
-.skin-aria-ng .treeview-menu > li > a:hover {
-    color: #fefefe;
-}
-
-.skin-aria-ng .treeview-menu > li.active > a {
-    color: #0080ff;
 }
 
 .skin-aria-ng .content-wrapper, .right-side {

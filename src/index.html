@@ -151,13 +151,13 @@
             <ul id="siderbar-menu" class="sidebar-menu">
                 <li class="header" translate>Download</li>
                 <li data-href-match="/downloading">
-                    <a href="#/downloading"><i class="fa fa-arrow-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
+                    <a href="#/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
                 </li>
                 <li data-href-match="/waiting">
-                    <a href="#/waiting"><i class="fa fa-hourglass-half"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
+                    <a href="#/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
                 </li>
                 <li data-href-match="/stopped">
-                    <a href="#/stopped"><i class="fa fa-stop-circle-o"></i> <span ng-bind="('Downloaded / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Downloaded / Stopped</span></a>
+                    <a href="#/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Downloaded / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Downloaded / Stopped</span></a>
                 </li>
                 <li class="header" translate>Settings</li>
                 <li data-href-match="/settings/ariang">
@@ -171,28 +171,28 @@
                     </a>
                     <ul class="treeview-menu">
                         <li data-href-match="/settings/aria2/basic">
-                            <a href="#/settings/aria2/basic"><i class="fa fa-circle-o"></i> <span translate>Basic Settings</span></a>
+                            <a href="#/settings/aria2/basic"> <span translate>Basic Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/http-ftp-sftp">
-                            <a href="#/settings/aria2/http-ftp-sftp"><i class="fa fa-circle-o"></i> <span translate>HTTP/FTP/SFTP Settings</span></a>
+                            <a href="#/settings/aria2/http-ftp-sftp"> <span translate>HTTP/FTP/SFTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/http">
-                            <a href="#/settings/aria2/http"><i class="fa fa-circle-o"></i> <span translate>HTTP Settings</span></a>
+                            <a href="#/settings/aria2/http"> <span translate>HTTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/ftp-sftp">
-                            <a href="#/settings/aria2/ftp-sftp"><i class="fa fa-circle-o"></i> <span translate>FTP/SFTP Settings</span></a>
+                            <a href="#/settings/aria2/ftp-sftp"> <span translate>FTP/SFTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/bt">
-                            <a href="#/settings/aria2/bt"><i class="fa fa-circle-o"></i> <span translate>BitTorrent Settings</span></a>
+                            <a href="#/settings/aria2/bt"> <span translate>BitTorrent Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/metalink">
-                            <a href="#/settings/aria2/metalink"><i class="fa fa-circle-o"></i> <span translate>Metalink Settings</span></a>
+                            <a href="#/settings/aria2/metalink"> <span translate>Metalink Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/rpc">
-                            <a href="#/settings/aria2/rpc"><i class="fa fa-circle-o"></i> <span translate>RPC Settings</span></a>
+                            <a href="#/settings/aria2/rpc"> <span translate>RPC Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/advanced">
-                            <a href="#/settings/aria2/advanced"><i class="fa fa-circle-o"></i> <span translate>Advanced Settings</span></a>
+                            <a href="#/settings/aria2/advanced"> <span translate>Advanced Settings</span></a>
                         </li>
                     </ul>
                 </li>
@@ -272,6 +272,7 @@
 <!-- endbuild -->
 <!-- build:js js/aria-ng.min.js -->
 <script src="scripts/core/__core.js"></script>
+<script src="scripts/core/__config.js"></script>
 <script src="scripts/core/__fix.js"></script>
 <script src="scripts/core/app.js"></script>
 <script src="scripts/core/router.js"></script>

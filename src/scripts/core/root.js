@@ -22,6 +22,18 @@
             return false;
         };
 
+        var initNavbar = function () {
+            angular.element('section.sidebar > ul > li[data-href-match] > a').click(function () {
+                angular.element('section.sidebar > ul li').removeClass('active');
+                angular.element(this).parent().addClass('active');
+            });
+
+            angular.element('section.sidebar > ul > li.treeview > ul.treeview-menu > li[data-href-match] > a').click(function () {
+                angular.element('section.sidebar > ul li').removeClass('active');
+                angular.element(this).parent().addClass('active').parent().parent().addClass('active');
+            });
+        };
+
         var setNavbarSelected = function (location) {
             angular.element('section.sidebar > ul li').removeClass('active');
             angular.element('section.sidebar > ul > li[data-href-match]').each(function (index, element) {
@@ -179,5 +191,7 @@
             setNavbarSelected(location);
             $document.unbind('keypress');
         });
+
+        initNavbar();
     }]);
 })();
