@@ -16,7 +16,7 @@
 
                 angular.extend(options, attrs);
 
-                $(element).tooltip({
+                angular.element(element).tooltip({
                     title: scope.title,
                     placement: options.ngTooltipPlacement,
                     container: options.ngTooltipContainer,
@@ -24,7 +24,7 @@
                 });
 
                 scope.$watch('title', function () {
-                    $(element).attr('title', scope.title).tooltip('fixTitle');
+                    angular.element(element).attr('title', scope.title).tooltip('fixTitle');
                 });
             }
         };
