@@ -56,7 +56,7 @@
             'File Size': 'File Size',
             'Completed Percent': 'Percent',
             'Share Ratio': 'Share Ratio',
-            'Remain Time': 'Remain Time',
+            'Remain Time': 'Remain',
             'Download Speed': 'Download Speed',
             'Upload Speed': 'Upload Speed',
             'Links': 'Links',
