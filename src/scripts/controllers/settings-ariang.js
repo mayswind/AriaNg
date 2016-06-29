@@ -6,11 +6,15 @@
             languages: ariaNgLanguages,
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
             trueFalseOptions: [{name: 'True', value: true}, {name: 'False', value: false}],
-            settings: ariaNgSettingService.getAllOptions(),
-            supportBrowserNotification: ariaNgNotificationService.isSupportBrowserNotification()
+            settings: ariaNgSettingService.getAllOptions()
         };
 
         $scope.settingService = ariaNgSettingService;
+
+        $scope.isSupportNotification = function () {
+            return ariaNgNotificationService.isSupportBrowserNotification() &&
+                ariaNgSettingService.isUseWebSocket($scope.context.settings.protocol);
+        };
 
         $scope.setEnableBrowserNotification = function (value) {
             ariaNgSettingService.setBrowserNotification(value);

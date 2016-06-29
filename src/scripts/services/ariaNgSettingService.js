@@ -132,8 +132,11 @@
             setProtocol: function (value) {
                 setOption('protocol', value);
             },
-            isUseWebSocket: function () {
-                var protocol = this.getProtocol();
+            isUseWebSocket: function (protocol) {
+                if (!protocol) {
+                    protocol = this.getProtocol();
+                }
+
                 return protocol == 'ws' || protocol == 'wss';
             },
             getSecret: function () {
