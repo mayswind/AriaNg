@@ -39,38 +39,63 @@
                 }
             },
             getAvailableTaskOptionKeys: function (status, isBittorrent) {
-                if (status == 'active' && isBittorrent) {
-                    return {
-                        readwrite: aria2TaskAvailableOptions.activeBtTaskOptions,
-                        readonly: aria2TaskAvailableOptions.activeTaskReadonlyOptions
+                var allOptions = aria2TaskAvailableOptions.taskOptions;
+                var availableOptions = [];
+
+                for (var i = 0; i < allOptions.length; i++) {
+                    var option = allOptions[i];
+                    var optionKey = {
+                        key: option.key
                     };
-                } else if (status == 'active' && !isBittorrent) {
-                    return {
-                        readwrite: aria2TaskAvailableOptions.activeNormalTaskOptions,
-                        readonly: aria2TaskAvailableOptions.activeTaskReadonlyOptions
-                    };
-                } else if ((status == 'waiting' || status == 'paused') && isBittorrent) {
-                    return {
-                        readwrite: aria2TaskAvailableOptions.inactiveBtTaskOptions,
-                        readonly: []
-                    };
-                } else if ((status == 'waiting' || status == 'paused') && !isBittorrent) {
-                    return {
-                        readwrite: aria2TaskAvailableOptions.inactiveNormalTaskOptions,
-                        readonly: []
-                    };
-                } else {
-                    return false;
+
+                    if (option.newOnly) {
+                        continue;
+                    }
+
+                    if (option.httpOnly && isBittorrent) {
+                        continue;
+                    } else if (option.btOnly && !isBittorrent) {
+                        continue;
+                    }
+
+                    if (option.activeReadonly && status == 'active') {
+                        optionKey.readonly = true;
+                    }
+
+                    availableOptions.push(optionKey);
                 }
+
+                return availableOptions;
             },
             getNewTaskOptionKeys: function (isBittorrent) {
-                return aria2TaskAvailableOptions.newTaskOptions;
+                var allOptions = aria2TaskAvailableOptions.taskOptions;
+                var availableOptions = [];
+
+                for (var i = 0; i < allOptions.length; i++) {
+                    var option = allOptions[i];
+                    var optionKey = {
+                        key: option.key
+                    };
+
+                    availableOptions.push(optionKey);
+                }
+
+                return availableOptions;
             },
-            getSpecifiedOptions: function (keys, readonly) {
+            getSpecifiedOptions: function (keys) {
                 var options = [];
 
                 for (var i = 0; i < keys.length; i++) {
                     var key = keys[i];
+                    var readonly = false;
+
+                    if (angular.isObject(key)) {
+                        var optionKey = key;
+
+                        key = optionKey.key;
+                        readonly = !!optionKey.readonly;
+                    }
+
                     var option = aria2AllOptions[key];
 
                     if (!option) {
@@ -87,7 +112,7 @@
                         option.options = ['true', 'false'];
                     }
 
-                    if (!!readonly) {
+                    if (readonly) {
                         option.readonly = true;
                     }
 

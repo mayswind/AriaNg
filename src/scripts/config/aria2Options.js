@@ -2,7 +2,7 @@
     'use strict';
     angular.module('ariaNg').constant('aria2AllOptions', {
         // EXAMPLE:
-        // 'option name': {
+        // 'option key': {
         //     type: 'string|integer|float|text|boolean|option',
         //     [suffix: 'Bytes|Milliseconds|Seconds|Minutes|Hours',]
         //     [defaultValue: '',]
@@ -798,11 +798,109 @@
         rpcOptions: ['enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port', 'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'],
         advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'hash-check-only', 'human-readable', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
     }).constant('aria2TaskAvailableOptions', {
-        activeNormalTaskOptions: ['max-download-limit', 'max-upload-limit', 'force-save'],
-        activeBtTaskOptions: ['max-download-limit', 'max-upload-limit', 'bt-max-peers', 'bt-request-peer-speed-limit', 'bt-remove-unselected-file', 'force-save'],
-        inactiveNormalTaskOptions: ['max-download-limit', 'max-upload-limit', 'split', 'min-split-size', 'max-connection-per-server', 'force-save'],
-        inactiveBtTaskOptions: ['max-download-limit', 'max-upload-limit', 'split', 'min-split-size', 'max-connection-per-server', 'bt-max-peers', 'bt-request-peer-speed-limit', 'bt-remove-unselected-file', 'force-save'],
-        activeTaskReadonlyOptions: ['split', 'min-split-size', 'max-connection-per-server'],
-        newTaskOptions: ['dir', 'max-download-limit', 'max-upload-limit', 'split', 'min-split-size', 'max-connection-per-server', 'allow-overwrite', 'conditional-get', 'file-allocation', 'stream-piece-selector', 'parameterized-uri']
+        taskOptions: [
+            {
+                key: 'dir',
+                newOnly: true
+            },
+            {
+                key: 'allow-overwrite',
+                newOnly: true
+            },
+            {
+                key: 'max-download-limit'
+            },
+            {
+                key: 'max-upload-limit',
+                btOnly: true
+            },
+            {
+                key: 'split',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'min-split-size',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'max-connection-per-server',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'lowest-speed-limit',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'stream-piece-selector',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'all-proxy',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'all-proxy-user',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'all-proxy-passwd',
+                httpOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'bt-max-peers',
+                btOnly: true
+            },
+            {
+                key: 'bt-request-peer-speed-limit',
+                btOnly: true
+            },
+            {
+                key: 'bt-remove-unselected-file',
+                btOnly: true
+            },
+            {
+                key: 'bt-stop-timeout',
+                btOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'bt-tracker',
+                btOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'seed-ratio',
+                btOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'seed-time',
+                btOnly: true,
+                activeReadonly: true
+            },
+            {
+                key: 'conditional-get',
+                newOnly: true
+            },
+            {
+                key: 'file-allocation',
+                newOnly: true
+            },
+            {
+                key: 'parameterized-uri ',
+                newOnly: true
+            },
+            {
+                key: 'force-save'
+            }
+        ]
     });
 })();
