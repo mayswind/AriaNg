@@ -10,7 +10,7 @@
             scope: {
                 option: '=',
                 ngModel: '=',
-                placeholder: '=?',
+                defaultValue: '=?',
                 onChangeValue: '&'
             },
             link: function (scope, element, attrs, ngModel) {
@@ -205,6 +205,23 @@
 
                 scope.$watch('option', function () {
                     element.find('[data-toggle="popover"]').popover();
+                });
+
+                scope.$watch('defaultValue', function (value) {
+                    var displayValue = value;
+
+                    if (scope.option && scope.option.options) {
+                        for (var i = 0; i < scope.option.options.length; i++) {
+                            var optionItem = scope.option.options[i];
+
+                            if (optionItem.value === value) {
+                                displayValue = optionItem.name;
+                                break;
+                            }
+                        }
+                    }
+
+                    scope.placeholder = displayValue;
                 });
             }
         };

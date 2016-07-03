@@ -53,7 +53,7 @@
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'options'}">
                 <div class="settings-table striped hoverable">
                     <ng-setting ng-repeat="option in context.availableOptions" option="option" lazy-save-timeout="0"
-                                placeholder="context.globalOptions[option.key]"
+                                default-value="context.globalOptions[option.key]"
                                 on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                 </div>
             </div>
