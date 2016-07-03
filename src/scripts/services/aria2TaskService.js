@@ -96,6 +96,39 @@
             return task;
         };
 
+        var processBtPeers = function (peers, task, includeLocalPeer) {
+            if (!peers) {
+                return peers;
+            }
+
+            var localTaskCompletedPieces = getPieceStatus(task.bitfield, task.numPieces);
+            var localTaskCompletedPieceCount = ariaNgCommonService.countArray(localTaskCompletedPieces, true);
+            var localTaskCompletedPercent = task.completePercent;
+
+            for (var i = 0; i < peers.length; i++) {
+                var peer = peers[i];
+                var upstreamToSpeed = peer.uploadSpeed;
+                var downstreamFromSpeed = peer.downloadSpeed;
+                var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
+                var completedPieceCount = ariaNgCommonService.countArray(completedPieces, true);
+
+                peer.name = peer.ip + ':' + peer.port;
+                peer.completePercent = completedPieceCount / task.numPieces * 100;
+                peer.downloadSpeed = upstreamToSpeed;
+                peer.uploadSpeed = downstreamFromSpeed;
+
+                if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
+                    peer.completePercent = localTaskCompletedPercent;
+                }
+            }
+
+            if (includeLocalPeer) {
+                peers.push(createLocalPeerFromTask(task));
+            }
+
+            return peers;
+        };
+
         var getPieceStatus = function (bitField, pieceCount) {
             var pieces = [];
 
@@ -249,7 +282,7 @@
 
                 return this.setTaskOption(gid, 'select-file', selectedFileIndex, callback, silent);
             },
-            getBtTaskPeers: function (task, callback, silent, includeLocal) {
+            getBtTaskPeers: function (task, callback, silent, includeLocalPeer) {
                 return aria2RpcService.getPeers({
                     gid: task.gid,
                     silent: !!silent,
@@ -259,31 +292,35 @@
                         }
 
                         if (response.success) {
-                            var peers = response.data;
-                            var localTaskCompletedPieces = getPieceStatus(task.bitfield, task.numPieces);
-                            var localTaskCompletedPieceCount = ariaNgCommonService.countArray(localTaskCompletedPieces, true);
-                            var localTaskCompletedPercent = task.completePercent;
+                            processBtPeers(response.data, task, includeLocalPeer);
+                        }
 
-                            for (var i = 0; i < peers.length; i++) {
-                                var peer = peers[i];
-                                var upstreamToSpeed = peer.uploadSpeed;
-                                var downstreamFromSpeed = peer.downloadSpeed;
-                                var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
-                                var completedPieceCount = ariaNgCommonService.countArray(completedPieces, true);
+                        callback(response);
+                    }
+                });
+            },
+            getTaskStatusAndBtPeers: function (gid, callback, silent, includeLocalPeer) {
+                return aria2RpcService.multicall({
+                    methods: [
+                        aria2RpcService.tellStatus({ gid: gid }, true),
+                        aria2RpcService.getPeers({ gid: gid }, true)
+                    ],
+                    silent: !!silent,
+                    callback: function (response) {
+                        if (!callback) {
+                            return;
+                        }
 
-                                peer.name = peer.ip + ':' + peer.port;
-                                peer.completePercent = completedPieceCount / task.numPieces * 100;
-                                peer.downloadSpeed = upstreamToSpeed;
-                                peer.uploadSpeed = downstreamFromSpeed;
+                        response.task = {};
 
-                                if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
-                                    peer.completePercent = localTaskCompletedPercent;
-                                }
-                            }
+                        if (response.success) {
+                            response.task = response.data[0][0];
+                            processDownloadTask(response.task);
+                        }
 
-                            if (includeLocal) {
-                                peers.push(createLocalPeerFromTask(task));
-                            }
+                        if (response.success && response.task.bittorrent) {
+                            response.peers = response.data[1][0];
+                            processBtPeers(response.peers, response.task, includeLocalPeer);
                         }
 
                         callback(response);

@@ -16,28 +16,12 @@
             return aria2SettingService.getSpecifiedOptions(keys);
         };
 
-        var refreshBtPeers = function (task, silent) {
-            return aria2TaskService.getBtTaskPeers(task, function (response) {
-                if (!response.success) {
-                    return;
-                }
-
-                var peers = response.data;
-
-                if (!ariaNgCommonService.extendArray(peers, $scope.context.btPeers, 'peerId')) {
-                    $scope.context.btPeers = peers;
-                }
-
-                $scope.context.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.context.btPeers);
-            }, silent, true);
-        };
-
         var refreshDownloadTask = function (silent) {
             if (pauseDownloadTaskRefresh) {
                 return;
             }
 
-            return aria2TaskService.getTaskStatus($routeParams.gid, function (response) {
+            return aria2TaskService.getTaskStatusAndBtPeers($routeParams.gid, function (response) {
                 if (!response.success) {
                     if (response.data.message == aria2RpcErrors.Unauthorized.message) {
                         $interval.cancel(downloadTaskRefreshPromise);
@@ -46,11 +30,9 @@
                     return;
                 }
 
-                var task = response.data;
+                var task = response.task;
 
-                if (task.status == 'active' && task.bittorrent) {
-                    refreshBtPeers(task, true);
-                } else {
+                if (!task.bittorrent) {
                     if (tabOrders.indexOf('btpeers') >= 0) {
                         tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
                     }
@@ -62,12 +44,22 @@
 
                 $scope.task = ariaNgCommonService.copyObjectTo(task, $scope.task);
 
+                if (response.peers) {
+                    var peers = response.peers;
+
+                    if (!ariaNgCommonService.extendArray(peers, $scope.context.btPeers, 'peerId')) {
+                        $scope.context.btPeers = peers;
+                    }
+
+                    $scope.context.healthPercent = aria2TaskService.estimateHealthPercentFromPeers(task, $scope.context.btPeers);
+                }
+
                 $rootScope.taskContext.list = [$scope.task];
                 $rootScope.taskContext.selected = {};
                 $rootScope.taskContext.selected[$scope.task.gid] = true;
 
                 ariaNgMonitorService.recordStat(task.gid, task);
-            }, silent);
+            }, silent, true);
         };
 
         var setSelectFiles = function (silent) {
