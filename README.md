@@ -14,6 +14,13 @@ A Better Frontend for Aria2
 ### Mobile Device
 ![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/mobile.jpg)
 
+## Build
+    $ npm install
+    $ bower install
+    $ gulp default
+
+The builds will be placed in the dist directory.
+
 ## Demo
 Please visit http://ariang.mayswind.net
 
