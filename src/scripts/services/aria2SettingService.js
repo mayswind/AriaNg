@@ -159,12 +159,12 @@
             getGlobalStat: function (callback, silent) {
                 return aria2RpcService.getGlobalStat({
                     silent: !!silent,
-                    callback: function (result) {
+                    callback: function (response) {
                         if (!callback) {
                             return;
                         }
 
-                        var stat = processStatResult(result);
+                        var stat = processStatResult(response);
                         callback(stat);
                     }
                 });
