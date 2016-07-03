@@ -25,9 +25,9 @@
     "bootstrap": "^3.3.6",
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.4",
-    "echarts": "^3.1.10",
+    "echarts": "^3.2.0",
     "font-awesome": "font-awsome#^4.6.3",
-    "AdminLTE": "admin-lte#^2.3.3",
+    "AdminLTE": "admin-lte#^2.3.4",
     "sweetalert": "^1.1.3",
     "awesome-bootstrap-checkbox": "^0.3.7",
     "jquery-slimscroll": "^1.3.8",
@@ -49,5 +49,9 @@
     "angular-promise-buttons": "^0.1.14",
     "angular-dragula": "^1.2.7",
     "ngSweetAlert": "8df6c30b0996f09cb4cf5e90a41115a6c09fa852"
+  },
+  "resolutions": {
+    "angular": "1.4.10",
+    "angular-animate": "1.4.10"
   }
 }
