@@ -157,7 +157,7 @@
                             <div class="col-sm-8">
                                 <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
-                                <a ng-click="showChooseFilesToolbar()" ng-if="task && (task.status == 'waiting' || task.status == 'paused')" translate>(Choose Files)</a>
+                                <a ng-click="showChooseFilesToolbar()" ng-if="task && task.files && task.files.length > 1 && (task.status == 'waiting' || task.status == 'paused')" translate>(Choose Files)</a>
                             </div>
                             <div class="col-sm-2">
                                 <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Completed Percent</a>
