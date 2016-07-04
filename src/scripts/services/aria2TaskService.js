@@ -132,6 +132,10 @@
         var getPieceStatus = function (bitField, pieceCount) {
             var pieces = [];
 
+            for (var i = 0; i < pieceCount; i++) {
+                pieces.push(false);
+            }
+
             if (!bitField) {
                 return pieces;
             }
@@ -145,8 +149,7 @@
                     var bit = (1 << (4 - j));
                     var isCompleted = (bitSet & bit) == bit;
 
-                    pieces.push(isCompleted);
-                    pieceIndex++;
+                    pieces[pieceIndex++] = isCompleted;
 
                     if (pieceIndex >= pieceCount) {
                         return pieces;
@@ -483,7 +486,7 @@
                 return getCombinedPieces(bitField, pieceCount);
             },
             estimateHealthPercentFromPeers: function (task, peers) {
-                if (peers.length < 1) {
+                if (!task || task.numPieces < 1 || peers.length < 1) {
                     return task.completePercent;
                 }
 
@@ -519,20 +522,22 @@
 
                 var totalCompletedPieceCount = 0;
 
-                while (true) {
-                    var completed = true;
+                if (totalPieces.length > 0) {
+                    while (true) {
+                        var completed = true;
 
-                    for (var i = 0; i < totalPieces.length; i++) {
-                        if (totalPieces[i] > 0) {
-                            totalCompletedPieceCount++;
-                            totalPieces[i]--;
-                        } else {
-                            completed = false;
+                        for (var i = 0; i < totalPieces.length; i++) {
+                            if (totalPieces[i] > 0) {
+                                totalCompletedPieceCount++;
+                                totalPieces[i]--;
+                            } else {
+                                completed = false;
+                            }
                         }
-                    }
 
-                    if (!completed) {
-                        break;
+                        if (!completed) {
+                            break;
+                        }
                     }
                 }
 
