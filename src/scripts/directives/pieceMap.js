@@ -20,7 +20,7 @@
                     element.empty();
 
                     var pieceCount = Math.max(1, currentPieceStatus.length);
-                    
+
                     for (var i = 0; i < pieceCount; i++) {
                         var piece = angular.element('<div class="piece' + (currentPieceStatus[i] ? ' piece-completed' : '') + '"></div>');
                         pieces.push(piece);
@@ -53,7 +53,7 @@
                     refresh();
                 });
 
-                scope.$watch('pieceNumber', function () {
+                scope.$watch('pieceCount', function () {
                     redraw();
                 });
             }
