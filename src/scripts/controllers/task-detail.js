@@ -32,7 +32,7 @@
 
                 var task = response.task;
 
-                if (!task.bittorrent) {
+                if (task.status != 'active' || !task.bittorrent) {
                     if (tabOrders.indexOf('btpeers') >= 0) {
                         tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
                     }
