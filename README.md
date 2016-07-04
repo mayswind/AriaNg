@@ -9,15 +9,15 @@ A Better Frontend for Aria2
 5. Less bandwidth usage
 
 ## Screenshots
-### PC
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/pc.jpg)
-### Mobile Device
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/mobile.jpg)
+#### Computer
+![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/computer.png)
+#### Mobile Device
+![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/mobile.png)
 
 ## Build
     $ npm install
     $ bower install
-    $ gulp default
+    $ gulp clean build
 
 The builds will be placed in the dist directory.
 
