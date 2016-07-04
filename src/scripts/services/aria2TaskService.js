@@ -302,12 +302,17 @@
                     }
                 });
             },
-            getTaskStatusAndBtPeers: function (gid, callback, silent, includeLocalPeer) {
+            getTaskStatusAndBtPeers: function (gid, callback, silent, requirePeers, includeLocalPeer) {
+                var methods = [
+                    aria2RpcService.tellStatus({ gid: gid }, true)
+                ];
+
+                if (requirePeers) {
+                    methods.push(aria2RpcService.getPeers({ gid: gid }, true));
+                }
+
                 return aria2RpcService.multicall({
-                    methods: [
-                        aria2RpcService.tellStatus({ gid: gid }, true),
-                        aria2RpcService.getPeers({ gid: gid }, true)
-                    ],
+                    methods: methods,
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
@@ -316,12 +321,12 @@
 
                         response.task = {};
 
-                        if (response.success) {
+                        if (response.success && response.data.length > 0) {
                             response.task = response.data[0][0];
                             processDownloadTask(response.task);
                         }
 
-                        if (response.success && response.task.bittorrent) {
+                        if (response.success && response.task.bittorrent && response.data.length > 1) {
                             response.peers = response.data[1][0];
                             processBtPeers(response.peers, response.task, includeLocalPeer);
                         }
