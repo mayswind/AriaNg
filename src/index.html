@@ -154,7 +154,7 @@
                     <a href="#/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
                 </li>
                 <li data-href-match="/waiting">
-                    <a href="#/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Scheduling</span></a>
+                    <a href="#/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Waiting</span></a>
                 </li>
                 <li data-href-match="/stopped">
                     <a href="#/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Downloaded / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Downloaded / Stopped</span></a>
