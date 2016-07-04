@@ -25,7 +25,16 @@
     <link rel="stylesheet" href="../bower_components/angular-dragula/dist/dragula.min.css"/>
     <!-- endbuild -->
     <!-- build:css css/aria-ng.min.css -->
-    <link rel="stylesheet" href="styles/aria-ng.css">
+    <link rel="stylesheet" href="styles/core/core.css">
+    <link rel="stylesheet" href="styles/core/extend.css">
+    <link rel="stylesheet" href="styles/controls/global-status.css"/>
+    <link rel="stylesheet" href="styles/controls/task-table.css"/>
+    <link rel="stylesheet" href="styles/controls/settings-table.css"/>
+    <link rel="stylesheet" href="styles/controls/new-task-table.css"/>
+    <link rel="stylesheet" href="styles/controls/piece-bar-map.css"/>
+    <link rel="stylesheet" href="styles/controls/chart.css"/>
+    <link rel="stylesheet" href="styles/controls/angular-promise-buttons.css"/>
+    <link rel="stylesheet" href="styles/theme/default.css">
     <!-- endbuild -->
 </head>
 <body class="hold-transition skin-aria-ng sidebar-mini fixed">
@@ -167,7 +176,9 @@
                     <a href="javascript:void(0);">
                         <i class="fa fa-cogs"></i>
                         <span translate>Aria2 Settings</span>
-                        <i class="fa fa-angle-left pull-right"></i>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
                         <li data-href-match="/settings/aria2/basic">
