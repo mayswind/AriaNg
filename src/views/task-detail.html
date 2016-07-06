@@ -58,7 +58,7 @@
                     </div>
                     <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
-                            <span ng-bind="('Completed Percent' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percent' | translate) + ')' : '')"></span>
+                            <span ng-bind="('Progress' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percentage' | translate) + ')' : '')"></span>
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (context.healthPercent | percent: 2) + '%' + ')' : '')"></span>
@@ -160,7 +160,7 @@
                                 <a ng-click="showChooseFilesToolbar()" ng-if="task && task.files && task.files.length > 1 && (task.status == 'waiting' || task.status == 'paused')" translate>(Choose Files)</a>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Completed Percent</a>
+                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Progress</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
                             </div>
                             <div class="col-sm-2">
@@ -242,7 +242,7 @@
                                 <span translate>Status</span>
                             </div>
                             <div class="col-sm-2 col-xs-4">
-                                <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Percent</a>
+                                <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Progress</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
                             </div>
                             <div class="col-sm-4 col-xs-4">
