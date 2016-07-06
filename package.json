@@ -21,11 +21,11 @@
     "gulp-useref": "^3.0.0"
   },
   "name": "aria-ng",
-  "description": "Aria2 Ng Frontend",
+  "description": "AriaNg, A Better Frontend for aria2",
   "version": "0.1.0",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",

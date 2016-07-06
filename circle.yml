@@ -1,0 +1,21 @@
+machine:
+  node:
+    version: 4
+
+dependencies:
+  override:
+    - npm install
+    - npm install -g bower
+    - npm install -g gulp
+    - bower install
+
+deployment:
+  daily_build:
+    branch: master
+    commands:
+      - gulp clean build
+
+general:
+  branches:
+    ignore:
+      - gh-pages
