@@ -8,12 +8,13 @@ dependencies:
     - npm install -g bower
     - npm install -g gulp
     - bower install
+    - gulp clean build
 
 deployment:
   daily_build:
     branch: master
     commands:
-      - gulp clean build
+      - bash ./scripts/publish_dailybuild.sh
 
 general:
   branches:
