@@ -2,18 +2,18 @@
 [![Lastest Build](https://circleci.com/gh/mayswind/AriaNg.png "Lastest Build")](https://circleci.com/gh/mayswind/AriaNg/tree/master)
 
 ## Introduction
-A Better Frontend for [aria2](https://github.com/aria2/aria2) (a cross-platform download utility). AriaNg is written in pure html & javascript, so it does not need to be compiled and not need any runtime environment, and you can open it in your browser. By using responsive layout, you can open it on any desktop or mobile devices.
+A Better Frontend for [aria2](https://github.com/aria2/aria2) (a cross-platform download utility). AriaNg is written in pure html & javascript, so it does not need to be compiled and not need any runtime environment, and you just need to open it in your browser. By using responsive layout, you can open it on any desktop or mobile devices.
 
 ## Features
 1. Pure Html & Javascript, no runtime required
 2. Responsive design, supporting desktop and mobile devices
 3. User-friendly interface
-    * Sort tasks (name, size, progress, remain time, download speed, etc.), files, peers
+    * Sort tasks (by name, size, progress, remain time, download speed, etc.), files, peers
     * Search tasks
     * Adjust download order by dragging task
-    * More information of tasks (health percentage, torrent creation time, etc.)
-    * Filter files of tasks in file types (videos, audios, pictures, documents, applications, archives, etc.)
-    * Download/upload speed chart
+    * More information of tasks (health percentage, client infomation of bt peers, etc.)
+    * Filter files of tasks in file types (by videos, audios, pictures, documents, applications, archives, etc.)
+    * Download/upload history chart of global or task
     * Full support of aria2 settings
 4. Download finished notification
 4. Multi-languages support
