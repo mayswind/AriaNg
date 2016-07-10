@@ -498,14 +498,11 @@
                 }
 
                 var totalPieces = [];
-                var currentPieces = getPieceStatus(task.bitfield, task.numPieces);
                 var maxCompletedPieceCount = 0;
                 var maxCompletedPercent = task.completePercent;
 
-                for (var i = 0; i < currentPieces.length; i++) {
-                    var count = currentPieces[i] ? 1 : 0;
-                    totalPieces.push(count);
-                    maxCompletedPieceCount += count;
+                for (var i = 0; i < task.numPieces; i++) {
+                    totalPieces.push(0);
                 }
 
                 for (var i = 0; i < peers.length; i++) {
