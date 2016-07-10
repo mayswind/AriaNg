@@ -39,8 +39,7 @@
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
                         <label for="{{'task_' + task.gid}}">
                             <span class="task-name" ng-bind="task.taskName" title="{{task.taskName}}"></span>
-                        </label>
-                        <i class="icon-seeder fa fa-magnet" title="{{'Seeding' | translate}}" ng-if="task && task.status == 'active' && (task.seeder === true || task.seeder === 'true')"></i>
+                        </label><i class="icon-seeder fa fa-angle-double-up" title="{{'Seeding' | translate}}" ng-if="task && task.status == 'active' && task.seeder"></i>
                     </div>
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>
@@ -67,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-sm-2 hidden-xs">
-                    <span class="task-download-speed" ng-bind="(task.downloadSpeed | readableVolumn) + '/s'"></span>
+                    <span class="task-download-speed" ng-bind="(!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-')"></span>
                 </div>
             </div>
         </div>

@@ -140,12 +140,10 @@
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'blocks'}">
                 <div class="piece-legends">
                     <div class="piece-legend">
-                        <div class="piece piece-completed"></div>
-                        <span translate>Completed</span>
+                        <div class="piece piece-completed"></div><span translate>Completed</span>
                     </div>
                     <div class="piece-legend">
-                        <div class="piece"></div>
-                        <span translate>Uncompleted</span>
+                        <div class="piece"></div><span translate>Uncompleted</span>
                     </div>
                 </div>
                 <ng-piece-map bit-field="task.bitfield" piece-count="task.numPieces"></ng-piece-map>
@@ -258,8 +256,7 @@
                     <div class="task-table-body">
                         <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-sm-3">
-                                <span ng-bind="peer.name | translate"></span>
-                                <i class="icon-seeder fa fa-magnet" title="{{'Seeding' | translate}}" ng-if="peer && (peer.seeder === true || peer.seeder === 'true')"></i>
+                                <span ng-bind="peer.name | translate"></span><i class="icon-seeder fa fa-angle-double-up" title="{{'Seeding' | translate}}" ng-if="peer && peer.seeder"></i>
                             </div>
                             <div class="col-sm-3">
                                 <div class="piece-bar-wrapper">

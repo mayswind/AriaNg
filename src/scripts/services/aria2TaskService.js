@@ -71,6 +71,7 @@
 
             task.idle = task.downloadSpeed == 0;
             task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
+            task.seeder = (task.seeder === true || task.seeder === 'true');
 
             var taskNameResult = getTaskName(task);
             task.taskName = taskNameResult.name;
@@ -116,6 +117,7 @@
                 peer.completePercent = completedPieceCount / task.numPieces * 100;
                 peer.downloadSpeed = upstreamToSpeed;
                 peer.uploadSpeed = downstreamFromSpeed;
+                peer.seeder = (peer.seeder === true || peer.seeder === 'true');
 
                 if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
                     peer.completePercent = localTaskCompletedPercent;

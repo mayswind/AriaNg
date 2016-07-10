@@ -24,11 +24,7 @@
     margin-right: 4px;
 }
 
-.piece-legend .piece {
-    margin-right: 2px;
-}
-
-.piece-map .piece, .piece-legend .piece {
+.piece-map .piece, .piece-legend > .piece {
     width: 10px;
     height: 10px;
     background-color: #eef2f4;
@@ -37,7 +33,11 @@
     margin-right: 1px;
 }
 
-.piece-map .piece.piece-completed, .piece-legend .piece.piece-completed {
+.piece-map .piece.piece-completed, .piece-legend > .piece.piece-completed {
     background-color: #b8dd69;
     border-color: #b8dd69;
+}
+
+.piece-legend > .piece {
+    margin-right: 4px;
 }
