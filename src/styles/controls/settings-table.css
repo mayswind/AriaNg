@@ -22,11 +22,18 @@
     color: red;
 }
 
-.settings-table .description {
+.settings-table .description, .settings-table .description-inline {
     color: #888;
     font-size: 12px;
     font-weight: normal;
+}
+
+.settings-table .description {
     display: block;
+}
+
+.settings-table .description-inline {
+    display: inline-block;
 }
 
 .settings-table em {

@@ -130,6 +130,7 @@
             showChooseFilesToolbar: false,
             btPeers: [],
             healthPercent: 0,
+            collapseTrackers: true,
             statusData: ariaNgMonitorService.getEmptyStatsData($routeParams.gid),
             availableOptions: [],
             options: []

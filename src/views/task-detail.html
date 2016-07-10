@@ -128,6 +128,19 @@
                             <span ng-bind="task.dir"></span>
                         </div>
                     </div>
+                    <div class="row" ng-if="task && task.bittorrent && task.bittorrent.announceList && task.bittorrent.announceList.length > 0">
+                        <div class="setting-key col-sm-4">
+                            <span translate>BT Tracker Servers</span>
+                            <span class="description-inline" ng-bind="'format.settings.total-count' | translate: {count: task.bittorrent.announceList.length}"></span>
+                            <i class="icon-expand pointer-cursor fa" ng-if="task.bittorrent.announceList.length > 1"
+                               ng-class="{'fa-plus': context.collapseTrackers, 'fa-minus': !context.collapseTrackers}"
+                               ng-click="context.collapseTrackers = !context.collapseTrackers"
+                               ng-tooltip="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <div ng-bind="serverAddress" ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
+                        </div>
+                    </div>
                     <div class="row no-hover no-background" ng-if="task && task.status == 'active'">
                         <div class="col-sm-12">
                             <div class="task-status-chart-wrapper">
@@ -239,11 +252,11 @@
                             <div class="col-sm-3">
                                 <span translate>Status</span>
                             </div>
-                            <div class="col-sm-2 col-xs-4">
+                            <div class="col-sm-2">
                                 <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Progress</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
                             </div>
-                            <div class="col-sm-4 col-xs-4">
+                            <div class="col-sm-4">
                                 <a ng-click="changePeerListDisplayOrder('dspeed:desc', true)" translate>Download</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('dspeed:desc')}"></i>
                                 <span>/</span>
