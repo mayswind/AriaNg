@@ -1,7 +1,23 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
+        var getDefaultLanguage = function () {
+            var browserLang = $window.navigator.browserLanguage ? $window.navigator.browserLanguage : $window.navigator.language;
+
+            if (!browserLang) {
+                return ariaNgDefaultOptions.language;
+            }
+
+            browserLang = browserLang.replace(/\-/g, "_");
+
+            if (!ariaNgLanguages[browserLang]) {
+                return ariaNgDefaultOptions.language;
+            }
+
+            return browserLang;
+        };
+
         var getDefaultRpcHost = function () {
             return $location.$$host;
         };
@@ -15,6 +31,8 @@
 
             if (!options) {
                 options = angular.extend({}, ariaNgDefaultOptions);
+                options.language = getDefaultLanguage();
+
                 setOptions(options);
             }
 
