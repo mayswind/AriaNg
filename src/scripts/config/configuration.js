@@ -7,12 +7,10 @@
             .setStorageType('localStorage')
             .setStorageCookie(365, '/');
 
-        $translateProvider.useStaticFilesLoader({
-            prefix: 'langs/',
-            suffix: '.json'
-        }).useLoaderCache(true)
-            .preferredLanguage('en')
-            .fallbackLanguage('en')
+        $translateProvider.useLoader('ariaNgLanguageLoader')
+            .useLoaderCache(true)
+            .preferredLanguage(ariaNgConstants.defaultLanguage)
+            .fallbackLanguage(ariaNgConstants.defaultLanguage)
             .useSanitizeValueStrategy('escapeParameters');
 
         NotificationProvider.setOptions({

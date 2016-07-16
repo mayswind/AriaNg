@@ -1,9 +1,8 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').config(['$translateProvider', function ($translateProvider) {
-        $translateProvider.translations('en', {
-            'English': 'English',
+    angular.module('ariaNg').config(['$translateProvider', 'ariaNgConstants', function ($translateProvider, ariaNgConstants) {
+        var defaultLanguageResource = {
             'Operation Succeeded': 'Operation Succeeded',
             'Connection Succeeded': 'Connection Succeeded',
             'Error': 'Error',
@@ -106,7 +105,7 @@
             'Manual Download': 'Manual Download',
             'Support multiple URLs, one URL per line.': 'Support multiple URLs, one URL per line.',
             'Your browser does not support loading file!': 'Your browser does not support loading file!',
-            'The selected file type is invalid': 'The selected file type is invalid',
+            'The selected file type is invalid!': 'The selected file type is invalid!',
             'Failed to load file!': 'Failed to load file!',
             'Download Completed': 'Download Completed',
             'BT Download Completed': 'BT Download Completed',
@@ -520,6 +519,8 @@
                 'truncate-console-readout.name': 'Truncate Console Output',
                 'truncate-console-readout.description': 'Truncate console readout to fit in a single line.'
             }
-        });
+        };
+
+        $translateProvider.translations(ariaNgConstants.defaultLanguage, defaultLanguageResource);
     }])
 })();
