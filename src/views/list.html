@@ -38,8 +38,8 @@
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
                         <label for="{{'task_' + task.gid}}">
-                            <span class="task-name" ng-bind="task.taskName" ng-tooltip="{{task.taskName}}" ng-tooltip-container="body"></span>
-                        </label><i class="icon-seeder fa fa-angle-double-up" ng-if="task && task.status == 'active' && task.seeder" ng-tooltip="{{'Seeding' | translate}}" ng-tooltip-container="body"></i>
+                            <span class="task-name" ng-bind="task.taskName" title="{{task.taskName}}"></span>
+                        </label><i class="icon-seeder fa fa-angle-double-up" ng-if="task && task.status == 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
                     </div>
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>

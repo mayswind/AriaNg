@@ -90,7 +90,6 @@
             'Status': 'Status',
             'Speed': 'Speed',
             '(local)': '(local)',
-            'Unknown Client': 'Unknown Client',
             'No Data': 'No Data',
             'No connected peers': 'No connected peers',
             'Failed to change some tasks state.': 'Failed to change some tasks state.',

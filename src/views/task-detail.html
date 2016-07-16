@@ -135,7 +135,7 @@
                             <i class="icon-expand pointer-cursor fa" ng-if="task.bittorrent.announceList.length > 1"
                                ng-class="{'fa-plus': context.collapseTrackers, 'fa-minus': !context.collapseTrackers}"
                                ng-click="context.collapseTrackers = !context.collapseTrackers"
-                               ng-tooltip="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
+                               title="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
                             <div ng-bind="serverAddress" ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
@@ -152,10 +152,10 @@
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'blocks'}">
                 <div class="piece-legends">
-                    <div class="piece-legend" ng-tooltip="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}" ng-tooltip-container="body">
+                    <div class="piece-legend" title="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}">
                         <div class="piece piece-completed"></div><span translate>Completed</span>
                     </div>
-                    <div class="piece-legend" ng-tooltip="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}" ng-tooltip-container="body">
+                    <div class="piece-legend" title="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}">
                         <div class="piece"></div><span translate>Uncompleted</span>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                                 <div class="checkbox checkbox-primary">
                                     <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status != 'waiting' && task.status != 'paused')"
                                            ng-model="file.selected" ng-change="setSelectedFile()"/>
-                                    <label for="{{'file_' + file.index}}" ng-bind="file.fileName" ng-tooltip="{{file.fileName}}" ng-tooltip-container="body"></label>
+                                    <label for="{{'file_' + file.index}}" ng-bind="file.fileName" title="{{file.fileName}}"></label>
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -276,8 +276,7 @@
                     <div class="task-table-body">
                         <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-md-4 col-sm-4 col-xs-12">
-                                <div class="peer-name-wrapper" ng-tooltip-if="{{!!peer.client}}" ng-tooltip-container="body"
-                                     ng-tooltip="{{(peer.client ? (peer.client.name + (peer.client.version ? ' ' + peer.client.version : '')) : ('Unknown Client' | translate)) + (peer.seeder ? ', ' + ('Seeding' | translate) : '')}}">
+                                <div class="peer-name-wrapper" title="{{(peer.client ? peer.client.info : '') + (peer.seeder ? (peer.client.info ? ', ' : '') + ('Seeding' | translate) : '')}}">
                                     <span ng-bind="peer.name | translate"></span><i class="icon-seeder fa fa-angle-double-up" ng-if="peer && peer.seeder"></i>
                                     <span class="peer-client" ng-if="!!peer.client"
                                         ng-bind="peer.client ? ('(' + peer.client.name + (peer.client.version ? ' ' + peer.client.version : '') + ')') : ''"></span>

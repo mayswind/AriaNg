@@ -150,7 +150,7 @@
 
                 task.selectedFileCount = selectedFileCount;
             }
-            
+
             return task;
         };
 
@@ -182,13 +182,17 @@
 
                 if (peer.peerId) {
                     var peerId = ariaNgCommonService.decodePercentEncodedString(peer.peerId);
-                    var client = (peerId ? bittorrentPeeridService.parseClient(peerId) : null);
+                    var clientInfo = (peerId ? bittorrentPeeridService.parseClient(peerId) : null);
 
-                    if (client && client.client != 'unknown') {
-                        peer.client = {
-                            name: (client.client ? client.client.trim() : ''),
-                            version: (client.version ? client.version.trim() : '')
+                    if (clientInfo && clientInfo.client != 'unknown') {
+                        var client = {
+                            name: (clientInfo.client ? clientInfo.client.trim() : ''),
+                            version: (clientInfo.version ? clientInfo.version.trim() : '')
                         };
+
+                        client.info = client.name + (client.version ? ' ' + client.version : '');
+
+                        peer.client = client;
                     }
                 }
             }
