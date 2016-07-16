@@ -25,7 +25,7 @@
     "bootstrap": "^3.3.6",
     "moment": "^2.14.1",
     "moment-timezone": "^0.5.4",
-    "echarts": "^3.2.0",
+    "echarts": "^3.2.2",
     "font-awesome": "font-awsome#^4.6.3",
     "AdminLTE": "admin-lte#^2.3.5",
     "sweetalert": "^1.1.3",
