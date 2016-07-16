@@ -9,6 +9,7 @@
             },
             link: function (scope, element, attrs) {
                 var options = {
+                    ngTooltipIf: true,
                     ngTooltipPlacement: 'top',
                     ngTooltipContainer: null,
                     ngTooltipTrigger: 'hover'
@@ -16,15 +17,53 @@
 
                 angular.extend(options, attrs);
 
-                angular.element(element).tooltip({
-                    title: scope.title,
-                    placement: options.ngTooltipPlacement,
-                    container: options.ngTooltipContainer,
-                    trigger: options.ngTooltipTrigger
-                });
+                var showTooltip = options.ngTooltipIf === true || options.ngTooltipIf === 'true';
+
+                var addTooltip = function () {
+                    angular.element(element).tooltip({
+                        title: scope.title,
+                        placement: options.ngTooltipPlacement,
+                        container: options.ngTooltipContainer,
+                        trigger: options.ngTooltipTrigger
+                    });
+                };
+
+                var refreshTooltip = function () {
+                    angular.element(element).attr('title', scope.title).tooltip('fixTitle');
+                };
+
+                var removeTooltip = function () {
+                    angular.element(element).tooltip('destroy');
+                };
+
+                if (showTooltip) {
+                    addTooltip();
+                }
 
                 scope.$watch('title', function () {
-                    angular.element(element).attr('title', scope.title).tooltip('fixTitle');
+                    if (showTooltip) {
+                        refreshTooltip();
+                    }
+                });
+
+                scope.$watch('ngTooltipIf', function (value) {
+                    if (angular.isUndefined(value)) {
+                        return;
+                    }
+
+                    value = (value === true || value === 'true');
+
+                    if (showTooltip == value) {
+                        return;
+                    }
+
+                    if (value) {
+                        addTooltip();
+                    } else {
+                        removeTooltip();
+                    }
+
+                    showTooltip = value;
                 });
             }
         };

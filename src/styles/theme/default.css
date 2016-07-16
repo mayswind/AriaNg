@@ -413,6 +413,11 @@
     background-color: #f5f5f5;
 }
 
+.skin-aria-ng .task-table .peer-client {
+    color: #888;
+    font-size: 12px;
+}
+
 /* settings-table */
 .skin-aria-ng .settings-table {
     background-color: #fff;

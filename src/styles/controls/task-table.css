@@ -51,6 +51,14 @@
     text-overflow: ellipsis;
 }
 
+.task-table .peer-name-wrapper {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .task-table .task-files, .task-table .task-size {
     font-size: 12px;
     display: block;

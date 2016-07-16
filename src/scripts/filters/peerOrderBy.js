@@ -15,6 +15,8 @@
 
             if (orderType.type == 'address') {
                 return $filter('orderBy')(array, ['ip', 'port'], orderType.reverse);
+            } else if (orderType.type == 'client') {
+                return $filter('orderBy')(array, ['client.name', 'client.version'], orderType.reverse);
             } else if (orderType.type == 'percent') {
                 return $filter('orderBy')(array, ['completePercent'], orderType.reverse);
             } else if (orderType.type == 'dspeed') {

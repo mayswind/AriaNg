@@ -14,6 +14,7 @@
         'ab-base64',
         'LocalStorageModule',
         'notification',
+        'angularBittorrentPeerid',
         'cgBusy',
         'angularPromiseButtons',
         'oitozero.ngSweetAlert',

@@ -86,6 +86,7 @@
             'Applications': 'Applications',
             'Archives': 'Archives',
             'Address': 'Address',
+            'Client': 'Client',
             'Status': 'Status',
             'Speed': 'Speed',
             '(local)': '(local)',

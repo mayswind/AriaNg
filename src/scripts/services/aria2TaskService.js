@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'aria2RpcService', 'ariaNgCommonService', function ($q, $translate, aria2RpcService, ariaNgCommonService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2RpcService', 'ariaNgCommonService', function ($q, $translate, bittorrentPeeridService, aria2RpcService, ariaNgCommonService) {
         var getFileName = function (file) {
             if (!file) {
                 return '';
@@ -121,6 +121,18 @@
 
                 if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
                     peer.completePercent = localTaskCompletedPercent;
+                }
+
+                if (peer.peerId) {
+                    var peerId = ariaNgCommonService.decodePercentEncodedString(peer.peerId);
+                    var client = (peerId ? bittorrentPeeridService.parseClient(peerId) : null);
+
+                    if (client && client.client != 'unknown') {
+                        peer.client = {
+                            name: (client.client ? client.client.trim() : ''),
+                            version: (client.version ? client.version.trim() : '')
+                        };
+                    }
                 }
             }
 

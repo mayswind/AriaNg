@@ -221,7 +221,7 @@
                                 <div class="checkbox checkbox-primary">
                                     <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status != 'waiting' && task.status != 'paused')"
                                            ng-model="file.selected" ng-change="setSelectedFile()"/>
-                                    <label for="{{'file_' + file.index}}" ng-bind="file.fileName"></label>
+                                    <label for="{{'file_' + file.index}}" ng-bind="file.fileName" ng-tooltip="{{file.fileName}}" ng-tooltip-container="body"></label>
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -245,18 +245,25 @@
                 <div class="task-table">
                     <div class="task-table-title">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-md-4 col-sm-4">
                                 <a ng-click="changePeerListDisplayOrder('address:asc', true)" translate>Address</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('address:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('address:desc')}"></i>
+                                <span>/</span>
+                                <a ng-click="changePeerListDisplayOrder('client:asc', true)" translate>Client</a>
+                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('client:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('client:desc')}"></i>
                             </div>
-                            <div class="col-sm-3">
-                                <span translate>Status</span>
+                            <div class="col-md-5 col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <span translate>Status</span>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Progress</a>
+                                        <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-2">
-                                <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Progress</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
-                            </div>
-                            <div class="col-sm-4">
+                            <div class="col-md-3 col-sm-4">
                                 <a ng-click="changePeerListDisplayOrder('dspeed:desc', true)" translate>Download</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('dspeed:desc')}"></i>
                                 <span>/</span>
@@ -268,18 +275,30 @@
                     </div>
                     <div class="task-table-body">
                         <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
-                            <div class="col-sm-3">
-                                <span ng-bind="peer.name | translate"></span><i class="icon-seeder fa fa-angle-double-up" title="{{'Seeding' | translate}}" ng-if="peer && peer.seeder"></i>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="piece-bar-wrapper">
-                                    <ng-piece-bar bit-field="peer.bitfield" piece-count="task.numPieces" color="#208fe5"></ng-piece-bar>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <div class="peer-name-wrapper" ng-tooltip-if="{{!!peer.client}}" ng-tooltip-container="body"
+                                     ng-tooltip="{{(peer.client ? (peer.client.name + (peer.client.version ? ' ' + peer.client.version : '')) : ('Unknown Client' | translate)) + (peer.seeder ? ', ' + ('Seeding' | translate) : '')}}">
+                                    <span ng-bind="peer.name | translate"></span><i class="icon-seeder fa fa-angle-double-up" ng-if="peer && peer.seeder"></i>
+                                    <span class="peer-client" ng-if="!!peer.client"
+                                        ng-bind="peer.client ? ('(' + peer.client.name + (peer.client.version ? ' ' + peer.client.version : '') + ')') : ''"></span>
                                 </div>
                             </div>
-                            <div class="col-sm-2 col-xs-4">
+                            <div class="col-md-5 col-sm-4 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-9 col-sm-7 col-xs-12">
+                                        <div class="piece-bar-wrapper">
+                                            <ng-piece-bar bit-field="peer.bitfield" piece-count="task.numPieces" color="#208fe5"></ng-piece-bar>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-5 hidden-xs text-right">
+                                        <span ng-bind="(peer.completePercent | percent: 2) + '%'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="visible-xs col-xs-4">
                                 <span ng-bind="(peer.completePercent | percent: 2) + '%'"></span>
                             </div>
-                            <div class="col-sm-4 col-xs-8">
+                            <div class="col-md-3 col-sm-4 col-xs-8">
                                 <div class="task-peer-download-speed">
                                     <i class="icon-download fa fa-arrow-down"></i>
                                     <span ng-bind="(peer.downloadSpeed | readableVolumn) + '/s'"></span>&nbsp;

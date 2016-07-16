@@ -58,6 +58,27 @@
 
                 return filePath.substring(filePath.lastIndexOf('.'));
             },
+            decodePercentEncodedString: function (s) {
+                if (!s) {
+                    return s;
+                }
+
+                var ret = '';
+
+                for (var i = 0; i < s.length; i++) {
+                    var ch = s.charAt(i);
+
+                    if (ch == '%' && i < s.length - 2) {
+                        var code = s.substring(i + 1, i + 3);
+                        ret += String.fromCharCode(parseInt(code, 16));
+                        i += 2;
+                    } else {
+                        ret += ch;
+                    }
+                }
+
+                return ret;
+            },
             extendArray: function (sourceArray, targetArray, keyProperty) {
                 if (!targetArray || !sourceArray || sourceArray.length != targetArray.length) {
                     return false;
