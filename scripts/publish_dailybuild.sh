@@ -9,7 +9,8 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   rm -rf views;
   rm -f index.html;
   cp $CIRCLE_ARTIFACTS/dist/* ./ -r;
-  git config --global user.name "CI";
+  git config --global user.name "CircleCI";
+  git add -A;
   git commit -a -m "daily build #$CIRCLE_SHA1";
   git push origin gh-pages;
 fi
