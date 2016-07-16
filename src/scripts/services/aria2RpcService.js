@@ -3,8 +3,10 @@
 
     angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var rpcImplementService = ariaNgSettingService.isUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
+        var isConnected = false;
         var secret = ariaNgSettingService.getSecret();
 
+        var onFirstSuccessCallbacks = [];
         var onDownloadStartCallbacks = [];
         var onDownloadPauseCallbacks = [];
         var onDownloadStopCallbacks = [];
@@ -28,7 +30,7 @@
             if (returnContextOnly) {
                 return requestContext;
             }
-            
+
             var uniqueId = ariaNgCommonService.generateUniqueId();
 
             var requestBody = {
@@ -61,6 +63,17 @@
                     callback(context);
                 }
             });
+        };
+
+        var fireFirstSuccessEvent = function () {
+            if (!angular.isArray(onFirstSuccessCallbacks) || onFirstSuccessCallbacks.length < 1) {
+                return;
+            }
+
+            for (var i = 0; i < onFirstSuccessCallbacks.length; i++) {
+                var callback = onFirstSuccessCallbacks[i];
+                callback();
+            }
         };
 
         var invokeMulti = function (methodFunc, contexts, callback) {
@@ -123,6 +136,11 @@
                 var innerContext = arguments[1];
 
                 context.successCallback = function (id, result) {
+                    if (!isConnected) {
+                        isConnected = true;
+                        fireFirstSuccessEvent();
+                    }
+
                     if (innerContext.callback) {
                         innerContext.callback({
                             id: id,
@@ -396,6 +414,9 @@
             },
             listMethods: function (context) {
                 return invoke(buildRequestContext('system.listMethods', context));
+            },
+            onFirstSuccess: function (context) {
+                onFirstSuccessCallbacks.push(context.callback);
             },
             onDownloadStart: function (context) {
                 onDownloadStartCallbacks.push(context.callback);

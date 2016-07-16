@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').config(['$translateProvider', 'localStorageServiceProvider', 'ariaNgConstants', function ($translateProvider, localStorageServiceProvider, ariaNgConstants) {
+    angular.module('ariaNg').config(['$translateProvider', 'localStorageServiceProvider', 'NotificationProvider', 'ariaNgConstants', function ($translateProvider, localStorageServiceProvider, NotificationProvider, ariaNgConstants) {
         localStorageServiceProvider
             .setPrefix(ariaNgConstants.appPrefix)
             .setStorageType('localStorage')
@@ -14,5 +14,9 @@
             .preferredLanguage('en')
             .fallbackLanguage('en')
             .useSanitizeValueStrategy('escapeParameters');
+
+        NotificationProvider.setOptions({
+            delay: ariaNgConstants.notificationInPageTimeout
+        });
     }]);
 })();

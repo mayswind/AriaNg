@@ -154,6 +154,12 @@
             }
         };
 
+        aria2TaskService.onFirstSuccess(function () {
+            ariaNgNotificationService.notifyInPage('', 'Connection Succeeded', {
+                type: 'success'
+            });
+        });
+
         aria2TaskService.onTaskCompleted(function (event) {
             ariaNgNotificationService.notifyTaskComplete(event.task);
         });

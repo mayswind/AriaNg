@@ -5,6 +5,7 @@
         $translateProvider.translations('en', {
             'English': 'English',
             'Operation Succeeded': 'Operation Succeeded',
+            'Connection Succeeded': 'Connection Succeeded',
             'Error': 'Error',
             'OK': 'OK',
             'Confirm': 'Confirm',

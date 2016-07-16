@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgNotificationService', ['$notification', '$translate', 'ariaNgSettingService', function ($notification, $translate, ariaNgSettingService) {
+    angular.module('ariaNg').factory('ariaNgNotificationService', ['$notification', '$translate', 'Notification', 'ariaNgSettingService', function ($notification, $translate, Notification, ariaNgSettingService) {
         var isSupportBrowserNotification = $notification.isSupported;
 
         var isPermissionGranted = function (permission) {
@@ -37,21 +37,50 @@
                     }
                 });
             },
-            notify: function (title, content) {
+            notifyViaBrowser: function (title, content) {
                 if (isSupportBrowserNotification && ariaNgSettingService.getBrowserNotification()) {
                     $notification($translate.instant(title), {
                         body: $translate.instant(content)
                     });
                 }
             },
+            notifyInPage: function (title, content, options) {
+                if (!options) {
+                    options = {};
+                }
+
+                if (title) {
+                    title = $translate.instant(title);
+                }
+
+                if (content) {
+                    content = $translate.instant(content);
+                }
+
+                if (!content) {
+                    options.message = title;
+                } else {
+                    options.title = title;
+                    options.message = content;
+                }
+
+                if (!options.type || !Notification[options.type]) {
+                    options.type = 'primary';
+                }
+
+                Notification[options.type](options);
+            },
             notifyTaskComplete: function (task) {
-                this.notify('Download Completed', (task && task.taskName ? task.taskName : ''));
+                this.notifyViaBrowser('Download Completed', (task && task.taskName ? task.taskName : ''));
             },
             notifyBtTaskComplete: function (task) {
-                this.notify('BT Download Completed', (task && task.taskName ? task.taskName : ''));
+                this.notifyViaBrowser('BT Download Completed', (task && task.taskName ? task.taskName : ''));
             },
             notifyTaskError: function (task) {
-                this.notify('Download Error', (task && task.taskName ? task.taskName : ''));
+                this.notifyViaBrowser('Download Error', (task && task.taskName ? task.taskName : ''));
+            },
+            clearNotificationInPage: function () {
+                Notification.clearAll();
             }
         }
     }]);

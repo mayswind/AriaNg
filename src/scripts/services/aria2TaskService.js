@@ -204,7 +204,7 @@
             return peers;
         };
 
-        var createEventCallback = function (getTaskStatusFunc, callback, type) {
+        var createTaskEventCallback = function (getTaskStatusFunc, callback, type) {
             return function (event) {
                 var context = {
                     type: type,
@@ -472,13 +472,22 @@
                     callback: callback
                 });
             },
+            onFirstSuccess: function (callback) {
+                if (!callback) {
+                    return;
+                }
+
+                aria2RpcService.onFirstSuccess({
+                    callback: callback
+                });
+            },
             onTaskCompleted: function (callback) {
                 if (!callback) {
                     return;
                 }
 
                 aria2RpcService.onDownloadComplete({
-                    callback: createEventCallback(this.getTaskStatus, callback, 'completed')
+                    callback: createTaskEventCallback(this.getTaskStatus, callback, 'completed')
                 });
             },
             onBtTaskCompleted: function (callback) {
@@ -487,7 +496,7 @@
                 }
 
                 aria2RpcService.onBtDownloadComplete({
-                    callback: createEventCallback(this.getTaskStatus, callback, 'btcompleted')
+                    callback: createTaskEventCallback(this.getTaskStatus, callback, 'btcompleted')
                 });
             },
             onTaskErrorOccur: function (callback) {
@@ -496,7 +505,7 @@
                 }
 
                 aria2RpcService.onDownloadError({
-                    callback: createEventCallback(this.getTaskStatus, callback, 'error')
+                    callback: createTaskEventCallback(this.getTaskStatus, callback, 'error')
                 });
             },
             processDownloadTasks: function (tasks) {
