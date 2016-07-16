@@ -164,6 +164,7 @@
                 'time.minutes': '{{value}} Minutes',
                 'time.hour': '{{value}} Hour',
                 'time.hours': '{{value}} Hours',
+                'task.pieceinfo': 'Completed: {{completed}}, Total: {{total}}',
                 'task.error-occurred': 'Error Occurred ({{errorcode}})',
                 'settings.file-count': '({{count}} Files)',
                 'settings.total-count': '(Total Count: {{count}})'

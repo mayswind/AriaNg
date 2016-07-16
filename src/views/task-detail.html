@@ -152,10 +152,10 @@
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'blocks'}">
                 <div class="piece-legends">
-                    <div class="piece-legend">
+                    <div class="piece-legend" ng-tooltip="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}" ng-tooltip-container="body">
                         <div class="piece piece-completed"></div><span translate>Completed</span>
                     </div>
-                    <div class="piece-legend">
+                    <div class="piece-legend" ng-tooltip="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}" ng-tooltip-container="body">
                         <div class="piece"></div><span translate>Uncompleted</span>
                     </div>
                 </div>

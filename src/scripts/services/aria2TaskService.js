@@ -53,96 +53,6 @@
             };
         };
 
-        var processDownloadTask = function (task) {
-            if (!task) {
-                return task;
-            }
-
-            task.totalLength = parseInt(task.totalLength);
-            task.completedLength = parseInt(task.completedLength);
-            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
-            task.remainLength = task.totalLength - task.completedLength;
-            task.remainPercent = 100 - task.completePercent;
-            task.uploadLength = (task.uploadLength ? parseInt(task.uploadLength) : 0);
-            task.shareRatio = (task.completedLength > 0 ? task.uploadLength / task.completedLength : 0);
-
-            task.uploadSpeed = parseInt(task.uploadSpeed);
-            task.downloadSpeed = parseInt(task.downloadSpeed);
-
-            task.idle = task.downloadSpeed == 0;
-            task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
-            task.seeder = (task.seeder === true || task.seeder === 'true');
-
-            var taskNameResult = getTaskName(task);
-            task.taskName = taskNameResult.name;
-            task.hasTaskName = taskNameResult.success;
-
-            if (task.files) {
-                var selectedFileCount = 0;
-
-                for (var i = 0; i < task.files.length; i++) {
-                    var file = task.files[i];
-                    file.fileName = getFileName(file);
-                    file.length = parseInt(file.length);
-                    file.selected = (file.selected === true || file.selected === 'true');
-                    file.completedLength = parseInt(file.completedLength);
-                    file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
-
-                    selectedFileCount += file.selected ? 1 : 0;
-                }
-
-                task.selectedFileCount = selectedFileCount;
-            }
-
-            return task;
-        };
-
-        var processBtPeers = function (peers, task, includeLocalPeer) {
-            if (!peers) {
-                return peers;
-            }
-
-            var localTaskCompletedPieces = getPieceStatus(task.bitfield, task.numPieces);
-            var localTaskCompletedPieceCount = ariaNgCommonService.countArray(localTaskCompletedPieces, true);
-            var localTaskCompletedPercent = task.completePercent;
-
-            for (var i = 0; i < peers.length; i++) {
-                var peer = peers[i];
-                var upstreamToSpeed = peer.uploadSpeed;
-                var downstreamFromSpeed = peer.downloadSpeed;
-                var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
-                var completedPieceCount = ariaNgCommonService.countArray(completedPieces, true);
-
-                peer.name = peer.ip + ':' + peer.port;
-                peer.completePercent = completedPieceCount / task.numPieces * 100;
-                peer.downloadSpeed = upstreamToSpeed;
-                peer.uploadSpeed = downstreamFromSpeed;
-                peer.seeder = (peer.seeder === true || peer.seeder === 'true');
-
-                if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
-                    peer.completePercent = localTaskCompletedPercent;
-                }
-
-                if (peer.peerId) {
-                    var peerId = ariaNgCommonService.decodePercentEncodedString(peer.peerId);
-                    var client = (peerId ? bittorrentPeeridService.parseClient(peerId) : null);
-
-                    if (client && client.client != 'unknown') {
-                        peer.client = {
-                            name: (client.client ? client.client.trim() : ''),
-                            version: (client.version ? client.version.trim() : '')
-                        };
-                    }
-                }
-            }
-
-            if (includeLocalPeer) {
-                peers.push(createLocalPeerFromTask(task));
-            }
-
-            return peers;
-        };
-
         var getPieceStatus = function (bitField, pieceCount) {
             var pieces = [];
 
@@ -192,6 +102,102 @@
             }
 
             return combinedPieces;
+        };
+
+        var processDownloadTask = function (task) {
+            if (!task) {
+                return task;
+            }
+
+            var pieceStatus = getPieceStatus(task.bitfield, task.numPieces);
+
+            task.totalLength = parseInt(task.totalLength);
+            task.completedLength = parseInt(task.completedLength);
+            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
+            task.remainLength = task.totalLength - task.completedLength;
+            task.remainPercent = 100 - task.completePercent;
+            task.uploadLength = (task.uploadLength ? parseInt(task.uploadLength) : 0);
+            task.shareRatio = (task.completedLength > 0 ? task.uploadLength / task.completedLength : 0);
+
+            task.uploadSpeed = parseInt(task.uploadSpeed);
+            task.downloadSpeed = parseInt(task.downloadSpeed);
+
+            task.numPieces = parseInt(task.numPieces);
+            task.completedPieces = ariaNgCommonService.countArray(pieceStatus, true);
+            task.pieceLength = parseInt(task.pieceLength);
+
+            task.idle = task.downloadSpeed == 0;
+            task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
+            task.seeder = (task.seeder === true || task.seeder === 'true');
+
+            var taskNameResult = getTaskName(task);
+            task.taskName = taskNameResult.name;
+            task.hasTaskName = taskNameResult.success;
+
+            if (task.files) {
+                var selectedFileCount = 0;
+
+                for (var i = 0; i < task.files.length; i++) {
+                    var file = task.files[i];
+                    file.fileName = getFileName(file);
+                    file.length = parseInt(file.length);
+                    file.selected = (file.selected === true || file.selected === 'true');
+                    file.completedLength = parseInt(file.completedLength);
+                    file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
+
+                    selectedFileCount += file.selected ? 1 : 0;
+                }
+
+                task.selectedFileCount = selectedFileCount;
+            }
+            
+            return task;
+        };
+
+        var processBtPeers = function (peers, task, includeLocalPeer) {
+            if (!peers) {
+                return peers;
+            }
+
+            var localTaskCompletedPieces = getPieceStatus(task.bitfield, task.numPieces);
+            var localTaskCompletedPieceCount = ariaNgCommonService.countArray(localTaskCompletedPieces, true);
+            var localTaskCompletedPercent = task.completePercent;
+
+            for (var i = 0; i < peers.length; i++) {
+                var peer = peers[i];
+                var upstreamToSpeed = peer.uploadSpeed;
+                var downstreamFromSpeed = peer.downloadSpeed;
+                var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
+                var completedPieceCount = ariaNgCommonService.countArray(completedPieces, true);
+
+                peer.name = peer.ip + ':' + peer.port;
+                peer.completePercent = completedPieceCount / task.numPieces * 100;
+                peer.downloadSpeed = upstreamToSpeed;
+                peer.uploadSpeed = downstreamFromSpeed;
+                peer.seeder = (peer.seeder === true || peer.seeder === 'true');
+
+                if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
+                    peer.completePercent = localTaskCompletedPercent;
+                }
+
+                if (peer.peerId) {
+                    var peerId = ariaNgCommonService.decodePercentEncodedString(peer.peerId);
+                    var client = (peerId ? bittorrentPeeridService.parseClient(peerId) : null);
+
+                    if (client && client.client != 'unknown') {
+                        peer.client = {
+                            name: (client.client ? client.client.trim() : ''),
+                            version: (client.version ? client.version.trim() : '')
+                        };
+                    }
+                }
+            }
+
+            if (includeLocalPeer) {
+                peers.push(createLocalPeerFromTask(task));
+            }
+
+            return peers;
         };
 
         var createEventCallback = function (getTaskStatusFunc, callback, type) {
