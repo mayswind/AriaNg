@@ -45,6 +45,7 @@ gulp.task('html', ['styles', 'scripts'], function () {
 
 gulp.task('langs', function () {
   return gulp.src('src/langs/**/*')
+    .pipe($.jsonminify())
     .pipe(gulp.dest('dist/langs'));
 });
 
