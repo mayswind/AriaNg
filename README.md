@@ -15,9 +15,10 @@ A Better Frontend for [aria2](https://github.com/aria2/aria2) (a cross-platform 
     * Filter files of tasks in file types (by videos, audios, pictures, documents, applications, archives, etc.)
     * Download/upload history chart of global or task
     * Full support of aria2 settings
-4. Download finished notification
-4. Multi-languages support
-5. Less bandwidth usage, only requesting incremental data
+4. Add new download task by requesting url (http://AriaNgUrl/#/new/url_base64)
+5. Download finished notification
+6. Multi-languages support
+7. Less bandwidth usage, only requesting incremental data
 
 ## Screenshots
 #### Desktop
