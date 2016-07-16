@@ -24,7 +24,11 @@
                         title: scope.title,
                         placement: options.ngTooltipPlacement,
                         container: options.ngTooltipContainer,
-                        trigger: options.ngTooltipTrigger
+                        trigger: options.ngTooltipTrigger,
+                        delay: {
+                            show: 100,
+                            hide: 0
+                        }
                     });
                 };
 
