@@ -2,7 +2,7 @@
     <div id="task-table" class="task-table">
         <div class="task-table-title">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-md-8 col-sm-7">
                     <div class="row">
                         <div class="col-sm-8">
                             <a ng-click="changeDisplayOrder('name:asc', true)" translate>File Name</a>
@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2 col-sm-3">
                     <div class="row">
                         <div class="col-sm-6">
                             <a ng-click="changeDisplayOrder('percent:desc', true)" translate>Progress</a>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2 col-sm-2">
                     <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
                     <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('dspeed:desc')}"></i>
                 </div>
@@ -34,12 +34,12 @@
         </div>
         <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
             <div class="row" ng-repeat="task in taskContext.list | filter: filterByTaskName | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
-                <div class="col-sm-8">
+                <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
                         <label for="{{'task_' + task.gid}}">
-                            <span class="task-name" ng-bind="task.taskName" title="{{task.taskName}}"></span>
-                        </label><i class="icon-seeder fa fa-angle-double-up" title="{{'Seeding' | translate}}" ng-if="task && task.status == 'active' && task.seeder"></i>
+                            <span class="task-name" ng-bind="task.taskName" ng-tooltip="{{task.taskName}}" ng-tooltip-container="body"></span>
+                        </label><i class="icon-seeder fa fa-angle-double-up" ng-if="task && task.status == 'active' && task.seeder" ng-tooltip="{{'Seeding' | translate}}" ng-tooltip-container="body"></i>
                     </div>
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>
@@ -48,7 +48,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2 col-sm-3 col-xs-12">
                     <div class="progress">
                         <div class="progress-bar progress-bar-primary" role="progressbar"
                              aria-valuenow="{{task.completePercent}}" aria-valuemin="1"
@@ -65,7 +65,7 @@
                         <span class="task-seeders pull-right" ng-bind="(task.numSeeders ? (task.numSeeders + '/') : '') + task.connections"></span>
                     </div>
                 </div>
-                <div class="col-sm-2 hidden-xs">
+                <div class="col-md-2 col-sm-2 hidden-xs">
                     <span class="task-download-speed" ng-bind="(!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-')"></span>
                 </div>
             </div>
