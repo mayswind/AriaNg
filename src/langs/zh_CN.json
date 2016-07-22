@@ -149,6 +149,7 @@
     "Input number is below min value!": "输入的数字小于最小值 {{value}} !",
     "Input number is above max value!": "输入的数字大于最大值 {{value}} !",
     "Input value is invalid!": "输入的内容无效!",
+    "Tap to configure and get started with AriaNg.": "您还没有进行过设置, 点击这里进行设置.",
     "format": {
         "longdate": "YYYY年MM月DD日 HH:mm:ss",
         "time.millisecond": "{{value}} 毫秒",

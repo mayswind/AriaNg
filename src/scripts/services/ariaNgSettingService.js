@@ -2,6 +2,19 @@
     'use strict';
 
     angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
+        var onFirstVisitCallbacks = [];
+
+        var fireFirstVisitEvent = function () {
+            if (!angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
+                return;
+            }
+
+            for (var i = 0; i < onFirstVisitCallbacks.length; i++) {
+                var callback = onFirstVisitCallbacks[i];
+                callback();
+            }
+        };
+
         var getDefaultLanguage = function () {
             var browserLang = $window.navigator.browserLanguage ? $window.navigator.browserLanguage : $window.navigator.language;
 
@@ -34,6 +47,7 @@
                 options.language = getDefaultLanguage();
 
                 setOptions(options);
+                fireFirstVisitEvent();
             }
 
             return options;
@@ -215,6 +229,13 @@
             },
             setPeerListDisplayOrder: function (value) {
                 setOption('peerListDisplayOrder', value);
+            },
+            onFirstAccess: function (callback) {
+                if (!callback) {
+                    return;
+                }
+
+                onFirstVisitCallbacks.push(callback);
             }
         };
     }]);

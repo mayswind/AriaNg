@@ -153,6 +153,7 @@
             'Input number is below min value!': 'Input number is below min value {{value}}!',
             'Input number is above max value!': 'Input number is above max value {{value}}!',
             'Input value is invalid!': 'Input value is invalid!',
+            'Tap to configure and get started with AriaNg.': 'Tap to configure and get started with AriaNg.',
             'format': {
                 'longdate': 'MM/DD/YYYY HH:mm:ss',
                 'time.millisecond': '{{value}} Millisecond',

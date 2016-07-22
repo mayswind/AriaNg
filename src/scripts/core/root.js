@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgNotificationService', 'aria2TaskService', function ($rootScope, $location, $document, SweetAlert, ariaNgNotificationService, aria2TaskService) {
+    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgNotificationService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $location, $document, SweetAlert, ariaNgNotificationService, ariaNgSettingService, aria2TaskService) {
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -153,6 +153,15 @@
                 }
             }
         };
+
+        ariaNgSettingService.onFirstAccess(function () {
+            ariaNgNotificationService.notifyInPage('', 'Tap to configure and get started with AriaNg.', {
+                delay: false,
+                onClose: function () {
+                    $location.path('/settings/ariang');
+                }
+            });
+        });
 
         aria2TaskService.onFirstSuccess(function () {
             ariaNgNotificationService.notifyInPage('', 'Connection Succeeded', {
