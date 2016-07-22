@@ -36,8 +36,12 @@
                             <div class="col-xs-6">
                                 <div class="pull-right">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-sm btn-default" ng-disabled="newTaskForm.$invalid" translate>Start Download</button>
-                                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
+                                        <button type="submit" class="btn btn-sm"
+                                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
+                                                ng-disabled="newTaskForm.$invalid" translate>Start Download</button>
+                                        <button type="button" class="btn btn-sm dropdown-toggle"
+                                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
+                                                ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu right-align">
