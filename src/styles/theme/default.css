@@ -296,6 +296,10 @@
     }
 }
 
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.nav-toolbar > .btn-group {
+    margin-right: 4px;
+}
+
 .skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a {
     color: #aaa;
     border: 0;
