@@ -277,6 +277,25 @@
     border-bottom: inherit;
 }
 
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.divider {
+    padding: 10px 0 10px 0;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 11px;
+    border-right: 1px solid #ccc;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.nav-toolbar {
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+    .skin-aria-ng .nav-tabs-custom > .nav-tabs > li.nav-toolbar {
+        float: right;
+    }
+}
+
 .skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a {
     color: #aaa;
     border: 0;
@@ -286,6 +305,11 @@
 .skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a:active,
 .skin-aria-ng .nav-tabs-custom > .nav-tabs > li.active > a {
     color: #208fe5;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > div.btn-group {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .skin-aria-ng .tooltip.tooltip-success.in, .skin-aria-ng .tooltip.tooltip-warning.in, .skin-aria-ng .tooltip.tooltip-error.in {

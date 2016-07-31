@@ -3,6 +3,10 @@
     font-size: 0.5em;
 }
 
+.fa-1_1x {
+    font-size: 1.1em;
+}
+
 .fa-rotate-45 {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
     -webkit-transform: rotate(45deg);

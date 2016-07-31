@@ -1,23 +1,49 @@
 <section class="content no-padding">
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li ng-class="{'active': context.currentTab == 'links'}">
-                <a class="pointer-cursor" ng-click="changeTab('links')" translate>Links</a>
-            </li>
-            <li ng-class="{'active': context.currentTab == 'options'}">
-                <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
-            </li>
-        </ul>
+    <form name="newTaskForm" ng-submit="startDownload()" novalidate>
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li ng-class="{'active': context.currentTab == 'links'}">
+                    <a class="pointer-cursor" ng-click="changeTab('links')" translate>Links</a>
+                </li>
+                <li ng-class="{'active': context.currentTab == 'options'}">
+                    <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
+                </li>
+                <li class="divider"></li>
+                <li class="nav-toolbar">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-folder-open-o fa-1_1x"></i>
+                        </button>
+                        <ul class="dropdown-menu right-align">
+                            <li><a class="pointer-cursor" ng-click="openTorrent()" translate>Open Torrent File</a></li>
+                            <li><a class="pointer-cursor" ng-click="openMetalink()" translate>Open Metalink File</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-sm"
+                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
+                                ng-disabled="newTaskForm.$invalid" translate>Download
+                        </button>
+                        <button type="button" class="btn btn-sm dropdown-toggle"
+                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
+                                ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu right-align">
+                            <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Manual Download</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
 
-        <div class="tab-content no-padding">
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'links'}">
-                <form name="newTaskForm" ng-submit="startDownload()" novalidate>
+            <div class="tab-content no-padding">
+                <div class="tab-pane" ng-class="{'active': context.currentTab == 'links'}">
                     <div class="new-task-table">
                         <div class="row">
                             <div class="col-sm-12">
                                 <p translate>Download Links:</p>
                                 <div class="form-group has-feedback no-margin" ng-class="{ 'has-error' : newTaskForm.urls.$invalid && newTaskForm.urls.$dirty, 'has-success' : newTaskForm.urls.$valid && newTaskForm.urls.$dirty }">
-                                <textarea name="urls" class="form-control" rows="8" ng-model="context.urls" ng-required="true"
+                                <textarea name="urls" class="form-control" rows="10" ng-model="context.urls" ng-required="true"
                                           ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
                                           ng-pattern="/^(\n?(((http|https|ftp|ssh):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
                                     <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
@@ -26,41 +52,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="new-task-toollink">
-                                    <a class="pointer-cursor" ng-click="openTorrent()" translate>Open Torrent File</a>
-                                    <a class="pointer-cursor" ng-click="openMetalink()" translate>Open Metalink File</a>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-sm"
-                                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
-                                                ng-disabled="newTaskForm.$invalid" translate>Start Download</button>
-                                        <button type="button" class="btn btn-sm dropdown-toggle"
-                                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
-                                                ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu right-align">
-                                            <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Manual Download</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'options'}">
-                <div class="settings-table striped hoverable">
-                    <ng-setting ng-repeat="option in context.availableOptions" option="option" lazy-save-timeout="0"
-                                default-value="context.globalOptions[option.key]"
-                                on-change-value="setOption(key, value, optionStatus)"></ng-setting>
+                </div>
+                <div class="tab-pane" ng-class="{'active': context.currentTab == 'options'}">
+                    <div class="settings-table striped hoverable">
+                        <ng-setting ng-repeat="option in context.availableOptions" option="option" lazy-save-timeout="0"
+                                    default-value="context.globalOptions[option.key]"
+                                    on-change-value="setOption(key, value, optionStatus)"></ng-setting>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </section>
