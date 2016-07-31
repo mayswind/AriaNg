@@ -131,6 +131,12 @@
             optionStatus.setReady();
         };
 
+        $scope.urlTextboxKeyDown = function (event) {
+            if (event.keyCode == 13 && event.ctrlKey && $scope.newTaskForm.$valid) {
+                $scope.startDownload();
+            }
+        };
+
         $rootScope.loadPromise = $timeout(function () {
             ;//Do Nothing
         }, 100);

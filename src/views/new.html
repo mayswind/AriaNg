@@ -43,7 +43,8 @@
                             <div class="col-sm-12">
                                 <p translate>Download Links:</p>
                                 <div class="form-group has-feedback no-margin" ng-class="{ 'has-error' : newTaskForm.urls.$invalid && newTaskForm.urls.$dirty, 'has-success' : newTaskForm.urls.$valid && newTaskForm.urls.$dirty }">
-                                <textarea name="urls" class="form-control" rows="10" ng-model="context.urls" ng-required="true"
+                                <textarea name="urls" class="form-control" rows="10"
+                                          ng-model="context.urls" ng-required="true" ng-keydown="urlTextboxKeyDown($event)"
                                           ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
                                           ng-pattern="/^(\n?(((http|https|ftp|ssh):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
                                     <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
