@@ -7,6 +7,7 @@
     "browser-sync": "^2.2.1",
     "del": "^1.1.1",
     "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^2.0.0",
     "gulp-autoprefixer": "^3.0.1",
     "gulp-cssnano": "^2.0.0",
     "gulp-eslint": "^2.0.0",

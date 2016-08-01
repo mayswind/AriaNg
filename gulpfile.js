@@ -22,6 +22,14 @@ gulp.task('scripts', function () {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('views', function () {
+  return gulp.src([
+    'src/views/**/*.html'
+  ]).pipe($.htmlmin({collapseWhitespace: true}))
+    .pipe($.angularTemplatecache({module: 'ariaNg', filename: 'views/templates.js', root: 'views/'}))
+    .pipe(gulp.dest('.tmp/scripts'));
+});
+
 gulp.task('lint', function () {
   return gulp.src([
     'src/scripts/**/*.js'
@@ -32,7 +40,7 @@ gulp.task('lint', function () {
     .pipe(gulp.dest('src/scripts'));
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['styles', 'scripts', 'views'], function () {
   return gulp.src('src/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
     .pipe($.if('js/*.js', $.replace(/\/\/# sourceMappingURL=.*/g, '')))
@@ -47,12 +55,6 @@ gulp.task('langs', function () {
   return gulp.src('src/langs/**/*')
     .pipe($.jsonminify())
     .pipe(gulp.dest('dist/langs'));
-});
-
-gulp.task('views', function () {
-  return gulp.src('src/views/**/*')
-    .pipe($.htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('dist/views'));
 });
 
 gulp.task('images', function () {
@@ -114,7 +116,7 @@ gulp.task('serve:dist', function () {
   });
 });
 
-gulp.task('build', ['lint', 'html', 'langs', 'views', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', ['lint', 'html', 'langs', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
