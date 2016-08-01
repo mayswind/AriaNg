@@ -7,7 +7,7 @@
         optionStorageKey: 'Options',
         languageStorageKeyPrefix: 'Language',
         languagePath: '/langs',
-        languageFileExtension: '.json',
+        languageFileExtension: '.txt',
         defaultLanguage: 'en',
         defaultHost: 'localhost',
         globalStatStorageCapacity: 120,
