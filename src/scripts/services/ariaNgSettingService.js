@@ -175,7 +175,7 @@
                     protocol = this.getProtocol();
                 }
 
-                return protocol == 'ws' || protocol == 'wss';
+                return protocol === 'ws' || protocol === 'wss';
             },
             getSecret: function () {
                 var value = getOption('secret');

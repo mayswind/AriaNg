@@ -80,33 +80,33 @@
                             showTooltip(cause, 'error', causeParams);
                         },
                         getStatusFeedbackStyle: function () {
-                            if (value == 'success') {
+                            if (value === 'success') {
                                 return 'has-success';
-                            } else if (value == 'failed') {
+                            } else if (value === 'failed') {
                                 return 'has-warning';
-                            } else if (value == 'error') {
+                            } else if (value === 'error') {
                                 return 'has-error';
                             } else {
                                 return '';
                             }
                         },
                         getStatusIcon: function () {
-                            if (value == 'pending') {
+                            if (value === 'pending') {
                                 return 'fa-hourglass-start';
-                            } else if (value == 'saving') {
+                            } else if (value === 'saving') {
                                 return 'fa-spin fa-pulse fa-spinner';
-                            } else if (value == 'success') {
+                            } else if (value === 'success') {
                                 return 'fa-check';
-                            } else if (value == 'failed') {
+                            } else if (value === 'failed') {
                                 return 'fa-exclamation';
-                            } else if (value == 'error') {
+                            } else if (value === 'error') {
                                 return 'fa-times';
                             } else {
                                 return '';
                             }
                         },
                         isShowStatusIcon: function () {
-                            return this.getStatusIcon() != '';
+                            return this.getStatusIcon() !== '';
                         }
                     };
                 })();
@@ -131,27 +131,27 @@
                         return;
                     }
 
-                    if (scope.option.required && optionValue == '') {
+                    if (scope.option.required && optionValue === '') {
                         scope.optionStatus.setError('Option value cannot be empty!');
                         return;
                     }
 
-                    if (scope.option.type == 'integer' && !/^-?\d+$/.test(optionValue)) {
+                    if (scope.option.type === 'integer' && !/^-?\d+$/.test(optionValue)) {
                         scope.optionStatus.setError('Input number is invalid!');
                         return;
                     }
 
-                    if (scope.option.type == 'float' && !/^-?(\d*\.)?\d+$/.test(optionValue)) {
+                    if (scope.option.type === 'float' && !/^-?(\d*\.)?\d+$/.test(optionValue)) {
                         scope.optionStatus.setError('Input number is invalid!');
                         return;
                     }
 
-                    if ((scope.option.type == 'integer' || scope.option.type == 'float') && (angular.isDefined(scope.option.min) || angular.isDefined(scope.option.max))) {
+                    if ((scope.option.type === 'integer' || scope.option.type === 'float') && (angular.isDefined(scope.option.min) || angular.isDefined(scope.option.max))) {
                         var number = optionValue;
 
-                        if (scope.option.type == 'integer') {
+                        if (scope.option.type === 'integer') {
                             number = parseInt(optionValue);
-                        } else if (scope.option.type == 'float') {
+                        } else if (scope.option.type === 'float') {
                             number = parseFloat(optionValue);
                         }
 

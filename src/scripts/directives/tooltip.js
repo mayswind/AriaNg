@@ -57,7 +57,7 @@
 
                     value = (value === true || value === 'true');
 
-                    if (showTooltip == value) {
+                    if (showTooltip === value) {
                         return;
                     }
 

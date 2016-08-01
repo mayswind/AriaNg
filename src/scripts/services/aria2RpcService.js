@@ -15,7 +15,7 @@
         var onBtDownloadCompleteCallbacks = [];
 
         var checkIsSystemMethod = function (methodName) {
-            return methodName.indexOf(aria2RpcConstants.rpcSystemServiceName + '.') == 0;
+            return methodName.indexOf(aria2RpcConstants.rpcSystemServiceName + '.') === 0;
         };
 
         var getAria2MethodFullName = function (methodName) {
@@ -172,7 +172,7 @@
 
             if (arguments.length > 2) {
                 for (var i = 2; i < arguments.length; i++) {
-                    if (arguments[i] != null && angular.isDefined(arguments[i])) {
+                    if (arguments[i] !== null && angular.isDefined(arguments[i])) {
                         finalParams.push(arguments[i]);
                     }
                 }

@@ -6,7 +6,7 @@
         var globalStorageKey = 'global';
 
         var getStorageCapacity = function (key) {
-            if (key == globalStorageKey) {
+            if (key === globalStorageKey) {
                 return ariaNgConstants.globalStatStorageCapacity;
             } else {
                 return ariaNgConstants.taskStatStorageCapacity;
@@ -27,7 +27,7 @@
                 tooltip: {
                     show: true,
                     formatter: function (params) {
-                        if (params[0].name == '') {
+                        if (params[0].name === '') {
                             return '<div>' + $translate.instant('No Data') + '</div>';
                         }
 

@@ -18,21 +18,21 @@
 
         return {
             getAvailableGlobalOptionsKeys: function (type) {
-                if (type == 'basic') {
+                if (type === 'basic') {
                     return aria2GlobalAvailableOptions.basicOptions;
-                } else if (type == 'http-ftp-sftp') {
+                } else if (type === 'http-ftp-sftp') {
                     return aria2GlobalAvailableOptions.httpFtpSFtpOptions;
-                } else if (type == 'http') {
+                } else if (type === 'http') {
                     return aria2GlobalAvailableOptions.httpOptions;
-                } else if (type == 'ftp-sftp') {
+                } else if (type === 'ftp-sftp') {
                     return aria2GlobalAvailableOptions.ftpSFtpOptions;
-                } else if (type == 'bt') {
+                } else if (type === 'bt') {
                     return aria2GlobalAvailableOptions.btOptions;
-                } else if (type == 'metalink') {
+                } else if (type === 'metalink') {
                     return aria2GlobalAvailableOptions.metalinkOptions;
-                } else if (type == 'rpc') {
+                } else if (type === 'rpc') {
                     return aria2GlobalAvailableOptions.rpcOptions;
-                } else if (type == 'advanced') {
+                } else if (type === 'advanced') {
                     return aria2GlobalAvailableOptions.advancedOptions;
                 } else {
                     return false;
@@ -58,7 +58,7 @@
                         continue;
                     }
 
-                    if (option.activeReadonly && status == 'active') {
+                    if (option.activeReadonly && status === 'active') {
                         optionKey.readonly = true;
                     }
 
@@ -108,7 +108,7 @@
                         descriptionKey: 'options.' + key + '.description'
                     }, option);
 
-                    if (option.type == 'boolean') {
+                    if (option.type === 'boolean') {
                         option.options = ['true', 'false'];
                     }
 

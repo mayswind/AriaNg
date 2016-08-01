@@ -37,7 +37,7 @@
                     cancelButtonText: $translate.instant('Cancel')
                 };
 
-                if (type == 'warning') {
+                if (type === 'warning') {
                     options.confirmButtonColor = '#F39C12';
                 }
 
@@ -68,7 +68,7 @@
                 for (var i = 0; i < s.length; i++) {
                     var ch = s.charAt(i);
 
-                    if (ch == '%' && i < s.length - 2) {
+                    if (ch === '%' && i < s.length - 2) {
                         var code = s.substring(i + 1, i + 3);
                         ret += String.fromCharCode(parseInt(code, 16));
                         i += 2;
@@ -80,12 +80,12 @@
                 return ret;
             },
             extendArray: function (sourceArray, targetArray, keyProperty) {
-                if (!targetArray || !sourceArray || sourceArray.length != targetArray.length) {
+                if (!targetArray || !sourceArray || sourceArray.length !== targetArray.length) {
                     return false;
                 }
 
                 for (var i = 0; i < targetArray.length; i++) {
-                    if (targetArray[i][keyProperty] == sourceArray[i][keyProperty]) {
+                    if (targetArray[i][keyProperty] === sourceArray[i][keyProperty]) {
                         angular.extend(targetArray[i], sourceArray[i]);
                     } else {
                         return false;
@@ -110,7 +110,7 @@
                     if (angular.isObject(fromValue) || angular.isArray(fromValue)) {
                         to[name] = this.copyObjectTo(from[name], to[name]);
                     } else {
-                        if (fromValue != toValue) {
+                        if (fromValue !== toValue) {
                             to[name] = fromValue;
                         }
                     }
@@ -154,7 +154,7 @@
                 var count = 0;
 
                 for (var i = 0; i < array.length; i++) {
-                    count += (array[i] == value ? 1 : 0);
+                    count += (array[i] === value ? 1 : 0);
                 }
 
                 return count;
@@ -210,16 +210,16 @@
 
                     if (time < 1000) {
                         value = time;
-                        name = (value == 1 ? 'format.time.millisecond' : 'format.time.milliseconds');
+                        name = (value === 1 ? 'format.time.millisecond' : 'format.time.milliseconds');
                     } else if (time < 1000 * 60) {
                         value = time / 1000;
-                        name = (value == 1 ? 'format.time.second' : 'format.time.seconds');
+                        name = (value === 1 ? 'format.time.second' : 'format.time.seconds');
                     } else if (time < 1000 * 60 * 24) {
                         value = time / 1000 / 60;
-                        name = (value == 1 ? 'format.time.minute' : 'format.time.minutes');
+                        name = (value === 1 ? 'format.time.minute' : 'format.time.minutes');
                     } else {
                         value = time / 1000 / 60 / 24;
-                        name = (value == 1 ? 'format.time.hour' : 'format.time.hours');
+                        name = (value === 1 ? 'format.time.hour' : 'format.time.hours');
                     }
 
                     options.push({

@@ -15,7 +15,7 @@
 
             var index = path.lastIndexOf('/');
 
-            if (index <= 0 || index == path.length) {
+            if (index <= 0 || index === path.length) {
                 return path;
             }
 
@@ -23,7 +23,7 @@
         };
 
         var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {
-            if (downloadSpeed == 0) {
+            if (downloadSpeed === 0) {
                 return 0;
             }
 
@@ -71,7 +71,7 @@
 
                 for (var j = 1; j <= 4; j++) {
                     var bit = (1 << (4 - j));
-                    var isCompleted = (bitSet & bit) == bit;
+                    var isCompleted = (bitSet & bit) === bit;
 
                     pieces[pieceIndex++] = isCompleted;
 
@@ -91,7 +91,7 @@
             for (var i = 0; i < pieces.length; i++) {
                 var isCompleted = pieces[i];
 
-                if (combinedPieces.length > 0 && combinedPieces[combinedPieces.length - 1].isCompleted == isCompleted) {
+                if (combinedPieces.length > 0 && combinedPieces[combinedPieces.length - 1].isCompleted === isCompleted) {
                     combinedPieces[combinedPieces.length - 1].count++;
                 } else {
                     combinedPieces.push({
@@ -126,7 +126,7 @@
             task.completedPieces = ariaNgCommonService.countArray(pieceStatus, true);
             task.pieceLength = parseInt(task.pieceLength);
 
-            task.idle = task.downloadSpeed == 0;
+            task.idle = task.downloadSpeed === 0;
             task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
             task.seeder = (task.seeder === true || task.seeder === 'true');
 
@@ -176,7 +176,7 @@
                 peer.uploadSpeed = downstreamFromSpeed;
                 peer.seeder = (peer.seeder === true || peer.seeder === 'true');
 
-                if (completedPieceCount == localTaskCompletedPieceCount && peer.completePercent != localTaskCompletedPercent) {
+                if (completedPieceCount === localTaskCompletedPieceCount && peer.completePercent !== localTaskCompletedPercent) {
                     peer.completePercent = localTaskCompletedPercent;
                 }
 
@@ -184,7 +184,7 @@
                     var peerId = ariaNgCommonService.decodePercentEncodedString(peer.peerId);
                     var clientInfo = (peerId ? bittorrentPeeridService.parseClient(peerId) : null);
 
-                    if (clientInfo && clientInfo.client != 'unknown') {
+                    if (clientInfo && clientInfo.client !== 'unknown') {
                         var client = {
                             name: (clientInfo.client ? clientInfo.client.trim() : ''),
                             version: (clientInfo.version ? clientInfo.version.trim() : '')
@@ -238,11 +238,11 @@
             getTaskList: function (type, full, callback, silent) {
                 var invokeMethod = null;
 
-                if (type == 'downloading') {
+                if (type === 'downloading') {
                     invokeMethod = aria2RpcService.tellActive;
-                } else if (type == 'waiting') {
+                } else if (type === 'waiting') {
                     invokeMethod = aria2RpcService.tellWaiting;
-                } else if (type == 'stopped') {
+                } else if (type === 'stopped') {
                     invokeMethod = aria2RpcService.tellStopped;
                 } else {
                     return;
@@ -410,7 +410,7 @@
                 var stoppedTaskGids = [];
 
                 for (var i = 0; i < tasks.length; i++) {
-                    if (tasks[i].status == 'complete' || tasks[i].status == 'error' || tasks[i].status == 'removed') {
+                    if (tasks[i].status === 'complete' || tasks[i].status === 'error' || tasks[i].status === 'removed') {
                         stoppedTaskGids.push(tasks[i].gid);
                     } else {
                         runningTaskGids.push(tasks[i].gid);
@@ -550,7 +550,7 @@
                     if (completedPieceCount > maxCompletedPieceCount) {
                         maxCompletedPieceCount = completedPieceCount;
                         maxCompletedPercent = peer.completePercent;
-                    } else if (completedPieceCount == maxCompletedPieceCount && peer.completePercent > maxCompletedPercent) {
+                    } else if (completedPieceCount === maxCompletedPieceCount && peer.completePercent > maxCompletedPercent) {
                         maxCompletedPercent = peer.completePercent;
                     }
                 }

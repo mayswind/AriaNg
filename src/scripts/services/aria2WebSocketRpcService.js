@@ -60,7 +60,7 @@
         };
 
         var getSocketClient = function () {
-            if (socketClient == null) {
+            if (socketClient === null) {
                 socketClient = $websocket(rpcUrl);
 
                 socketClient.onMessage(function (message) {

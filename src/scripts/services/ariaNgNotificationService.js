@@ -5,7 +5,7 @@
         var isSupportBrowserNotification = $notification.isSupported;
 
         var isPermissionGranted = function (permission) {
-            return permission == 'granted';
+            return permission === 'granted';
         };
 
         return {

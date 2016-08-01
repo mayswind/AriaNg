@@ -7,21 +7,21 @@
                 return '';
             }
 
-            if (task.status == 'active') {
+            if (task.status === 'active') {
                 if (task.seeder === true || task.seeder === 'true') {
                     return 'Seeding';
                 } else {
                     return 'Downloading';
                 }
-            } else if (task.status == 'waiting') {
+            } else if (task.status === 'waiting') {
                 return 'Waiting';
-            } else if (task.status == 'paused') {
+            } else if (task.status === 'paused') {
                 return 'Paused';
-            } else if (task.status == 'complete') {
+            } else if (task.status === 'complete') {
                 return 'Completed';
-            } else if (task.status == 'error') {
+            } else if (task.status === 'error') {
                 return (task.errorCode ? 'format.task.error-occurred' : 'Error Occurred');
-            } else if (task.status == 'removed') {
+            } else if (task.status === 'removed') {
                 return 'Removed';
             } else {
                 return '';

@@ -17,7 +17,7 @@
             for (var i = 0; i < fileFilters.length; i++) {
                 var extension = fileFilters[i];
 
-                if (extension == '*.*') {
+                if (extension === '*.*') {
                     extensions.push(/.+$/);
                     continue;
                 }

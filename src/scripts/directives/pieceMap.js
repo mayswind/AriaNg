@@ -31,13 +31,13 @@
                 var refresh = function () {
                     var newPieceStatus = aria2TaskService.getPieceStatus(scope.bitField, scope.pieceCount);
 
-                    if (!currentPieceStatus || !newPieceStatus || currentPieceStatus.length != newPieceStatus.length || newPieceStatus.length != pieces.length) {
+                    if (!currentPieceStatus || !newPieceStatus || currentPieceStatus.length !== newPieceStatus.length || newPieceStatus.length !== pieces.length) {
                         redraw();
                         return;
                     }
 
                     for (var i = 0; i < pieces.length; i++) {
-                        if (currentPieceStatus[i] != newPieceStatus[i]) {
+                        if (currentPieceStatus[i] !== newPieceStatus[i]) {
                             if (newPieceStatus[i]) {
                                 pieces[i].addClass('piece-completed');
                             } else {
