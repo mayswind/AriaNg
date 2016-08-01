@@ -77,10 +77,6 @@
         margin-right: 0;
         top: 5px;
     }
-
-    .skin-aria-ng .main-header .navbar .dropdown-menu li.divider {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
 }
 
 .skin-aria-ng .main-header .logo {
