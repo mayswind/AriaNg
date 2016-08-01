@@ -25,7 +25,7 @@
 
         var refreshGlobalStat = function (silent, callback) {
             return aria2SettingService.getGlobalStat(function (response) {
-                if (!response.success && response.data.message == aria2RpcErrors.Unauthorized.message) {
+                if (!response.success && response.data.message === aria2RpcErrors.Unauthorized.message) {
                     $interval.cancel(globalStatRefreshPromise);
                     return;
                 }
@@ -62,7 +62,7 @@
 
             for (var i = 0; i < selectedTasks.length; i++) {
                 for (var j = 0; j < arguments.length; j++) {
-                    if (selectedTasks[i].status == arguments[j]) {
+                    if (selectedTasks[i].status === arguments[j]) {
                         return true;
                     }
                 }
@@ -80,7 +80,7 @@
 
             for (var i = 0; i < tasks.length; i++) {
                 for (var j = 0; j < arguments.length; j++) {
-                    if (tasks[i].status == arguments[j]) {
+                    if (tasks[i].status === arguments[j]) {
                         return true;
                     }
                 }
@@ -98,9 +98,9 @@
 
             var invoke = null;
 
-            if (state == 'start') {
+            if (state === 'start') {
                 invoke = aria2TaskService.startTasks;
-            } else if (state == 'pause') {
+            } else if (state === 'pause') {
                 invoke = aria2TaskService.pauseTasks;
             } else {
                 return;
@@ -117,14 +117,14 @@
 
                 refreshGlobalStat(true);
 
-                if (!response.hasError && state == 'start') {
-                    if ($location.path() == '/waiting') {
+                if (!response.hasError && state === 'start') {
+                    if ($location.path() === '/waiting') {
                         $location.path('/downloading');
                     } else {
                         $route.reload();
                     }
-                } else if (!response.hasError && state == 'pause') {
-                    if ($location.path() == '/downloading') {
+                } else if (!response.hasError && state === 'pause') {
+                    if ($location.path() === '/downloading') {
                         $location.path('/waiting');
                     } else {
                         $route.reload();
@@ -153,7 +153,7 @@
                     refreshGlobalStat(true);
 
                     if (!response.hasError) {
-                        if ($location.path() == '/stopped') {
+                        if ($location.path() === '/stopped') {
                             $route.reload();
                         } else {
                             $location.path('/stopped');
@@ -172,7 +172,7 @@
 
                     refreshGlobalStat(true);
 
-                    if ($location.path() == '/stopped') {
+                    if ($location.path() === '/stopped') {
                         $route.reload();
                     } else {
                         $location.path('/stopped');
@@ -189,7 +189,7 @@
             var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
             var newType = ariaNgCommonService.parseOrderType(type);
 
-            if (autoSetReverse && newType.type == oldType.type) {
+            if (autoSetReverse && newType.type === oldType.type) {
                 newType.reverse = !oldType.reverse;
             }
 
@@ -229,4 +229,4 @@
             refreshPageTitle();
         });
     }]);
-})();
+}());

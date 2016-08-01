@@ -18,7 +18,7 @@
                 }
 
                 if (!response.success) {
-                    if (response.data.message == aria2RpcErrors.Unauthorized.message) {
+                    if (response.data.message === aria2RpcErrors.Unauthorized.message) {
                         $interval.cancel(downloadTaskRefreshPromise);
                     }
 
@@ -85,7 +85,7 @@
         $scope.isSupportDragTask = function () {
             var displayOrder = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
 
-            return location == 'waiting' && displayOrder.type == 'default';
+            return location === 'waiting' && displayOrder.type === 'default';
         };
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
@@ -123,4 +123,4 @@
 
         $rootScope.loadPromise = refreshDownloadTask(false);
     }]);
-})();
+}());

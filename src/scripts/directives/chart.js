@@ -191,4 +191,4 @@
             animationDuration: 500
         };
     });
-})();
+}());

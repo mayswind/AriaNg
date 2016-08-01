@@ -124,4 +124,4 @@
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000
     });
-})();
+}());

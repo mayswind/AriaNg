@@ -71,4 +71,4 @@
                 redirectTo: '/downloading'
             });
     }]);
-})();
+}());

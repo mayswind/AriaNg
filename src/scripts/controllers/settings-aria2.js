@@ -20,7 +20,7 @@
 
         $scope.setGlobalOption = function (key, value, optionStatus) {
             return aria2SettingService.setGlobalOption(key, value, function (response) {
-                if (response.success && response.data == 'OK') {
+                if (response.success && response.data === 'OK') {
                     optionStatus.setSuccess();
                 } else {
                     optionStatus.setFailed(response.data.message);
@@ -36,4 +36,4 @@
             });
         })();
     }]);
-})();
+}());

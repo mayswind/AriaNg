@@ -8,4 +8,4 @@
             return time.format(format);
         }
     }]);
-})();
+}());

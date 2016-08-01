@@ -17,4 +17,4 @@
             delay: ariaNgConstants.notificationInPageTimeout
         });
     }]);
-})();
+}());

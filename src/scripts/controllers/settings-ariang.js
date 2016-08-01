@@ -29,8 +29,6 @@
             }
         };
 
-        $rootScope.loadPromise = $timeout(function () {
-            ;//Do Nothing
-        }, 100);
+        $rootScope.loadPromise = $timeout(function () {}, 100);
     }]);
-})();
+}());

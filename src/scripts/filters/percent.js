@@ -9,4 +9,4 @@
             return $filter('number')(result, precision);
         }
     }]);
-})();
+}());

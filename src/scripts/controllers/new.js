@@ -17,7 +17,7 @@
         };
 
         $scope.changeTab = function (tabName) {
-            if (tabName == 'options') {
+            if (tabName === 'options') {
                 $scope.loadDefaultOption();
             }
 
@@ -98,7 +98,7 @@
             var tasks = [];
 
             for (var i = 0; i < urls.length; i++) {
-                if (urls[i] == '' || urls[i].trim() == '') {
+                if (urls[i] === '' || urls[i].trim() === '') {
                     continue;
                 }
 
@@ -122,7 +122,7 @@
         };
 
         $scope.setOption = function (key, value, optionStatus) {
-            if (value != '') {
+            if (value !== '') {
                 $scope.context.options[key] = value;
             } else {
                 delete $scope.context.options[key];
@@ -132,13 +132,11 @@
         };
 
         $scope.urlTextboxKeyDown = function (event) {
-            if (event.keyCode == 13 && event.ctrlKey && $scope.newTaskForm.$valid) {
+            if (event.keyCode === 13 && event.ctrlKey && $scope.newTaskForm.$valid) {
                 $scope.startDownload();
             }
         };
 
-        $rootScope.loadPromise = $timeout(function () {
-            ;//Do Nothing
-        }, 100);
+        $rootScope.loadPromise = $timeout(function () {}, 100);
     }]);
-})();
+}());

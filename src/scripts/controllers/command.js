@@ -17,7 +17,7 @@
             });
         };
 
-        if (path.indexOf('/new/') == 0) {
+        if (path.indexOf('/new/') === 0) {
             var base64Url = $routeParams.url;
             var url = base64.urldecode(base64Url);
             $rootScope.loadPromise = newUrlDownload(url);
@@ -25,4 +25,4 @@
             ariaNgCommonService.error('Parameter is invalid!');
         }
     }]);
-})();
+}());

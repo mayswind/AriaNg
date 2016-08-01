@@ -21,4 +21,4 @@
         'oitozero.ngSweetAlert',
         angularDragula(angular)
     ]);
-})();
+}());

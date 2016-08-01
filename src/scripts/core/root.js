@@ -15,7 +15,7 @@
 
             var lastPart = url2.substring(url.length);
 
-            if (lastPart.indexOf('/') == 0) {
+            if (lastPart.indexOf('/') === 0) {
                 return true;
             }
 
@@ -209,4 +209,4 @@
 
         initNavbar();
     }]);
-})();
+}());

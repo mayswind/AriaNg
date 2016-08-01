@@ -12,4 +12,4 @@
             tipTextKey: 'rpc.error.unauthorized'
         }
     });
-})();
+}());

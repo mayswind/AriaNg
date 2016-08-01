@@ -21,13 +21,13 @@
                 return;
             }
 
-            if (task.status != 'active' || !task.bittorrent) {
+            if (task.status !== 'active' || !task.bittorrent) {
                 if (tabOrders.indexOf('btpeers') >= 0) {
                     tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
                 }
             }
 
-            if (!$scope.task || $scope.task.status != task.status) {
+            if (!$scope.task || $scope.task.status !== task.status) {
                 $scope.context.availableOptions = getAvailableOptions(task.status, !!task.bittorrent);
             }
 
@@ -53,7 +53,7 @@
         };
 
         var requireBtPeers = function (task) {
-            return (task && task.bittorrent && task.status == 'active');
+            return (task && task.bittorrent && task.status === 'active');
         };
 
         var refreshDownloadTask = function (silent) {
@@ -62,7 +62,7 @@
                 }
 
             var processError = function (message) {
-                if (message == aria2RpcErrors.Unauthorized.message) {
+                if (message === aria2RpcErrors.Unauthorized.message) {
                     $interval.cancel(downloadTaskRefreshPromise);
                 }
             };
@@ -137,7 +137,7 @@
         };
 
         $scope.changeTab = function (tabName) {
-            if (tabName == 'settings') {
+            if (tabName === 'settings') {
                 $scope.loadTaskOption($scope.task);
             }
 
@@ -170,7 +170,7 @@
             var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getFileListDisplayOrder());
             var newType = ariaNgCommonService.parseOrderType(type);
 
-            if (autoSetReverse && newType.type == oldType.type) {
+            if (autoSetReverse && newType.type === oldType.type) {
                 newType.reverse = !oldType.reverse;
             }
 
@@ -209,11 +209,11 @@
             }
 
             for (var i = 0; i < $scope.task.files.length; i++) {
-                if (type == 'all') {
+                if (type === 'all') {
                     $scope.task.files[i].selected = true;
-                } else if (type == 'none') {
+                } else if (type === 'none') {
                     $scope.task.files[i].selected = false;
-                } else if (type == 'reverse') {
+                } else if (type === 'reverse') {
                     $scope.task.files[i].selected = !$scope.task.files[i].selected;
                 }
             }
@@ -271,7 +271,7 @@
             var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getPeerListDisplayOrder());
             var newType = ariaNgCommonService.parseOrderType(type);
 
-            if (autoSetReverse && newType.type == oldType.type) {
+            if (autoSetReverse && newType.type === oldType.type) {
                 newType.reverse = !oldType.reverse;
             }
 
@@ -299,7 +299,7 @@
 
         $scope.setOption = function (key, value, optionStatus) {
             return aria2TaskService.setTaskOption($scope.task.gid, key, value, function (response) {
-                if (response.success && response.data == 'OK') {
+                if (response.success && response.data === 'OK') {
                     optionStatus.setSuccess();
                 } else {
                     optionStatus.setFailed(response.data.message);
@@ -309,7 +309,7 @@
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
-                if ($scope.task && ($scope.task.status == 'complete' || $scope.task.status == 'error' || $scope.task.status == 'removed')) {
+                if ($scope.task && ($scope.task.status === 'complete' || $scope.task.status === 'error' || $scope.task.status === 'removed')) {
                     $interval.cancel(downloadTaskRefreshPromise);
                     return;
                 }
@@ -326,4 +326,4 @@
 
         $rootScope.loadPromise = refreshDownloadTask(false);
     }]);
-})();
+}());

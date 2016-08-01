@@ -11,4 +11,4 @@
         amMoment.changeLocale(language);
         ariaNgSettingService.applyLanguage(language);
     }]);
-})();
+}());

@@ -7,4 +7,4 @@
             return moment(time).format(format);
         }
     }]);
-})();
+}());
