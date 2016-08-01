@@ -1,5 +1,7 @@
 # AriaNg
-[![Lastest Build](https://circleci.com/gh/mayswind/AriaNg.png "Lastest Build")](https://circleci.com/gh/mayswind/AriaNg/tree/master)
+[![License](https://img.shields.io/github/license/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
+[![Lastest Build](https://img.shields.io/circleci/project/mayswind/AriaNg.svg?style=flat)](https://circleci.com/gh/mayswind/AriaNg/tree/master)
+[![Lastest Release](https://img.shields.io/github/release/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/releases)
 
 ## Introduction
 A Better Frontend for [aria2](https://github.com/aria2/aria2) (a cross-platform download utility). AriaNg is written in pure html & javascript, so it does not need to be compiled and not need any runtime environment, and you just need to open it in your browser. By using responsive layout, you can open it on any desktop or mobile devices.
@@ -26,8 +28,12 @@ A Better Frontend for [aria2](https://github.com/aria2/aria2) (a cross-platform 
 #### Mobile Device
 ![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/mobile.png)
 
-## Build
-Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/) installed.
+## Installation
+#### Prebuilt release
+Latest Release: https://github.com/mayswind/AriaNg/releases
+
+#### Building from source
+Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/) installed. Then download the source code, and follow these steps.
 
     $ npm install
     $ bower install
@@ -37,9 +43,6 @@ The builds will be placed in the dist directory.
 
 ## Demo
 Please visit http://ariang.mayswind.net
-
-## Download
-Latest release: https://github.com/mayswind/AriaNg/releases
 
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
