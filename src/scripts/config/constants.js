@@ -9,6 +9,7 @@
         languagePath: '/langs',
         languageFileExtension: '.json',
         defaultLanguage: 'en',
+        defaultHost: 'localhost',
         globalStatStorageCapacity: 120,
         taskStatStorageCapacity: 300,
         lazySaveTimeout: 500,

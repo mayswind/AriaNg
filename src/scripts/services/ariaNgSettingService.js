@@ -32,7 +32,13 @@
         };
 
         var getDefaultRpcHost = function () {
-            return $location.$$host;
+            var currentHost = $location.$$host;
+
+            if (currentHost) {
+                return currentHost;
+            }
+
+            return ariaNgConstants.defaultHost;
         };
 
         var setOptions = function (options) {
