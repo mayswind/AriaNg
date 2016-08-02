@@ -13,6 +13,7 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   rm -rf langs;
   rm -rf imgs;
   rm -f index.html;
+  rm -f index.manifest;
   rm -f README.md;
   rm -f LICENSE;
 

@@ -41,24 +41,29 @@ gulp.task('lint', function () {
 });
 
 gulp.task('html', ['styles', 'scripts', 'views'], function () {
-  return gulp.src('src/*.html')
-    .pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
+  return gulp.src([
+    'src/*.html'
+  ]).pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
     .pipe($.if('js/*.js', $.replace(/\/\/# sourceMappingURL=.*/g, '')))
     .pipe($.if('css/*.css', $.replace(/\/\*# sourceMappingURL=.* \*\/$/g, '')))
     .pipe($.if(['js/moment-with-locales-*.min.js', 'js/plugins.min.js', 'js/aria-ng.min.js'], $.uglify({preserveComments: 'license'})))
     .pipe($.if(['css/plugins.min.css', 'css/aria-ng.min.css'], $.cssnano({safe: true, autoprefixer: false})))
+    .pipe($.if(['js/plugins.min.js', 'js/aria-ng.min.js', 'css/plugins.min.css', 'css/aria-ng.min.css'], $.rev()))
     .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))
+    .pipe($.revReplace())
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('langs', function () {
-  return gulp.src('src/langs/**/*')
-    .pipe(gulp.dest('dist/langs'));
+  return gulp.src([
+    'src/langs/**/*'
+  ]).pipe(gulp.dest('dist/langs'));
 });
 
 gulp.task('images', function () {
-  return gulp.src('src/imgs/**/*')
-    .pipe(gulp.dest('dist/imgs'));
+  return gulp.src([
+    'src/imgs/**/*'
+  ]).pipe(gulp.dest('dist/imgs'));
 });
 
 gulp.task('fonts', function () {
@@ -67,6 +72,20 @@ gulp.task('fonts', function () {
     'bower_components/font-awesome/fonts/**/*'
   ]).pipe(gulp.dest('.tmp/fonts'))
     .pipe(gulp.dest('dist/fonts'));
+});
+
+gulp.task('manifest', function () {
+  return gulp.src([
+    'dist/**'
+  ], {base: 'dist/'})
+    .pipe($.manifest({
+      hash: true,
+      preferOnline: true,
+      network: ['*'],
+      filename: 'index.manifest',
+      exclude: 'index.manifest'
+    }))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('extras', function () {
@@ -94,7 +113,7 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], function () {
 
   gulp.watch([
     'src/*.html',
-    'src/langs/*.json',
+    'src/langs/*.txt',
     'src/views/*.html',
     'src/imgs/**/*',
     '.tmp/fonts/**/*'
@@ -115,9 +134,13 @@ gulp.task('serve:dist', function () {
   });
 });
 
-gulp.task('build', ['lint', 'html', 'langs', 'images', 'fonts', 'extras'], function () {
-  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+gulp.task('info', function () {
+  return gulp.src([
+    'dist/**/*'
+  ]).pipe($.size({title: 'build', gzip: true}));
 });
+
+gulp.task('build', $.sequence('lint', 'html', 'langs', 'images', 'fonts', 'manifest', 'extras', 'info'));
 
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
