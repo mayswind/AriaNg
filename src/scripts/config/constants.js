@@ -6,7 +6,7 @@
         appPrefix: 'AriaNg',
         optionStorageKey: 'Options',
         languageStorageKeyPrefix: 'Language',
-        languagePath: '/langs',
+        languagePath: 'langs',
         languageFileExtension: '.txt',
         defaultLanguage: 'en',
         defaultHost: 'localhost',
