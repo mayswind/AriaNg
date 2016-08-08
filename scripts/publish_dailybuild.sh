@@ -1,4 +1,10 @@
 if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
+  echo "Packaging daily build...";
+  cd dist;
+  zip $CIRCLE_ARTIFACTS/dist.zip * -r -9;
+  cd ..;
+
+  echo "Publishing online demo...";
   cp dist $CIRCLE_ARTIFACTS/ -r;
   cp README.md $CIRCLE_ARTIFACTS/;
   cp LICENSE $CIRCLE_ARTIFACTS/;
@@ -12,24 +18,20 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   rm -rf js;
   rm -rf langs;
   rm -rf imgs;
+  rm -f downloads/latest_daily_build.zip;
   rm -f index.html;
   rm -f index.manifest;
   rm -f README.md;
   rm -f LICENSE;
 
   cp $CIRCLE_ARTIFACTS/dist/* ./ -r;
-  cp $CIRCLE_ARTIFACTS/README.md ./;
-  cp $CIRCLE_ARTIFACTS/LICENSE ./;
+  mv $CIRCLE_ARTIFACTS/dist.zip ./downloads/latest_daily_build.zip;
+  mv $CIRCLE_ARTIFACTS/README.md ./;
+  mv $CIRCLE_ARTIFACTS/LICENSE ./;
 
   git add -A;
   git commit -a -m "daily build #$CIRCLE_SHA1";
   git push origin gh-pages;
 
-  cd $CIRCLE_ARTIFACTS/dist/;
-  zip $CIRCLE_ARTIFACTS/dist.zip * -r -9;
-  cd ..;
-
-  rm -rf $CIRCLE_ARTIFACTS/dist;
-  rm -f $CIRCLE_ARTIFACTS/README.md;
-  rm -f $CIRCLE_ARTIFACTS/LICENSE;
+  echo "Done.   ";
 fi
