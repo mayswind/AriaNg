@@ -44,6 +44,7 @@ gulp.task('html', ['styles', 'scripts', 'views'], function () {
   return gulp.src([
     'src/*.html'
   ]).pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
+    .pipe($.injectVersion())
     .pipe($.if('js/*.js', $.replace(/\/\/# sourceMappingURL=.*/g, '')))
     .pipe($.if('css/*.css', $.replace(/\/\*# sourceMappingURL=.* \*\/$/g, '')))
     .pipe($.if(['js/moment-with-locales-*.min.js', 'js/plugins.min.js', 'js/aria-ng.min.js'], $.uglify({preserveComments: 'license'})))
