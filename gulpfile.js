@@ -68,15 +68,17 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function () {
   return gulp.src([
-    'bower_components/bootstrap/fonts/**/*',
-    'bower_components/font-awesome/fonts/**/*'
+    'bower_components/font-awesome/fonts/fontawesome-webfont.*'
   ]).pipe(gulp.dest('.tmp/fonts'))
     .pipe(gulp.dest('dist/fonts'));
 });
 
 gulp.task('manifest', function () {
   return gulp.src([
-    'dist/**'
+    'dist/css/**',
+    'dist/js/**',
+    'dist/fonts/fontawesome-webfont.woff2',
+    'dist/*.html'
   ], {base: 'dist/'})
     .pipe($.manifest({
       hash: true,
