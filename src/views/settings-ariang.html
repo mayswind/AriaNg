@@ -1,122 +1,154 @@
 <section class="content no-padding">
-    <div class="settings-table striped hoverable">
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Language</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="context.settings.language"
-                        ng-options="type as language.displayName for (type, language) in context.languages"
-                        ng-change="settingService.setLanguage(context.settings.language)">
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Page Title</span>
-                <i class="icon-primary fa fa-question-circle" ng-tooltip="{{'Supported Placeholder: AriaNg Title ${title}, Downloading Count ${downloading}, Waiting Count ${waiting}, Stopped Count ${stopped}, Download Speed ${downspeed}, Upload Speed ${upspeed}.'| translate}}"
-                   ng-tooltip-container="body" ng-tooltip-placement="right"></i>
-            </div>
-            <div class="setting-value col-sm-8">
-                <input class="form-control" type="text" ng-model="context.settings.title" ng-change="settingService.setTitle(context.settings.title)"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Page Title Refresh Interval</span>
-                <span class="asterisk">*</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="context.settings.titleRefreshInterval"
-                        ng-change="settingService.setTitleRefreshInterval(context.settings.titleRefreshInterval)"
-                        ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Aria2 RPC Host</span>
-                <span class="asterisk">*</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <div class="input-group">
-                    <span class="input-group-addon" ng-bind="context.settings.protocol + '://'"></span>
-                    <input class="form-control" type="text" ng-model="context.settings.rpcHost" ng-change="settingService.setRpcHost(context.settings.rpcHost)"/>
-                    <span class="input-group-addon" style="border-left: 0">:</span>
-                    <span class="input-group-addon" ng-bind="context.settings.rpcPort"></span>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li ng-class="{'active': context.currentTab == 'global'}">
+                <a class="pointer-cursor" ng-click="changeTab('global')" translate>Global</a>
+            </li>
+            <li ng-class="{'active': context.currentTab == 'rpc'}">
+                <a class="pointer-cursor" ng-click="changeTab('rpc')" translate>RPC</a>
+            </li>
+        </ul>
+        <div class="tab-content no-padding">
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'global'}">
+                <div class="settings-table striped hoverable">
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Language</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.language"
+                                    ng-options="type as language.displayName for (type, language) in context.languages"
+                                    ng-change="settingService.setLanguage(context.settings.language)">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Page Title</span>
+                            <i class="icon-primary fa fa-question-circle"
+                               ng-tooltip="{{'Supported Placeholder: AriaNg Title ${title}, Downloading Count ${downloading}, Waiting Count ${waiting}, Stopped Count ${stopped}, Download Speed ${downspeed}, Upload Speed ${upspeed}.'| translate}}"
+                               ng-tooltip-container="body" ng-tooltip-placement="right"></i>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <input class="form-control" type="text" ng-model="context.settings.title"
+                                   ng-change="settingService.setTitle(context.settings.title)"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Page Title Refresh Interval</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.titleRefreshInterval"
+                                    ng-change="settingService.setTitleRefreshInterval(context.settings.titleRefreshInterval)"
+                                    ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="isSupportNotification()">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Enable Browser Notification</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.browserNotification"
+                                    ng-change="setEnableBrowserNotification(context.settings.browserNotification)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Global Stat Refresh Interval</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.globalStatRefreshInterval"
+                                    ng-change="settingService.setGlobalStatRefreshInterval(context.settings.globalStatRefreshInterval)"
+                                    ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Download Task Refresh Interval</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.downloadTaskRefreshInterval"
+                                    ng-change="settingService.setDownloadTaskRefreshInterval(context.settings.downloadTaskRefreshInterval)"
+                                    ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row tip no-background no-hover">
+                        <span class="asterisk">*</span>
+                        <span translate>Changes to the settings take effect after refreshing page.</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Aria2 RPC Port</span>
-                <span class="asterisk">*</span>
+            <div class="tab-pane" ng-class="{'active': context.currentTab == 'rpc'}">
+                <div class="settings-table striped hoverable">
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Aria2 RPC Host</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-addon" ng-bind="context.settings.protocol + '://'"></span>
+                                <input class="form-control" type="text" ng-model="context.settings.rpcHost"
+                                       ng-change="settingService.setRpcHost(context.settings.rpcHost)"/>
+                                <span class="input-group-addon" style="border-left: 0">:</span>
+                                <span class="input-group-addon" ng-bind="context.settings.rpcPort"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Aria2 RPC Port</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <input class="form-control" type="text" ng-model="context.settings.rpcPort"
+                                   ng-change="settingService.setRpcPort(context.settings.rpcPort)"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Aria2 RPC Protocol</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.protocol"
+                                    ng-change="settingService.setProtocol(context.settings.protocol)">
+                                <option value="http" translate>Http</option>
+                                <option value="https" translate>Https</option>
+                                <option value="ws" translate>WebSocket</option>
+                                <option value="wss" translate>WebSocket (Security)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Aria2 RPC Secret Token</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <input class="form-control" type="password" ng-model="context.settings.secret"
+                                   ng-change="settingService.setSecret(context.settings.secret)"/>
+                        </div>
+                    </div>
+                    <div class="row tip no-background no-hover">
+                        <span class="asterisk">*</span>
+                        <span translate>Changes to the settings take effect after refreshing page.</span>
+                    </div>
+                </div>
             </div>
-            <div class="setting-value col-sm-8">
-                <input class="form-control" type="text" ng-model="context.settings.rpcPort" ng-change="settingService.setRpcPort(context.settings.rpcPort)"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Aria2 RPC Protocol</span>
-                <span class="asterisk">*</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="context.settings.protocol" ng-change="settingService.setProtocol(context.settings.protocol)">
-                    <option value="http" translate>Http</option>
-                    <option value="https" translate>Https</option>
-                    <option value="ws" translate>WebSocket</option>
-                    <option value="wss" translate>WebSocket (Security)</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Aria2 RPC Secret Token</span>
-                <span class="asterisk">*</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <input class="form-control" type="password" ng-model="context.settings.secret" ng-change="settingService.setSecret(context.settings.secret)"/>
-            </div>
-        </div>
-        <div class="row" ng-if="isSupportNotification()">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Enable Browser Notification</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="context.settings.browserNotification"
-                        ng-change="setEnableBrowserNotification(context.settings.browserNotification)"
-                        ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Global Stat Refresh Interval</span>
-                <span class="asterisk">*</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="context.settings.globalStatRefreshInterval"
-                        ng-change="settingService.setGlobalStatRefreshInterval(context.settings.globalStatRefreshInterval)"
-                        ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="setting-key setting-key-without-desc col-sm-4">
-                <span translate>Download Task Refresh Interval</span>
-                <span class="asterisk">*</span>
-            </div>
-            <div class="setting-value col-sm-8">
-                <select class="form-control" style="width: 100%;" ng-model="context.settings.downloadTaskRefreshInterval"
-                        ng-change="settingService.setDownloadTaskRefreshInterval(context.settings.downloadTaskRefreshInterval)"
-                        ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
-                </select>
-            </div>
-        </div>
-        <div class="row tip no-background no-hover">
-            <span class="asterisk">*</span>
-            <span translate>Changes to the settings take effect after refreshing page.</span>
         </div>
     </div>
 </section>

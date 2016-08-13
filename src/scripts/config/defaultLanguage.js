@@ -11,6 +11,8 @@
             'Cancel': 'Cancel',
             'True': 'True',
             'False': 'False',
+            'Global': 'Global',
+            'RPC': 'RPC',
             'New': 'New',
             'Start': 'Start',
             'Pause': 'Pause',
