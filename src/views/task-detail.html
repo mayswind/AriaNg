@@ -28,7 +28,7 @@
                             <span translate>Task Name</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="task.taskName"></span>
+                            <span class="allow-word-break" ng-bind="task.taskName"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
@@ -117,7 +117,7 @@
                             <span translate>Info Hash</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="task.infoHash"></span>
+                            <span class="allow-word-break" ng-bind="task.infoHash"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
@@ -125,7 +125,7 @@
                             <span translate>Download Dir</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="task.dir"></span>
+                            <span class="allow-word-break" ng-bind="task.dir"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task && task.bittorrent && task.bittorrent.announceList && task.bittorrent.announceList.length > 0">
@@ -138,7 +138,8 @@
                                title="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <div ng-bind="serverAddress" ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
+                            <div class="auto-ellipsis" ng-bind="serverAddress" title="{{serverAddress}}"
+                                 ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
                         </div>
                     </div>
                     <div class="row no-hover no-background" ng-if="task && task.status == 'active'">
@@ -221,7 +222,7 @@
                                 <div class="checkbox checkbox-primary">
                                     <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status != 'waiting' && task.status != 'paused')"
                                            ng-model="file.selected" ng-change="setSelectedFile()"/>
-                                    <label for="{{'file_' + file.index}}" ng-bind="file.fileName" title="{{file.fileName}}"></label>
+                                    <label for="{{'file_' + file.index}}" class="allow-word-break" ng-bind="file.fileName" title="{{file.fileName}}"></label>
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -276,7 +277,7 @@
                     <div class="task-table-body">
                         <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-md-4 col-sm-4 col-xs-12">
-                                <div class="peer-name-wrapper" title="{{(peer.client ? peer.client.info : '') + (peer.seeder ? (peer.client.info ? ', ' : '') + ('Seeding' | translate) : '')}}">
+                                <div class="peer-name-wrapper auto-ellipsis" title="{{(peer.client ? peer.client.info : '') + (peer.seeder ? (peer.client.info ? ', ' : '') + ('Seeding' | translate) : '')}}">
                                     <span ng-bind="peer.name | translate"></span><i class="icon-seeder fa fa-angle-double-up" ng-if="peer && peer.seeder"></i>
                                     <span class="peer-client" ng-if="!!peer.client"
                                         ng-bind="peer.client ? ('(' + peer.client.name + (peer.client.version ? ' ' + peer.client.version : '') + ')') : ''"></span>

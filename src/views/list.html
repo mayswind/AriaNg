@@ -38,7 +38,7 @@
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
                         <label for="{{'task_' + task.gid}}">
-                            <span class="task-name" ng-bind="task.taskName" title="{{task.taskName}}"></span>
+                            <span class="task-name auto-ellipsis" ng-bind="task.taskName" title="{{task.taskName}}"></span>
                         </label><i class="icon-seeder fa fa-angle-double-up" ng-if="task && task.status == 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
                     </div>
                     <div class="task-files">

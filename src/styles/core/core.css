@@ -38,6 +38,17 @@ td {
     cursor: pointer !important;
 }
 
+.allow-word-break {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.auto-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media (max-width: 767px) {
     .navbar-nav .open .dropdown-menu {
         position: absolute;
