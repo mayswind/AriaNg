@@ -1,9 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, ariaNgCommonService, aria2SettingService) {
+    angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', function ($rootScope, $scope, ariaNgCommonService, ariaNgSettingService, aria2SettingService) {
         $scope.context = {
-            aria2Status: null
+            host: ariaNgSettingService.getJsonRpcUrl(),
+            status: 'Connecting',
+            serverStatus: null
         };
 
         $scope.saveSession = function () {
@@ -27,7 +29,10 @@
         $rootScope.loadPromise = (function () {
             return aria2SettingService.getAria2Status(function (response) {
                 if (response.success) {
-                    $scope.context.aria2Status = response.data;
+                    $scope.context.status = 'Connected';
+                    $scope.context.serverStatus = response.data;
+                } else {
+                    $scope.context.status = 'Not Connected';
                 }
             });
         })();

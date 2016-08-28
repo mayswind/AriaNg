@@ -16,7 +16,7 @@
                     data: context.requestBody
                 };
 
-                return $http(requestContext).success(function (data, header, config, status) {
+                return $http(requestContext).success(function (data) {
                     if (!data) {
                         return;
                     }
@@ -24,9 +24,16 @@
                     if (context.successCallback) {
                         context.successCallback(data.id, data.result);
                     }
-                }).error(function (data, header, config, status) {
+                }).error(function (data) {
                     if (!data) {
-                        return;
+                        data = {
+                            id: '-1',
+                            error: {
+                                // code: '-1',
+                                // message: 'Unknown Error',
+                                innerError: true
+                            }
+                        };
                     }
 
                     if (context.errorCallback) {
