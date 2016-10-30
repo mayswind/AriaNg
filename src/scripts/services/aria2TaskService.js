@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2RpcService', 'ariaNgCommonService', function ($q, $translate, bittorrentPeeridService, aria2RpcService, ariaNgCommonService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', function ($q, $translate, bittorrentPeeridService, aria2Errors, aria2RpcService, ariaNgCommonService) {
         var getFileName = function (file) {
             if (!file) {
                 return '';
@@ -31,7 +31,7 @@
         };
 
         var getTaskName = function (task) {
-            var taskName = "";
+            var taskName = '';
             var success = true;
 
             if (task.bittorrent && task.bittorrent.info) {
@@ -51,6 +51,22 @@
                 name: taskName,
                 success: success
             };
+        };
+
+        var getTaskErrorDescription = function (task) {
+            if (!task.errorCode) {
+                return '';
+            }
+
+            if (!aria2Errors[task.errorCode] || !aria2Errors[task.errorCode].descriptionKey) {
+                return '';
+            }
+
+            if (aria2Errors[task.errorCode].hide) {
+                return '';
+            }
+
+            return aria2Errors[task.errorCode].descriptionKey;
         };
 
         var getPieceStatus = function (bitField, pieceCount) {
@@ -133,6 +149,8 @@
             var taskNameResult = getTaskName(task);
             task.taskName = taskNameResult.name;
             task.hasTaskName = taskNameResult.success;
+
+            task.errorDescription = getTaskErrorDescription(task);
 
             if (task.files) {
                 var selectedFileCount = 0;
