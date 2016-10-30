@@ -60,14 +60,14 @@
                     </div>
                     <div>
                         <span class="task-last-time"
-                              ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
+                              ng-bind="task.status === 'waiting' ? '--:--:--' : (task.status === 'paused' ? '' : (task.status === 'active' ? ((0 <= task.remainTime && task.remainTime < 86400) ? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)) : ''))"></span>
                         <span class="task-download-speed visible-xs-inline pull-right"
-                              ng-bind="(task.downloadSpeed | readableVolumn) + '/s'"></span>
-                        <span class="task-seeders pull-right" ng-bind="(task.numSeeders ? (task.numSeeders + '/') : '') + task.connections"></span>
+                              ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-') : ''))"></span>
+                        <span class="task-seeders pull-right" ng-bind="task.status === 'active' ? ((task.numSeeders ? (task.numSeeders + '/') : '') + task.connections) : ''"></span>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 hidden-xs">
-                    <span class="task-download-speed" ng-bind="(!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-')"></span>
+                    <span class="task-download-speed" ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-') : ''))"></span>
                 </div>
             </div>
         </div>
