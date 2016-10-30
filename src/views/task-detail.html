@@ -37,7 +37,9 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="task.totalLength | readableVolumn"></span>
-                            <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
+                            <a class="pointer-cursor" ng-if="task.files" ng-click="changeTab('filelist')">
+                                <span ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
+                            </a>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
