@@ -20,6 +20,7 @@ Select All=全选
 Select None=不选
 Select Invert=反选
 Display Order=显示顺序
+Help=帮助
 Search=搜索
 Default=默认
 Expand=展开
