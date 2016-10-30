@@ -221,6 +221,10 @@
     background-color: #208fe5;
 }
 
+.skin-aria-ng .progress-bar-warning {
+    background-color: #f39c12;
+}
+
 .skin-aria-ng .icon-primary {
     color: #3c8dbc;
 }
@@ -235,7 +239,12 @@
 
 .skin-aria-ng .icon-seeder {
     margin-left: 4px;
-    color: #da412c;
+    color: #74a329;
+}
+
+.skin-aria-ng .icon-error {
+    margin-left: 4px;
+    color: #dd4b39;
 }
 
 .skin-aria-ng .icon-expand {

@@ -205,7 +205,8 @@
                     'connections',
                     'numSeeders',
                     'seeder',
-                    'status'
+                    'status',
+                    'errorCode'
                 ];
             },
             getFullTaskParams: function () {
