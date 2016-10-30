@@ -61,7 +61,7 @@
                             <i class="fa fa-play"></i>
                         </a>
                     </li>
-                    <li class="disabled" ng-class="{'disabled': !isSpecifiedTaskSelected('active')}">
+                    <li class="disabled" ng-class="{'disabled': !isSpecifiedTaskSelected('active', 'waiting')}">
                         <a class="toolbar" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
                             <i class="fa fa-pause"></i>
                         </a>
