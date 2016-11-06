@@ -117,6 +117,7 @@
             'BT Download Completed': 'BT Download Completed',
             'Download Error': 'Download Error',
             'Language': 'Language',
+            'Debug Mode': 'Debug Mode',
             'Page Title': 'Page Title',
             'Page Title Refresh Interval': 'Page Title Refresh Interval',
             'Enable Browser Notification': 'Enable Browser Notification',

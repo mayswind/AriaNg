@@ -1,17 +1,20 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgNotificationService', function ($rootScope, $scope, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgNotificationService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgNotificationService', function ($rootScope, $scope, $routeParams, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgNotificationService) {
         var tabOrders = ['global', 'rpc'];
+        var extendType = $routeParams.extendType;
 
         $scope.context = {
             currentTab: 'global',
             languages: ariaNgLanguages,
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
             trueFalseOptions: [{name: 'True', value: true}, {name: 'False', value: false}],
-            settings: ariaNgSettingService.getAllOptions()
+            settings: ariaNgSettingService.getAllOptions(),
+            sessionSettings: ariaNgSettingService.getAllSessionOptions()
         };
 
+        $scope.context.showDebugMode = $scope.context.sessionSettings.debugMode || extendType === 'debug';
 
         $scope.changeTab = function (tabName) {
             $scope.context.currentTab = tabName;

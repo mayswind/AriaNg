@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgSettingService', function ($http, ariaNgSettingService) {
+    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
 
         return {
@@ -16,7 +16,11 @@
                     data: context.requestBody
                 };
 
+                ariaNgLogService.debug('Http Request Start', requestContext);
+
                 return $http(requestContext).success(function (data) {
+                    ariaNgLogService.debug('Http Response Success', data);
+
                     if (!data) {
                         return;
                     }
@@ -25,6 +29,8 @@
                         context.successCallback(data.id, data.result);
                     }
                 }).error(function (data) {
+                    ariaNgLogService.debug('Http Response Error', data);
+
                     if (!data) {
                         data = {
                             id: '-1',

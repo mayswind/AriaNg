@@ -31,6 +31,10 @@
                 templateUrl: 'views/settings-ariang.html',
                 controller: 'AriaNgSettingsController'
             })
+            .when('/settings/ariang/:extendType', {
+                templateUrl: 'views/settings-ariang.html',
+                controller: 'AriaNgSettingsController'
+            })
             .when('/settings/aria2/basic', {
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'

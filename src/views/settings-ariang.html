@@ -22,6 +22,17 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row" ng-if="context.showDebugMode">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Debug Mode</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.sessionSettings.debugMode"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions"
+                                    ng-change="settingService.setDebugMode(context.sessionSettings.debugMode)">
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Page Title</span>

@@ -3,6 +3,9 @@
 
     angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
         var onFirstVisitCallbacks = [];
+        var sessionSettings = {
+            debugMode: false
+        };
 
         var fireFirstVisitEvent = function () {
             if (!angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
@@ -91,6 +94,9 @@
 
                 return options;
             },
+            getAllSessionOptions: function () {
+                return angular.copy(sessionSettings);
+            },
             applyLanguage: function (lang) {
                 if (!ariaNgLanguages[lang]) {
                     return false;
@@ -108,6 +114,12 @@
                 if (this.applyLanguage(value)) {
                     setOption('language', value);
                 }
+            },
+            isEnableDebugMode: function () {
+                return sessionSettings.debugMode;
+            },
+            setDebugMode: function (value) {
+                sessionSettings.debugMode = value;
             },
             getTitle: function () {
                 return getOption('title');

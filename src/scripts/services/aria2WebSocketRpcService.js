@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', 'ariaNgSettingService', function ($q, $websocket, ariaNgSettingService) {
+    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', 'ariaNgSettingService', 'ariaNgLogService', function ($q, $websocket, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
         var socketClient = null;
 
@@ -29,10 +29,14 @@
             });
 
             if (content.result && context.successCallback) {
+                ariaNgLogService.debug('WebSocket Response Success', content);
+
                 context.successCallback(context.id, content.result);
             }
 
             if (content.error && context.errorCallback) {
+                ariaNgLogService.debug('WebSocket Response Error', content);
+
                 context.errorCallback(context.id, content.error);
             }
 
@@ -94,6 +98,8 @@
                 var client = getSocketClient();
                 var uniqueId = context.uniqueId;
                 var requestBody = angular.toJson(context.requestBody);
+
+                ariaNgLogService.debug('WebSocket Request Start', context);
 
                 var deferred = $q.defer();
 

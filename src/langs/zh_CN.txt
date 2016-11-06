@@ -113,6 +113,7 @@ Download Completed=下载完成
 BT Download Completed=BT 下载完成
 Download Error=下载出错
 Language=语言
+Debug Mode=调试模式
 Page Title=页面标题
 Page Title Refresh Interval=页面标题刷新间隔
 Enable Browser Notification=启用浏览器通知
