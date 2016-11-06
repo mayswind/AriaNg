@@ -32,6 +32,12 @@
                     }
 
                     $timeout(function () {
+                        var currentValue = scope.optionStatus.getValue();
+
+                        if (currentValue !== 'failed' && currentValue !== 'error') {
+                            return;
+                        }
+
                         angular.element(element).tooltip({
                             title: $translate.instant(cause, causeParams),
                             trigger: 'focus',

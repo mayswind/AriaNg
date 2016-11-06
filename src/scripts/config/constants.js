@@ -13,7 +13,7 @@
         globalStatStorageCapacity: 120,
         taskStatStorageCapacity: 300,
         lazySaveTimeout: 500,
-        errorTooltipDelay: 200,
+        errorTooltipDelay: 500,
         notificationInPageTimeout: 2000
     }).constant('ariaNgFileTypes', {
         video: [
