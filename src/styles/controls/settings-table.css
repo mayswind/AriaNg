@@ -42,10 +42,6 @@
     font-weight: normal;
 }
 
-.settings-table .wholeline {
-    display: block;
-}
-
 .settings-table .setting-value .form-group {
     margin-bottom: 0;
 }

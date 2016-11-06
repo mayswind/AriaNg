@@ -48,6 +48,11 @@
     padding-left: 0;
 }
 
+.checkbox-compact {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 /* angular-dragula extend */
 .gu-mirror {
     cursor: grabbing;

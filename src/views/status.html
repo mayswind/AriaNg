@@ -30,7 +30,12 @@
                 <span translate>Enabled Features</span>
             </div>
             <div class="setting-value col-sm-8">
-                <span class="wholeline" ng-repeat="feature in context.serverStatus.enabledFeatures" ng-bind="feature"></span>
+                <div class="checkbox checkbox-primary checkbox-compact" ng-repeat="feature in context.serverStatus.enabledFeatures">
+                    <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled"/>
+                    <label for="{{'feature_' + $index}}">
+                        <span ng-bind="feature"></span>
+                    </label>
+                </div>
             </div>
         </div>
         <div class="row ng-cloak" ng-if="context.serverStatus">
