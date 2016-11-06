@@ -59,6 +59,8 @@
             }
         };
 
+        $('[data-toggle="popover"]').popover();
+
         $rootScope.loadPromise = $timeout(function () {}, 100);
     }]);
 }());
