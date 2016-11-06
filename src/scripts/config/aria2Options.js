@@ -3,10 +3,12 @@
     angular.module('ariaNg').constant('aria2AllOptions', {
         // EXAMPLE:
         // 'option key': {
+        //     [since: '',] //This option is supported by this or higher aria2 version
         //     type: 'string|integer|float|text|boolean|option',
         //     [suffix: 'Bytes|Milliseconds|Seconds|Minutes|Hours',]
-        //     [defaultValue: '',]
         //     [readonly: true|false,] //default: false
+        //     [defaultValue: '',]
+        //     [required: true|false,] //default: false
         //     [split: '',] //SUPPORT 'text' type
         //     [showCount: true|false,] //SUPPORT 'text' type, parameter 'split' is required, default: false
         //     [options: [],] //SUPPORT 'option' type
@@ -283,6 +285,7 @@
             defaultValue: 'false'
         },
         'bt-enable-hook-after-hash-check': {
+            since: '1.19.3',
             type: 'boolean',
             defaultValue: 'true',
             required: true
@@ -470,7 +473,7 @@
             min: 0
         },
         'seed-time': {
-            type: 'integer',
+            type: 'float',
             suffix: 'Minutes',
             required: true,
             min: 0
@@ -655,6 +658,12 @@
             defaultValue: 'false',
             required: true
         },
+        'save-not-found': {
+            since: '1.27.0',
+            type: 'boolean',
+            defaultValue: 'true',
+            required: true
+        },
         'hash-check-only': {
             type: 'boolean',
             defaultValue: 'false',
@@ -665,6 +674,11 @@
             readonly: true,
             defaultValue: 'true'
         },
+        'keep-unfinished-download-result': {
+            type: 'boolean',
+            defaultValue: 'true',
+            required: true
+        },
         'max-download-result': {
             type: 'integer',
             defaultValue: '1000',
@@ -672,6 +686,7 @@
             min: 0
         },
         'max-mmap-limit': {
+            since: '1.20.0',
             type: 'string',
             suffix: 'Bytes',
             defaultValue: '9223372036854775807',
@@ -697,6 +712,7 @@
             required: true
         },
         'optimize-concurrent-downloads': {
+            since: '1.22.0',
             type: 'string',
             defaultValue: 'false'
         },
@@ -772,6 +788,7 @@
             defaultValue: '0'
         },
         'socket-recv-buffer-size': {
+            since: '1.19.3',
             type: 'string',
             suffix: 'Bytes',
             readonly: true,
@@ -796,7 +813,7 @@
         btOptions: ['bt-detach-seed-only', 'bt-enable-hook-after-hash-check', 'bt-enable-lpd', 'bt-exclude-tracker', 'bt-external-ip', 'bt-force-encryption', 'bt-hash-check-seed', 'bt-max-open-files', 'bt-max-peers', 'bt-metadata-only', 'bt-min-crypto-level', 'bt-prioritize-piece', 'bt-remove-unselected-file', 'bt-require-crypto', 'bt-request-peer-speed-limit', 'bt-save-metadata', 'bt-seed-unverified', 'bt-stop-timeout', 'bt-tracker', 'bt-tracker-connect-timeout', 'bt-tracker-interval', 'bt-tracker-timeout', 'dht-file-path', 'dht-file-path6', 'dht-listen-port', 'dht-message-timeout', 'enable-dht', 'enable-dht6', 'enable-peer-exchange', 'follow-torrent', 'listen-port', 'max-overall-upload-limit', 'max-upload-limit', 'peer-id-prefix', 'seed-ratio', 'seed-time'],
         metalinkOptions: ['follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os', 'metalink-version', 'metalink-preferred-protocol', 'metalink-enable-unique-protocol'],
         rpcOptions: ['enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port', 'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'],
-        advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'hash-check-only', 'human-readable', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
+        advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'save-not-found', 'hash-check-only', 'human-readable', 'keep-unfinished-download-result', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
     }).constant('aria2TaskAvailableOptions', {
         taskOptions: [
             {

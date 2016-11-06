@@ -6,6 +6,7 @@
            data-toggle="popover" data-trigger="hover" data-placement="auto top" data-container="body" data-content="{{option.descriptionKey | translate}}"></i>
         <span class="description" ng-if="option.showCount && option.split && optionValue"
               ng-bind="'format.settings.total-count' | translate: {count: getTotalCount()}"></span>
+        <i class="icon-primary fa fa-info-circle" ng-if="(option.since && option.since !== '')" ng-tooltip="{{'>= ' + option.since}}" ng-tooltip-container="body" ng-tooltip-placement="right"></i>
     </div>
     <div class="setting-value col-sm-8">
         <div ng-class="{'input-group': !!option.suffix}">
