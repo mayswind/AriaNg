@@ -10,6 +10,7 @@
             languages: ariaNgLanguages,
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
             trueFalseOptions: [{name: 'True', value: true}, {name: 'False', value: false}],
+            showRpcSecret: false,
             settings: ariaNgSettingService.getAllOptions(),
             sessionSettings: ariaNgSettingService.getAllSessionOptions()
         };

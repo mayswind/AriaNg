@@ -1,3 +1,8 @@
+/* bootstrap */
+.input-group-addon-compact {
+    padding: 0 4px 0 4px;
+}
+
 /* font-awesome extend */
 .fa-half {
     font-size: 0.5em;
