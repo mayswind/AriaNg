@@ -146,7 +146,7 @@
                                  ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
                         </div>
                     </div>
-                    <div class="row no-hover no-background" ng-if="task && task.status == 'active'">
+                    <div class="row no-hover no-background" ng-if="context.isEnableSpeedChart && task && task.status == 'active'">
                         <div class="col-sm-12">
                             <div class="task-status-chart-wrapper">
                                 <ng-chart ng-data="context.statusData" height="200"></ng-chart>

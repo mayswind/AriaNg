@@ -46,6 +46,7 @@
         }
 
         $scope.globalStatusContext = {
+            isEnabled: ariaNgSettingService.getGlobalStatRefreshInterval() > 0,
             data: ariaNgMonitorService.getGlobalStatsData()
         };
 

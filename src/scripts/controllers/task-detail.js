@@ -127,6 +127,7 @@
 
         $scope.context = {
             currentTab: 'overview',
+            isEnableSpeedChart: ariaNgSettingService.getDownloadTaskRefreshInterval() > 0,
             showChooseFilesToolbar: false,
             btPeers: [],
             healthPercent: 0,
