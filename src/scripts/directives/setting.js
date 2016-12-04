@@ -52,6 +52,34 @@
                     }, options.errorTooltipDelay);
                 };
 
+                var getHumanReadableSize = function (size) {
+                    if (!size || parseInt(size).toString() != size) {
+                        return size;
+                    }
+
+                    var sizeUnits = ['', 'K', 'M', 'G'];
+                    var unitIndex = 0;
+
+                    for (var i = 0; i < sizeUnits.length; i++) {
+                        if ((size < 1024) || (size % 1024 != 0)) {
+                            break;
+                        }
+
+                        size = size / 1024;
+                        unitIndex++;
+                    }
+
+                    return size + sizeUnits[unitIndex];
+                };
+
+                var getHumanReadableValue = function (value) {
+                    if (scope.option.suffix === 'Bytes') {
+                        return getHumanReadableSize(value);
+                    }
+
+                    return value;
+                };
+
                 scope.optionStatus = (function () {
                     var value = 'ready';
 
@@ -205,7 +233,7 @@
                     scope.$watch(function () {
                         return ngModel.$viewValue;
                     }, function (value) {
-                        scope.optionValue = value;
+                        scope.optionValue = getHumanReadableValue(value);
                     });
                 }
 
@@ -227,7 +255,7 @@
                         }
                     }
 
-                    scope.placeholder = displayValue;
+                    scope.placeholder = getHumanReadableValue(displayValue);
                 });
             }
         };
