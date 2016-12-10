@@ -7,6 +7,6 @@
             var result = parseInt(value * ratio) / ratio;
 
             return $filter('number')(result, precision);
-        }
+        };
     }]);
 }());

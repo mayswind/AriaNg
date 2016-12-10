@@ -6,6 +6,6 @@
             var timespan = moment.duration(duration, sourceUnit);
             var time = moment.utc(timespan.asMilliseconds());
             return time.format(format);
-        }
+        };
     }]);
 }());

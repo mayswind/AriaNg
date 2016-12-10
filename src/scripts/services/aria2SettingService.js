@@ -154,14 +154,14 @@
                 return aria2RpcService.getVersion({
                     silent: !!silent,
                     callback: callback
-                })
+                });
             },
             getGlobalStat: function (callback, silent) {
                 return aria2RpcService.getGlobalStat({
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn("[aria2SettingService.getGlobalStat] callback is null");
+                            ariaNgLogService.warn('[aria2SettingService.getGlobalStat] callback is null');
                             return;
                         }
 
@@ -174,13 +174,13 @@
                 return aria2RpcService.saveSession({
                     silent: !!silent,
                     callback: callback
-                })
+                });
             },
             shutdown: function (callback, silent) {
                 return aria2RpcService.shutdown({
                     silent: !!silent,
                     callback: callback
-                })
+                });
             }
         };
     }]);

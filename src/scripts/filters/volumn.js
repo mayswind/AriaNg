@@ -32,6 +32,6 @@
             value = $filter('number')(value, fractionSize);
 
             return value + ' ' + unit;
-        }
+        };
     }]);
 }());

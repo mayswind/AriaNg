@@ -4,7 +4,7 @@
     angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', 'ariaNgLogService', function ($q, $translate, bittorrentPeeridService, aria2Errors, aria2RpcService, ariaNgCommonService, ariaNgLogService) {
         var getFileName = function (file) {
             if (!file) {
-                ariaNgLogService.warn("[aria2TaskService.getFileName] file is null");
+                ariaNgLogService.warn('[aria2TaskService.getFileName] file is null');
                 return '';
             }
 
@@ -123,7 +123,7 @@
 
         var processDownloadTask = function (task) {
             if (!task) {
-                ariaNgLogService.warn("[aria2TaskService.processDownloadTask] task is null");
+                ariaNgLogService.warn('[aria2TaskService.processDownloadTask] task is null');
                 return task;
             }
 
@@ -176,7 +176,7 @@
 
         var processBtPeers = function (peers, task, includeLocalPeer) {
             if (!peers) {
-                ariaNgLogService.warn("[aria2TaskService.processBtPeers] peers is null");
+                ariaNgLogService.warn('[aria2TaskService.processBtPeers] peers is null');
                 return peers;
             }
 
@@ -240,7 +240,7 @@
                 } else {
                     callback(context);
                 }
-            }
+            };
         };
 
         var createLocalPeerFromTask = function (task) {
@@ -275,7 +275,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn("[aria2TaskService.getTaskList] callback is null");
+                            ariaNgLogService.warn('[aria2TaskService.getTaskList] callback is null');
                             return;
                         }
 
@@ -289,7 +289,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn("[aria2TaskService.getTaskStatus] callback is null");
+                            ariaNgLogService.warn('[aria2TaskService.getTaskStatus] callback is null');
                             return;
                         }
 
@@ -338,7 +338,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn("[aria2TaskService.getBtTaskPeers] callback is null");
+                            ariaNgLogService.warn('[aria2TaskService.getBtTaskPeers] callback is null');
                             return;
                         }
 
@@ -364,7 +364,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn("[aria2TaskService.getTaskStatusAndBtPeers] callback is null");
+                            ariaNgLogService.warn('[aria2TaskService.getTaskStatusAndBtPeers] callback is null');
                             return;
                         }
 
@@ -445,12 +445,12 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn("[aria2TaskService.restartTask] callback is null");
+                            ariaNgLogService.warn('[aria2TaskService.restartTask] callback is null');
                             return;
                         }
 
                         if (!response.success) {
-                            ariaNgLogService.warn("[aria2TaskService.restartTask] response is not success");
+                            ariaNgLogService.warn('[aria2TaskService.restartTask] response is not success');
                             deferred.reject(response);
                             callback(response);
                             return;
@@ -466,23 +466,23 @@
 
                         if (!task || !options || !task.files || task.files.length != 1 || task.bittorrent) {
                             if (!task) {
-                                ariaNgLogService.warn("[aria2TaskService.restartTask] task is null");
+                                ariaNgLogService.warn('[aria2TaskService.restartTask] task is null');
                             }
 
                             if (!options) {
-                                ariaNgLogService.warn("[aria2TaskService.restartTask] options is null");
+                                ariaNgLogService.warn('[aria2TaskService.restartTask] options is null');
                             }
 
                             if (!task.files) {
-                                ariaNgLogService.warn("[aria2TaskService.restartTask] task file is null");
+                                ariaNgLogService.warn('[aria2TaskService.restartTask] task file is null');
                             }
 
                             if (task.files.length != 1) {
-                                ariaNgLogService.warn("[aria2TaskService.restartTask] task file length is not equal 1");
+                                ariaNgLogService.warn('[aria2TaskService.restartTask] task file length is not equal 1');
                             }
 
                             if (task.bittorrent) {
-                                ariaNgLogService.warn("[aria2TaskService.restartTask] task is bittorrent");
+                                ariaNgLogService.warn('[aria2TaskService.restartTask] task is bittorrent');
                             }
 
                             deferred.reject(gid);
@@ -509,7 +509,7 @@
                             silent: !!silent,
                             callback: function (response) {
                                 if (!response.success) {
-                                    ariaNgLogService.warn("[aria2TaskService.restartTask] addUri response is not success");
+                                    ariaNgLogService.warn('[aria2TaskService.restartTask] addUri response is not success');
                                     deferred.reject(response);
                                     callback(response);
                                     return;
@@ -583,7 +583,7 @@
                     how: 'POS_SET',
                     silent: !!silent,
                     callback: callback
-                })
+                });
             },
             clearStoppedTasks: function (callback, silent) {
                 return aria2RpcService.purgeDownloadResult({
@@ -593,7 +593,7 @@
             },
             onFirstSuccess: function (callback) {
                 if (!callback) {
-                    ariaNgLogService.warn("[aria2TaskService.onFirstSuccess] callback is null");
+                    ariaNgLogService.warn('[aria2TaskService.onFirstSuccess] callback is null');
                     return;
                 }
 
@@ -603,7 +603,7 @@
             },
             onTaskCompleted: function (callback) {
                 if (!callback) {
-                    ariaNgLogService.warn("[aria2TaskService.onTaskCompleted] callback is null");
+                    ariaNgLogService.warn('[aria2TaskService.onTaskCompleted] callback is null');
                     return;
                 }
 
@@ -613,7 +613,7 @@
             },
             onBtTaskCompleted: function (callback) {
                 if (!callback) {
-                    ariaNgLogService.warn("[aria2TaskService.onBtTaskCompleted] callback is null");
+                    ariaNgLogService.warn('[aria2TaskService.onBtTaskCompleted] callback is null');
                     return;
                 }
 
@@ -623,7 +623,7 @@
             },
             onTaskErrorOccur: function (callback) {
                 if (!callback) {
-                    ariaNgLogService.warn("[aria2TaskService.onTaskErrorOccur] callback is null");
+                    ariaNgLogService.warn('[aria2TaskService.onTaskErrorOccur] callback is null');
                     return;
                 }
 
@@ -633,7 +633,7 @@
             },
             processDownloadTasks: function (tasks) {
                 if (!angular.isArray(tasks)) {
-                    ariaNgLogService.warn("[aria2TaskService.processDownloadTasks] tasks is not array");
+                    ariaNgLogService.warn('[aria2TaskService.processDownloadTasks] tasks is not array');
                     return;
                 }
 
@@ -649,7 +649,7 @@
             },
             estimateHealthPercentFromPeers: function (task, peers) {
                 if (!task || task.numPieces < 1 || peers.length < 1) {
-                    ariaNgLogService.warn("[aria2TaskService.estimateHealthPercentFromPeers] tasks is null or numPieces < 1 or peers < 1");
+                    ariaNgLogService.warn('[aria2TaskService.estimateHealthPercentFromPeers] tasks is null or numPieces < 1 or peers < 1');
                     return task.completePercent;
                 }
 

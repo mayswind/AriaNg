@@ -25,7 +25,7 @@
                 return ariaNgDefaultOptions.language;
             }
 
-            browserLang = browserLang.replace(/\-/g, "_");
+            browserLang = browserLang.replace(/\-/g, '_');
 
             if (!ariaNgLanguages[browserLang]) {
                 return ariaNgDefaultOptions.language;

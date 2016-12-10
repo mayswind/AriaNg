@@ -59,7 +59,7 @@
         var refreshDownloadTask = function (silent) {
             if (pauseDownloadTaskRefresh) {
                 return;
-                }
+            }
 
             var processError = function (message) {
                 if (message === aria2RpcErrors.Unauthorized.message) {

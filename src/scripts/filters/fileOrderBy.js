@@ -22,6 +22,6 @@
             } else {
                 return array;
             }
-        }
+        };
     }]);
 }());

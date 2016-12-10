@@ -28,6 +28,6 @@
             } else {
                 return array;
             }
-        }
+        };
     }]);
 }());

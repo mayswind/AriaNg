@@ -9,7 +9,7 @@
                 return {
                     key: line.substring(0, equalSignPos),
                     value: line.substring(equalSignPos + 1, line.length)
-                }
+                };
             } else {
                 return {
                     value: line

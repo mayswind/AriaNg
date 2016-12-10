@@ -17,7 +17,7 @@
                     stoppedCount: globalStat.numStopped,
                     downloadSpeed: globalStat.downloadSpeed,
                     uploadSpeed: globalStat.uploadSpeed
-                }
+                };
             })($scope.globalStat);
 
             $document[0].title = ariaNgSettingService.getFinalTitle(context);

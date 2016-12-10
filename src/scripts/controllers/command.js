@@ -21,7 +21,7 @@
             var base64Url = $routeParams.url;
             var url = base64.urldecode(base64Url);
             $rootScope.loadPromise = newUrlDownload(url);
-            ariaNgLogService.info("[CommandController] new download: " + url);
+            ariaNgLogService.info('[CommandController] new download: ' + url);
         } else {
             ariaNgCommonService.error('Parameter is invalid!');
         }

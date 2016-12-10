@@ -82,6 +82,6 @@
             clearNotificationInPage: function () {
                 Notification.clearAll();
             }
-        }
+        };
     }]);
 }());

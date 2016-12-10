@@ -579,5 +579,5 @@
         };
 
         $translateProvider.translations(ariaNgConstants.defaultLanguage, defaultLanguageResource);
-    }])
+    }]);
 }());

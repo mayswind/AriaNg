@@ -154,6 +154,6 @@
             getGlobalStatsData: function () {
                 return this.getStatsData(globalStorageKey);
             }
-        }
+        };
     }]);
 }());

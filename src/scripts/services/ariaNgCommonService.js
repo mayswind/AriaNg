@@ -20,7 +20,7 @@
                 }, 100);
             },
             showError: function (text) {
-                ariaNgLogService.info("[ariaNgCommonService.showError] " + text);
+                ariaNgLogService.info('[ariaNgCommonService.showError] ' + text);
                 this.showDialog('Error', text, 'error');
             },
             showOperationSucceeded: function (text) {
@@ -174,7 +174,7 @@
                         }
                     },
                     getValue: function () {
-                        return this.type + ":" + this.order;
+                        return this.type + ':' + this.order;
                     }
                 };
 
@@ -227,7 +227,7 @@
                         name: name,
                         value: value,
                         optionValue: time
-                    })
+                    });
                 }
 
                 return options;

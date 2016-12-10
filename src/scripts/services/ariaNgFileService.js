@@ -87,6 +87,6 @@
                     reader.readAsDataURL(file);
                 }).trigger('click');
             }
-        }
+        };
     }]);
 }());
