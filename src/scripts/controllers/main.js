@@ -119,19 +119,40 @@
                 refreshGlobalStat(true);
 
                 if (!response.hasError && state === 'start') {
-                    if ($location.path() === '/waiting') {
+                    if ($location.path() !== '/downloading') {
                         $location.path('/downloading');
                     } else {
                         $route.reload();
                     }
                 } else if (!response.hasError && state === 'pause') {
-                    if ($location.path() === '/downloading') {
+                    if ($location.path() !== '/waiting') {
                         $location.path('/waiting');
                     } else {
                         $route.reload();
                     }
                 }
             }, (gids.length > 1));
+        };
+
+        $scope.restart = function (task) {
+            ariaNgCommonService.confirm('Confirm Restart', 'Are you sure you want to restart this task? AriaNg will create a same task after clicking OK.', 'info', function () {
+                $rootScope.loadPromise = aria2TaskService.restartTask(task.gid, function (response) {
+                    if (!response.success) {
+                        ariaNgCommonService.showError('Failed to restart this task.');
+                        return;
+                    }
+
+                    refreshGlobalStat(true);
+
+                    if (response.success) {
+                        if ($location.path() !== '/downloading') {
+                            $location.path('/downloading');
+                        } else {
+                            $route.reload();
+                        }
+                    }
+                }, false);
+            });
         };
 
         $scope.removeTasks = function () {
@@ -154,10 +175,10 @@
                     refreshGlobalStat(true);
 
                     if (!response.hasError) {
-                        if ($location.path() === '/stopped') {
-                            $route.reload();
-                        } else {
+                        if ($location.path() !== '/stopped') {
                             $location.path('/stopped');
+                        } else {
+                            $route.reload();
                         }
                     }
                 }, (tasks.length > 1));
@@ -173,10 +194,10 @@
 
                     refreshGlobalStat(true);
 
-                    if ($location.path() === '/stopped') {
-                        $route.reload();
-                    } else {
+                    if ($location.path() !== '/stopped') {
                         $location.path('/stopped');
+                    } else {
+                        $route.reload();
                     }
                 });
             });
