@@ -119,13 +119,13 @@
                 refreshGlobalStat(true);
 
                 if (!response.hasError && state === 'start') {
-                    if ($location.path() !== '/downloading') {
+                    if ($location.path() === '/waiting') {
                         $location.path('/downloading');
                     } else {
                         $route.reload();
                     }
                 } else if (!response.hasError && state === 'pause') {
-                    if ($location.path() !== '/waiting') {
+                    if ($location.path() === '/downloading') {
                         $location.path('/waiting');
                     } else {
                         $route.reload();
