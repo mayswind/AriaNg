@@ -20,7 +20,7 @@
                 }, 100);
             },
             showError: function (text) {
-                ariaNgLogService.error("[Error Dialog] " + text);
+                ariaNgLogService.info("[ariaNgCommonService.showError] " + text);
                 this.showDialog('Error', text, 'error');
             },
             showOperationSucceeded: function (text) {

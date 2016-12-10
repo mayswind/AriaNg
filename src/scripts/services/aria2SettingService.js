@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'ariaNgCommonService', 'aria2RpcService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, ariaNgCommonService, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'ariaNgCommonService', 'aria2RpcService', 'ariaNgLogService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, ariaNgCommonService, aria2RpcService, ariaNgLogService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
@@ -161,6 +161,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
+                            ariaNgLogService.warn("[aria2SettingService.getGlobalStat] callback is null");
                             return;
                         }
 

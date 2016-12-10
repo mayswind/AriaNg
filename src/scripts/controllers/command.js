@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$location', '$routeParams', 'base64', 'ariaNgCommonService', 'aria2TaskService', function ($rootScope, $location, $routeParams, base64, ariaNgCommonService, aria2TaskService) {
+    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$location', '$routeParams', 'base64', 'ariaNgCommonService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $location, $routeParams, base64, ariaNgCommonService, aria2TaskService, ariaNgLogService) {
         var path = $location.path();
 
         var newUrlDownload = function (url) {
@@ -21,6 +21,7 @@
             var base64Url = $routeParams.url;
             var url = base64.urldecode(base64Url);
             $rootScope.loadPromise = newUrlDownload(url);
+            ariaNgLogService.info("[CommandController] new download: " + url);
         } else {
             ariaNgCommonService.error('Parameter is invalid!');
         }

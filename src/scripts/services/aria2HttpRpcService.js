@@ -16,10 +16,10 @@
                     data: context.requestBody
                 };
 
-                ariaNgLogService.debug('Http Request Start', requestContext);
+                ariaNgLogService.debug('[aria2HttpRpcService.request] request start', requestContext);
 
                 return $http(requestContext).success(function (data) {
-                    ariaNgLogService.debug('Http Response Success', data);
+                    ariaNgLogService.debug('[aria2HttpRpcService.request] response success', data);
 
                     if (!data) {
                         return;
@@ -29,7 +29,7 @@
                         context.successCallback(data.id, data.result);
                     }
                 }).error(function (data) {
-                    ariaNgLogService.debug('Http Response Error', data);
+                    ariaNgLogService.debug('[aria2HttpRpcService.request] response error', data);
 
                     if (!data) {
                         data = {

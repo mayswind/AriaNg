@@ -4,6 +4,7 @@
     angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', 'ariaNgLogService', function ($q, $translate, bittorrentPeeridService, aria2Errors, aria2RpcService, ariaNgCommonService, ariaNgLogService) {
         var getFileName = function (file) {
             if (!file) {
+                ariaNgLogService.warn("[aria2TaskService.getFileName] file is null");
                 return '';
             }
 
@@ -122,6 +123,7 @@
 
         var processDownloadTask = function (task) {
             if (!task) {
+                ariaNgLogService.warn("[aria2TaskService.processDownloadTask] task is null");
                 return task;
             }
 
@@ -174,6 +176,7 @@
 
         var processBtPeers = function (peers, task, includeLocalPeer) {
             if (!peers) {
+                ariaNgLogService.warn("[aria2TaskService.processBtPeers] peers is null");
                 return peers;
             }
 
@@ -272,6 +275,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
+                            ariaNgLogService.warn("[aria2TaskService.getTaskList] callback is null");
                             return;
                         }
 
@@ -285,6 +289,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
+                            ariaNgLogService.warn("[aria2TaskService.getTaskStatus] callback is null");
                             return;
                         }
 
@@ -333,6 +338,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
+                            ariaNgLogService.warn("[aria2TaskService.getBtTaskPeers] callback is null");
                             return;
                         }
 
@@ -358,6 +364,7 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
+                            ariaNgLogService.warn("[aria2TaskService.getTaskStatusAndBtPeers] callback is null");
                             return;
                         }
 
@@ -586,6 +593,7 @@
             },
             onFirstSuccess: function (callback) {
                 if (!callback) {
+                    ariaNgLogService.warn("[aria2TaskService.onFirstSuccess] callback is null");
                     return;
                 }
 
@@ -595,6 +603,7 @@
             },
             onTaskCompleted: function (callback) {
                 if (!callback) {
+                    ariaNgLogService.warn("[aria2TaskService.onTaskCompleted] callback is null");
                     return;
                 }
 
@@ -604,6 +613,7 @@
             },
             onBtTaskCompleted: function (callback) {
                 if (!callback) {
+                    ariaNgLogService.warn("[aria2TaskService.onBtTaskCompleted] callback is null");
                     return;
                 }
 
@@ -613,6 +623,7 @@
             },
             onTaskErrorOccur: function (callback) {
                 if (!callback) {
+                    ariaNgLogService.warn("[aria2TaskService.onTaskErrorOccur] callback is null");
                     return;
                 }
 
@@ -622,6 +633,7 @@
             },
             processDownloadTasks: function (tasks) {
                 if (!angular.isArray(tasks)) {
+                    ariaNgLogService.warn("[aria2TaskService.processDownloadTasks] tasks is not array");
                     return;
                 }
 
@@ -637,6 +649,7 @@
             },
             estimateHealthPercentFromPeers: function (task, peers) {
                 if (!task || task.numPieces < 1 || peers.length < 1) {
+                    ariaNgLogService.warn("[aria2TaskService.estimateHealthPercentFromPeers] tasks is null or numPieces < 1 or peers < 1");
                     return task.completePercent;
                 }
 

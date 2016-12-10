@@ -29,13 +29,13 @@
             });
 
             if (content.result && context.successCallback) {
-                ariaNgLogService.debug('WebSocket Response Success', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] response uccess', content);
 
                 context.successCallback(context.id, content.result);
             }
 
             if (content.error && context.errorCallback) {
-                ariaNgLogService.debug('WebSocket Response Error', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] response error', content);
 
                 context.errorCallback(context.id, content.error);
             }
@@ -99,7 +99,7 @@
                 var uniqueId = context.uniqueId;
                 var requestBody = angular.toJson(context.requestBody);
 
-                ariaNgLogService.debug('WebSocket Request Start', context);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] request start', context);
 
                 var deferred = $q.defer();
 
