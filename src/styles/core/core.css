@@ -104,6 +104,10 @@ td {
     margin-right: -10px;
 }
 
+.dropdown-menu > li.dropdown-submenu:hover {
+    background-color: #e1e3e9;
+}
+
 .dropdown-submenu:hover > a:after {
     border-left-color: #fff;
 }

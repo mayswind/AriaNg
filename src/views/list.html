@@ -33,7 +33,8 @@
             </div>
         </div>
         <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
-            <div class="row" ng-repeat="task in taskContext.list | filter: filterByTaskName | taskOrderBy: getOrderType()" data-gid="{{task.gid}}">
+            <div class="row" ng-repeat="task in taskContext.list | filter: filterByTaskName | taskOrderBy: getOrderType()"
+                 data-gid="{{task.gid}}" data-toggle="context" data-target="#task-table-contextmenu">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
@@ -70,6 +71,79 @@
                     <span class="task-download-speed" ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-') : ''))"></span>
                 </div>
             </div>
+        </div>
+        <div id="task-table-contextmenu">
+            <ul class="dropdown-menu" role="menu">
+                <li ng-show="isSpecifiedTaskSelected('paused')">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
+                        <i class="fa fa-play"></i>
+                        <span translate>Start</span>
+                    </a>
+                </li>
+                <li ng-show="isSpecifiedTaskSelected('active', 'waiting')">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
+                        <i class="fa fa-pause"></i>
+                        <span translate>Pause</span>
+                    </a>
+                </li>
+                <li ng-show="isTaskSelected()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Delete' | translate}}" ng-click="removeTasks()">
+                        <i class="fa fa-trash-o"></i>
+                        <span translate>Delete</span>
+                    </a>
+                </li>
+                <li class="divider" ng-show="isTaskSelected()"></li>
+                <li class="dropdown dropdown-submenu">
+                    <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
+                        <i class="fa fa-sort-alpha-asc"></i>
+                        <span translate>Display Order</span>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 160px;">
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('default:asc')">
+                                <span translate>Default</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('name:asc')">
+                                <span translate>By File Name</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('size:asc')">
+                                <span translate>By File Size</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:desc')">
+                                <span translate>By Progress</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
+                                <span translate>By Remain Time</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:desc')">
+                                <span translate>By Download Speed</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('uspeed:desc')">
+                                <span translate>By Upload Speed</span>
+                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('uspeed')}"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </section>
