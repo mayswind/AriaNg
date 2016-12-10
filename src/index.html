@@ -233,8 +233,8 @@
         <span>&nbsp;</span>
 
         <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
-            <a class="global-status" ng-pop-chart ng-data="globalStatusContext.data" ng-container="body"
-               ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
+            <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
+               ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
                 <span class="realtime-speed">
                     <i class="icon-download fa fa-arrow-down"></i>
                     <span ng-bind="(globalStat.downloadSpeed | readableVolumn) + '/s'"></span>

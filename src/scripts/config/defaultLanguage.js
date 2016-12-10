@@ -48,6 +48,7 @@
             'Removed': 'Removed',
             'Downloaded / Stopped': 'Downloaded / Stopped',
             'Uncompleted': 'Uncompleted',
+            'Click to pin': 'Click to pin',
             'Settings': 'Settings',
             'AriaNg Settings': 'AriaNg Settings',
             'Aria2 Settings': 'Aria2 Settings',

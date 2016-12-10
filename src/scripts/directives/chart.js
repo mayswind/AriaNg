@@ -65,7 +65,7 @@
                     content: '<div class="chart-pop-wrapper"><div class="chart-pop ' + options.ngPopoverClass + '">' + loadingIcon +'</div></div>',
                     html: true,
                     placement: options.ngPlacement,
-                    template: '<div class="popover chart-popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+                    template: '<div class="popover chart-popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
                     trigger: options.ngTrigger
                 }).on('shown.bs.popover', function () {
                     var wrapper = angular.element('.chart-pop');
