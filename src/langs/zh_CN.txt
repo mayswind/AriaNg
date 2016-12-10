@@ -28,6 +28,7 @@ Expand=展开
 Collapse=折叠
 Remove Task=删除任务
 Clear Stopped Tasks=清空已结束任务
+Click to view task detail=点击查看任务详情
 By File Name=按文件名
 By File Size=按文件大小
 By Progress=按进度

@@ -43,7 +43,7 @@
                     </div>
                     <div class="task-files">
                         <span ng-bind="task.totalLength | readableVolumn"></span>
-                        <a ng-href="#/task/detail/{{task.gid}}">
+                        <a ng-href="#/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
                             <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                         </a><i class="icon-error fa fa-times" ng-if="task && task.status == 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status == 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
                         <a class="pointer-cursor" ng-if="task && task.status == 'error' && task.errorDescription && !task.bittorrent" ng-click="restart(task)" title="{{'Restart' | translate}}" translate>Restart</a>

@@ -32,6 +32,7 @@
             'Collapse': 'Collapse',
             'Remove Task': 'Remove Task',
             'Clear Stopped Tasks': 'Clear Stopped Tasks',
+            'Click to view task detail': 'Click to view task detail',
             'By File Name': 'By File Name',
             'By File Size': 'By File Size',
             'By Progress': 'By Progress',
