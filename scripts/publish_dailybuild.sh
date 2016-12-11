@@ -1,9 +1,7 @@
 if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   echo "Packaging daily build...";
   cd dist;
-  cp ../LICENSE ./;
   zip $CIRCLE_ARTIFACTS/dist.zip * -r -9;
-  rm -f LICENSE;
   cd ..;
 
   echo "Publishing online demo...";

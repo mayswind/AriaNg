@@ -92,6 +92,7 @@ gulp.task('manifest', function () {
 
 gulp.task('extras', function () {
     return gulp.src([
+        'LICENSE',
         'src/*.*',
         '!src/*.html'
     ], {
