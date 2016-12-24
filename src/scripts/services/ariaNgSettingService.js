@@ -182,6 +182,12 @@
             setProtocol: function (value) {
                 setOption('protocol', value);
             },
+            getHttpMethod: function () {
+                return getOption('httpMethod');
+            },
+            setHttpMethod: function (value) {
+                setOption('httpMethod', value);
+            },
             isUseWebSocket: function (protocol) {
                 if (!protocol) {
                     protocol = this.getProtocol();

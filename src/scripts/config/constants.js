@@ -23,6 +23,7 @@
         rpcHost: '',
         rpcPort: '6800',
         protocol: 'http',
+        httpMethod: 'POST',
         secret: '',
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000

@@ -1,8 +1,53 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'base64', 'ariaNgSettingService', 'ariaNgLogService', function ($http, base64, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
+        var method = ariaNgSettingService.getHttpMethod();
+
+        var getUrlWithQueryString = function (url, parameters) {
+            if (!url || url.length < 1) {
+                return url;
+            }
+
+            var queryString = '';
+
+            for (var key in parameters) {
+                if (!parameters.hasOwnProperty(key)) {
+                    continue;
+                }
+
+                var value = parameters[key];
+
+                if (value === null || angular.isUndefined(value)) {
+                    continue;
+                }
+
+                if (queryString.length > 0) {
+                    queryString += '&';
+                }
+
+                if (angular.isObject(value) || angular.isArray(value)) {
+                    value = angular.toJson(value);
+                    value = base64.encode(value);
+                    value = encodeURIComponent(value);
+                }
+
+                queryString += key + '=' + value;
+            }
+
+            if (queryString.length < 1) {
+                return url;
+            }
+
+            if (url.indexOf('?') < 0) {
+                queryString = '?' + queryString;
+            } else {
+                queryString = '&' + queryString;
+            }
+
+            return url + queryString;
+        };
 
         return {
             request: function (context) {
@@ -12,9 +57,14 @@
 
                 var requestContext = {
                     url: rpcUrl,
-                    method: 'POST',
-                    data: context.requestBody
+                    method: method
                 };
+
+                if (requestContext.method === 'POST') {
+                    requestContext.data = context.requestBody;
+                } else if (requestContext.method === 'GET') {
+                    requestContext.url = getUrlWithQueryString(requestContext.url, context.requestBody);
+                }
 
                 ariaNgLogService.debug('[aria2HttpRpcService.request] request start', requestContext);
 
