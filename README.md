@@ -6,7 +6,7 @@
 [简体中文说明 (Simplified Chinese)](https://github.com/mayswind/AriaNg/blob/master/README-CHS.md)
 
 ## Introduction
-A Better Frontend for [aria2](https://github.com/aria2/aria2) (a cross-platform download utility). AriaNg is written in pure html & javascript, so it does not need to be compiled and not need any runtime environment, and you just need to open it in your browser. By using responsive layout, you can open it on any desktop or mobile devices.
+A Better Web Frontend for [aria2](https://github.com/aria2/aria2) (aria2 is a cross-platform download utility). AriaNg is written in pure html & javascript, so it does not need to be compiled and not need any runtime environment, and you just need to open it in your browser. By using responsive layout, you can open it on any desktop or mobile devices.
 
 ## Features
 1. Pure Html & Javascript, no runtime required
