@@ -48,7 +48,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="task | taskStatus | translate: {errorcode: task.errorCode}"></span>
-                            <i class="icon-primary fa fa-question-circle" ng-if="task.errorCode && task.errorCode != '0'"
+                            <i class="icon-primary fa fa-question-circle" ng-if="task.errorCode && task.errorCode != '0' && task.errorMessage"
                                   ng-tooltip="{{task.errorMessage}}" ng-tooltip-container="body" ng-tooltip-placement="top"></i>
                         </div>
                     </div>
