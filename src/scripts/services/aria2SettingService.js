@@ -45,20 +45,21 @@
                 for (var i = 0; i < allOptions.length; i++) {
                     var option = allOptions[i];
                     var optionKey = {
-                        key: option.key
+                        key: option.key,
+                        category: option.category
                     };
 
-                    if (option.newOnly) {
+                    if (option.canShow && option.canShow.indexOf(status) < 0) {
                         continue;
                     }
 
-                    if (option.httpOnly && isBittorrent) {
+                    if (option.category === 'http' && isBittorrent) {
                         continue;
-                    } else if (option.btOnly && !isBittorrent) {
+                    } else if (option.category === 'bittorrent' && !isBittorrent) {
                         continue;
                     }
 
-                    if (option.activeReadonly && status === 'active') {
+                    if (option.canUpdate && option.canUpdate.indexOf(status) < 0) {
                         optionKey.readonly = true;
                     }
 
@@ -74,8 +75,17 @@
                 for (var i = 0; i < allOptions.length; i++) {
                     var option = allOptions[i];
                     var optionKey = {
-                        key: option.key
+                        key: option.key,
+                        category: option.category
                     };
+
+                    if (option.canShow && option.canShow.indexOf('new') < 0) {
+                        continue;
+                    }
+
+                    if (option.canUpdate && option.canUpdate.indexOf('new') < 0) {
+                        optionKey.readonly = true;
+                    }
 
                     availableOptions.push(optionKey);
                 }
@@ -88,12 +98,14 @@
                 for (var i = 0; i < keys.length; i++) {
                     var key = keys[i];
                     var readonly = false;
+                    var category = null;
 
                     if (angular.isObject(key)) {
                         var optionKey = key;
 
                         key = optionKey.key;
                         readonly = !!optionKey.readonly;
+                        category = optionKey.category;
                     }
 
                     var option = aria2AllOptions[key];
@@ -107,6 +119,10 @@
                         nameKey: 'options.' + key + '.name',
                         descriptionKey: 'options.' + key + '.description'
                     }, option);
+
+                    if (category) {
+                        option.category = category;
+                    }
 
                     if (option.type === 'boolean') {
                         option.options = ['true', 'false'];

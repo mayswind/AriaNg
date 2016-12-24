@@ -4,6 +4,16 @@
     margin-right: 15px;
 }
 
+.settings-table .settings-table-title {
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.settings-table .settings-table-title a {
+    color: #000;
+}
+
 .settings-table > div.row {
     padding-top: 8px;
     padding-bottom: 8px;

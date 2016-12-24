@@ -13,7 +13,12 @@
                 return aria2SettingService.getSpecifiedOptions(keys);
             })(),
             globalOptions: null,
-            options: {}
+            options: {},
+            optionFilter: {
+                global: true,
+                http: true,
+                bittorrent: true
+            }
         };
 
         $scope.changeTab = function (tabName) {

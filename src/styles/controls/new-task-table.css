@@ -22,3 +22,7 @@
         display: block;
     }
 }
+
+.settings-table .new-task-filter-title {
+    padding-top: 6px;
+}

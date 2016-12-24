@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('ariaNg').constant('aria2AllOptions', {
-        // EXAMPLE:
+        // Aria2 Option Defination EXAMPLE:
         // 'option key': {
         //     [since: '',] //This option is supported by this or higher aria2 version
         //     type: 'string|integer|float|text|boolean|option',
@@ -809,6 +809,10 @@
             defaultValue: 'true'
         }
     }).constant('aria2GlobalAvailableOptions', {
+        // Aria2 Setting Page Defination EXAMPLE:
+        // 'category key': [
+        //     'option key 1', 'option key 2', // more options if possible
+        // ]
         basicOptions: [
             'dir', 'log', 'max-concurrent-downloads', 'check-integrity', 'continue'
         ],
@@ -858,118 +862,132 @@
             'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout'
         ]
     }).constant('aria2TaskAvailableOptions', {
+        // Aria2 Task Option Defination EXAMPLE:
+        // {
+        //     key: 'option key',
+        //     category: 'global|http|bittorrent',
+        //     [canShow: 'new|active|waiting|paused',] // possible to show in specific status, supporting multiple choice. if not set, always show
+        //     [canUpdate: 'new|active|waiting|paused',] // possible to write in specific status, supporting multiple choice. if not set, always writable
+        // }
         taskOptions: [
             {
                 key: 'dir',
-                newOnly: true
+                category: 'global',
+                canUpdate: 'new'
             },
             {
                 key: 'out',
-                httpOnly: true,
-                newOnly: true
+                category: 'http',
+                canUpdate: 'new'
             },
             {
                 key: 'allow-overwrite',
-                newOnly: true
+                category: 'global',
+                canShow: 'new'
             },
             {
-                key: 'max-download-limit'
+                key: 'max-download-limit',
+                category: 'global'
             },
             {
                 key: 'max-upload-limit',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'split',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'min-split-size',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'max-connection-per-server',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'lowest-speed-limit',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'stream-piece-selector',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'all-proxy',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'all-proxy-user',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'all-proxy-passwd',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'header',
-                httpOnly: true,
-                newOnly: true
+                category: 'http',
+                canUpdate: 'new'
             },
             {
                 key: 'bt-max-peers',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'bt-request-peer-speed-limit',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'bt-remove-unselected-file',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'bt-stop-timeout',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'bt-tracker',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'seed-ratio',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'seed-time',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'conditional-get',
-                newOnly: true
+                category: 'global',
+                canShow: 'new'
             },
             {
                 key: 'file-allocation',
-                newOnly: true
+                category: 'global',
+                canShow: 'new'
             },
             {
-                key: 'parameterized-uri ',
-                newOnly: true
+                key: 'parameterized-uri',
+                category: 'global',
+                canShow: 'new'
             },
             {
-                key: 'force-save'
+                key: 'force-save',
+                category: 'global'
             }
         ]
     });

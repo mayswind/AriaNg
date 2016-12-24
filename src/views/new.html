@@ -23,7 +23,7 @@
                         <button type="submit" class="btn btn-sm"
                                 ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
                                 ng-disabled="newTaskForm.$invalid" translate>Start Download
-                        </button>
+                        </button>&nbsp;
                         <button type="button" class="btn btn-sm dropdown-toggle"
                                 ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
                                 ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
@@ -57,8 +57,27 @@
                 </div>
                 <div class="tab-pane" ng-class="{'active': context.currentTab == 'options'}">
                     <div class="settings-table striped hoverable">
-                        <ng-setting ng-repeat="option in context.availableOptions" option="option" lazy-save-timeout="0"
-                                    default-value="context.globalOptions[option.key]"
+                        <div class="settings-table-title new-task-filter-title">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <span translate>Filters</span><span>:</span>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input id="optionFilterGlobal" type="checkbox" ng-model="context.optionFilter['global']"/>
+                                        <label for="optionFilterGlobal" translate>Global</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input id="optionFilterHttp" type="checkbox" ng-model="context.optionFilter['http']"/>
+                                        <label for="optionFilterHttp" translate>Http</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input id="optionFilterBittorrent" type="checkbox" ng-model="context.optionFilter['bittorrent']"/>
+                                        <label for="optionFilterBittorrent" translate>BitTorrent</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-setting ng-repeat="option in context.availableOptions" ng-if="context.optionFilter[option.category]"
+                                    option="option" lazy-save-timeout="0" default-value="context.globalOptions[option.key]"
                                     on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                     </div>
                 </div>
