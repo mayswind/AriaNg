@@ -108,6 +108,9 @@
             split: ',',
             showCount: true
         },
+        'out': {
+            type: 'string'
+        },
         'proxy-method': {
             type: 'option',
             options: ['get', 'tunnel'],
@@ -821,6 +824,11 @@
                 newOnly: true
             },
             {
+                key: 'out',
+                httpOnly: true,
+                newOnly: true
+            },
+            {
                 key: 'allow-overwrite',
                 newOnly: true
             },
@@ -870,6 +878,11 @@
                 key: 'all-proxy-passwd',
                 httpOnly: true,
                 activeReadonly: true
+            },
+            {
+                key: 'header',
+                httpOnly: true,
+                newOnly: true
             },
             {
                 key: 'bt-max-peers',

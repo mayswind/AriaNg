@@ -305,6 +305,8 @@
                 'no-netrc.description': '',
                 'no-proxy.name': 'No Proxy List',
                 'no-proxy.description': 'Specify a comma separated list of host names, domains and network addresses with or without a subnet mask where no proxy should be used.',
+                'out.name': 'File Name',
+                'out.description': 'The file name of the downloaded file. It is always relative to the directory given in --dir option. When the --force-sequential option is used, this option is ignored.',
                 'proxy-method.name': 'Proxy Method',
                 'proxy-method.description': 'Set the method to use in proxy request. METHOD is either GET or TUNNEL. HTTPS downloads always use TUNNEL regardless of this option.',
                 'remote-time.name': 'Remote File Timestamp',
