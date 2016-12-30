@@ -351,7 +351,7 @@
             },
             tellStopped: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('tellStopped', context,
-                    angular.isDefined(context.offset) ? context.offset : 0,
+                    angular.isDefined(context.offset) ? context.offset : -1,
                     angular.isDefined(context.num) ? context.num : 1000,
                     angular.isDefined(context.requestParams) ? context.requestParams: null
                 ), !!returnContextOnly);
