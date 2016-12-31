@@ -163,18 +163,22 @@
                 var protocol = getOption('protocol');
                 var rpcHost = getOption('rpcHost');
                 var rpcPort = getOption('rpcPort');
+                var rpcInterface = getOption('rpcInterface');
 
                 if (!rpcHost) {
                     rpcHost = getDefaultRpcHost();
                 }
 
-                return protocol + '://' + rpcHost + ':' + rpcPort + '/jsonrpc';
+                return protocol + '://' + rpcHost + ':' + rpcPort + '/' + rpcInterface;
             },
             setRpcHost: function (value) {
                 setOption('rpcHost', value);
             },
             setRpcPort: function (value) {
                 setOption('rpcPort', Math.max(parseInt(value), 0));
+            },
+            setRpcInterface: function (value) {
+                setOption('rpcInterface', value);
             },
             getProtocol: function () {
                 return getOption('protocol');

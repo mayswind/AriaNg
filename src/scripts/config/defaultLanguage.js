@@ -130,6 +130,7 @@
             'Enable Browser Notification': 'Enable Browser Notification',
             'Aria2 RPC Host': 'Aria2 RPC Host',
             'Aria2 RPC Port': 'Aria2 RPC Port',
+            'Aria2 RPC Interface': 'Aria2 RPC Interface',
             'Aria2 RPC Protocol': 'Aria2 RPC Protocol',
             'Aria2 RPC Http Request Method': 'Aria2 RPC Http Request Method',
             'POST method only supports aria2 v1.15.2 and above.': 'POST method only supports aria2 v1.15.2 and above.',

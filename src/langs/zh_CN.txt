@@ -126,6 +126,7 @@ Page Title Refresh Interval=页面标题刷新间隔
 Enable Browser Notification=启用浏览器通知
 Aria2 RPC Host=Aria2 RPC 主机
 Aria2 RPC Port=Aria2 RPC 端口
+Aria2 RPC Interface=Aria2 RPC 接口
 Aria2 RPC Protocol=Aria2 RPC 协议
 Aria2 RPC Http Request Method=Aria2 RPC Http 请求方法
 POST method only supports aria2 v1.15.2 and above.=POST 方法仅支持 aria2 v1.15.2 及以上.

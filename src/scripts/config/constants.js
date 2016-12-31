@@ -22,6 +22,7 @@
         browserNotification: false,
         rpcHost: '',
         rpcPort: '6800',
+        rpcInterface: 'jsonrpc',
         protocol: 'http',
         httpMethod: 'POST',
         secret: '',
