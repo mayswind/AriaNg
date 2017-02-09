@@ -232,6 +232,10 @@
             for (var i = 0; i < $scope.task.files.length; i++) {
                 var extension = ariaNgCommonService.getFileExtension($scope.task.files[i].fileName);
 
+                if (extension) {
+                    extension = extension.toLowerCase();
+                }
+
                 if (extensions.indexOf(extension) >= 0) {
                     fileIndexes.push(i);
 
