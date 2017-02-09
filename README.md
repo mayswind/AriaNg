@@ -34,7 +34,7 @@ A Better Web Frontend for [aria2](https://github.com/aria2/aria2) (aria2 is a cr
 #### Prebuilt release
 Latest Release: https://github.com/mayswind/AriaNg/releases
 
-Latest Daily Build: https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/downloads/latest_daily_build.zip
+Latest Daily Build: https://github.com/mayswind/AriaNg/archive/daily-build.zip
 
 #### Building from source
 Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/) installed. Then download the source code, and follow these steps.
