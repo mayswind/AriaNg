@@ -3,18 +3,18 @@
 
     angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'localStorageService', 'ariaNgConstants', 'ariaNgLanguages', function ($http, $q, localStorageService, ariaNgConstants, ariaNgLanguages) {
         var getKeyValuePair = function (line) {
-            var equalSignPos = line.indexOf('=');
-
-            if (equalSignPos > 0) {
-                return {
-                    key: line.substring(0, equalSignPos),
-                    value: line.substring(equalSignPos + 1, line.length)
-                };
-            } else {
-                return {
-                    value: line
-                };
+            for (var i = 0; i < line.length; i++) {
+                if (i > 0 && line.charAt(i - 1) !== '\\' && line.charAt(i) === '=') {
+                    return {
+                        key: line.substring(0, i).replace('\\=', '='),
+                        value: line.substring(i + 1, line.length).replace('\\=', '=')
+                    };
+                }
             }
+            
+            return {
+                value: line
+            };
         };
 
         var getCategory = function (langObj, category) {
