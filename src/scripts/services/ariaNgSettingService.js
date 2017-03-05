@@ -35,7 +35,7 @@
         };
 
         var getDefaultRpcHost = function () {
-            var currentHost = $location.$$host;
+            var currentHost = $location.host();
 
             if (currentHost) {
                 return currentHost;
