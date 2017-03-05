@@ -38,11 +38,20 @@
                             <span translate>Page Title</span>
                             <i class="icon-primary fa fa-question-circle" data-toggle="popover"
                                data-trigger="hover" data-placement="auto right" data-container="body" data-html="true"
-                               data-content="{{('Supported Placeholder' | translate) + ':<br/>' + ('AriaNg Title' | translate) + ': ${title}<br/>' + ('Downloading Count' | translate) + ': ${downloading}<br/>' + ('Waiting Count' | translate) + ': ${waiting}<br/>' + ('Stopped Count' | translate) + ': ${stopped}<br/>' + ('Download Speed' | translate) + ': ${downspeed}<br/>' + ('Upload Speed' | translate) + ': ${upspeed}<br/>'}}"></i>
+                               data-content="{{('Supported Placeholder' | translate) + ':<br/>' +
+                               ('AriaNg Title' | translate) + ': ${title}<br/>' +
+                               ('Downloading Count' | translate) + ': ${downloading}<br/>' +
+                                ('Waiting Count' | translate) + ': ${waiting}<br/>' +
+                                ('Stopped Count' | translate) + ': ${stopped}<br/>' +
+                                ('Download Speed' | translate) + ': ${downspeed}<br/>' +
+                                ('Upload Speed' | translate) + ': ${upspeed}<br/><br/>' +
+                                ('Tips: You can use the &quot;noprefix&quot; tag to ignore the prefix, &quot;nosuffix&quot; tag ignore the suffix, and &quot;scale=n&quot; tag to set the decimal precision.' | translate) + '<br/>' +
+                                ('Example: ${downspeed:noprefix:nosuffix:scale=1}' | translate)}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
                             <input class="form-control" type="text" ng-model="context.settings.title"
-                                   ng-change="settingService.setTitle(context.settings.title)"/>
+                                   ng-change="settingService.setTitle(context.settings.title); updateTitlePreview()"/>
+                            <em>[<span translate>Preview</span>] <span ng-bind="context.titlePreview"></span></em>
                         </div>
                     </div>
                     <div class="row">

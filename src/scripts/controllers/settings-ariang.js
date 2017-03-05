@@ -1,13 +1,18 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgNotificationService', function ($rootScope, $scope, $routeParams, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgNotificationService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
         var tabOrders = ['global', 'rpc'];
         var extendType = $routeParams.extendType;
+
+        var getFinalTitle = function () {
+            return ariaNgTitleService.getFinalTitleByGlobalStat(ariaNgMonitorService.getCurrentGlobalStat());
+        };
 
         $scope.context = {
             currentTab: 'global',
             languages: ariaNgLanguages,
+            titlePreview: getFinalTitle(),
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
             trueFalseOptions: [{name: 'True', value: true}, {name: 'False', value: false}],
             showRpcSecret: false,
@@ -19,6 +24,10 @@
 
         $scope.changeTab = function (tabName) {
             $scope.context.currentTab = tabName;
+        };
+
+        $scope.updateTitlePreview = function () {
+            $scope.context.titlePreview = getFinalTitle();
         };
 
         $rootScope.swipeActions.extentLeftSwipe = function () {

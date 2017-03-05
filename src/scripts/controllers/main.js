@@ -1,26 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTitleService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgTitleService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
         var pageTitleRefreshPromise = null;
         var globalStatRefreshPromise = null;
 
         var refreshPageTitle = function () {
-            var context = (function (globalStat) {
-                if (!globalStat) {
-                    return null;
-                }
-
-                return {
-                    downloadingCount: globalStat.numActive,
-                    waitingCount: globalStat.numWaiting,
-                    stoppedCount: globalStat.numStopped,
-                    downloadSpeed: globalStat.downloadSpeed,
-                    uploadSpeed: globalStat.uploadSpeed
-                };
-            })($scope.globalStat);
-
-            $document[0].title = ariaNgSettingService.getFinalTitle(context);
+            $document[0].title = ariaNgTitleService.getFinalTitleByGlobalStat($scope.globalStat);
         };
 
         var refreshGlobalStat = function (silent, callback) {

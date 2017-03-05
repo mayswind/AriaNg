@@ -124,26 +124,6 @@
             getTitle: function () {
                 return getOption('title');
             },
-            getFinalTitle: function (context) {
-                var title = this.getTitle();
-
-                context = angular.extend({
-                    downloadingCount: 0,
-                    waitingCount: 0,
-                    stoppedCount: 0,
-                    downloadSpeed: 0,
-                    uploadSpeed: 0
-                }, context);
-
-                title = title.replace(/\$\{downloading\}/g, $translate.instant('Downloading') + ': ' + context.downloadingCount);
-                title = title.replace(/\$\{waiting\}/g, $translate.instant('Waiting') + ': ' + context.waitingCount);
-                title = title.replace(/\$\{stopped\}/g, $translate.instant('Downloaded / Stopped') + ': ' + context.stoppedCount);
-                title = title.replace(/\$\{downspeed\}/g, $translate.instant('Download') + ': ' + $filter('readableVolumn')(context.downloadSpeed) + '/s');
-                title = title.replace(/\$\{upspeed\}/g, $translate.instant('Upload') + ': ' + $filter('readableVolumn')(context.uploadSpeed) + '/s');
-                title = title.replace(/\$\{title\}/g, ariaNgConstants.title);
-
-                return title;
-            },
             setTitle: function (value) {
                 setOption('title', value);
             },

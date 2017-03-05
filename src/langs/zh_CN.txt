@@ -122,6 +122,9 @@ Download Error=下载出错
 Language=语言
 Debug Mode=调试模式
 Page Title=页面标题
+Preview=预览
+Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag ignore the suffix, and "scale\=n" tag to set the decimal precision.=小提示: 您可以使用 "noprefix" 标签忽略前缀, "nosuffix" 标签忽略后缀, 以及 "scale\=n" 标签设置小数的精度.
+Example: ${downspeed:noprefix:nosuffix:scale\=1}=示例: ${downspeed:noprefix:nosuffix:scale\=1}
 Page Title Refresh Interval=页面标题刷新间隔
 Enable Browser Notification=启用浏览器通知
 Aria2 RPC Host=Aria2 RPC 主机

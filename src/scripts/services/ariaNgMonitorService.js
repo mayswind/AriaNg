@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', '$translate', 'moment', 'ariaNgConstants', function ($filter, $translate, moment, ariaNgConstants) {
+        var currentGlobalStat = {};
         var storagesInMemory = {};
         var globalStorageKey = 'global';
 
@@ -149,10 +150,14 @@
                 return this.getStatsData(key);
             },
             recordGlobalStat: function (stat) {
-                return this.recordStat(globalStorageKey, stat);
+                this.recordStat(globalStorageKey, stat);
+                currentGlobalStat = stat;
             },
             getGlobalStatsData: function () {
                 return this.getStatsData(globalStorageKey);
+            },
+            getCurrentGlobalStat: function () {
+                return currentGlobalStat;
             }
         };
     }]);
