@@ -27,7 +27,7 @@
             return settings;
         };
 
-        var replacePlaerholder = function (title, context) {
+        var replacePlaceholder = function (title, context) {
             var value = context.value;
 
             if (context.type === 'volumn') {
@@ -54,7 +54,7 @@
                     var innerContext = parseSettings(results[i]);
                     angular.extend(innerContext, context);
 
-                    title = replacePlaerholder(title, innerContext);
+                    title = replacePlaceholder(title, innerContext);
                 }
             }
 
