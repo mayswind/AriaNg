@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'base64', 'ariaNgSettingService', 'ariaNgLogService', function ($http, base64, ariaNgSettingService, ariaNgLogService) {
-        var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
-        var method = ariaNgSettingService.getHttpMethod();
+        var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
+        var method = ariaNgSettingService.getCurrentRpcHttpMethod();
 
         var getUrlWithQueryString = function (url, parameters) {
             if (!url || url.length < 1) {

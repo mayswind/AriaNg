@@ -15,10 +15,22 @@ td {
     vertical-align: middle !important;
 }
 
+.skin-aria-ng .main-header .logo {
+    overflow: visible;
+}
+
+.skin-aria-ng .main-header .logo .dropdown-menu {
+    z-index: 2000;
+}
+
 .main-header .navbar .navbar-searchbar {
     padding-top: 8px;
     padding-right: 20px;
     float: right;
+}
+
+.main-header .logo .logo-lg {
+    cursor: pointer;
 }
 
 .content-wrapper > .content-body {

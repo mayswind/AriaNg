@@ -11,7 +11,6 @@ Connecting=连接中
 Connected=已连接
 Not Connected=未连接
 Global=全局
-RPC=RPC
 New=新建
 Start=开始任务
 Pause=暂停任务
@@ -127,6 +126,7 @@ Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag ignore
 Example: ${downspeed:noprefix:nosuffix:scale\=1}=示例: ${downspeed:noprefix:nosuffix:scale\=1}
 Page Title Refresh Interval=页面标题刷新间隔
 Enable Browser Notification=启用浏览器通知
+Aria2 RPC Alias=Aria2 RPC 别名
 Aria2 RPC Host=Aria2 RPC 主机
 Aria2 RPC Port=Aria2 RPC 端口
 Aria2 RPC Interface=Aria2 RPC 接口
@@ -135,6 +135,10 @@ Aria2 RPC Http Request Method=Aria2 RPC Http 请求方法
 POST method only supports aria2 v1.15.2 and above.=POST 方法仅支持 aria2 v1.15.2 及以上.
 Aria2 RPC Secret Token=Aria2 RPC 密钥
 Aria2 RPC Address=Aria2 RPC 地址
+Set Default=设为默认
+Delete RPC Setting=删除 RPC 设置
+Add New RPC Setting=添加新 RPC 配置
+Are you sure you want to remove this rpc setting?=您是否要删除当前 RPC 设置?
 Global Stat Refresh Interval=全局状态刷新间隔
 Download Task Refresh Interval=下载任务刷新间隔
 Supported Placeholder=支持的占位符

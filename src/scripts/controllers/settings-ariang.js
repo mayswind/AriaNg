@@ -1,8 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
-        var tabOrders = ['global', 'rpc'];
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
         var extendType = $routeParams.extendType;
 
         var getFinalTitle = function () {
@@ -17,13 +16,26 @@
             trueFalseOptions: [{name: 'True', value: true}, {name: 'False', value: false}],
             showRpcSecret: false,
             settings: ariaNgSettingService.getAllOptions(),
-            sessionSettings: ariaNgSettingService.getAllSessionOptions()
+            sessionSettings: ariaNgSettingService.getAllSessionOptions(),
+            rpcSettings: ariaNgSettingService.getAllRpcSettings()
         };
 
         $scope.context.showDebugMode = $scope.context.sessionSettings.debugMode || extendType === 'debug';
 
-        $scope.changeTab = function (tabName) {
-            $scope.context.currentTab = tabName;
+        $scope.changeGlobalTab = function () {
+            $scope.context.currentTab = 'global';
+        };
+
+        $scope.isCurrentGlobalTab = function () {
+            return $scope.context.currentTab === 'global';
+        };
+
+        $scope.changeRpcTab = function (rpcIndex) {
+            $scope.context.currentTab = 'rpc' + rpcIndex;
+        };
+
+        $scope.isCurrentRpcTab = function (rpcIndex) {
+            return $scope.context.currentTab === 'rpc' + rpcIndex;
         };
 
         $scope.updateTitlePreview = function () {
@@ -31,10 +43,14 @@
         };
 
         $rootScope.swipeActions.extentLeftSwipe = function () {
-            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+            var tabIndex = -1;
 
-            if (tabIndex < tabOrders.length - 1) {
-                $scope.changeTab(tabOrders[tabIndex + 1]);
+            if (!$scope.isCurrentGlobalTab()) {
+                tabIndex = parseInt($scope.context.currentTab.substring(3));
+            }
+
+            if (tabIndex < $scope.context.rpcSettings.length - 1) {
+                $scope.changeRpcTab(tabIndex + 1);
                 return true;
             } else {
                 return false;
@@ -42,10 +58,17 @@
         };
 
         $rootScope.swipeActions.extentRightSwipe = function () {
-            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+            var tabIndex = -1;
+
+            if (!$scope.isCurrentGlobalTab()) {
+                tabIndex = parseInt($scope.context.currentTab.substring(3));
+            }
 
             if (tabIndex > 0) {
-                $scope.changeTab(tabOrders[tabIndex - 1]);
+                $scope.changeRpcTab(tabIndex - 1);
+                return true;
+            } else if (tabIndex === 0) {
+                $scope.changeGlobalTab();
                 return true;
             } else {
                 return false;
@@ -54,9 +77,41 @@
 
         $scope.settingService = ariaNgSettingService;
 
+        $scope.addNewRpcSetting = function () {
+            var newRpcSetting = ariaNgSettingService.addNewRpcSetting();
+            $scope.context.rpcSettings.push(newRpcSetting);
+
+            $scope.changeRpcTab($scope.context.rpcSettings.length - 1);
+        };
+
+        $scope.updateRpcSetting = function (setting, field) {
+            ariaNgSettingService.updateRpcSetting(setting, field);
+        };
+
+        $scope.removeRpcSetting = function (setting) {
+            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove this rpc setting?', 'warning', function () {
+                var index = $scope.context.rpcSettings.indexOf(setting);
+                ariaNgSettingService.removeRpcSetting(setting);
+                $scope.context.rpcSettings.splice(index, 1);
+
+                if (index >= $scope.context.rpcSettings.length) {
+                    $scope.changeRpcTab($scope.context.rpcSettings.length - 1);
+                }
+            });
+        };
+
+        $scope.setDefaultRpcSetting = function (setting) {
+            if (setting.isDefault) {
+                return;
+            }
+
+            ariaNgSettingService.setDefaultRpcSetting(setting);
+            $window.location.reload();
+        };
+
         $scope.isSupportNotification = function () {
             return ariaNgNotificationService.isSupportBrowserNotification() &&
-                ariaNgSettingService.isUseWebSocket($scope.context.settings.protocol);
+                ariaNgSettingService.isCurrentRpcUseWebSocket($scope.context.settings.protocol);
         };
 
         $scope.setEnableBrowserNotification = function (value) {

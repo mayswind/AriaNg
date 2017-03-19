@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService) {
         var onFirstVisitCallbacks = [];
         var sessionSettings = {
             debugMode: false
@@ -65,7 +65,7 @@
         var getOption = function (key) {
             var options = getOptions();
 
-            if (angular.isUndefined(options[key])) {
+            if (angular.isUndefined(options[key]) && angular.isDefined(ariaNgDefaultOptions[key])) {
                 options[key] = ariaNgDefaultOptions[key];
                 setOptions(options);
             }
@@ -80,6 +80,26 @@
             setOptions(options);
         };
 
+        var cloneRpcSetting = function (setting) {
+            return {
+                rpcAlias: setting.rpcAlias,
+                rpcHost: setting.rpcHost,
+                rpcPort: setting.rpcPort,
+                rpcInterface: setting.rpcInterface,
+                protocol: setting.protocol,
+                httpMethod: setting.httpMethod,
+                secret: setting.secret
+            };
+        };
+
+        var createNewRpcSetting = function () {
+            var setting = cloneRpcSetting(ariaNgDefaultOptions);
+            setting.rpcId = ariaNgCommonService.generateUniqueId();
+            setting.rpcHost = getDefaultRpcHost();
+
+            return setting;
+        };
+
         return {
             getAllOptions: function () {
                 var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
@@ -92,7 +112,40 @@
                     options.secret = base64.decode(options.secret);
                 }
 
+                if (angular.isArray(options.extendRpcServers)) {
+                    for (var i = 0; i < options.extendRpcServers.length; i++) {
+                        var rpcSetting = options.extendRpcServers[i];
+
+                        if (!rpcSetting.rpcHost) {
+                            rpcSetting.rpcHost = getDefaultRpcHost();
+                        }
+
+                        if (rpcSetting.secret) {
+                            rpcSetting.secret = base64.decode(rpcSetting.secret);
+                        }
+                    }
+                }
+
                 return options;
+            },
+            getAllRpcSettings: function () {
+                var result = [];
+
+                var options = this.getAllOptions();
+                var defaultRpcSetting = cloneRpcSetting(options);
+                defaultRpcSetting.isDefault = true;
+                result.push(defaultRpcSetting);
+
+                if (angular.isArray(options.extendRpcServers)) {
+                    for (var i = 0; i < options.extendRpcServers.length; i++) {
+                        var rpcSetting = cloneRpcSetting(options.extendRpcServers[i]);
+                        rpcSetting.rpcId = options.extendRpcServers[i].rpcId;
+                        rpcSetting.isDefault = false;
+                        result.push(rpcSetting);
+                    }
+                }
+
+                return result;
             },
             getAllSessionOptions: function () {
                 return angular.copy(sessionSettings);
@@ -139,7 +192,7 @@
             setBrowserNotification: function (value) {
                 setOption('browserNotification', value);
             },
-            getJsonRpcUrl: function () {
+            getCurrentRpcUrl: function () {
                 var protocol = getOption('protocol');
                 var rpcHost = getOption('rpcHost');
                 var rpcPort = getOption('rpcPort');
@@ -151,44 +204,126 @@
 
                 return protocol + '://' + rpcHost + ':' + rpcPort + '/' + rpcInterface;
             },
-            setRpcHost: function (value) {
-                setOption('rpcHost', value);
-            },
-            setRpcPort: function (value) {
-                setOption('rpcPort', Math.max(parseInt(value), 0));
-            },
-            setRpcInterface: function (value) {
-                setOption('rpcInterface', value);
-            },
-            getProtocol: function () {
+            getCurrentRpcProtocol: function () {
                 return getOption('protocol');
             },
-            setProtocol: function (value) {
-                setOption('protocol', value);
-            },
-            getHttpMethod: function () {
+            getCurrentRpcHttpMethod: function () {
                 return getOption('httpMethod');
             },
-            setHttpMethod: function (value) {
-                setOption('httpMethod', value);
-            },
-            isUseWebSocket: function (protocol) {
+            isCurrentRpcUseWebSocket: function (protocol) {
                 if (!protocol) {
-                    protocol = this.getProtocol();
+                    protocol = this.getCurrentRpcProtocol();
                 }
 
                 return protocol === 'ws' || protocol === 'wss';
             },
-            getSecret: function () {
+            getCurrentRpcSecret: function () {
                 var value = getOption('secret');
                 return (value ? base64.decode(value) : value);
             },
-            setSecret: function (value) {
-                if (value) {
-                    value = base64.encode(value);
+            addNewRpcSetting: function () {
+                var options = getOptions();
+
+                if (!angular.isArray(options.extendRpcServers)) {
+                    options.extendRpcServers = [];
                 }
 
-                setOption('secret', value);
+                var newRpcSetting = createNewRpcSetting();
+                options.extendRpcServers.push(newRpcSetting);
+
+                setOptions(options);
+
+                return newRpcSetting;
+            },
+            updateRpcSetting: function (setting, field) {
+                if (!setting) {
+                    return setting;
+                }
+
+                var updatedSetting = cloneRpcSetting(setting);
+
+                if (angular.isUndefined(updatedSetting[field])) {
+                    return setting;
+                }
+
+                var value = updatedSetting[field];
+
+                if (field === 'rpcPort') {
+                    value = Math.max(parseInt(value), 0);
+                } else if (field === 'secret') {
+                    if (value) {
+                        value = base64.encode(value);
+                    }
+                }
+
+                if (setting.isDefault) {
+                    setOption(field, value);
+
+                    return setting;
+                } else {
+                    var options = getOptions();
+
+                    if (!angular.isArray(options.extendRpcServers)) {
+                        return setting;
+                    }
+
+                    for (var i = 0; i < options.extendRpcServers.length; i++) {
+                        if (options.extendRpcServers[i].rpcId === setting.rpcId) {
+                            options.extendRpcServers[i][field] = value;
+                            break;
+                        }
+                    }
+
+                    setOptions(options);
+
+                    return setting;
+                }
+            },
+            removeRpcSetting: function (setting) {
+                var options = getOptions();
+
+                if (!angular.isArray(options.extendRpcServers)) {
+                    return setting;
+                }
+
+                for (var i = 0; i < options.extendRpcServers.length; i++) {
+                    if (options.extendRpcServers[i].rpcId === setting.rpcId) {
+                        options.extendRpcServers.splice(i, 1);
+                        break;
+                    }
+                }
+
+                setOptions(options);
+
+                return setting;
+            },
+            setDefaultRpcSetting: function (setting) {
+                var options = getOptions();
+                var currentSetting = cloneRpcSetting(options);
+                currentSetting.rpcId = ariaNgCommonService.generateUniqueId();
+
+                if (!angular.isArray(options.extendRpcServers)) {
+                    options.extendRpcServers = [];
+                }
+
+                var newDefaultSetting = null;
+
+                for (var i = 0; i < options.extendRpcServers.length; i++) {
+                    if (options.extendRpcServers[i].rpcId === setting.rpcId) {
+                        newDefaultSetting = cloneRpcSetting(options.extendRpcServers[i]);
+                        options.extendRpcServers.splice(i, 1);
+                        break;
+                    }
+                }
+
+                if (newDefaultSetting) {
+                    options.extendRpcServers.splice(0, 0, currentSetting);
+                    options = angular.extend(options, newDefaultSetting);
+                }
+
+                setOptions(options);
+
+                return setting;
             },
             getGlobalStatRefreshInterval: function () {
                 return getOption('globalStatRefreshInterval');

@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgLogService, aria2HttpRpcService, aria2WebSocketRpcService) {
-        var rpcImplementService = ariaNgSettingService.isUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
+        var rpcImplementService = ariaNgSettingService.isCurrentRpcUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
         var isConnected = false;
-        var secret = ariaNgSettingService.getSecret();
+        var secret = ariaNgSettingService.getCurrentRpcSecret();
 
         var onFirstSuccessCallbacks = [];
         var onConnectSuccessCallbacks = [];
