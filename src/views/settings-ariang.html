@@ -1,15 +1,20 @@
 <section class="content no-padding">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li ng-class="{'active': context.currentTab == 'global'}">
-                <a class="pointer-cursor" ng-click="changeTab('global')" translate>Global</a>
+            <li ng-class="{'active': isCurrentGlobalTab()}">
+                <a class="pointer-cursor" ng-click="changeGlobalTab()" translate>Global</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'rpc'}">
-                <a class="pointer-cursor" ng-click="changeTab('rpc')" translate>RPC</a>
+            <li ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
+                <a class="pointer-cursor" ng-click="changeRpcTab($index)" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? '-' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) : '')">RPC</a>
+            </li>
+            <li class="slim">
+                <a class="pointer-cursor" ng-click="addNewRpcSetting()" title="{{'Add New RPC Setting' | translate}}">
+                    <i class="fa fa-plus"></i>
+                </a>
             </li>
         </ul>
         <div class="tab-content no-padding">
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'global'}">
+            <div class="tab-pane" ng-class="{'active': isCurrentGlobalTab()}">
                 <div class="settings-table striped hoverable">
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
@@ -111,8 +116,17 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'rpc'}">
+            <div class="tab-pane" ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
                 <div class="settings-table striped hoverable">
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Aria2 RPC Alias</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <input class="form-control" type="text" ng-placeholder="(setting.rpcHost ? setting.rpcHost + ':' + setting.rpcPort : '')" ng-model="setting.rpcAlias" ng-change="updateRpcSetting(setting, 'rpcAlias')"/>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Aria2 RPC Host</span>
@@ -120,13 +134,12 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <div class="input-group">
-                                <span class="input-group-addon" ng-bind="context.settings.protocol + '://'"></span>
-                                <input class="form-control" type="text" ng-model="context.settings.rpcHost"
-                                       ng-change="settingService.setRpcHost(context.settings.rpcHost)"/>
+                                <span class="input-group-addon" ng-bind="setting.protocol + '://'"></span>
+                                <input class="form-control" type="text" ng-model="setting.rpcHost" ng-change="updateRpcSetting(setting, 'rpcHost')"/>
                                 <span class="input-group-addon" style="border-left: 0">:</span>
-                                <span class="input-group-addon" ng-bind="context.settings.rpcPort" style="border-left: 0"></span>
+                                <span class="input-group-addon" ng-bind="setting.rpcPort" style="border-left: 0"></span>
                                 <span class="input-group-addon" style="border-left: 0">/</span>
-                                <span class="input-group-addon" ng-if="context.settings.rpcInterface" ng-bind="context.settings.rpcInterface"></span>
+                                <span class="input-group-addon" ng-if="setting.rpcInterface" ng-bind="setting.rpcInterface"></span>
                             </div>
                         </div>
                     </div>
@@ -136,8 +149,7 @@
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <input class="form-control" type="text" ng-model="context.settings.rpcPort"
-                                   ng-change="settingService.setRpcPort(context.settings.rpcPort)"/>
+                            <input class="form-control" type="text" ng-model="setting.rpcPort" ng-change="updateRpcSetting(setting, 'rpcPort')"/>
                         </div>
                     </div>
                     <div class="row">
@@ -146,8 +158,7 @@
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <input class="form-control" type="text" ng-model="context.settings.rpcInterface"
-                                   ng-change="settingService.setRpcInterface(context.settings.rpcInterface)"/>
+                            <input class="form-control" type="text" ng-model="setting.rpcInterface" ng-change="updateRpcSetting(setting, 'rpcInterface')"/>
                         </div>
                     </div>
                     <div class="row">
@@ -156,8 +167,7 @@
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;" ng-model="context.settings.protocol"
-                                    ng-change="settingService.setProtocol(context.settings.protocol)">
+                            <select class="form-control" style="width: 100%;" ng-model="setting.protocol" ng-change="updateRpcSetting(setting, 'protocol')">
                                 <option value="http" translate>Http</option>
                                 <option value="https" translate>Https</option>
                                 <option value="ws" translate>WebSocket</option>
@@ -165,7 +175,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row" ng-if="context.settings.protocol === 'http' || context.settings.protocol === 'https'">
+                    <div class="row" ng-if="setting.protocol === 'http' || setting.protocol === 'https'">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Aria2 RPC Http Request Method</span>
                             <span class="asterisk">*</span>
@@ -173,8 +183,7 @@
                                ng-tooltip="{{'POST method only supports aria2 v1.15.2 and above.' | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;" ng-model="context.settings.httpMethod"
-                                    ng-change="settingService.setHttpMethod(context.settings.httpMethod)">
+                            <select class="form-control" style="width: 100%;" ng-model="setting.httpMethod" ng-change="updateRpcSetting(setting, 'httpMethod')">
                                 <option value="POST" translate>POST</option>
                                 <option value="GET" translate>GET</option>
                             </select>
@@ -187,8 +196,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <div class="input-group">
-                                <input class="form-control" type="{{context.showRpcSecret ? 'text' : 'password'}}" ng-model="context.settings.secret"
-                                       ng-change="settingService.setSecret(context.settings.secret)"/>
+                                <input class="form-control" type="{{context.showRpcSecret ? 'text' : 'password'}}" ng-model="setting.secret" ng-change="updateRpcSetting(setting, 'secret')"/>
                                 <span class="input-group-addon input-group-addon-compact no-vertical-padding">
                                     <button class="btn btn-xs btn-default" title="{{context.showRpcSecret ? 'Hide Secret' : 'Show Secret' | translate}}"
                                             ng-class="{'active': context.showRpcSecret}" ng-click="context.showRpcSecret = !context.showRpcSecret">
@@ -201,6 +209,12 @@
                     <div class="row tip no-background no-hover">
                         <span class="asterisk">*</span>
                         <span translate>Changes to the settings take effect after refreshing page.</span>
+                        <button class="btn btn-xs btn-default" ng-disabled="setting.isDefault" ng-click="setDefaultRpcSetting(setting)">
+                            <span translate>Set Default</span>
+                        </button>
+                        <button class="btn btn-xs btn-danger" ng-if="!setting.isDefault" ng-disabled="setting.isDefault" ng-click="removeRpcSetting(setting)">
+                            <span translate>Delete RPC Setting</span>
+                        </button>
                     </div>
                 </div>
             </div>

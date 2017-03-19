@@ -129,11 +129,11 @@
             },
             getFinalTitleByGlobalStat: function (globalStat) {
                 var context = {
-                    downloadingCount: globalStat.numActive,
-                    waitingCount: globalStat.numWaiting,
-                    stoppedCount: globalStat.numStopped,
-                    downloadSpeed: globalStat.downloadSpeed,
-                    uploadSpeed: globalStat.uploadSpeed
+                    downloadingCount: (globalStat ? globalStat.numActive : 0),
+                    waitingCount: (globalStat ? globalStat.numWaiting : 0),
+                    stoppedCount: (globalStat ? globalStat.numStopped : 0),
+                    downloadSpeed: (globalStat ? globalStat.downloadSpeed : 0),
+                    uploadSpeed: (globalStat ? globalStat.uploadSpeed : 0)
                 };
 
                 return this.getFinalTitle(context);
