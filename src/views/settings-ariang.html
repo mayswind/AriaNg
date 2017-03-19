@@ -23,7 +23,7 @@
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;" ng-model="context.settings.language"
                                     ng-options="type as language.displayName for (type, language) in context.languages"
-                                    ng-change="settingService.setLanguage(context.settings.language)">
+                                    ng-change="setLanguage(context.settings.language)">
                             </select>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;" ng-model="context.sessionSettings.debugMode"
                                     ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions"
-                                    ng-change="settingService.setDebugMode(context.sessionSettings.debugMode)">
+                                    ng-change="setDebugMode(context.sessionSettings.debugMode)">
                             </select>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <input class="form-control" type="text" ng-model="context.settings.title"
-                                   ng-change="settingService.setTitle(context.settings.title); updateTitlePreview()"/>
+                                   ng-change="setTitle(context.settings.title); updateTitlePreview()"/>
                             <em>[<span translate>Preview</span>] <span ng-bind="context.titlePreview"></span></em>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;"
                                     ng-model="context.settings.titleRefreshInterval"
-                                    ng-change="settingService.setTitleRefreshInterval(context.settings.titleRefreshInterval)"
+                                    ng-change="setTitleRefreshInterval(context.settings.titleRefreshInterval)"
                                     ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;"
                                     ng-model="context.settings.globalStatRefreshInterval"
-                                    ng-change="settingService.setGlobalStatRefreshInterval(context.settings.globalStatRefreshInterval)"
+                                    ng-change="setGlobalStatRefreshInterval(context.settings.globalStatRefreshInterval)"
                                     ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
                             </select>
                         </div>
@@ -105,7 +105,7 @@
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;"
                                     ng-model="context.settings.downloadTaskRefreshInterval"
-                                    ng-change="settingService.setDownloadTaskRefreshInterval(context.settings.downloadTaskRefreshInterval)"
+                                    ng-change="setDownloadTaskRefreshInterval(context.settings.downloadTaskRefreshInterval)"
                                     ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
                             </select>
                         </div>

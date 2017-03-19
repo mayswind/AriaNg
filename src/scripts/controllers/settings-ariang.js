@@ -75,7 +75,47 @@
             }
         };
 
-        $scope.settingService = ariaNgSettingService;
+        $scope.setLanguage = function (value) {
+            ariaNgSettingService.setLanguage(value);
+        };
+
+        $scope.setDebugMode = function (value) {
+            ariaNgSettingService.setDebugMode(value);
+        };
+
+        $scope.setTitle = function (value) {
+            ariaNgSettingService.setTitle(value);
+        };
+
+        $scope.setTitleRefreshInterval = function (value) {
+            ariaNgSettingService.setTitleRefreshInterval(value);
+        };
+
+        $scope.isSupportNotification = function () {
+            return ariaNgNotificationService.isSupportBrowserNotification() &&
+                ariaNgSettingService.isCurrentRpcUseWebSocket($scope.context.settings.protocol);
+        };
+
+        $scope.setEnableBrowserNotification = function (value) {
+            ariaNgSettingService.setBrowserNotification(value);
+
+            if (value && !ariaNgNotificationService.hasBrowserPermission()) {
+                ariaNgNotificationService.requestBrowserPermission(function (permission) {
+                    if (!ariaNgNotificationService.isPermissionGranted(permission)) {
+                        $scope.context.settings.browserNotification = false;
+                        ariaNgCommonService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
+                    }
+                });
+            }
+        };
+
+        $scope.setGlobalStatRefreshInterval = function (value) {
+            ariaNgSettingService.setGlobalStatRefreshInterval(value);
+        };
+
+        $scope.setDownloadTaskRefreshInterval = function (value) {
+            ariaNgSettingService.setDownloadTaskRefreshInterval(value);
+        };
 
         $scope.addNewRpcSetting = function () {
             var newRpcSetting = ariaNgSettingService.addNewRpcSetting();
@@ -107,24 +147,6 @@
 
             ariaNgSettingService.setDefaultRpcSetting(setting);
             $window.location.reload();
-        };
-
-        $scope.isSupportNotification = function () {
-            return ariaNgNotificationService.isSupportBrowserNotification() &&
-                ariaNgSettingService.isCurrentRpcUseWebSocket($scope.context.settings.protocol);
-        };
-
-        $scope.setEnableBrowserNotification = function (value) {
-            ariaNgSettingService.setBrowserNotification(value);
-
-            if (value && !ariaNgNotificationService.hasBrowserPermission()) {
-                ariaNgNotificationService.requestBrowserPermission(function (permission) {
-                    if (!ariaNgNotificationService.isPermissionGranted(permission)) {
-                        $scope.context.settings.browserNotification = false;
-                        ariaNgCommonService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
-                    }
-                });
-            }
         };
 
         $('[data-toggle="popover"]').popover();
