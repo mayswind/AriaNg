@@ -7,6 +7,8 @@
         var secret = ariaNgSettingService.getSecret();
 
         var onFirstSuccessCallbacks = [];
+        var onConnectSuccessCallbacks = [];
+        var onConnectErrorCallbacks = [];
         var onDownloadStartCallbacks = [];
         var onDownloadPauseCallbacks = [];
         var onDownloadStopCallbacks = [];
@@ -65,13 +67,13 @@
             });
         };
 
-        var fireFirstSuccessEvent = function () {
-            if (!angular.isArray(onFirstSuccessCallbacks) || onFirstSuccessCallbacks.length < 1) {
+        var fireCustomEvent = function (callbacks) {
+            if (!angular.isArray(callbacks) || callbacks.length < 1) {
                 return;
             }
 
-            for (var i = 0; i < onFirstSuccessCallbacks.length; i++) {
-                var callback = onFirstSuccessCallbacks[i];
+            for (var i = 0; i < callbacks.length; i++) {
+                var callback = callbacks[i];
                 callback();
             }
         };
@@ -136,11 +138,6 @@
                 var innerContext = arguments[1];
 
                 context.successCallback = function (id, result) {
-                    if (!isConnected) {
-                        isConnected = true;
-                        fireFirstSuccessEvent();
-                    }
-
                     if (innerContext.callback) {
                         innerContext.callback({
                             id: id,
@@ -148,6 +145,13 @@
                             data: result,
                             context: innerContext
                         });
+                    }
+
+                    fireCustomEvent(onConnectSuccessCallbacks);
+
+                    if (!isConnected) {
+                        isConnected = true;
+                        fireCustomEvent(onFirstSuccessCallbacks);
                     }
                 };
 
@@ -167,6 +171,8 @@
                             context: innerContext
                         });
                     }
+
+                    fireCustomEvent(onConnectErrorCallbacks);
                 };
             }
 
@@ -418,6 +424,12 @@
             },
             onFirstSuccess: function (context) {
                 onFirstSuccessCallbacks.push(context.callback);
+            },
+            onConnectSuccess: function (context) {
+                onConnectSuccessCallbacks.push(context.callback);
+            },
+            onConnectError: function (context) {
+                onConnectErrorCallbacks.push(context.callback);
             },
             onDownloadStart: function (context) {
                 onDownloadStartCallbacks.push(context.callback);
