@@ -77,7 +77,7 @@
 
         var replaceStoppedCount = function (title, value) {
             return replacePlaceholders(title, 'stopped', {
-                prefix: $translate.instant('Downloaded / Stopped'),
+                prefix: $translate.instant('Finished / Stopped'),
                 value: value
             });
         };

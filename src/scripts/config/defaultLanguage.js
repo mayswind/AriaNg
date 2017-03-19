@@ -49,7 +49,7 @@
             'Completed': 'Completed',
             'Error Occurred': 'Error Occurred',
             'Removed': 'Removed',
-            'Downloaded / Stopped': 'Downloaded / Stopped',
+            'Finished / Stopped': 'Finished / Stopped',
             'Uncompleted': 'Uncompleted',
             'Click to pin': 'Click to pin',
             'Settings': 'Settings',
