@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'SweetAlert', '$translate', 'ariaNgConstants', 'ariaNgLogService', function ($location, $timeout, base64, SweetAlert, $translate, ariaNgConstants, ariaNgLogService) {
+    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, base64, SweetAlert, $translate, ariaNgConstants) {
         return {
             generateUniqueId: function () {
                 var sourceId = ariaNgConstants.appPrefix + '_' + Math.round(new Date().getTime() / 1000) + '_' + Math.random();
@@ -20,7 +20,6 @@
                 }, 100);
             },
             showError: function (text) {
-                ariaNgLogService.info('[ariaNgCommonService.showError] ' + text);
                 this.showDialog('Error', text, 'error');
             },
             showOperationSucceeded: function (text) {

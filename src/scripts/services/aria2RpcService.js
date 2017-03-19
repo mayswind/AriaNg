@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
+    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgLogService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var rpcImplementService = ariaNgSettingService.isUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
         var isConnected = false;
         var secret = ariaNgSettingService.getSecret();
@@ -111,6 +111,8 @@
             if (!error || !error.message) {
                 return false;
             }
+
+            ariaNgLogService.error('[aria2RpcService.processError] ' + error.message, error);
 
             if (aria2RpcErrors[error.message] && aria2RpcErrors[error.message].tipTextKey) {
                 ariaNgCommonService.showError(aria2RpcErrors[error.message].tipTextKey);
