@@ -36,7 +36,7 @@
                             <span translate>Task Size</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="task.totalLength | readableVolumn"></span>
+                            <span ng-bind="task.totalLength | readableVolume"></span>
                             <a class="pointer-cursor" ng-if="task.files" ng-click="changeTab('filelist')">
                                 <span ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                             </a>
@@ -73,7 +73,7 @@
                             <span translate>Download</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.completedLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolumn) + '/s' : '')"></span>
+                            <span ng-bind="(task.completedLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task && task.bittorrent">
@@ -81,7 +81,7 @@
                             <span translate>Upload</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.uploadLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolumn) + '/s' : '')"></span>
+                            <span ng-bind="(task.uploadLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task && task.bittorrent">
@@ -240,7 +240,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <span class="task-size" ng-bind="file.length | readableVolumn"></span>
+                                <span class="task-size" ng-bind="file.length | readableVolume"></span>
                             </div>
                         </div>
                     </div>
@@ -305,9 +305,9 @@
                             <div class="col-md-3 col-sm-4 col-xs-8">
                                 <div class="task-peer-download-speed">
                                     <i class="icon-download fa fa-arrow-down"></i>
-                                    <span ng-bind="(peer.downloadSpeed | readableVolumn) + '/s'"></span>&nbsp;
+                                    <span ng-bind="(peer.downloadSpeed | readableVolume) + '/s'"></span>&nbsp;
                                     <i class="icon-upload fa fa-arrow-up"></i>
-                                    <span ng-bind="(peer.uploadSpeed | readableVolumn) + '/s'"></span>
+                                    <span ng-bind="(peer.uploadSpeed | readableVolume) + '/s'"></span>
                                 </div>
                             </div>
                         </div>

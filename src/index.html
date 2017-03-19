@@ -237,11 +237,11 @@
                ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
                 <span class="realtime-speed">
                     <i class="icon-download fa fa-arrow-down"></i>
-                    <span ng-bind="(globalStat.downloadSpeed | readableVolumn) + '/s'"></span>
+                    <span ng-bind="(globalStat.downloadSpeed | readableVolume) + '/s'"></span>
                 </span>
                 <span class="realtime-speed">
                     <i class="icon-upload fa fa-arrow-up"></i>
-                    <span ng-bind="(globalStat.uploadSpeed | readableVolumn) + '/s'"></span>
+                    <span ng-bind="(globalStat.uploadSpeed | readableVolume) + '/s'"></span>
                 </span>
             </a>
         </div>
@@ -327,7 +327,7 @@
 <script src="scripts/filters/percent.js"></script>
 <script src="scripts/filters/taskOrderBy.js"></script>
 <script src="scripts/filters/taskStatus.js"></script>
-<script src="scripts/filters/volumn.js"></script>
+<script src="scripts/filters/volume.js"></script>
 <script src="scripts/services/ariaNgCommonService.js"></script>
 <script src="scripts/services/ariaNgFileService.js"></script>
 <script src="scripts/services/ariaNgLanguageLoader.js"></script>

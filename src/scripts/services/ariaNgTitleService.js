@@ -30,8 +30,8 @@
         var replacePlaceholder = function (title, context) {
             var value = context.value;
 
-            if (context.type === 'volumn') {
-                value = $filter('readableVolumn')(value, context.scale);
+            if (context.type === 'volume') {
+                value = $filter('readableVolume')(value, context.scale);
             }
 
             if (context.prefix && !context.noprefix) {
@@ -86,7 +86,7 @@
             return replacePlaceholders(title, 'downspeed', {
                 prefix: $translate.instant('Download') + ': ',
                 value: value,
-                type: 'volumn',
+                type: 'volume',
                 suffix: '/s'
             });
         };
@@ -95,7 +95,7 @@
             return replacePlaceholders(title, 'upspeed', {
                 prefix: $translate.instant('Upload') + ': ',
                 value: value,
-                type: 'volumn',
+                type: 'volume',
                 suffix: '/s'
             });
         };
