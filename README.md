@@ -22,7 +22,8 @@ A Better Web Frontend for [aria2](https://github.com/aria2/aria2) (aria2 is a cr
 4. Add new download task by requesting url (http://AriaNgUrl/#/new/url_base64)
 5. Download finished notification
 6. Multi-languages support
-7. Less bandwidth usage, only requesting incremental data
+7. Multi aria2 RPC host support
+8. Less bandwidth usage, only requesting incremental data
 
 ## Screenshots
 #### Desktop
