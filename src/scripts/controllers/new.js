@@ -16,8 +16,8 @@
             options: {},
             optionFilter: {
                 global: true,
-                http: true,
-                bittorrent: true
+                http: false,
+                bittorrent: false
             }
         };
 
