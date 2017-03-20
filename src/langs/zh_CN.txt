@@ -177,12 +177,15 @@ Disabled=禁用
 BitTorrent=BitTorrent
 Changes to the settings take effect after refreshing page.=设置将在页面刷新后生效.
 Type is illegal!=类型错误!
-Parameter is invalid!=请求参数无效
+Parameter is invalid!=请求参数无效!
 Option value cannot be empty!=参数内容不能为空!
 Input number is invalid!=输入的数字无效!
 Input number is below min value!=输入的数字小于最小值 {{value}} !
 Input number is above max value!=输入的数字大于最大值 {{value}} !
 Input value is invalid!=输入的内容无效!
+Protocol is invalid!=协议无效!
+RPC host cannot be empty!=RPC 主机不能为空!
+RPC secret is not base64 encoded!=RPC 密钥不是 Base64 编码后的字符串!
 Tap to configure and get started with AriaNg.=您还没有进行过设置, 点击这里进行设置.
 
 [error]

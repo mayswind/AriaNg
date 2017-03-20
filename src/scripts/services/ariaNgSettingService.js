@@ -297,7 +297,12 @@
 
                 return setting;
             },
-            setDefaultRpcSetting: function (setting) {
+            setDefaultRpcSetting: function (setting, params) {
+                params = angular.extend({
+                    keepCurrent: true,
+                    forceSet: false
+                }, params);
+
                 var options = getOptions();
                 var currentSetting = cloneRpcSetting(options);
                 currentSetting.rpcId = ariaNgCommonService.generateUniqueId();
@@ -316,14 +321,58 @@
                     }
                 }
 
+                if (params.forceSet) {
+                    newDefaultSetting = cloneRpcSetting(setting);
+
+                    if (newDefaultSetting.secret) {
+                        newDefaultSetting.secret = base64.encode(newDefaultSetting.secret);
+                    }
+                }
+
                 if (newDefaultSetting) {
-                    options.extendRpcServers.splice(0, 0, currentSetting);
+                    if (params.keepCurrent) {
+                        options.extendRpcServers.splice(0, 0, currentSetting);
+                    }
+
                     options = angular.extend(options, newDefaultSetting);
                 }
 
                 setOptions(options);
 
                 return setting;
+            },
+            isRpcSettingEqualsDefault: function (setting) {
+                if (!setting) {
+                    return false;
+                }
+
+                var options = this.getAllOptions();
+
+                if (options.rpcHost !== setting.rpcHost) {
+                    return false;
+                }
+
+                if (options.rpcPort !== setting.rpcPort) {
+                    return false;
+                }
+
+                if (options.rpcInterface !== setting.rpcInterface) {
+                    return false;
+                }
+
+                if (options.protocol !== setting.protocol) {
+                    return false;
+                }
+
+                if (options.httpMethod !== setting.httpMethod) {
+                    return false;
+                }
+
+                if (options.secret !== setting.secret) {
+                    return false;
+                }
+
+                return true;
             },
             getGlobalStatRefreshInterval: function () {
                 return getOption('globalStatRefreshInterval');

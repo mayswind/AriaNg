@@ -187,6 +187,9 @@
             'Input number is below min value!': 'Input number is below min value {{value}}!',
             'Input number is above max value!': 'Input number is above max value {{value}}!',
             'Input value is invalid!': 'Input value is invalid!',
+            'Protocol is invalid!': 'Protocol is invalid!',
+            'RPC host cannot be empty!': 'RPC host cannot be empty!',
+            'RPC secret is not base64 encoded!': 'RPC secret is not base64 encoded!',
             'Tap to configure and get started with AriaNg.': 'Tap to configure and get started with AriaNg.',
             'error': {
                 'unknown': 'Unknown error occurred.',
