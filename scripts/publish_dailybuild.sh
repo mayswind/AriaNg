@@ -24,10 +24,5 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   git commit -a -m "daily build #$CIRCLE_SHA1";
   git push origin daily-build;
 
-  echo "Publishing online demo...";
-  git checkout -b gh-pages remotes/origin/gh-pages;
-  git merge daily-build -m "merge daily build #$CIRCLE_SHA1";
-  git push origin gh-pages;
-
   echo "Done.";
 fi
