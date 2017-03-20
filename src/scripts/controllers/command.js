@@ -19,7 +19,15 @@
 
         if (path.indexOf('/new/') === 0) {
             var base64Url = $routeParams.url;
-            var url = base64.urldecode(base64Url);
+            var url = base64Url;
+
+            try {
+                url = base64.urldecode(base64Url);
+            } catch (ex) {
+                ariaNgCommonService.showError('URL is not base64 encoded!');
+                return;
+            }
+
             $rootScope.loadPromise = newUrlDownload(url);
             ariaNgLogService.info('[CommandController] new download: ' + url);
         } else if (path.indexOf('/settings/rpc/set/') === 0) {

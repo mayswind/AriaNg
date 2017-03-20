@@ -186,6 +186,7 @@ Input value is invalid!=输入的内容无效!
 Protocol is invalid!=协议无效!
 RPC host cannot be empty!=RPC 主机不能为空!
 RPC secret is not base64 encoded!=RPC 密钥不是 Base64 编码后的字符串!
+URL is not base64 encoded!=指定 URL 不是 Base64 编码后的字符串!
 Tap to configure and get started with AriaNg.=您还没有进行过设置, 点击这里进行设置.
 
 [error]
