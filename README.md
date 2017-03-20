@@ -19,7 +19,7 @@ A Better Web Frontend for [aria2](https://github.com/aria2/aria2). AriaNg is wri
     * Filter files of tasks in file types (by videos, audios, pictures, documents, applications, archives, etc.)
     * Download/upload history chart of global or task
     * Full support of aria2 settings
-4. Command line api support
+4. Url command line api support
 5. Download finished notification
 6. Multi-languages support
 7. Multi aria2 RPC host support
@@ -48,6 +48,9 @@ The builds will be placed in the dist directory.
 
 ## Demo
 Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
+
+## Command API
+Please visit [http://ariang.mayswind.net/command-api.html](http://ariang.mayswind.net/command-api.html) for more information.
 
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)

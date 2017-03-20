@@ -17,7 +17,7 @@
     * 根据文件类型过滤任务中的文件 (按视频, 音频, 图片, 文档, 应用程序, 存档文件等.)
     * 全局以及单任务的上传/下载图表
     * 完整支持 aria2 设置选项
-4. 支持网页地址命令行
+4. 支持网页地址命令行 API
 5. 下载完成消息通知
 6. 多语言支持
 7. 支持配置多个 aria2 RPC
@@ -46,6 +46,9 @@
 
 ## Demo
 请访问 [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
+
+## 命令行 API
+请访问 [http://ariang.mayswind.net/command-api.html](http://ariang.mayswind.net/command-api.html) 获取更多信息.
 
 ## 协议
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
