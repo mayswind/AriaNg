@@ -4,49 +4,45 @@
     angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'base64', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $window, $location, $routeParams, base64, ariaNgDefaultOptions, ariaNgCommonService, ariaNgSettingService, aria2TaskService, ariaNgLogService) {
         var path = $location.path();
 
-        var newUrlDownload = function (url) {
-            return aria2TaskService.newUriTask({
+        var doNewTaskCommand = function (url) {
+            try {
+                url = base64.urldecode(url);
+            } catch (ex) {
+                ariaNgCommonService.showError('URL is not base64 encoded!');
+                return false;
+            }
+
+            $rootScope.loadPromise = aria2TaskService.newUriTask({
                 urls: [url],
                 options: {}
             }, false, function (response) {
                 if (!response.success) {
-                    return;
+                    return false;
                 }
 
                 $location.path('/downloading');
             });
+
+            ariaNgLogService.info('[CommandController] new download: ' + url);
+
+            return true;
         };
 
-        if (path.indexOf('/new/') === 0) {
-            var base64Url = $routeParams.url;
-            var url = base64Url;
-
-            try {
-                url = base64.urldecode(base64Url);
-            } catch (ex) {
-                ariaNgCommonService.showError('URL is not base64 encoded!');
-                return;
-            }
-
-            $rootScope.loadPromise = newUrlDownload(url);
-            ariaNgLogService.info('[CommandController] new download: ' + url);
-        } else if (path.indexOf('/settings/rpc/set/') === 0) {
-            var rpcProtocol = $routeParams.protocol;
-            var rpcHost = $routeParams.host;
-            var rpcPort = $routeParams.port || ariaNgDefaultOptions.rpcPort;
-            var rpcInterface =$routeParams.interface || ariaNgDefaultOptions.rpcInterface;
-            var secret = $routeParams.secret || ariaNgDefaultOptions.secret;
+        var doSetRpcCommand = function (rpcProtocol, rpcHost, rpcPort, rpcInterface, secret) {
+            rpcPort = rpcPort || ariaNgDefaultOptions.rpcPort;
+            rpcInterface = rpcInterface || ariaNgDefaultOptions.rpcInterface;
+            secret = secret || ariaNgDefaultOptions.secret;
 
             ariaNgLogService.info('[CommandController] set rpc: ' + rpcProtocol + '://' + rpcHost + ':' + rpcPort + '/' + rpcInterface + ', secret: ' + secret);
 
             if (!rpcProtocol || (rpcProtocol !== 'http' && rpcProtocol !== 'https' && rpcProtocol !== 'ws' && rpcProtocol !== 'wss')) {
                 ariaNgCommonService.showError('Protocol is invalid!');
-                return;
+                return false;
             }
 
             if (!rpcHost) {
                 ariaNgCommonService.showError('RPC host cannot be empty!');
-                return;
+                return false;
             }
 
             if (secret) {
@@ -54,7 +50,7 @@
                     secret = base64.urldecode(secret);
                 } catch (ex) {
                     ariaNgCommonService.showError('RPC secret is not base64 encoded!');
-                    return;
+                    return false;
                 }
             }
 
@@ -79,8 +75,23 @@
                 $location.path('/downloading');
                 $window.location.reload();
             }
-        } else {
-            ariaNgCommonService.showError('Parameter is invalid!');
+
+            return true;
+        };
+
+        var doCommand = function (path, params) {
+            if (path.indexOf('/new/') === 0) {
+                return doNewTaskCommand(params.url);
+            } else if (path.indexOf('/settings/rpc/set/') === 0) {
+                return doSetRpcCommand(params.protocol, params.host, params.port, params.interface, params.secret);
+            } else {
+                ariaNgCommonService.showError('Parameter is invalid!');
+                return false;
+            }
+        };
+
+        if (!doCommand(path, $routeParams)) {
+            $location.path('/downloading');
         }
     }]);
 }());
