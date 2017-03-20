@@ -47,7 +47,7 @@ Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/)
 The builds will be placed in the dist directory.
 
 ## Demo
-Please visit http://ariang.mayswind.net
+Please visit http://ariang.mayswind.net/demo
 
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)

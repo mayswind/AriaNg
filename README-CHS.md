@@ -45,7 +45,7 @@
 构建后的内容将放置在 dist 目录中.
 
 ## Demo
-请访问 http://ariang.mayswind.net
+请访问 http://ariang.mayswind.net/demo
 
 ## 协议
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
