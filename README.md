@@ -27,9 +27,9 @@ A Better Web Frontend for [aria2](https://github.com/aria2/aria2) (aria2 is a cr
 
 ## Screenshots
 #### Desktop
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/desktop.png)
+![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
 #### Mobile Device
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/mobile.png)
+![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/mobile.png)
 
 ## Installation
 #### Prebuilt release
