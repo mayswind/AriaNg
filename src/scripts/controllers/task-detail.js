@@ -9,11 +9,9 @@
         var getAvailableOptions = function (status, isBittorrent) {
             var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
 
-            if (!keys) {
-                return;
-            }
-
-            return aria2SettingService.getSpecifiedOptions(keys);
+            return aria2SettingService.getSpecifiedOptions(keys, {
+                disableRequired: true
+            });
         };
 
         var processTask = function (task) {

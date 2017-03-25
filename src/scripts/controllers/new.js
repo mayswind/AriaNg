@@ -10,7 +10,9 @@
             availableOptions: (function () {
                 var keys = aria2SettingService.getNewTaskOptionKeys();
 
-                return aria2SettingService.getSpecifiedOptions(keys);
+                return aria2SettingService.getSpecifiedOptions(keys, {
+                    disableRequired: true
+                });
             })(),
             globalOptions: null,
             options: {},

@@ -68,7 +68,7 @@
 
                 return availableOptions;
             },
-            getNewTaskOptionKeys: function (isBittorrent) {
+            getNewTaskOptionKeys: function () {
                 var allOptions = aria2TaskAvailableOptions.taskOptions;
                 var availableOptions = [];
 
@@ -92,8 +92,12 @@
 
                 return availableOptions;
             },
-            getSpecifiedOptions: function (keys) {
+            getSpecifiedOptions: function (keys, extendSettings) {
                 var options = [];
+
+                if (!keys) {
+                    return options;
+                }
 
                 for (var i = 0; i < keys.length; i++) {
                     var key = keys[i];
@@ -130,6 +134,10 @@
 
                     if (readonly) {
                         option.readonly = true;
+                    }
+
+                    if (extendSettings && extendSettings.disableRequired) {
+                        option.required = false;
                     }
 
                     if (option.options) {
