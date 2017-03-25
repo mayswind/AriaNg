@@ -343,6 +343,16 @@
     color: #208fe5;
 }
 
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a.nav-tab-close:hover {
+    color: #dd4b39 !important;
+    margin-left: -14px;
+}
+
+.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a.nav-tab-close:hover > .fa-times:before {
+    content:"\f057"; /* The same as .fa-times-circle:before */
+    font-size: 1.1em;
+}
+
 .skin-aria-ng .nav-tabs-custom > .nav-tabs > li > div.btn-group {
     padding-top: 5px;
     padding-bottom: 5px;

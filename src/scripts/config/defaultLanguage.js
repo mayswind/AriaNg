@@ -142,7 +142,7 @@
             'Set Default': 'Set Default',
             'Delete RPC Setting': 'Delete RPC Setting',
             'Add New RPC Setting': 'Add New RPC Setting',
-            'Are you sure you want to remove this rpc setting?': 'Are you sure you want to remove this rpc setting?',
+            'Are you sure you want to remove rpc setting "{{rpcName}}"?': 'Are you sure you want to remove rpc setting "{{rpcName}}"?',
             'Global Stat Refresh Interval': 'Global Stat Refresh Interval',
             'Download Task Refresh Interval': 'Download Task Refresh Interval',
             'Supported Placeholder': 'Supported Placeholder',

@@ -129,13 +129,19 @@
         };
 
         $scope.removeRpcSetting = function (setting) {
-            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove this rpc setting?', 'warning', function () {
+            var rpcName = (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort);
+
+            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{{rpcName}}"?', 'warning', function () {
                 var index = $scope.context.rpcSettings.indexOf(setting);
                 ariaNgSettingService.removeRpcSetting(setting);
                 $scope.context.rpcSettings.splice(index, 1);
 
                 if (index >= $scope.context.rpcSettings.length) {
                     $scope.changeRpcTab($scope.context.rpcSettings.length - 1);
+                }
+            }, false, {
+                textParams: {
+                    rpcName: rpcName
                 }
             });
         };

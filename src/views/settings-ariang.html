@@ -4,8 +4,13 @@
             <li ng-class="{'active': isCurrentGlobalTab()}">
                 <a class="pointer-cursor" ng-click="changeGlobalTab()" translate>Global</a>
             </li>
-            <li ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
-                <a class="pointer-cursor" ng-click="changeRpcTab($index)" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? '-' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) : '')">RPC</a>
+            <li class="nav-tab-title-rpcname" ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
+                <a class="pointer-cursor" ng-click="changeRpcTab($index)">
+                    <span class="nav-tab-rpcname" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? '(' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) + ')' : '')" title="{{(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)}}">RPC</span>
+                </a>
+                <a class="pointer-cursor nav-tab-close" ng-if="!setting.isDefault" title="{{'Delete RPC Setting' | translate}}">
+                    <i class="fa fa-times" ng-click="removeRpcSetting(setting)"></i>
+                </a>
             </li>
             <li class="slim">
                 <a class="pointer-cursor" ng-click="addNewRpcSetting()" title="{{'Add New RPC Setting' | translate}}">
@@ -211,9 +216,6 @@
                         <span translate>Changes to the settings take effect after refreshing page.</span>
                         <button class="btn btn-xs btn-default" ng-disabled="setting.isDefault" ng-click="setDefaultRpcSetting(setting)">
                             <span translate>Set Default</span>
-                        </button>
-                        <button class="btn btn-xs btn-danger" ng-if="!setting.isDefault" ng-disabled="setting.isDefault" ng-click="removeRpcSetting(setting)">
-                            <span translate>Delete RPC Setting</span>
                         </button>
                     </div>
                 </div>

@@ -25,10 +25,10 @@
             showOperationSucceeded: function (text) {
                 this.showDialog('Operation Succeeded', text, 'success');
             },
-            confirm: function (title, text, type, callback, notClose) {
+            confirm: function (title, text, type, callback, notClose, extendSettings) {
                 var options = {
                     title: $translate.instant(title),
-                    text: $translate.instant(text),
+                    text: $translate.instant(text, (extendSettings !== null ? extendSettings.textParams : null)),
                     type: type,
                     showCancelButton: true,
                     showLoaderOnConfirm: !!notClose,
