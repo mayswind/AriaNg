@@ -68,6 +68,24 @@
     z-index: inherit;
 }
 
+.settings-table .setting-value .input-group .form-control-rpcport {
+    min-width: 70px;
+}
+
+.settings-table .setting-value .input-group .form-control-rpcinterface {
+    min-width: 100px;
+}
+
+@media (max-width: 991px) {
+    .settings-table .setting-value .input-group .form-control-rpcport {
+        min-width: 60px;
+    }
+
+    .settings-table .setting-value .input-group .form-control-rpcinterface {
+        min-width: 60px;
+    }
+}
+
 .settings-table .tip {
     font-size: 12px;
     padding: 4px 8px 4px 8px;

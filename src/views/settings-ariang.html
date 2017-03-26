@@ -6,7 +6,7 @@
             </li>
             <li class="nav-tab-title-rpcname" ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
                 <a class="pointer-cursor" ng-click="changeRpcTab($index)">
-                    <span class="nav-tab-rpcname" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? '(' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) + ')' : '')" title="{{(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)}}">RPC</span>
+                    <span class="nav-tab-rpcname" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? ' (' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) + ')' : '')" title="{{(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)}}">RPC</span>
                 </a>
                 <a class="pointer-cursor nav-tab-close" ng-if="!setting.isDefault" title="{{'Delete RPC Setting' | translate}}">
                     <i class="fa fa-times" ng-click="removeRpcSetting(setting)"></i>
@@ -134,36 +134,22 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Aria2 RPC Host</span>
+                            <span translate>Aria2 RPC Address</span>
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
                             <div class="input-group input-group-multiple">
                                 <span class="input-group-addon" ng-bind="setting.protocol + '://'"></span>
                                 <input class="form-control" type="text" ng-model="setting.rpcHost" ng-change="updateRpcSetting(setting, 'rpcHost')"/>
-                                <span class="input-group-addon" style="border-left: 0">:</span>
-                                <span class="input-group-addon" ng-bind="setting.rpcPort" style="border-left: 0"></span>
-                                <span class="input-group-addon" style="border-left: 0">/</span>
-                                <span class="input-group-addon" ng-if="setting.rpcInterface" ng-bind="setting.rpcInterface"></span>
+                                <span class="input-group-addon">:</span>
+                                <div class="input-grougp-addon-container">
+                                    <input class="form-control form-control-rpcport" type="text" ng-model="setting.rpcPort" ng-change="updateRpcSetting(setting, 'rpcPort')"/>
+                                </div>
+                                <span class="input-group-addon">/</span>
+                                <div class="input-grougp-addon-container">
+                                    <input class="form-control form-control-rpcinterface" type="text" ng-model="setting.rpcInterface" ng-change="updateRpcSetting(setting, 'rpcInterface')"/>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Aria2 RPC Port</span>
-                            <span class="asterisk">*</span>
-                        </div>
-                        <div class="setting-value col-sm-8">
-                            <input class="form-control" type="text" ng-model="setting.rpcPort" ng-change="updateRpcSetting(setting, 'rpcPort')"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Aria2 RPC Interface</span>
-                            <span class="asterisk">*</span>
-                        </div>
-                        <div class="setting-value col-sm-8">
-                            <input class="form-control" type="text" ng-model="setting.rpcInterface" ng-change="updateRpcSetting(setting, 'rpcInterface')"/>
                         </div>
                     </div>
                     <div class="row">
