@@ -39,7 +39,6 @@
 
 .skin-aria-ng .main-header .navbar .nav > li.disabled > a {
     color: #ccc !important;
-    pointer-events: none !important;
 }
 
 .skin-aria-ng .main-header .navbar .nav > li.divider {

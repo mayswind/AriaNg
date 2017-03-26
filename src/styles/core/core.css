@@ -15,12 +15,16 @@ td {
     vertical-align: middle !important;
 }
 
-.skin-aria-ng .main-header .logo {
+.main-header .logo {
     overflow: visible;
 }
 
-.skin-aria-ng .main-header .logo .dropdown-menu {
+.main-header .logo .dropdown-menu {
     z-index: 2000;
+}
+
+.main-header .navbar .nav > li.disabled > a {
+    pointer-events: none !important;
 }
 
 .main-header .navbar .navbar-searchbar {
@@ -31,6 +35,10 @@ td {
 
 .main-header .logo .logo-lg {
     cursor: pointer;
+}
+
+.content-wrapper, .right-side {
+     background-color: #fff;
 }
 
 .content-wrapper > .content-body {

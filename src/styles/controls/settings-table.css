@@ -68,14 +68,6 @@
     z-index: inherit;
 }
 
-.settings-table .setting-value .input-group.input-group-multiple .input-group-addon {
-    border-right: 0;
-}
-
-.settings-table .setting-value .input-group.input-group-multiple .input-group-addon:last-child {
-    border-right: 1px solid #d2d6de;
-}
-
 .settings-table .tip {
     font-size: 12px;
     padding: 4px 8px 4px 8px;
