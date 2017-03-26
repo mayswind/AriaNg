@@ -28,7 +28,7 @@
             confirm: function (title, text, type, callback, notClose, extendSettings) {
                 var options = {
                     title: $translate.instant(title),
-                    text: $translate.instant(text, (extendSettings !== null ? extendSettings.textParams : null)),
+                    text: $translate.instant(text, (angular.isObject(extendSettings) ? extendSettings.textParams : null)),
                     type: type,
                     showCancelButton: true,
                     showLoaderOnConfirm: !!notClose,
