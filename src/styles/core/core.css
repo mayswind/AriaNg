@@ -4,7 +4,14 @@
  */
 
 /* basic */
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    margin: 0;
+    padding: 0;
     -ms-user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
