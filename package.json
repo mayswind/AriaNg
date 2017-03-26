@@ -28,8 +28,8 @@
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.1.0"
   },
-  "name": "aria-ng",
-  "description": "AriaNg, A Better Frontend for aria2",
+  "name": "ariang",
+  "description": "AriaNg, a web frontend making aria2 better",
   "version": "0.1.0",
   "main": "index.html",
   "scripts": {
@@ -40,7 +40,7 @@
     "url": "git+https://github.com/mayswind/AriaNg.git"
   },
   "keywords": [
-    "Aria2",
+    "aria2",
     "Web",
     "Frontend"
   ],
@@ -49,5 +49,5 @@
   "bugs": {
     "url": "https://github.com/mayswind/AriaNg/issues"
   },
-  "homepage": "https://github.com/mayswind/AriaNg#readme"
+  "homepage": "http://ariang.mayswind.net/"
 }

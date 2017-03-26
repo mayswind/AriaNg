@@ -1,18 +1,18 @@
 {
   "private": true,
-  "name": "aria-ng",
-  "description": "Aria2 Ng Frontend",
+  "name": "ariang",
+  "description": "AriaNg, a web frontend making aria2 better",
   "main": "index.html",
   "authors": [
     "MaysWind <i@mayswind.net>"
   ],
   "license": "MIT",
   "keywords": [
-    "Aria2",
+    "aria2",
     "Web",
     "Frontend"
   ],
-  "homepage": "https://github.com/mayswind/AriaNg",
+  "homepage": "http://ariang.mayswind.net/",
   "ignore": [
     "**/.*",
     "node_modules",
