@@ -11,7 +11,7 @@
                     };
                 }
             }
-            
+
             return {
                 value: line
             };
@@ -63,6 +63,8 @@
                 if (!line) {
                     continue;
                 }
+
+                line = line.replace('\r', '');
 
                 if (/^\[.+\]$/.test(line)) {
                     currentCatagory = getCategory(langObj, line);
