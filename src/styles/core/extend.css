@@ -17,6 +17,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    vertical-align: bottom;
+}
+
+@media (max-width: 991px) {
+    .nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+        max-width: 120px;
+    }
 }
 
 .input-group.input-group-multiple > .input-group-addon {
