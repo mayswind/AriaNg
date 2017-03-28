@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgFileService', ['$window', 'ariaNgCommonService', function ($window, ariaNgCommonService) {
+    angular.module('ariaNg').factory('ariaNgFileService', ['$window', function ($window) {
         var isSupportFileReader = !!$window.FileReader;
 
         var getAllowedExtensions = function (fileFilter) {
@@ -46,9 +46,12 @@
         };
 
         return {
-            openFileContent: function (fileFilter, callback) {
+            openFileContent: function (fileFilter, successCallback, errorCallback) {
                 if (!isSupportFileReader) {
-                    ariaNgCommonService.showError('Your browser does not support loading file!');
+                    if (errorCallback) {
+                        errorCallback('Your browser does not support loading file!');
+                    }
+
                     return;
                 }
 
@@ -63,7 +66,10 @@
                     var fileName = file.name;
 
                     if (!checkFileExtension(fileName, allowedExtensions)) {
-                        ariaNgCommonService.showError('The selected file type is invalid!');
+                        if (errorCallback) {
+                            errorCallback('The selected file type is invalid!');
+                        }
+
                         return;
                     }
 
@@ -75,13 +81,15 @@
                             base64Content: this.result.replace(/.*?base64,/, '')
                         };
 
-                        if (callback) {
-                            callback(result);
+                        if (successCallback) {
+                            successCallback(result);
                         }
                     };
 
                     reader.onerror = function () {
-                        ariaNgCommonService.showError('Failed to load file!');
+                        if (errorCallback) {
+                            errorCallback('Failed to load file!');
+                        }
                     };
 
                     reader.readAsDataURL(file);
