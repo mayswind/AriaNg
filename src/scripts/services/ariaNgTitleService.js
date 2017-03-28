@@ -17,9 +17,9 @@
             for (var i = 1; i < items.length; i++) {
                 var pairs = items[i].split('=');
 
-                if (pairs.length == 1) {
+                if (pairs.length === 1) {
                     settings[pairs[0]] = true;
-                } else if (pairs.length == 2) {
+                } else if (pairs.length === 2) {
                     settings[pairs[0]] = pairs[1];
                 }
             }
