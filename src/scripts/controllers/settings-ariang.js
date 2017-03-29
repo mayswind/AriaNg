@@ -3,9 +3,26 @@
 
     angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
         var extendType = $routeParams.extendType;
+        var lastRefreshPageNotification = null;
 
         var getFinalTitle = function () {
             return ariaNgTitleService.getFinalTitleByGlobalStat(ariaNgMonitorService.getCurrentGlobalStat());
+        };
+
+        var setNeedRefreshPage = function () {
+            if (lastRefreshPageNotification) {
+                return;
+            }
+
+            lastRefreshPageNotification = ariaNgNotificationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
+                delay: false,
+                type: 'info',
+                templateUrl: 'setting-changed-notification.html',
+                scope: $scope,
+                onClose: function () {
+                    lastRefreshPageNotification = null;
+                }
+            });
         };
 
         $scope.context = {
@@ -88,6 +105,7 @@
         };
 
         $scope.setTitleRefreshInterval = function (value) {
+            setNeedRefreshPage();
             ariaNgSettingService.setTitleRefreshInterval(value);
         };
 
@@ -110,14 +128,18 @@
         };
 
         $scope.setGlobalStatRefreshInterval = function (value) {
+            setNeedRefreshPage();
             ariaNgSettingService.setGlobalStatRefreshInterval(value);
         };
 
         $scope.setDownloadTaskRefreshInterval = function (value) {
+            setNeedRefreshPage();
             ariaNgSettingService.setDownloadTaskRefreshInterval(value);
         };
 
         $scope.addNewRpcSetting = function () {
+            setNeedRefreshPage();
+
             var newRpcSetting = ariaNgSettingService.addNewRpcSetting();
             $scope.context.rpcSettings.push(newRpcSetting);
 
@@ -125,6 +147,7 @@
         };
 
         $scope.updateRpcSetting = function (setting, field) {
+            setNeedRefreshPage();
             ariaNgSettingService.updateRpcSetting(setting, field);
         };
 
@@ -132,6 +155,8 @@
             var rpcName = (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort);
 
             ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{{rpcName}}"?', 'warning', function () {
+                setNeedRefreshPage();
+
                 var index = $scope.context.rpcSettings.indexOf(setting);
                 ariaNgSettingService.removeRpcSetting(setting);
                 $scope.context.rpcSettings.splice(index, 1);
@@ -152,6 +177,10 @@
             }
 
             ariaNgSettingService.setDefaultRpcSetting(setting);
+            $window.location.reload();
+        };
+
+        $scope.refreshPage = function () {
             $window.location.reload();
         };
 

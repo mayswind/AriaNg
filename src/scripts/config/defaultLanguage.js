@@ -151,6 +151,8 @@
             'Waiting Count': 'Waiting Count',
             'Stopped Count': 'Stopped Count',
             'You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.': 'You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.',
+            'Configuration has been modified, please reload the page for the changes to take effect.': 'Configuration has been modified, please reload the page for the changes to take effect.',
+            'Refresh': 'Refresh',
             'Show Secret': 'Show Secret',
             'Hide Secret': 'Hide Secret',
             'Aria2 Version': 'Aria2 Version',
