@@ -14,11 +14,17 @@
                 return;
             }
 
+            var noticicationScope = $rootScope.$new();
+
+            noticicationScope.refreshPage = function () {
+                $window.location.reload();
+            };
+
             lastRefreshPageNotification = ariaNgNotificationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
                 delay: false,
                 type: 'info',
                 templateUrl: 'setting-changed-notification.html',
-                scope: $scope,
+                scope: noticicationScope,
                 onClose: function () {
                     lastRefreshPageNotification = null;
                 }
@@ -177,10 +183,6 @@
             }
 
             ariaNgSettingService.setDefaultRpcSetting(setting);
-            $window.location.reload();
-        };
-
-        $scope.refreshPage = function () {
             $window.location.reload();
         };
 
