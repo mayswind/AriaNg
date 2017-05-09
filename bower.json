@@ -45,7 +45,7 @@
     "angular-local-storage": "^0.2.7",
     "angular-notification": "775ee861c1737b284588bcb878ba1f4e43c70c97",
     "angular-ui-notification": "^0.3.6",
-    "angular-bittorrent-peerid": "^1.1.1",
+    "angular-bittorrent-peerid": "^1.2.0",
     "angular-busy": "^4.1.4",
     "angular-promise-buttons": "^0.1.20",
     "angular-dragula": "^1.2.7",
