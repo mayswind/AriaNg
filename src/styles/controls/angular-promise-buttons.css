@@ -111,3 +111,7 @@
     margin-left: 5px;
     opacity: 1;
 }
+
+.btn[promise-btn] { 
+    text-align: left;
+}
