@@ -40,6 +40,10 @@ td {
     float: right;
 }
 
+.main-header .logo .logo-mini {
+    font-size: 14px !important;
+}
+
 .main-header .logo .logo-lg {
     cursor: pointer;
 }
