@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgFileService, aria2SettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgSettingService, ariaNgFileService, aria2SettingService, aria2TaskService) {
         var tabOrders = ['links', 'options'];
 
         var downloadByLinks = function (pauseOnAdded, responseCallback) {
@@ -130,10 +130,22 @@
                     return;
                 }
 
-                if (pauseOnAdded) {
-                    $location.path('/waiting');
+                var firstTask = null;
+
+                if (response.results && response.results.length > 0) {
+                    firstTask = response.results[0];
+                } else if (response) {
+                    firstTask = response;
+                }
+
+                if (ariaNgSettingService.getAfterCreatingNewTask() === 'task-detail' && firstTask && firstTask.data) {
+                    $location.path('/task/detail/' + firstTask.data);
                 } else {
-                    $location.path('/downloading');
+                    if (pauseOnAdded) {
+                        $location.path('/waiting');
+                    } else {
+                        $location.path('/downloading');
+                    }
                 }
             };
 

@@ -29,6 +29,7 @@
         secret: '',
         extendRpcServers: [],
         globalStatRefreshInterval: 1000,
-        downloadTaskRefreshInterval: 1000
+        downloadTaskRefreshInterval: 1000,
+        afterCreatingNewTask: 'task-list'
     });
 }());

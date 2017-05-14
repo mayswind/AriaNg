@@ -102,6 +102,10 @@
             ariaNgSettingService.setLanguage(value);
         };
 
+        $scope.setAfterCreatingNewTask = function (value) {
+            ariaNgSettingService.setAfterCreatingNewTask(value);
+        };
+
         $scope.setDebugMode = function (value) {
             ariaNgSettingService.setDebugMode(value);
         };

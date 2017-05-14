@@ -115,6 +115,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>After Creating A New Task</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.afterCreatingNewTask"
+                                    ng-change="setAfterCreatingNewTask(context.settings.afterCreatingNewTask)">
+                                <option value="task-list" translate>Navigate to Task List Page</option>
+                                <option value="task-detail" translate>Navigate to Task Detail Page</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row tip no-background no-hover">
                         <span class="asterisk">*</span>
                         <span translate>Changes to the settings take effect after refreshing page.</span>
