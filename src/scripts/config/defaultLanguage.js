@@ -145,7 +145,7 @@
             'Are you sure you want to remove rpc setting "{{rpcName}}"?': 'Are you sure you want to remove rpc setting "{{rpcName}}"?',
             'Global Stat Refresh Interval': 'Global Stat Refresh Interval',
             'Download Task Refresh Interval': 'Download Task Refresh Interval',
-            'After Creating A New Task': 'After Creating A New Task',
+            'Action After Creating New Tasks': 'Action After Creating New Tasks',
             'Navigate to Task List Page': 'Navigate to Task List Page',
             'Navigate to Task Detail Page': 'Navigate to Task Detail Page',
             'Supported Placeholder': 'Supported Placeholder',
