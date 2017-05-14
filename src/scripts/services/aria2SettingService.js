@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', 'ariaNgLogService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, aria2RpcService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2QuickSettingsAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', 'ariaNgLogService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2QuickSettingsAvailableOptions, aria2TaskAvailableOptions, aria2RpcService, ariaNgLogService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
@@ -34,6 +34,13 @@
                     return aria2GlobalAvailableOptions.rpcOptions;
                 } else if (type === 'advanced') {
                     return aria2GlobalAvailableOptions.advancedOptions;
+                } else {
+                    return false;
+                }
+            },
+            getaria2QuickSettingsAvailableOptions: function (type) {
+                if (type === 'globalSpeedLimit') {
+                    return aria2QuickSettingsAvailableOptions.globalSpeedLimitOptions;
                 } else {
                     return false;
                 }

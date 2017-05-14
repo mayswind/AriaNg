@@ -69,6 +69,10 @@ td {
     overflow-y: scroll;
 }
 
+.main-footer .toolbar {
+    display: inline-block;
+}
+
 .dropdown-menu.right-align {
     left: inherit;
     right: 0;

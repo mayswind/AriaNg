@@ -244,7 +244,20 @@
     <footer class="main-footer">
         <a class="sidebar-toggle" data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}"></a>
 
-        <span>&nbsp;</span>
+        <div class="toolbar dropup">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Quick Setting' | translate}}">
+                <i class="fa fa-wrench"></i>
+                <span translate>Quick Setting</span>
+                <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Speed Limit')">
+                        <span translate>Global Speed Limit</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
             <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
@@ -260,6 +273,8 @@
             </a>
         </div>
     </footer>
+
+    <ng-setting-dialog setting="quickSettingContext"></ng-setting-dialog>
 </div>
 
 <!-- build:js js/jquery-2.2.4.min.js -->
@@ -333,6 +348,7 @@
 <script src="scripts/directives/chart.js"></script>
 <script src="scripts/directives/placeholder.js"></script>
 <script src="scripts/directives/setting.js"></script>
+<script src="scripts/directives/settingDialog.js"></script>
 <script src="scripts/directives/tooltip.js"></script>
 <script src="scripts/filters/dateDuration.js"></script>
 <script src="scripts/filters/fileOrderBy.js"></script>

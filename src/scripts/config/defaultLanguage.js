@@ -168,6 +168,8 @@
             'Session has been saved successfully.': 'Session has been saved successfully.',
             'Aria2 has been shutdown successfully.': 'Aria2 has been shutdown successfully.',
             'Toggle Navigation': 'Toggle Navigation',
+            'Quick Setting': 'Quick Setting',
+            'Global Speed Limit': 'Global Speed Limit',
             'Loading': 'Loading...',
             'More Than One Day': 'More than 1 day',
             'Unknown': 'Unknown',

@@ -861,6 +861,10 @@
             'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file',
             'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout'
         ]
+    }).constant('aria2QuickSettingsAvailableOptions', {
+        globalSpeedLimitOptions: [
+            'max-download-limit', 'max-upload-limit'
+        ]
     }).constant('aria2TaskAvailableOptions', {
         // Aria2 Task Option Defination EXAMPLE:
         // {

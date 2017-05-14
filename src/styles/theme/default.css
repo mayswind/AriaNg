@@ -40,11 +40,11 @@
     top: 15px;
 }
 
-.skin-aria-ng .main-header .navbar .sidebar-toggle, .skin-aria-ng .main-footer .sidebar-toggle {
+.skin-aria-ng .main-header .navbar .sidebar-toggle, .skin-aria-ng .main-footer .sidebar-toggle, .skin-aria-ng .main-footer .toolbar > a {
     color: #707070;
 }
 
-.skin-aria-ng .main-header .navbar .sidebar-toggle:hover, .skin-aria-ng .main-footer .sidebar-toggle:hover {
+.skin-aria-ng .main-header .navbar .sidebar-toggle:hover, .skin-aria-ng .main-footer .sidebar-toggle:hover, .skin-aria-ng .main-footer .toolbar > a:hover, .skin-aria-ng .main-footer .toolbar.open > a {
     color: #0080ff;
 }
 

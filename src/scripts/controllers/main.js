@@ -36,6 +36,8 @@
             data: ariaNgMonitorService.getGlobalStatsData()
         };
 
+        $scope.quickSettingContext = null;
+
         $scope.rpcSettings = ariaNgSettingService.getAllRpcSettings();
 
         $scope.isTaskSelected = function () {
@@ -211,6 +213,13 @@
             var targetType = ariaNgCommonService.parseOrderType(type);
 
             return orderType.equals(targetType);
+        };
+
+        $scope.showQuickSettingDialog = function (type, title) {
+            $scope.quickSettingContext = {
+                type: type,
+                title: title
+            };
         };
 
         $scope.switchRpcSetting = function (setting) {
