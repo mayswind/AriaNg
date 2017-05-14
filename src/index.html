@@ -242,36 +242,46 @@
     </div>
 
     <footer class="main-footer">
-        <a class="sidebar-toggle" data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}"></a>
+        <nav class="navbar" role="navigation">
+            <div class="navbar-toolbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="dropup">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Quick Setting' | translate}}">
+                            <i class="fa fa-wrench"></i>
+                            <span translate>Quick Setting</span>
+                            <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Speed Limit')">
+                                    <span translate>Global Speed Limit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="toolbar dropup">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Quick Setting' | translate}}">
-                <i class="fa fa-wrench"></i>
-                <span translate>Quick Setting</span>
-                <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Speed Limit')">
-                        <span translate>Global Speed Limit</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
-            <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
-               ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
+            <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
+                <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
+                   ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
                 <span class="realtime-speed">
                     <i class="icon-download fa fa-arrow-down"></i>
                     <span ng-bind="(globalStat.downloadSpeed | readableVolume) + '/s'"></span>
                 </span>
-                <span class="realtime-speed">
+                    <span class="realtime-speed">
                     <i class="icon-upload fa fa-arrow-up"></i>
                     <span ng-bind="(globalStat.uploadSpeed | readableVolume) + '/s'"></span>
                 </span>
-            </a>
-        </div>
+                </a>
+            </div>
+        </nav>
     </footer>
 
     <ng-setting-dialog setting="quickSettingContext"></ng-setting-dialog>

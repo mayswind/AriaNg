@@ -69,8 +69,27 @@ td {
     overflow-y: scroll;
 }
 
-.main-footer .toolbar {
+.main-footer > .navbar {
+    margin-bottom: 0;
+    min-height: inherit;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav {
+    float: left;
+    margin: 0;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav > li {
     display: inline-block;
+    float: left;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav > li > a {
+    padding: 0 10px 0 10px;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav > li:first-child > a {
+    padding-left: 0;
 }
 
 .dropdown-menu.right-align {
@@ -102,6 +121,11 @@ td {
         position: absolute;
         border: 1px solid #eee;
         background-color: #fff;
+    }
+
+    .main-footer > .navbar > .navbar-toolbar > .nav > li > a {
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 
