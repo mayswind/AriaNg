@@ -12,19 +12,9 @@
     border-bottom: 1px solid #ddd;
 }
 
-.skin-aria-ng .main-header .navbar .navbar-nav {
-    margin-left: 5px;
-}
-
-.skin-aria-ng .main-header .navbar .nav > li {
-    display: inline-block;
-}
-
 .skin-aria-ng .main-header .navbar .nav > li > a {
     color: #707070;
     font-size: 16px;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .skin-aria-ng .main-header .navbar .nav > li > a:hover,

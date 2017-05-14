@@ -30,8 +30,21 @@ td {
     z-index: 2000;
 }
 
+.main-header .navbar .nav > li {
+    display: inline-block;
+}
+
+.main-header .navbar .nav > li > a {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .main-header .navbar .nav > li.disabled > a {
     pointer-events: none !important;
+}
+
+.main-header .navbar .navbar-nav {
+    margin-left: 5px;
 }
 
 .main-header .navbar .navbar-searchbar {
@@ -49,7 +62,7 @@ td {
 }
 
 .content-wrapper, .right-side {
-     background-color: #fff;
+    background-color: #fff;
 }
 
 .content-wrapper > .content-body {
