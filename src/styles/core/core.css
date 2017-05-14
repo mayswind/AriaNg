@@ -100,6 +100,7 @@ td {
 @media (max-width: 767px) {
     .navbar-nav .open .dropdown-menu {
         position: absolute;
+        border: 1px solid #eee;
         background-color: #fff;
     }
 }
