@@ -100,6 +100,7 @@
 
         $scope.setLanguage = function (value) {
             ariaNgSettingService.setLanguage(value);
+            $scope.updateTitlePreview();
         };
 
         $scope.setAfterCreatingNewTask = function (value) {
