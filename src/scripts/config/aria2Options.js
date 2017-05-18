@@ -863,7 +863,7 @@
         ]
     }).constant('aria2QuickSettingsAvailableOptions', {
         globalSpeedLimitOptions: [
-            'max-download-limit', 'max-upload-limit'
+            'max-overall-download-limit', 'max-overall-upload-limit'
         ]
     }).constant('aria2TaskAvailableOptions', {
         // Aria2 Task Option Defination EXAMPLE:
