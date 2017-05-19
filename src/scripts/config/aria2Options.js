@@ -546,7 +546,7 @@
         },
         'rpc-save-upload-metadata': {
             type: 'boolean',
-            defaultValue: 'false',
+            defaultValue: 'true',
             required: true
         },
         'rpc-secure': {
@@ -599,6 +599,11 @@
             options: ['debug', 'info', 'notice', 'warn', 'error'],
             readonly: true,
             defaultValue: 'notice'
+        },
+        'content-disposition-default-utf8': {
+            since: '1.31.0',
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'daemon': {
             type: 'boolean',
@@ -852,8 +857,8 @@
         ],
         advancedOptions: [
             'allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming',
-            'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input',
-            'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap',
+            'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'content-disposition-default-utf8', 'daemon',
+            'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap',
             'event-poll', 'file-allocation', 'force-save', 'save-not-found', 'hash-check-only', 'human-readable',
             'keep-unfinished-download-result', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries',
             'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout',
