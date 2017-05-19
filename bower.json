@@ -31,28 +31,27 @@
     "sweetalert": "^1.1.3",
     "awesome-bootstrap-checkbox": "^0.3.7",
     "jquery-slimscroll": "^1.3.8",
-    "angular": "1.4.10",
-    "angular-route": "1.4.10",
-    "angular-sanitize": "1.4.10",
-    "angular-touch": "1.4.10",
-    "angular-messages": "1.4.10",
-    "angular-cookies": "1.4.10",
-    "angular-animate": "1.4.10",
+    "angular": "1.6.4",
+    "angular-route": "1.6.4",
+    "angular-sanitize": "1.6.4",
+    "angular-touch": "1.6.4",
+    "angular-messages": "1.6.4",
+    "angular-cookies": "1.6.4",
+    "angular-animate": "1.6.4",
     "angular-translate": "^2.15.1",
-    "angular-moment": "1.0.0-beta.6",
-    "angular-websocket": "^1.1.0",
+    "angular-moment": "1.0.1",
+    "angular-websocket": "^2.0.0",
     "angular-utf8-base64": "^0.0.5",
-    "angular-local-storage": "^0.2.7",
+    "angular-local-storage": "^0.6.0",
     "angular-notification": "775ee861c1737b284588bcb878ba1f4e43c70c97",
     "angular-ui-notification": "^0.3.6",
     "angular-bittorrent-peerid": "^1.2.0",
     "angular-busy": "^4.1.4",
     "angular-promise-buttons": "^0.1.20",
-    "angular-dragula": "^1.2.7",
-    "ngSweetAlert": "8df6c30b0996f09cb4cf5e90a41115a6c09fa852"
+    "angular-dragula": "^1.2.8",
+    "ngSweetAlert": "^1.1.2"
   },
   "resolutions": {
-    "angular": "1.4.10",
-    "angular-animate": "1.4.10"
+    "angular": "1.6.4"
   }
 }

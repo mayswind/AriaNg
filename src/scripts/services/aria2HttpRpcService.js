@@ -68,7 +68,9 @@
 
                 ariaNgLogService.debug('[aria2HttpRpcService.request] request start', requestContext);
 
-                return $http(requestContext).success(function (data) {
+                return $http(requestContext).then(function onSuccess(response) {
+                    var data = response.data;
+
                     ariaNgLogService.debug('[aria2HttpRpcService.request] response success', data);
 
                     if (!data) {
@@ -78,7 +80,9 @@
                     if (context.successCallback) {
                         context.successCallback(data.id, data.result);
                     }
-                }).error(function (data) {
+                }).catch(function onError(response) {
+                    var data = response.data;
+
                     ariaNgLogService.debug('[aria2HttpRpcService.request] response error', data);
 
                     if (!data) {

@@ -101,11 +101,11 @@
             $http({
                 url: languagePath,
                 method: 'GET'
-            }).success(function (data) {
-                var languageObject = getLanguageObject(data);
+            }).then(function onSuccess(response) {
+                var languageObject = getLanguageObject(response.data);
                 localStorageService.set(languageKey, languageObject);
                 return deferred.resolve(languageObject);
-            }).error(function (data) {
+            }).catch(function onError(response) {
                 return deferred.reject(options.key);
             });
 

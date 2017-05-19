@@ -64,7 +64,7 @@
             <div class="navbar-toolbar">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="toolbar" title="{{'New' | translate}}" ng-href="#/new">
+                        <a class="toolbar" title="{{'New' | translate}}" ng-href="#!/new">
                             <i class="fa fa-plus"></i>
                             <span translate>New</span>
                         </a>
@@ -181,17 +181,17 @@
             <ul id="siderbar-menu" class="sidebar-menu">
                 <li class="header" translate>Download</li>
                 <li data-href-match="/downloading">
-                    <a href="#/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
+                    <a href="#!/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
                 </li>
                 <li data-href-match="/waiting">
-                    <a href="#/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Waiting</span></a>
+                    <a href="#!/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Waiting</span></a>
                 </li>
                 <li data-href-match="/stopped">
-                    <a href="#/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Finished / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Finished / Stopped</span></a>
+                    <a href="#!/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Finished / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Finished / Stopped</span></a>
                 </li>
                 <li class="header" translate>Settings</li>
                 <li data-href-match="/settings/ariang">
-                    <a href="#/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
+                    <a href="#!/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
                 </li>
                 <li class="treeview">
                     <a href="javascript:void(0);">
@@ -203,33 +203,33 @@
                     </a>
                     <ul class="treeview-menu">
                         <li data-href-match="/settings/aria2/basic">
-                            <a href="#/settings/aria2/basic"> <span translate>Basic Settings</span></a>
+                            <a href="#!/settings/aria2/basic"> <span translate>Basic Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/http-ftp-sftp">
-                            <a href="#/settings/aria2/http-ftp-sftp"> <span translate>HTTP/FTP/SFTP Settings</span></a>
+                            <a href="#!/settings/aria2/http-ftp-sftp"> <span translate>HTTP/FTP/SFTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/http">
-                            <a href="#/settings/aria2/http"> <span translate>HTTP Settings</span></a>
+                            <a href="#!/settings/aria2/http"> <span translate>HTTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/ftp-sftp">
-                            <a href="#/settings/aria2/ftp-sftp"> <span translate>FTP/SFTP Settings</span></a>
+                            <a href="#!/settings/aria2/ftp-sftp"> <span translate>FTP/SFTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/bt">
-                            <a href="#/settings/aria2/bt"> <span translate>BitTorrent Settings</span></a>
+                            <a href="#!/settings/aria2/bt"> <span translate>BitTorrent Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/metalink">
-                            <a href="#/settings/aria2/metalink"> <span translate>Metalink Settings</span></a>
+                            <a href="#!/settings/aria2/metalink"> <span translate>Metalink Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/rpc">
-                            <a href="#/settings/aria2/rpc"> <span translate>RPC Settings</span></a>
+                            <a href="#!/settings/aria2/rpc"> <span translate>RPC Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/advanced">
-                            <a href="#/settings/aria2/advanced"> <span translate>Advanced Settings</span></a>
+                            <a href="#!/settings/aria2/advanced"> <span translate>Advanced Settings</span></a>
                         </li>
                     </ul>
                 </li>
                 <li data-href-match="/status">
-                    <a href="#/status"><i class="fa fa-server"></i> <span translate>Aria2 Status</span> <span class="label pull-right" ng-if="globalStatusContext.isEnabled" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Not Connected'}" ng-bind="taskContext.rpcStatus | translate"></span></a>
+                    <a href="#!/status"><i class="fa fa-server"></i> <span translate>Aria2 Status</span> <span class="label pull-right" ng-if="globalStatusContext.isEnabled" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Not Connected'}" ng-bind="taskContext.rpcStatus | translate"></span></a>
                 </li>
             </ul>
         </section>
@@ -290,7 +290,7 @@
 <!-- build:js js/jquery-2.2.4.min.js -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/angular-packages-1.4.10.min.js -->
+<!-- build:js js/angular-packages-1.6.4.min.js -->
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
 <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
@@ -317,7 +317,7 @@
 <script src="../bower_components/sweetalert/dist/sweetalert.min.js"></script>
 <script src="../bower_components/angular-translate/angular-translate.min.js"></script>
 <script src="../bower_components/angular-moment/angular-moment.min.js"></script>
-<script src="../bower_components/angular-websocket/angular-websocket.min.js"></script>
+<script src="../bower_components/angular-websocket/dist/angular-websocket.min.js"></script>
 <script src="../bower_components/angular-utf8-base64/angular-utf8-base64.min.js"></script>
 <script src="../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="../bower_components/angular-notification/angular-notification.js"></script>
