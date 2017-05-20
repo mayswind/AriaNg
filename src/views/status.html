@@ -30,9 +30,9 @@
                 <span translate>Enabled Features</span>
             </div>
             <div class="setting-value col-sm-8">
-                <div class="checkbox checkbox-primary checkbox-compact" ng-repeat="feature in context.serverStatus.enabledFeatures">
-                    <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled"/>
-                    <label for="{{'feature_' + $index}}">
+                <div class="checkbox checkbox-primary checkbox-compact default-cursor" ng-repeat="feature in context.serverStatus.enabledFeatures">
+                    <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled" class="default-cursor"/>
+                    <label for="{{'feature_' + $index}}" class="text-cursor">
                         <span ng-bind="feature"></span>
                     </label>
                 </div>

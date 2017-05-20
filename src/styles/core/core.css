@@ -105,6 +105,10 @@ td {
     cursor: pointer !important;
 }
 
+.text-cursor {
+    cursor: text !important;
+}
+
 .allow-word-break {
     word-wrap: break-word;
     word-break: break-all;
