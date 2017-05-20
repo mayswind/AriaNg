@@ -1,4 +1,4 @@
-<section class="content no-padding">
+<section class="content no-padding" ng-if="task">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li ng-class="{'active': context.currentTab == 'overview'}">
@@ -23,7 +23,7 @@
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
                 <div class="settings-table striped hoverable">
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Name</span>
                         </div>

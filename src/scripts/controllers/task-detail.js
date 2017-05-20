@@ -60,9 +60,7 @@
             }
 
             var processError = function (message) {
-                if (message === aria2RpcErrors.Unauthorized.message) {
-                    $interval.cancel(downloadTaskRefreshPromise);
-                }
+                $interval.cancel(downloadTaskRefreshPromise);
             };
 
             var includeLocalPeer = true;
