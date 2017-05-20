@@ -139,7 +139,7 @@
             'Aria2 RPC Http Request Method': 'Aria2 RPC Http Request Method',
             'POST method only supports aria2 v1.15.2 and above.': 'POST method only supports aria2 v1.15.2 and above.',
             'Aria2 RPC Secret Token': 'Aria2 RPC Secret Token',
-            'Set Default': 'Set Default',
+            'Activate': 'Activate',
             'Delete RPC Setting': 'Delete RPC Setting',
             'Add New RPC Setting': 'Add New RPC Setting',
             'Are you sure you want to remove rpc setting "{{rpcName}}"?': 'Are you sure you want to remove rpc setting "{{rpcName}}"?',
