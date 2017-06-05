@@ -44,6 +44,9 @@ Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/)
 
 The builds will be placed in the dist directory.
 
+#### Usage Notes
+Since AriaNg loads language resources asynchronously, you may not open index.html directly on the local file system to run AriaNg. It is recommended that you deploy AriaNg in a web container or download [AriaNg Native](https://github.com/mayswind/AriaNg-Native) that does not require a browser to run.
+
 ## Documents
 1. [English](http://ariang.mayswind.net)
 2. [Simplified Chinese (简体中文)](http://ariang.mayswind.net/zh_Hans)
