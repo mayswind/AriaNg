@@ -601,6 +601,27 @@
                     callback: callback
                 });
             },
+            onConnectSuccess: function (callback) {
+                if (!callback) {
+                    ariaNgLogService.warn('[aria2TaskService.onConnectSuccess] callback is null');
+                    return;
+                }
+
+                aria2RpcService.onConnectSuccess({
+                    callback: callback
+                });
+            },
+            onConnectError: function (callback) {
+                if (!callback) {
+                    ariaNgLogService.warn('[aria2TaskService.onConnectError] callback is null');
+                    return;
+                }
+
+                aria2RpcService.onConnectError({
+                    callback: callback
+                });
+
+            },
             onTaskCompleted: function (callback) {
                 if (!callback) {
                     ariaNgLogService.warn('[aria2TaskService.onTaskCompleted] callback is null');

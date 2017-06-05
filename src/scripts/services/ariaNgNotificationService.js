@@ -68,7 +68,7 @@
                     options.type = 'primary';
                 }
 
-                Notification[options.type](options);
+                return Notification[options.type](options);
             },
             notifyTaskComplete: function (task) {
                 this.notifyViaBrowser('Download Completed', (task && task.taskName ? task.taskName : ''));

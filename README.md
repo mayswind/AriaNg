@@ -3,10 +3,8 @@
 [![Lastest Build](https://img.shields.io/circleci/project/mayswind/AriaNg.svg?style=flat)](https://circleci.com/gh/mayswind/AriaNg/tree/master)
 [![Lastest Release](https://img.shields.io/github/release/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/releases)
 
-[简体中文说明 (Simplified Chinese)](https://github.com/mayswind/AriaNg/blob/master/README-CHS.md)
-
 ## Introduction
-A Better Web Frontend for [aria2](https://github.com/aria2/aria2) (aria2 is a cross-platform download utility). AriaNg is written in pure html & javascript, so it does not need to be compiled and not need any runtime environment, and you just need to open it in your browser. By using responsive layout, you can open it on any desktop or mobile devices.
+AriaNg is a web frontend making [aria2](https://github.com/aria2/aria2) better. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
 
 ## Features
 1. Pure Html & Javascript, no runtime required
@@ -19,22 +17,23 @@ A Better Web Frontend for [aria2](https://github.com/aria2/aria2) (aria2 is a cr
     * Filter files of tasks in file types (by videos, audios, pictures, documents, applications, archives, etc.)
     * Download/upload history chart of global or task
     * Full support of aria2 settings
-4. Add new download task by requesting url (http://AriaNgUrl/#/new/url_base64)
+4. Url command line api support
 5. Download finished notification
 6. Multi-languages support
-7. Less bandwidth usage, only requesting incremental data
+7. Multi aria2 RPC host support
+8. Less bandwidth usage, only requesting incremental data
 
 ## Screenshots
 #### Desktop
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/desktop.png)
+![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
 #### Mobile Device
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg/gh-pages/screenshots/mobile.png)
+![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/mobile.png)
 
 ## Installation
 #### Prebuilt release
-Latest Release: https://github.com/mayswind/AriaNg/releases
+Latest Release: [https://github.com/mayswind/AriaNg/releases](https://github.com/mayswind/AriaNg/releases)
 
-Latest Daily Build: https://github.com/mayswind/AriaNg/archive/daily-build.zip
+Latest Daily Build: [https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip](https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip)
 
 #### Building from source
 Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/) installed. Then download the source code, and follow these steps.
@@ -45,8 +44,12 @@ Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/)
 
 The builds will be placed in the dist directory.
 
+## Documents
+1. [English](http://ariang.mayswind.net)
+2. [Simplified Chinese (简体中文)](http://ariang.mayswind.net/zh_Hans)
+
 ## Demo
-Please visit http://ariang.mayswind.net
+Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
 
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)

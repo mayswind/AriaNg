@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'ariaNgCommonService', 'aria2RpcService', 'ariaNgLogService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, ariaNgCommonService, aria2RpcService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2QuickSettingsAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', 'ariaNgLogService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2QuickSettingsAvailableOptions, aria2TaskAvailableOptions, aria2RpcService, ariaNgLogService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
@@ -38,6 +38,13 @@
                     return false;
                 }
             },
+            getaria2QuickSettingsAvailableOptions: function (type) {
+                if (type === 'globalSpeedLimit') {
+                    return aria2QuickSettingsAvailableOptions.globalSpeedLimitOptions;
+                } else {
+                    return false;
+                }
+            },
             getAvailableTaskOptionKeys: function (status, isBittorrent) {
                 var allOptions = aria2TaskAvailableOptions.taskOptions;
                 var availableOptions = [];
@@ -68,7 +75,7 @@
 
                 return availableOptions;
             },
-            getNewTaskOptionKeys: function (isBittorrent) {
+            getNewTaskOptionKeys: function () {
                 var allOptions = aria2TaskAvailableOptions.taskOptions;
                 var availableOptions = [];
 
@@ -92,8 +99,12 @@
 
                 return availableOptions;
             },
-            getSpecifiedOptions: function (keys) {
+            getSpecifiedOptions: function (keys, extendSettings) {
                 var options = [];
+
+                if (!keys) {
+                    return options;
+                }
 
                 for (var i = 0; i < keys.length; i++) {
                     var key = keys[i];
@@ -130,6 +141,10 @@
 
                     if (readonly) {
                         option.readonly = true;
+                    }
+
+                    if (extendSettings && extendSettings.disableRequired) {
+                        option.required = false;
                     }
 
                     if (option.options) {

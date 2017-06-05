@@ -3,7 +3,7 @@
 
     angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', function ($rootScope, $scope, ariaNgCommonService, ariaNgSettingService, aria2SettingService) {
         $scope.context = {
-            host: ariaNgSettingService.getJsonRpcUrl(),
+            host: ariaNgSettingService.getCurrentRpcUrl(),
             status: 'Connecting',
             serverStatus: null
         };

@@ -3,7 +3,7 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li ng-class="{'active': context.currentTab == 'links'}">
-                    <a class="pointer-cursor" ng-click="changeTab('links')" translate>Links</a>
+                    <a class="pointer-cursor" ng-click="changeTab('links')" ng-bind="(context.taskType === 'torrent' ? 'Torrent File' : (context.taskType === 'metalink' ? 'Metalink File' : 'Links') | translate)">Links</a>
                 </li>
                 <li ng-class="{'active': context.currentTab == 'options'}">
                     <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
@@ -21,12 +21,12 @@
                     </div>
                     <div class="btn-group">
                         <button type="submit" class="btn btn-sm"
-                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
-                                ng-disabled="newTaskForm.$invalid" translate>Start Download
+                                ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
+                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" translate>Start Download
                         </button>&nbsp;
                         <button type="button" class="btn btn-sm dropdown-toggle"
-                                ng-class="{'btn-default': newTaskForm.$invalid, 'btn-success': !newTaskForm.$invalid}"
-                                ng-disabled="newTaskForm.$invalid" data-toggle="dropdown">
+                                ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
+                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu right-align">
@@ -38,19 +38,27 @@
 
             <div class="tab-content no-padding">
                 <div class="tab-pane" ng-class="{'active': context.currentTab == 'links'}">
-                    <div class="new-task-table">
+                    <div class="new-task-table" ng-if="context.taskType === 'urls'">
                         <div class="row">
                             <div class="col-sm-12">
                                 <p translate>Download Links:</p>
                                 <div class="form-group has-feedback no-margin" ng-class="{ 'has-error' : newTaskForm.urls.$invalid && newTaskForm.urls.$dirty, 'has-success' : newTaskForm.urls.$valid && newTaskForm.urls.$dirty }">
-                                <textarea name="urls" class="form-control" rows="10" autofocus="autofocus" ng-auto-focus
-                                          ng-model="context.urls" ng-required="true" ng-keydown="urlTextboxKeyDown($event)"
-                                          ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
-                                          ng-pattern="/^(\n?(((http|https|ftp|ssh):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
+                                    <textarea name="urls" class="form-control" rows="10" autofocus="autofocus" ng-auto-focus
+                                              ng-model="context.urls" ng-required="true" ng-keydown="urlTextboxKeyDown($event)"
+                                              ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
+                                            ng-pattern="/^(\n?(((http|https|ftp|ssh):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
                                     <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
                                         <i class="fa form-control-feedback" ng-class="{'fa-check':newTaskForm.urls.$valid, 'fa-times':newTaskForm.urls.$invalid}"></i>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-task-table" ng-if="context.taskType === 'torrent' || context.taskType === 'metalink'">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p translate>File Name:</p>
+                                <input class="form-control" ng-value="context.uploadFile ? context.uploadFile.fileName : ''" readonly="readonly"/>
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', '$translate', 'moment', 'ariaNgConstants', function ($filter, $translate, moment, ariaNgConstants) {
+        var currentGlobalStat = {};
         var storagesInMemory = {};
         var globalStorageKey = 'global';
 
@@ -32,8 +33,8 @@
                         }
 
                         var time = moment(params[0].name, 'X').format('HH:mm:ss');
-                        var uploadSpeed = $filter('readableVolumn')(params[0].value) + '/s';
-                        var downloadSpeed = $filter('readableVolumn')(params[1].value) + '/s';
+                        var uploadSpeed = $filter('readableVolume')(params[0].value) + '/s';
+                        var downloadSpeed = $filter('readableVolume')(params[1].value) + '/s';
 
                         return '<div>' + time + '</div>'
                             + '<div><i class="icon-download fa fa-arrow-down"></i> ' + downloadSpeed +'</div>'
@@ -52,7 +53,7 @@
                     type: 'value',
                     axisLabel: {
                         formatter: function (value) {
-                            return $filter('readableVolumn')(value, 0);
+                            return $filter('readableVolume')(value, 0);
                         }
                     }
                 },
@@ -149,10 +150,14 @@
                 return this.getStatsData(key);
             },
             recordGlobalStat: function (stat) {
-                return this.recordStat(globalStorageKey, stat);
+                this.recordStat(globalStorageKey, stat);
+                currentGlobalStat = stat;
             },
             getGlobalStatsData: function () {
                 return this.getStatsData(globalStorageKey);
+            },
+            getCurrentGlobalStat: function () {
+                return currentGlobalStat;
             }
         };
     }]);

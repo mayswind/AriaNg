@@ -170,17 +170,17 @@
                         return;
                     }
 
-                    if (scope.option.type === 'integer' && !/^-?\d+$/.test(optionValue)) {
+                    if (optionValue !== '' && scope.option.type === 'integer' && !/^-?\d+$/.test(optionValue)) {
                         scope.optionStatus.setError('Input number is invalid!');
                         return;
                     }
 
-                    if (scope.option.type === 'float' && !/^-?(\d*\.)?\d+$/.test(optionValue)) {
+                    if (optionValue !== '' && scope.option.type === 'float' && !/^-?(\d*\.)?\d+$/.test(optionValue)) {
                         scope.optionStatus.setError('Input number is invalid!');
                         return;
                     }
 
-                    if ((scope.option.type === 'integer' || scope.option.type === 'float') && (angular.isDefined(scope.option.min) || angular.isDefined(scope.option.max))) {
+                    if (optionValue !== '' && (scope.option.type === 'integer' || scope.option.type === 'float') && (angular.isDefined(scope.option.min) || angular.isDefined(scope.option.max))) {
                         var number = optionValue;
 
                         if (scope.option.type === 'integer') {
@@ -200,7 +200,7 @@
                         }
                     }
 
-                    if (angular.isDefined(scope.option.pattern) && !(new RegExp(scope.option.pattern).test(optionValue))) {
+                    if (optionValue !== '' && angular.isDefined(scope.option.pattern) && !(new RegExp(scope.option.pattern).test(optionValue))) {
                         scope.optionStatus.setError('Input value is invalid!');
                         return;
                     }

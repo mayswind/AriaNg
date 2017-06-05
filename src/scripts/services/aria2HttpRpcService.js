@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'base64', 'ariaNgSettingService', 'ariaNgLogService', function ($http, base64, ariaNgSettingService, ariaNgLogService) {
-        var rpcUrl = ariaNgSettingService.getJsonRpcUrl();
-        var method = ariaNgSettingService.getHttpMethod();
+        var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
+        var method = ariaNgSettingService.getCurrentRpcHttpMethod();
 
         var getUrlWithQueryString = function (url, parameters) {
             if (!url || url.length < 1) {
@@ -68,7 +68,9 @@
 
                 ariaNgLogService.debug('[aria2HttpRpcService.request] request start', requestContext);
 
-                return $http(requestContext).success(function (data) {
+                return $http(requestContext).then(function onSuccess(response) {
+                    var data = response.data;
+
                     ariaNgLogService.debug('[aria2HttpRpcService.request] response success', data);
 
                     if (!data) {
@@ -78,7 +80,9 @@
                     if (context.successCallback) {
                         context.successCallback(data.id, data.result);
                     }
-                }).error(function (data) {
+                }).catch(function onError(response) {
+                    var data = response.data;
+
                     ariaNgLogService.debug('[aria2HttpRpcService.request] response error', data);
 
                     if (!data) {

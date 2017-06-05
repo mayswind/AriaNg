@@ -67,6 +67,10 @@
                 templateUrl: 'views/settings-aria2.html',
                 controller: 'Aria2SettingsController'
             })
+            .when('/settings/rpc/set/:protocol/:host/:port/:interface/:secret?', {
+                template: '',
+                controller: 'CommandController'
+            })
             .when('/status', {
                 templateUrl: 'views/status.html',
                 controller: 'Aria2StatusController'

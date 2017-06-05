@@ -3,6 +3,50 @@
     padding: 0 4px 0 4px;
 }
 
+.nav-tabs-custom .nav-tabs > li > a {
+    display: inline-block;
+}
+
+.nav-tabs-custom .nav-tabs > li > a.nav-tab-close {
+    padding-left: 0;
+    margin-left: -12px;
+}
+
+.nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+@media (max-width: 991px) {
+    .nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+        max-width: 120px;
+    }
+}
+
+.input-group.input-group-multiple > .input-group-addon {
+    border-left: 0;
+    border-right: 0;
+}
+
+.input-group.input-group-multiple > .input-group-addon:first-child,
+.input-group.input-group-multiple > .input-grougp-addon-container:first-child {
+    border-left: 1px solid #d2d6de;
+}
+
+.input-group .input-grougp-addon-container {
+    width: 1%;
+    display: table-cell;
+}
+
 /* font-awesome extend */
 .fa-half {
     font-size: 0.5em;

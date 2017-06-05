@@ -1,26 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$window', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTitleService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $window, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgTitleService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
         var pageTitleRefreshPromise = null;
         var globalStatRefreshPromise = null;
 
         var refreshPageTitle = function () {
-            var context = (function (globalStat) {
-                if (!globalStat) {
-                    return null;
-                }
-
-                return {
-                    downloadingCount: globalStat.numActive,
-                    waitingCount: globalStat.numWaiting,
-                    stoppedCount: globalStat.numStopped,
-                    downloadSpeed: globalStat.downloadSpeed,
-                    uploadSpeed: globalStat.uploadSpeed
-                };
-            })($scope.globalStat);
-
-            $document[0].title = ariaNgSettingService.getFinalTitle(context);
+            $document[0].title = ariaNgTitleService.getFinalTitleByGlobalStat($scope.globalStat);
         };
 
         var refreshGlobalStat = function (silent, callback) {
@@ -49,6 +35,10 @@
             isEnabled: ariaNgSettingService.getGlobalStatRefreshInterval() > 0,
             data: ariaNgMonitorService.getGlobalStatsData()
         };
+
+        $scope.quickSettingContext = null;
+
+        $scope.rpcSettings = ariaNgSettingService.getAllRpcSettings();
 
         $scope.isTaskSelected = function () {
             return $rootScope.taskContext.getSelectedTaskIds().length > 0;
@@ -223,6 +213,22 @@
             var targetType = ariaNgCommonService.parseOrderType(type);
 
             return orderType.equals(targetType);
+        };
+
+        $scope.showQuickSettingDialog = function (type, title) {
+            $scope.quickSettingContext = {
+                type: type,
+                title: title
+            };
+        };
+
+        $scope.switchRpcSetting = function (setting) {
+            if (setting.isDefault) {
+                return;
+            }
+
+            ariaNgSettingService.setDefaultRpcSetting(setting);
+            $window.location.reload();
         };
 
         if (ariaNgSettingService.getTitleRefreshInterval() > 0) {

@@ -30,9 +30,9 @@
                 <span translate>Enabled Features</span>
             </div>
             <div class="setting-value col-sm-8">
-                <div class="checkbox checkbox-primary checkbox-compact" ng-repeat="feature in context.serverStatus.enabledFeatures">
-                    <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled"/>
-                    <label for="{{'feature_' + $index}}">
+                <div class="checkbox checkbox-primary checkbox-compact default-cursor" ng-repeat="feature in context.serverStatus.enabledFeatures">
+                    <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled" class="default-cursor"/>
+                    <label for="{{'feature_' + $index}}" class="text-cursor">
                         <span ng-bind="feature"></span>
                     </label>
                 </div>
@@ -43,10 +43,10 @@
                 <span translate>Functions</span>
             </div>
             <div class="setting-value col-sm-8">
-                <button class="btn btn-primary" ng-click="saveSession()" promise-btn>
+                <button class="btn btn-sm btn-primary" ng-click="saveSession()" promise-btn>
                     <span translate>Save Session</span>
                 </button>
-                <button class="btn btn-danger" ng-click="shutdown()">
+                <button class="btn btn-sm btn-danger" ng-click="shutdown()">
                     <span translate>Shutdown Aria2</span>
                 </button>
             </div>
