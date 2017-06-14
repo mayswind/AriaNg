@@ -66,6 +66,12 @@ gulp.task('images', function () {
     ]).pipe(gulp.dest('dist/imgs'));
 });
 
+gulp.task('icon', function () {
+    return gulp.src([
+        'favicon.ico'
+    ]).pipe(gulp.dest('dist'));
+});
+
 gulp.task('fonts', function () {
     return gulp.src([
         'bower_components/font-awesome/fonts/fontawesome-webfont.*'
@@ -143,7 +149,7 @@ gulp.task('info', function () {
     ]).pipe($.size({title: 'build', gzip: true}));
 });
 
-gulp.task('build', $.sequence('lint', 'html', 'langs', 'images', 'fonts', 'manifest', 'extras', 'info'));
+gulp.task('build', $.sequence('lint', 'html', 'langs', 'images', 'icon', 'fonts', 'manifest', 'extras', 'info'));
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
