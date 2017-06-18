@@ -191,7 +191,7 @@
             $window.location.reload();
         };
 
-        $('[data-toggle="popover"]').popover();
+        angular.element('[data-toggle="popover"]').popover();
 
         $rootScope.loadPromise = $timeout(function () {}, 100);
     }]);
