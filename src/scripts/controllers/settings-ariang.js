@@ -191,6 +191,13 @@
             $window.location.reload();
         };
 
+        $scope.resetSettings = function () {
+            ariaNgCommonService.confirm('Confirm Reset', 'Are you sure you want to reset all settings?', 'warning', function () {
+                ariaNgSettingService.resetSettings();
+                $window.location.reload();
+            });
+        };
+
         angular.element('[data-toggle="popover"]').popover();
 
         $rootScope.loadPromise = $timeout(function () {}, 100);

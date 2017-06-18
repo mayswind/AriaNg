@@ -62,6 +62,10 @@
             return options;
         };
 
+        var clearAll = function () {
+            return localStorageService.clearAll();
+        };
+
         var getOption = function (key) {
             var options = getOptions();
 
@@ -427,6 +431,9 @@
             },
             setPeerListDisplayOrder: function (value) {
                 setOption('peerListDisplayOrder', value);
+            },
+            resetSettings: function () {
+                clearAll();
             },
             onFirstAccess: function (callback) {
                 if (!callback) {
