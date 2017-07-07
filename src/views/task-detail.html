@@ -28,7 +28,8 @@
                             <span translate>Task Name</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span class="allow-word-break" ng-bind="task.taskName"></span>
+                            <span class="allow-word-break" ng-bind="task.taskName" ng-tooltip-container="body" ng-tooltip-placement="bottom"
+                                  ng-tooltip="{{(task.bittorrent && task.bittorrent.comment) ? task.bittorrent.comment : task.taskName}}"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
