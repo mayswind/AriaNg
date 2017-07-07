@@ -159,6 +159,7 @@
 
                 for (var i = 0; i < task.files.length; i++) {
                     var file = task.files[i];
+                    file.index = parseInt(file.index);
                     file.fileName = getFileName(file);
                     file.length = parseInt(file.length);
                     file.selected = (file.selected === true || file.selected === 'true');
@@ -477,7 +478,7 @@
                                 ariaNgLogService.warn('[aria2TaskService.restartTask] task file is null');
                             }
 
-                            if (task.files.length != 1) {
+                            if (task.files.length !== 1) {
                                 ariaNgLogService.warn('[aria2TaskService.restartTask] task file length is not equal 1');
                             }
 

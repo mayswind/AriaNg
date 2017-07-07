@@ -13,7 +13,9 @@
                 return array;
             }
 
-            if (orderType.type === 'name') {
+            if (orderType.type === 'index') {
+                return $filter('orderBy')(array, ['index'], orderType.reverse);
+            } else if (orderType.type === 'name') {
                 return $filter('orderBy')(array, ['fileName'], orderType.reverse);
             } else if (orderType.type === 'size') {
                 return $filter('orderBy')(array, ['length'], orderType.reverse);
