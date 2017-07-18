@@ -3,6 +3,9 @@
 [![Lastest Build](https://img.shields.io/circleci/project/mayswind/AriaNg.svg?style=flat)](https://circleci.com/gh/mayswind/AriaNg/tree/master)
 [![Lastest Release](https://img.shields.io/github/release/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/releases)
 
+## Demo
+Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
+
 ## Introduction
 AriaNg is a web frontend making [aria2](https://github.com/aria2/aria2) easier to use. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
 
@@ -50,9 +53,6 @@ Since AriaNg loads language resources asynchronously, you may not open index.htm
 ## Documents
 1. [English](http://ariang.mayswind.net)
 2. [Simplified Chinese (简体中文)](http://ariang.mayswind.net/zh_Hans)
-
-## Demo
-Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
 
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
