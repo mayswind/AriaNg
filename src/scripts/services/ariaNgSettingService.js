@@ -18,6 +18,29 @@
             }
         };
 
+        var getLanguageNameFromAlias = function (alias) {
+            for (var langName in ariaNgLanguages) {
+                if (!ariaNgLanguages.hasOwnProperty(langName)) {
+                    continue;
+                }
+
+                var language = ariaNgLanguages[langName];
+                var aliases = language.aliases;
+
+                if (!angular.isArray(aliases) || aliases.length < 1) {
+                    continue;
+                }
+
+                for (var i = 0; i < aliases.length; i++) {
+                    if (aliases[i] === alias) {
+                        return langName;
+                    }
+                }
+            }
+
+            return null;
+        };
+
         var getDefaultLanguage = function () {
             var browserLang = $window.navigator.browserLanguage ? $window.navigator.browserLanguage : $window.navigator.language;
 
@@ -28,10 +51,28 @@
             browserLang = browserLang.replace(/\-/g, '_');
 
             if (!ariaNgLanguages[browserLang]) {
+                var languageName = getLanguageNameFromAlias(browserLang);
+
+                if (languageName) {
+                    browserLang = languageName;
+                }
+            }
+
+            if (!ariaNgLanguages[browserLang]) {
                 return ariaNgDefaultOptions.language;
             }
 
             return browserLang;
+        };
+
+        var getLanguageNameFromAliasOrDefaultLanguage = function (lang) {
+            var languageName = getLanguageNameFromAlias(lang);
+
+            if (languageName) {
+                return languageName;
+            }
+
+            return getDefaultLanguage();
         };
 
         var getDefaultRpcHost = function () {
@@ -51,6 +92,10 @@
         var getOptions = function () {
             var options = localStorageService.get(ariaNgConstants.optionStorageKey);
 
+            if (options && !ariaNgLanguages[options.language]) {
+                options.language = getLanguageNameFromAliasOrDefaultLanguage(options.language);
+            }
+
             if (!options) {
                 options = angular.extend({}, ariaNgDefaultOptions);
                 options.language = getDefaultLanguage();
@@ -60,6 +105,10 @@
             }
 
             return options;
+        };
+
+        var clearAll = function () {
+            return localStorageService.clearAll();
         };
 
         var getOption = function (key) {
@@ -427,6 +476,9 @@
             },
             setPeerListDisplayOrder: function (value) {
                 setOption('peerListDisplayOrder', value);
+            },
+            resetSettings: function () {
+                clearAll();
             },
             onFirstAccess: function (callback) {
                 if (!callback) {

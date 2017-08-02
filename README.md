@@ -4,7 +4,7 @@
 [![Lastest Release](https://img.shields.io/github/release/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/releases)
 
 ## Introduction
-AriaNg is a web frontend making [aria2](https://github.com/aria2/aria2) better. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
+AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) easier to use. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
 
 ## Features
 1. Pure Html & Javascript, no runtime required
@@ -43,6 +43,9 @@ Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/)
     $ gulp clean build
 
 The builds will be placed in the dist directory.
+
+#### Usage Notes
+Since AriaNg loads language resources asynchronously, you may not open index.html directly on the local file system to run AriaNg. It is recommended that you deploy AriaNg in a web container or download [AriaNg Native](https://github.com/mayswind/AriaNg-Native) that does not require a browser to run.
 
 ## Documents
 1. [English](http://ariang.mayswind.net)

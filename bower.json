@@ -21,11 +21,11 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^2.2.4",
-    "bootstrap": "^3.3.7",
+    "jquery": "2.2.4",
+    "bootstrap": "3.3.7",
     "moment": "2.18.1",
     "moment-timezone": "0.5.13",
-    "echarts": "^3.5.4",
+    "echarts": "3.6.1",
     "font-awesome": "font-awsome#^4.7.0",
     "AdminLTE": "admin-lte#^2.3.11",
     "sweetalert": "^1.1.3",
