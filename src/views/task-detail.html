@@ -143,7 +143,7 @@
                                title="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <div class="auto-ellipsis" ng-bind="serverAddress" title="{{serverAddress}}"
+                            <div class="auto-ellipsis" ng-bind="serverAddress.length ? serverAddress.join(',') : serverAddress" title="{{serverAddress.length ? serverAddress.join(',') : serverAddress}}"
                                  ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
                         </div>
                     </div>
