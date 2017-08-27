@@ -46,7 +46,7 @@
                                     <textarea name="urls" class="form-control" rows="10" autofocus="autofocus" ng-auto-focus
                                               ng-model="context.urls" ng-required="true" ng-keydown="urlTextboxKeyDown($event)"
                                               ng-placeholder="'Support multiple URLs, one URL per line.' | translate"
-                                            ng-pattern="/^(\n?(((http|https|ftp|ssh):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
+                                              ng-pattern="/^(\n?(((http|https|ftp|sftp):\/\/.+)|(magnet:\?.+)))*$/i"></textarea>
                                     <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
                                         <i class="fa form-control-feedback" ng-class="{'fa-check':newTaskForm.urls.$valid, 'fa-times':newTaskForm.urls.$invalid}"></i>
                                     </div>
