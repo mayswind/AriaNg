@@ -38,11 +38,11 @@
 }
 
 .input-group.input-group-multiple > .input-group-addon:first-child,
-.input-group.input-group-multiple > .input-grougp-addon-container:first-child {
+.input-group.input-group-multiple > .input-group-addon-container:first-child {
     border-left: 1px solid #d2d6de;
 }
 
-.input-group .input-grougp-addon-container {
+.input-group .input-group-addon-container {
     width: 1%;
     display: table-cell;
 }
