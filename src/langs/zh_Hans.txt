@@ -84,6 +84,7 @@ Info Hash=特征值
 Seeders=种子数
 Connections=连接数
 Seed Creation Time=种子创建时间
+Download Url=下载地址
 Download Dir=下载路径
 BT Tracker Servers=BT 服务器
 (Choose Files)=(选择文件)

@@ -125,6 +125,14 @@
                             <span class="allow-word-break" ng-bind="task.infoHash"></span>
                         </div>
                     </div>
+                    <div class="row" ng-if="task && task.singleUrl">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Download Url</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span class="allow-word-break" ng-bind="task.singleUrl"></span>
+                        </div>
+                    </div>
                     <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Dir</span>

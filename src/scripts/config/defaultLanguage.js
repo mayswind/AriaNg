@@ -88,6 +88,7 @@
             'Seeders': 'Seeders',
             'Connections': 'Connections',
             'Seed Creation Time': 'Seed Creation Time',
+            'Download Url': 'Download Url',
             'Download Dir': 'Download Dir',
             'BT Tracker Servers': 'BT Tracker Servers',
             '(Choose Files)': '(Choose Files)',
