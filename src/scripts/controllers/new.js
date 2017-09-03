@@ -5,7 +5,7 @@
         var tabOrders = ['links', 'options'];
 
         var downloadByLinks = function (pauseOnAdded, responseCallback) {
-            var urls = $scope.context.urls.split('\n');
+            var urls = ariaNgCommonService.parseUrlsFromOriginInput($scope.context.urls);
             var options = angular.copy($scope.context.options);
             var tasks = [];
 
@@ -172,6 +172,11 @@
             if (event.keyCode === 13 && event.ctrlKey && $scope.newTaskForm.$valid) {
                 $scope.startDownload();
             }
+        };
+
+        $scope.getValidUrlsCount = function () {
+            var urls = ariaNgCommonService.parseUrlsFromOriginInput($scope.context.urls);
+            return urls ? urls.length : 0;
         };
 
         $rootScope.loadPromise = $timeout(function () {}, 100);

@@ -58,6 +58,26 @@
 
                 return filePath.substring(filePath.lastIndexOf('.'));
             },
+            parseUrlsFromOriginInput: function (s) {
+                if (!s) {
+                    return [];
+                }
+
+                var lines = s.split('\n');
+                var result = [];
+
+                for (var i = 0; i < lines.length; i++) {
+                    var line = lines[i];
+
+                    if (line.match(/^(http|https|ftp|sftp):\/\/.+$/)) {
+                        result.push(line);
+                    } else if (line.match(/^magnet:\?.+$/)) {
+                        result.push(line);
+                    }
+                }
+
+                return result;
+            },
             decodePercentEncodedString: function (s) {
                 if (!s) {
                     return s;

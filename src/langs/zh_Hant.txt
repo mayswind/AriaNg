@@ -243,6 +243,7 @@ time.minutes={{value}} 分鐘
 time.hour={{value}} 小時
 time.hours={{value}} 小時
 requires.aria2-version=需要 aria2 v{{version}} 或更高版本
+task.new.download-links=下載鏈接 ({{count}} 个鏈接):
 task.pieceinfo=已完成: {{completed}}, 共計: {{total}} 塊
 task.error-occurred=發生錯誤 ({{errorcode}})
 settings.file-count=({{count}} 個文件)
