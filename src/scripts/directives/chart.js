@@ -38,6 +38,12 @@
                         setOptions(value);
                     }
                 }, true);
+
+                scope.$on('$destroy', function() {
+                    if (chart && !chart.isDisposed()) {
+                        chart.dispose();
+                    }
+                });
             }
         };
     }]).directive('ngPopChart', ['$window', 'chartTheme', function ($window, chartTheme) {
@@ -79,7 +85,7 @@
 
                     chart = echarts.init(wrapper[0], chartTheme.get(options.ngTheme));
                 }).on('hide.bs.popover', function () {
-                    if (chart && chart.isDisposed()) {
+                    if (chart && !chart.isDisposed()) {
                         chart.dispose();
                     }
                 }).on('hidden.bs.popover', function () {
