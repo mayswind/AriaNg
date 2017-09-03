@@ -29,7 +29,7 @@
     "gulp-useref": "^3.1.0"
   },
   "name": "ariang",
-  "description": "AriaNg, a web frontend making aria2 better",
+  "description": "AriaNg, a modern web frontend making aria2 easier to use.",
   "version": "0.3.0",
   "main": "index.html",
   "scripts": {
@@ -42,7 +42,8 @@
   "keywords": [
     "aria2",
     "Web",
-    "Frontend"
+    "Frontend",
+    "UI"
   ],
   "author": "MaysWind <i@mayswind.net>",
   "license": "MIT",
