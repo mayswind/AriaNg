@@ -71,29 +71,23 @@
 }
 
 .skin-aria-ng .main-header .logo .logo-lg .logo-lg-title {
-    margin-right: 2px;
+    margin-right: 6px;
 }
 
 .skin-aria-ng .main-header .logo .dropdown-menu {
     margin-top: -1px;
-    border-color: #59636b;
-    background-color: #3c4852;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-.skin-aria-ng .main-header .logo .dropdown-menu > li > a {
-    color: #a2b5b9;
-}
-
-.skin-aria-ng .main-header .logo .dropdown-menu > li:hover > a {
-    color: #dfdfdf;
-    background-color: #313a42;
-}
-
 .skin-aria-ng .main-header .logo .dropdown-menu > li.active > a {
-    color: #5399e8;
-    background-color: #252c30;
+    color: #777;
+    background-color: #fff;
+}
+
+.skin-aria-ng .main-header .logo .dropdown-menu > li.active:hover > a {
+    color: #333;
+    background-color: #e1e3e9;
 }
 
 .skin-aria-ng .content-header {
