@@ -1,6 +1,6 @@
-<section class="content no-padding" ng-if="task">
+<section class="content no-padding">
     <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" ng-if="task">
             <li ng-class="{'active': context.currentTab == 'overview'}">
                 <a class="pointer-cursor" ng-click="changeTab('overview')" translate>Overview</a>
             </li>
