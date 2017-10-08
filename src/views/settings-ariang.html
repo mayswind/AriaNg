@@ -171,12 +171,14 @@
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Aria2 RPC Protocol</span>
                             <span class="asterisk">*</span>
+                            <i class="icon-primary fa fa-question-circle" ng-tooltip-container="body" ng-tooltip-placement="top"
+                               ng-tooltip="{{'Http and WebSocket would be disabled when navigating AriaNg via Https.' | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;" ng-model="setting.protocol" ng-change="updateRpcSetting(setting, 'protocol')">
-                                <option value="http" translate>Http</option>
+                                <option value="http" ng-disabled="::(context.isInsecureProtocolDisabled)" ng-bind="('Http' + (context.isInsecureProtocolDisabled ? ' (Disabled)' : '')) | translate">Http</option>
                                 <option value="https" translate>Https</option>
-                                <option value="ws" translate>WebSocket</option>
+                                <option value="ws" ng-disabled="::(context.isInsecureProtocolDisabled)" ng-bind="('WebSocket' + (context.isInsecureProtocolDisabled ? ' (Disabled)' : '')) | translate">WebSocket</option>
                                 <option value="wss" translate>WebSocket (Security)</option>
                             </select>
                         </div>

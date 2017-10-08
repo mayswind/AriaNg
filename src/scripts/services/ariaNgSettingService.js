@@ -18,6 +18,12 @@
             }
         };
 
+        var isInsecureProtocolDisabled = function () {
+            var protocol = $location.protocol();
+
+            return protocol === 'https';
+        };
+
         var getLanguageNameFromAlias = function (alias) {
             for (var langName in ariaNgLanguages) {
                 if (!ariaNgLanguages.hasOwnProperty(langName)) {
@@ -100,6 +106,20 @@
                 options = angular.extend({}, ariaNgDefaultOptions);
                 options.language = getDefaultLanguage();
 
+                if (!options.rpcHost) {
+                    initRpcSettingWithDefaultHostAndProtocol(options);
+                }
+
+                if (angular.isArray(options.extendRpcServers)) {
+                    for (var i = 0; i < options.extendRpcServers.length; i++) {
+                        var rpcSetting = options.extendRpcServers[i];
+
+                        if (!rpcSetting.rpcHost) {
+                            initRpcSettingWithDefaultHostAndProtocol(rpcSetting);
+                        }
+                    }
+                }
+
                 setOptions(options);
                 fireFirstVisitEvent();
             }
@@ -129,6 +149,14 @@
             setOptions(options);
         };
 
+        var initRpcSettingWithDefaultHostAndProtocol = function (setting) {
+            setting.rpcHost = getDefaultRpcHost();
+
+            if (isInsecureProtocolDisabled()) {
+                setting.protocol = ariaNgConstants.defaultSecureProtocol;
+            }
+        };
+
         var cloneRpcSetting = function (setting) {
             return {
                 rpcAlias: setting.rpcAlias,
@@ -144,7 +172,8 @@
         var createNewRpcSetting = function () {
             var setting = cloneRpcSetting(ariaNgDefaultOptions);
             setting.rpcId = ariaNgCommonService.generateUniqueId();
-            setting.rpcHost = getDefaultRpcHost();
+
+            initRpcSettingWithDefaultHostAndProtocol(setting);
 
             return setting;
         };
@@ -153,10 +182,6 @@
             getAllOptions: function () {
                 var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
 
-                if (!options.rpcHost) {
-                    options.rpcHost = getDefaultRpcHost();
-                }
-
                 if (options.secret) {
                     options.secret = base64.decode(options.secret);
                 }
@@ -164,10 +189,6 @@
                 if (angular.isArray(options.extendRpcServers)) {
                     for (var i = 0; i < options.extendRpcServers.length; i++) {
                         var rpcSetting = options.extendRpcServers[i];
-
-                        if (!rpcSetting.rpcHost) {
-                            rpcSetting.rpcHost = getDefaultRpcHost();
-                        }
 
                         if (rpcSetting.secret) {
                             rpcSetting.secret = base64.decode(rpcSetting.secret);
@@ -198,6 +219,9 @@
             },
             getAllSessionOptions: function () {
                 return angular.copy(sessionSettings);
+            },
+            isInsecureProtocolDisabled: function () {
+                return isInsecureProtocolDisabled();
             },
             applyLanguage: function (lang) {
                 if (!ariaNgLanguages[lang]) {
@@ -248,26 +272,21 @@
                 setOption('browserNotification', value);
             },
             getCurrentRpcUrl: function () {
-                var protocol = getOption('protocol');
-                var rpcHost = getOption('rpcHost');
-                var rpcPort = getOption('rpcPort');
-                var rpcInterface = getOption('rpcInterface');
-
-                if (!rpcHost) {
-                    rpcHost = getDefaultRpcHost();
-                }
+                var options = getOptions();
+                var protocol = options.protocol;
+                var rpcHost = options.rpcHost;
+                var rpcPort = options.rpcPort;
+                var rpcInterface = options.rpcInterface;
 
                 return protocol + '://' + rpcHost + ':' + rpcPort + '/' + rpcInterface;
-            },
-            getCurrentRpcProtocol: function () {
-                return getOption('protocol');
             },
             getCurrentRpcHttpMethod: function () {
                 return getOption('httpMethod');
             },
             isCurrentRpcUseWebSocket: function (protocol) {
                 if (!protocol) {
-                    protocol = this.getCurrentRpcProtocol();
+                    var options = getOptions();
+                    protocol = options.protocol;
                 }
 
                 return protocol === 'ws' || protocol === 'wss';

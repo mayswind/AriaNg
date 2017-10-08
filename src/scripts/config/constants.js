@@ -10,6 +10,7 @@
         languageFileExtension: '.txt',
         defaultLanguage: 'en',
         defaultHost: 'localhost',
+        defaultSecureProtocol: 'https',
         globalStatStorageCapacity: 120,
         taskStatStorageCapacity: 300,
         lazySaveTimeout: 500,
