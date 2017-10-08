@@ -188,7 +188,7 @@
             'WebSocket': 'WebSocket',
             'WebSocket (Disabled)': 'WebSocket (Disabled)',
             'WebSocket (Security)': 'WebSocket (Security)',
-            'Http and WebSocket would be disabled when navigating AriaNg via Https.': 'Http and WebSocket would be disabled when navigating AriaNg via Https.',
+            'Http and WebSocket would be disabled when accessing AriaNg via Https.': 'Http and WebSocket would be disabled when accessing AriaNg via Https.',
             'POST': 'POST',
             'GET': 'GET',
             'Disabled': 'Disabled',
