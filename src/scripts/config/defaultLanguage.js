@@ -203,6 +203,7 @@
             'RPC secret is not base64 encoded!': 'RPC secret is not base64 encoded!',
             'URL is not base64 encoded!': 'URL is not base64 encoded!',
             'Tap to configure and get started with AriaNg.': 'Tap to configure and get started with AriaNg.',
+            'Cannot initialize WebSocket!': 'Cannot initialize WebSocket!',
             'error': {
                 'unknown': 'Unknown error occurred.',
                 'operation.timeout': 'Operation timed out.',

@@ -199,6 +199,7 @@ RPC host cannot be empty!=RPC 主機不能為空!
 RPC secret is not base64 encoded!=RPC 密鑰不是 Base64 編碼後的字元串!
 URL is not base64 encoded!=指定 URL 不是 Base64 編碼後的字元串!
 Tap to configure and get started with AriaNg.=您還沒有進行過設置, 點擊這裡進行設置.
+Cannot initialize WebSocket!=無法初始化 WebSocket!
 
 [error]
 unknown=未知錯誤.

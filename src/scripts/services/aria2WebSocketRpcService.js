@@ -29,7 +29,7 @@
             });
 
             if (content.result && context.successCallback) {
-                ariaNgLogService.debug('[aria2WebSocketRpcService.request] response uccess', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] response success', content);
 
                 context.successCallback(context.id, content.result);
             }
@@ -65,28 +65,39 @@
 
         var getSocketClient = function () {
             if (socketClient === null) {
-                socketClient = $websocket(rpcUrl);
+                try {
+                    socketClient = $websocket(rpcUrl);
 
-                socketClient.onMessage(function (message) {
-                    if (!message || !message.data) {
-                        return;
+                    socketClient.onMessage(function (message) {
+                        if (!message || !message.data) {
+                            return;
+                        }
+
+                        var content = angular.fromJson(message.data);
+
+                        if (!content) {
+                            return;
+                        }
+
+                        if (content.id) {
+                            processMethodCallback(content);
+                        } else if (content.method) {
+                            processEventCallback(content);
+                        }
+                    });
+                } catch (ex) {
+                    return {
+                        success: false,
+                        error: 'Cannot initialize WebSocket!',
+                        exception: ex
                     }
-
-                    var content = angular.fromJson(message.data);
-
-                    if (!content) {
-                        return;
-                    }
-
-                    if (content.id) {
-                        processMethodCallback(content);
-                    } else if (content.method) {
-                        processEventCallback(content);
-                    }
-                });
+                }
             }
 
-            return socketClient;
+            return {
+                success: true,
+                instance: socketClient
+            };
         };
 
         return {
@@ -108,7 +119,17 @@
                     deferred: deferred
                 };
 
-                client.send(requestBody);
+                if (client.instance) {
+                    client.instance.send(requestBody);
+                } else {
+                    deferred.reject({
+                        success: false,
+                        context: context
+                    });
+
+                    ariaNgLogService.debug('[aria2WebSocketRpcService.request] client error', client);
+                    context.errorCallback(context.id, { message: client.error });
+                }
 
                 return deferred.promise;
             },

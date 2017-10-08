@@ -1,7 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').config(['$translateProvider', 'localStorageServiceProvider', 'NotificationProvider', 'ariaNgConstants', 'ariaNgLanguages', function ($translateProvider, localStorageServiceProvider, NotificationProvider, ariaNgConstants, ariaNgLanguages) {
+    angular.module('ariaNg').config(['$qProvider', '$translateProvider', 'localStorageServiceProvider', 'NotificationProvider', 'ariaNgConstants', 'ariaNgLanguages', function ($qProvider, $translateProvider, localStorageServiceProvider, NotificationProvider, ariaNgConstants, ariaNgLanguages) {
+        $qProvider.errorOnUnhandledRejections(false);
+
         localStorageServiceProvider
             .setPrefix(ariaNgConstants.appPrefix)
             .setStorageType('localStorage')
