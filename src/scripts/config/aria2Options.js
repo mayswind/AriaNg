@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('ariaNg').constant('aria2AllOptions', {
-        // EXAMPLE:
+        // Aria2 Option Defination EXAMPLE:
         // 'option key': {
         //     [since: '',] //This option is supported by this or higher aria2 version
         //     type: 'string|integer|float|text|boolean|option',
@@ -107,6 +107,9 @@
             type: 'text',
             split: ',',
             showCount: true
+        },
+        'out': {
+            type: 'string'
         },
         'proxy-method': {
             type: 'option',
@@ -543,7 +546,7 @@
         },
         'rpc-save-upload-metadata': {
             type: 'boolean',
-            defaultValue: 'false',
+            defaultValue: 'true',
             required: true
         },
         'rpc-secure': {
@@ -596,6 +599,11 @@
             options: ['debug', 'info', 'notice', 'warn', 'error'],
             readonly: true,
             defaultValue: 'notice'
+        },
+        'content-disposition-default-utf8': {
+            since: '1.31.0',
+            type: 'boolean',
+            defaultValue: 'false'
         },
         'daemon': {
             type: 'boolean',
@@ -806,117 +814,189 @@
             defaultValue: 'true'
         }
     }).constant('aria2GlobalAvailableOptions', {
-        basicOptions: ['dir', 'log', 'max-concurrent-downloads', 'check-integrity', 'continue'],
-        httpFtpSFtpOptions: ['all-proxy', 'all-proxy-user', 'all-proxy-passwd', 'connect-timeout', 'dry-run', 'lowest-speed-limit', 'max-connection-per-server', 'max-file-not-found', 'max-tries', 'min-split-size', 'netrc-path', 'no-netrc', 'no-proxy', 'proxy-method', 'remote-time', 'reuse-uri', 'retry-wait', 'server-stat-of', 'server-stat-timeout', 'split', 'stream-piece-selector', 'timeout', 'uri-selector'],
-        httpOptions: ['check-certificate', 'http-accept-gzip', 'http-auth-challenge', 'http-no-cache', 'http-user', 'http-passwd', 'http-proxy', 'http-proxy-user', 'http-proxy-passwd', 'https-proxy', 'https-proxy-user', 'https-proxy-passwd', 'referer', 'enable-http-keep-alive', 'enable-http-pipelining', 'header', 'save-cookies', 'use-head', 'user-agent'],
-        ftpSFtpOptions: ['ftp-user', 'ftp-passwd', 'ftp-pasv', 'ftp-proxy', 'ftp-proxy-user', 'ftp-proxy-passwd', 'ftp-type', 'ftp-reuse-connection', 'ssh-host-key-md'],
-        btOptions: ['bt-detach-seed-only', 'bt-enable-hook-after-hash-check', 'bt-enable-lpd', 'bt-exclude-tracker', 'bt-external-ip', 'bt-force-encryption', 'bt-hash-check-seed', 'bt-max-open-files', 'bt-max-peers', 'bt-metadata-only', 'bt-min-crypto-level', 'bt-prioritize-piece', 'bt-remove-unselected-file', 'bt-require-crypto', 'bt-request-peer-speed-limit', 'bt-save-metadata', 'bt-seed-unverified', 'bt-stop-timeout', 'bt-tracker', 'bt-tracker-connect-timeout', 'bt-tracker-interval', 'bt-tracker-timeout', 'dht-file-path', 'dht-file-path6', 'dht-listen-port', 'dht-message-timeout', 'enable-dht', 'enable-dht6', 'enable-peer-exchange', 'follow-torrent', 'listen-port', 'max-overall-upload-limit', 'max-upload-limit', 'peer-id-prefix', 'seed-ratio', 'seed-time'],
-        metalinkOptions: ['follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os', 'metalink-version', 'metalink-preferred-protocol', 'metalink-enable-unique-protocol'],
-        rpcOptions: ['enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port', 'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'],
-        advancedOptions: ['allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming', 'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'daemon', 'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap', 'event-poll', 'file-allocation', 'force-save', 'save-not-found', 'hash-check-only', 'human-readable', 'keep-unfinished-download-result', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries', 'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout', 'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf', 'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file', 'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout']
+        // Aria2 Setting Page Defination EXAMPLE:
+        // 'category key': [
+        //     'option key 1', 'option key 2', // more options if possible
+        // ]
+        basicOptions: [
+            'dir', 'log', 'max-concurrent-downloads', 'check-integrity', 'continue'
+        ],
+        httpFtpSFtpOptions: [
+            'all-proxy', 'all-proxy-user', 'all-proxy-passwd', 'connect-timeout', 'dry-run', 'lowest-speed-limit',
+            'max-connection-per-server', 'max-file-not-found', 'max-tries', 'min-split-size', 'netrc-path', 'no-netrc',
+            'no-proxy', 'proxy-method', 'remote-time', 'reuse-uri', 'retry-wait', 'server-stat-of',
+            'server-stat-timeout', 'split', 'stream-piece-selector', 'timeout', 'uri-selector'
+        ],
+        httpOptions: [
+            'check-certificate', 'http-accept-gzip', 'http-auth-challenge', 'http-no-cache', 'http-user',
+            'http-passwd', 'http-proxy', 'http-proxy-user', 'http-proxy-passwd', 'https-proxy', 'https-proxy-user',
+            'https-proxy-passwd', 'referer', 'enable-http-keep-alive', 'enable-http-pipelining', 'header',
+            'save-cookies', 'use-head', 'user-agent'
+        ],
+        ftpSFtpOptions: [
+            'ftp-user', 'ftp-passwd', 'ftp-pasv', 'ftp-proxy', 'ftp-proxy-user', 'ftp-proxy-passwd',
+            'ftp-type', 'ftp-reuse-connection', 'ssh-host-key-md'
+        ],
+        btOptions: [
+            'bt-detach-seed-only', 'bt-enable-hook-after-hash-check', 'bt-enable-lpd', 'bt-exclude-tracker',
+            'bt-external-ip', 'bt-force-encryption', 'bt-hash-check-seed', 'bt-max-open-files', 'bt-max-peers',
+            'bt-metadata-only', 'bt-min-crypto-level', 'bt-prioritize-piece', 'bt-remove-unselected-file',
+            'bt-require-crypto', 'bt-request-peer-speed-limit', 'bt-save-metadata', 'bt-seed-unverified',
+            'bt-stop-timeout', 'bt-tracker', 'bt-tracker-connect-timeout', 'bt-tracker-interval', 'bt-tracker-timeout',
+            'dht-file-path', 'dht-file-path6', 'dht-listen-port', 'dht-message-timeout', 'enable-dht', 'enable-dht6',
+            'enable-peer-exchange', 'follow-torrent', 'listen-port', 'max-overall-upload-limit', 'max-upload-limit',
+            'peer-id-prefix', 'seed-ratio', 'seed-time'
+        ],
+        metalinkOptions: [
+            'follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os',
+            'metalink-version', 'metalink-preferred-protocol', 'metalink-enable-unique-protocol'
+        ],
+        rpcOptions: [
+            'enable-rpc', 'pause-metadata', 'rpc-allow-origin-all', 'rpc-listen-all', 'rpc-listen-port',
+            'rpc-max-request-size', 'rpc-save-upload-metadata', 'rpc-secure'
+        ],
+        advancedOptions: [
+            'allow-overwrite', 'allow-piece-length-change', 'always-resume', 'async-dns', 'auto-file-renaming',
+            'auto-save-interval', 'conditional-get', 'conf-path', 'console-log-level', 'content-disposition-default-utf8', 'daemon',
+            'deferred-input', 'disable-ipv6', 'disk-cache', 'download-result', 'dscp', 'rlimit-nofile', 'enable-color', 'enable-mmap',
+            'event-poll', 'file-allocation', 'force-save', 'save-not-found', 'hash-check-only', 'human-readable',
+            'keep-unfinished-download-result', 'max-download-result', 'max-mmap-limit', 'max-resume-failure-tries',
+            'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout',
+            'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf',
+            'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file',
+            'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout'
+        ]
+    }).constant('aria2QuickSettingsAvailableOptions', {
+        globalSpeedLimitOptions: [
+            'max-overall-download-limit', 'max-overall-upload-limit'
+        ]
     }).constant('aria2TaskAvailableOptions', {
+        // Aria2 Task Option Defination EXAMPLE:
+        // {
+        //     key: 'option key',
+        //     category: 'global|http|bittorrent',
+        //     [canShow: 'new|active|waiting|paused',] // possible to show in specific status, supporting multiple choice. if not set, always show
+        //     [canUpdate: 'new|active|waiting|paused',] // possible to write in specific status, supporting multiple choice. if not set, always writable
+        // }
         taskOptions: [
             {
                 key: 'dir',
-                newOnly: true
+                category: 'global',
+                canUpdate: 'new'
+            },
+            {
+                key: 'out',
+                category: 'http',
+                canUpdate: 'new'
             },
             {
                 key: 'allow-overwrite',
-                newOnly: true
+                category: 'global',
+                canShow: 'new'
             },
             {
-                key: 'max-download-limit'
+                key: 'max-download-limit',
+                category: 'global'
             },
             {
                 key: 'max-upload-limit',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'split',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'min-split-size',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'max-connection-per-server',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'lowest-speed-limit',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'stream-piece-selector',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'all-proxy',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'all-proxy-user',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'all-proxy-passwd',
-                httpOnly: true,
-                activeReadonly: true
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
+            },
+            {
+                key: 'header',
+                category: 'http',
+                canUpdate: 'new'
             },
             {
                 key: 'bt-max-peers',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'bt-request-peer-speed-limit',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'bt-remove-unselected-file',
-                btOnly: true
+                category: 'bittorrent'
             },
             {
                 key: 'bt-stop-timeout',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'bt-tracker',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'seed-ratio',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'seed-time',
-                btOnly: true,
-                activeReadonly: true
+                category: 'bittorrent',
+                canUpdate: 'new|waiting|paused'
             },
             {
                 key: 'conditional-get',
-                newOnly: true
+                category: 'global',
+                canShow: 'new'
             },
             {
                 key: 'file-allocation',
-                newOnly: true
+                category: 'global',
+                canShow: 'new'
             },
             {
-                key: 'parameterized-uri ',
-                newOnly: true
+                key: 'parameterized-uri',
+                category: 'global',
+                canShow: 'new'
             },
             {
-                key: 'force-save'
+                key: 'force-save',
+                category: 'global'
             }
         ]
     });

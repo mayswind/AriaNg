@@ -41,16 +41,30 @@
 <body class="hold-transition skin-aria-ng sidebar-mini fixed">
 <div class="wrapper" ng-controller="MainController" ng-swipe-left="swipeActions.leftSwipe()" ng-swipe-right="swipeActions.rightSwipe()" ng-swipe-disable-mouse>
     <header class="main-header">
-        <a class="logo" href="#">
-            <span class="logo-mini">Aria</span>
-            <span class="logo-lg" title="AriaNg %%GULP_INJECT_VERSION%%">AriaNg</span>
-        </a>
+        <div class="logo">
+            <div class="logo-mini">AriaNg</div>
+            <div class="logo-lg" title="AriaNg %%GULP_INJECT_VERSION%%">
+                <div class="dropdown">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="logo-lg-title">AriaNg</span><i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                    </span>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li ng-repeat="setting in rpcSettings" ng-class="{'active': setting.isDefault}">
+                            <a class="pointer-cursor" ng-click="switchRpcSetting(setting)">
+                                <span ng-bind="(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)">RPC</span>
+                                <i class="fa" ng-class="{'fa-check': setting.isDefault}"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <nav class="navbar navbar-static-top" role="navigation">
             <div class="navbar-toolbar">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="toolbar" title="{{'New' | translate}}" ng-href="#/new">
+                        <a class="toolbar" title="{{'New' | translate}}" ng-href="#!/new">
                             <i class="fa fa-plus"></i>
                             <span translate>New</span>
                         </a>
@@ -167,17 +181,17 @@
             <ul id="siderbar-menu" class="sidebar-menu">
                 <li class="header" translate>Download</li>
                 <li data-href-match="/downloading">
-                    <a href="#/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
+                    <a href="#!/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
                 </li>
                 <li data-href-match="/waiting">
-                    <a href="#/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Waiting</span></a>
+                    <a href="#!/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Waiting</span></a>
                 </li>
                 <li data-href-match="/stopped">
-                    <a href="#/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Downloaded / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Downloaded / Stopped</span></a>
+                    <a href="#!/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Finished / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Finished / Stopped</span></a>
                 </li>
                 <li class="header" translate>Settings</li>
                 <li data-href-match="/settings/ariang">
-                    <a href="#/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
+                    <a href="#!/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
                 </li>
                 <li class="treeview">
                     <a href="javascript:void(0);">
@@ -189,33 +203,33 @@
                     </a>
                     <ul class="treeview-menu">
                         <li data-href-match="/settings/aria2/basic">
-                            <a href="#/settings/aria2/basic"> <span translate>Basic Settings</span></a>
+                            <a href="#!/settings/aria2/basic"> <span translate>Basic Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/http-ftp-sftp">
-                            <a href="#/settings/aria2/http-ftp-sftp"> <span translate>HTTP/FTP/SFTP Settings</span></a>
+                            <a href="#!/settings/aria2/http-ftp-sftp"> <span translate>HTTP/FTP/SFTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/http">
-                            <a href="#/settings/aria2/http"> <span translate>HTTP Settings</span></a>
+                            <a href="#!/settings/aria2/http"> <span translate>HTTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/ftp-sftp">
-                            <a href="#/settings/aria2/ftp-sftp"> <span translate>FTP/SFTP Settings</span></a>
+                            <a href="#!/settings/aria2/ftp-sftp"> <span translate>FTP/SFTP Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/bt">
-                            <a href="#/settings/aria2/bt"> <span translate>BitTorrent Settings</span></a>
+                            <a href="#!/settings/aria2/bt"> <span translate>BitTorrent Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/metalink">
-                            <a href="#/settings/aria2/metalink"> <span translate>Metalink Settings</span></a>
+                            <a href="#!/settings/aria2/metalink"> <span translate>Metalink Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/rpc">
-                            <a href="#/settings/aria2/rpc"> <span translate>RPC Settings</span></a>
+                            <a href="#!/settings/aria2/rpc"> <span translate>RPC Settings</span></a>
                         </li>
                         <li data-href-match="/settings/aria2/advanced">
-                            <a href="#/settings/aria2/advanced"> <span translate>Advanced Settings</span></a>
+                            <a href="#!/settings/aria2/advanced"> <span translate>Advanced Settings</span></a>
                         </li>
                     </ul>
                 </li>
                 <li data-href-match="/status">
-                    <a href="#/status"><i class="fa fa-server"></i> <span translate>Aria2 Status</span></a>
+                    <a href="#!/status"><i class="fa fa-server"></i> <span translate>Aria2 Status</span> <span class="label pull-right" ng-if="globalStatusContext.isEnabled" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Not Connected'}" ng-bind="taskContext.rpcStatus | translate"></span></a>
                 </li>
             </ul>
         </section>
@@ -228,30 +242,55 @@
     </div>
 
     <footer class="main-footer">
-        <a class="sidebar-toggle" data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}"></a>
+        <nav class="navbar" role="navigation">
+            <div class="navbar-toolbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="dropup">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Quick Setting' | translate}}">
+                            <i class="fa fa-wrench"></i>
+                            <span translate>Quick Setting</span>
+                            <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Speed Limit')">
+                                    <span translate>Global Speed Limit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
-        <span>&nbsp;</span>
-
-        <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
-            <a class="global-status" ng-pop-chart ng-data="globalStatusContext.data" ng-container="body"
-               ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
+            <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
+                <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
+                   ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
                 <span class="realtime-speed">
                     <i class="icon-download fa fa-arrow-down"></i>
-                    <span ng-bind="(globalStat.downloadSpeed | readableVolumn) + '/s'"></span>
+                    <span ng-bind="(globalStat.downloadSpeed | readableVolume) + '/s'"></span>
                 </span>
-                <span class="realtime-speed">
+                    <span class="realtime-speed">
                     <i class="icon-upload fa fa-arrow-up"></i>
-                    <span ng-bind="(globalStat.uploadSpeed | readableVolumn) + '/s'"></span>
+                    <span ng-bind="(globalStat.uploadSpeed | readableVolume) + '/s'"></span>
                 </span>
-            </a>
-        </div>
+                </a>
+            </div>
+        </nav>
     </footer>
+
+    <ng-setting-dialog setting="quickSettingContext"></ng-setting-dialog>
 </div>
 
 <!-- build:js js/jquery-2.2.4.min.js -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/angular-packages-1.4.10.min.js -->
+<!-- build:js js/angular-packages-1.6.5.min.js -->
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
 <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
@@ -263,14 +302,14 @@
 <!-- build:js js/bootstrap-3.3.7.min.js -->
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/moment-with-locales-2.17.1.min.js -->
+<!-- build:js js/moment-with-locales-2.18.1.min.js -->
 <script src="../bower_components/moment/min/moment.min.js"></script>
 <script src="../bower_components/moment/locale/zh-cn.js"></script>
 <script src="../bower_components/moment/locale/zh-tw.js"></script>
-<script src="../bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.min.js"></script>
+<script src="../bower_components/moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/echarts-3.3.1.min.js -->
-<script src="../bower_components/echarts/dist/echarts.min.js"></script>
+<!-- build:js js/echarts-common-3.7.1.min.js -->
+<script src="../bower_components/echarts/dist/echarts.common.min.js"></script>
 <!-- endbuild -->
 <!-- build:js js/plugins.min.js -->
 <script src="../bower_components/AdminLTE/dist/js/app.min.js"></script>
@@ -279,7 +318,7 @@
 <script src="../bower_components/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
 <script src="../bower_components/angular-translate/angular-translate.min.js"></script>
 <script src="../bower_components/angular-moment/angular-moment.min.js"></script>
-<script src="../bower_components/angular-websocket/angular-websocket.min.js"></script>
+<script src="../bower_components/angular-websocket/dist/angular-websocket.min.js"></script>
 <script src="../bower_components/angular-utf8-base64/angular-utf8-base64.min.js"></script>
 <script src="../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="../bower_components/angular-notification/angular-notification.js"></script>
@@ -320,7 +359,9 @@
 <script src="scripts/directives/chart.js"></script>
 <script src="scripts/directives/placeholder.js"></script>
 <script src="scripts/directives/setting.js"></script>
+<script src="scripts/directives/settingDialog.js"></script>
 <script src="scripts/directives/tooltip.js"></script>
+<script src="scripts/directives/validUrls.js"></script>
 <script src="scripts/filters/dateDuration.js"></script>
 <script src="scripts/filters/fileOrderBy.js"></script>
 <script src="scripts/filters/longDate.js"></script>
@@ -328,13 +369,14 @@
 <script src="scripts/filters/percent.js"></script>
 <script src="scripts/filters/taskOrderBy.js"></script>
 <script src="scripts/filters/taskStatus.js"></script>
-<script src="scripts/filters/volumn.js"></script>
+<script src="scripts/filters/volume.js"></script>
 <script src="scripts/services/ariaNgCommonService.js"></script>
 <script src="scripts/services/ariaNgFileService.js"></script>
 <script src="scripts/services/ariaNgLanguageLoader.js"></script>
 <script src="scripts/services/ariaNgMonitorService.js"></script>
 <script src="scripts/services/ariaNgNotificationService.js"></script>
 <script src="scripts/services/ariaNgSettingService.js"></script>
+<script src="scripts/services/ariaNgTitleService.js"></script>
 <script src="scripts/services/ariaNgLogService.js"></script>
 <script src="scripts/services/aria2HttpRpcService.js"></script>
 <script src="scripts/services/aria2WebSocketRpcService.js"></script>

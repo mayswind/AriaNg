@@ -70,6 +70,7 @@
         };
 
         $rootScope.taskContext = {
+            rpcStatus: 'Connecting',
             list: [],
             selected: {},
             enableSelectAll: false,
@@ -167,6 +168,14 @@
             ariaNgNotificationService.notifyInPage('', 'Connection Succeeded', {
                 type: 'success'
             });
+        });
+
+        aria2TaskService.onConnectSuccess(function () {
+            $rootScope.taskContext.rpcStatus = 'Connected';
+        });
+
+        aria2TaskService.onConnectError(function () {
+            $rootScope.taskContext.rpcStatus = 'Not Connected';
         });
 
         aria2TaskService.onTaskCompleted(function (event) {

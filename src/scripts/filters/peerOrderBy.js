@@ -26,6 +26,6 @@
             } else {
                 return array;
             }
-        }
+        };
     }]);
 }());

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2TaskAvailableOptions', 'ariaNgCommonService', 'aria2RpcService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2TaskAvailableOptions, ariaNgCommonService, aria2RpcService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2QuickSettingsAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', 'ariaNgLogService', function (aria2AllOptions, aria2GlobalAvailableOptions, aria2QuickSettingsAvailableOptions, aria2TaskAvailableOptions, aria2RpcService, ariaNgLogService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
@@ -38,6 +38,13 @@
                     return false;
                 }
             },
+            getaria2QuickSettingsAvailableOptions: function (type) {
+                if (type === 'globalSpeedLimit') {
+                    return aria2QuickSettingsAvailableOptions.globalSpeedLimitOptions;
+                } else {
+                    return false;
+                }
+            },
             getAvailableTaskOptionKeys: function (status, isBittorrent) {
                 var allOptions = aria2TaskAvailableOptions.taskOptions;
                 var availableOptions = [];
@@ -45,20 +52,21 @@
                 for (var i = 0; i < allOptions.length; i++) {
                     var option = allOptions[i];
                     var optionKey = {
-                        key: option.key
+                        key: option.key,
+                        category: option.category
                     };
 
-                    if (option.newOnly) {
+                    if (option.canShow && option.canShow.indexOf(status) < 0) {
                         continue;
                     }
 
-                    if (option.httpOnly && isBittorrent) {
+                    if (option.category === 'http' && isBittorrent) {
                         continue;
-                    } else if (option.btOnly && !isBittorrent) {
+                    } else if (option.category === 'bittorrent' && !isBittorrent) {
                         continue;
                     }
 
-                    if (option.activeReadonly && status === 'active') {
+                    if (option.canUpdate && option.canUpdate.indexOf(status) < 0) {
                         optionKey.readonly = true;
                     }
 
@@ -67,33 +75,48 @@
 
                 return availableOptions;
             },
-            getNewTaskOptionKeys: function (isBittorrent) {
+            getNewTaskOptionKeys: function () {
                 var allOptions = aria2TaskAvailableOptions.taskOptions;
                 var availableOptions = [];
 
                 for (var i = 0; i < allOptions.length; i++) {
                     var option = allOptions[i];
                     var optionKey = {
-                        key: option.key
+                        key: option.key,
+                        category: option.category
                     };
+
+                    if (option.canShow && option.canShow.indexOf('new') < 0) {
+                        continue;
+                    }
+
+                    if (option.canUpdate && option.canUpdate.indexOf('new') < 0) {
+                        optionKey.readonly = true;
+                    }
 
                     availableOptions.push(optionKey);
                 }
 
                 return availableOptions;
             },
-            getSpecifiedOptions: function (keys) {
+            getSpecifiedOptions: function (keys, extendSettings) {
                 var options = [];
+
+                if (!keys) {
+                    return options;
+                }
 
                 for (var i = 0; i < keys.length; i++) {
                     var key = keys[i];
                     var readonly = false;
+                    var category = null;
 
                     if (angular.isObject(key)) {
                         var optionKey = key;
 
                         key = optionKey.key;
                         readonly = !!optionKey.readonly;
+                        category = optionKey.category;
                     }
 
                     var option = aria2AllOptions[key];
@@ -108,12 +131,20 @@
                         descriptionKey: 'options.' + key + '.description'
                     }, option);
 
+                    if (category) {
+                        option.category = category;
+                    }
+
                     if (option.type === 'boolean') {
                         option.options = ['true', 'false'];
                     }
 
                     if (readonly) {
                         option.readonly = true;
+                    }
+
+                    if (extendSettings && extendSettings.disableRequired) {
+                        option.required = false;
                     }
 
                     if (option.options) {
@@ -154,13 +185,14 @@
                 return aria2RpcService.getVersion({
                     silent: !!silent,
                     callback: callback
-                })
+                });
             },
             getGlobalStat: function (callback, silent) {
                 return aria2RpcService.getGlobalStat({
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
+                            ariaNgLogService.warn('[aria2SettingService.getGlobalStat] callback is null');
                             return;
                         }
 
@@ -173,13 +205,13 @@
                 return aria2RpcService.saveSession({
                     silent: !!silent,
                     callback: callback
-                })
+                });
             },
             shutdown: function (callback, silent) {
                 return aria2RpcService.shutdown({
                     silent: !!silent,
                     callback: callback
-                })
+                });
             }
         };
     }]);

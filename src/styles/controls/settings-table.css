@@ -4,6 +4,16 @@
     margin-right: 15px;
 }
 
+.settings-table .settings-table-title {
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.settings-table .settings-table-title a {
+    color: #000;
+}
+
 .settings-table > div.row {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -56,6 +66,24 @@
 
 .settings-table .setting-value .input-group .form-group .form-control:focus {
     z-index: inherit;
+}
+
+.settings-table .setting-value .input-group .form-control-rpcport {
+    min-width: 70px;
+}
+
+.settings-table .setting-value .input-group .form-control-rpcinterface {
+    min-width: 100px;
+}
+
+@media (max-width: 991px) {
+    .settings-table .setting-value .input-group .form-control-rpcport {
+        min-width: 60px;
+    }
+
+    .settings-table .setting-value .input-group .form-control-rpcinterface {
+        min-width: 60px;
+    }
 }
 
 .settings-table .tip {

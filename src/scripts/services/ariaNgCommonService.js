@@ -25,10 +25,10 @@
             showOperationSucceeded: function (text) {
                 this.showDialog('Operation Succeeded', text, 'success');
             },
-            confirm: function (title, text, type, callback, notClose) {
+            confirm: function (title, text, type, callback, notClose, extendSettings) {
                 var options = {
                     title: $translate.instant(title),
-                    text: $translate.instant(text),
+                    text: $translate.instant(text, (angular.isObject(extendSettings) ? extendSettings.textParams : null)),
                     type: type,
                     showCancelButton: true,
                     showLoaderOnConfirm: !!notClose,
@@ -57,6 +57,26 @@
                 }
 
                 return filePath.substring(filePath.lastIndexOf('.'));
+            },
+            parseUrlsFromOriginInput: function (s) {
+                if (!s) {
+                    return [];
+                }
+
+                var lines = s.split('\n');
+                var result = [];
+
+                for (var i = 0; i < lines.length; i++) {
+                    var line = lines[i];
+
+                    if (line.match(/^(http|https|ftp|sftp):\/\/.+$/)) {
+                        result.push(line);
+                    } else if (line.match(/^magnet:\?.+$/)) {
+                        result.push(line);
+                    }
+                }
+
+                return result;
             },
             decodePercentEncodedString: function (s) {
                 if (!s) {
@@ -173,7 +193,7 @@
                         }
                     },
                     getValue: function () {
-                        return this.type + ":" + this.order;
+                        return this.type + ':' + this.order;
                     }
                 };
 
@@ -226,7 +246,7 @@
                         name: name,
                         value: value,
                         optionValue: time
-                    })
+                    });
                 }
 
                 return options;

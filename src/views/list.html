@@ -43,10 +43,11 @@
                         </label>
                     </div>
                     <div class="task-files">
-                        <span ng-bind="task.totalLength | readableVolumn"></span>
-                        <a ng-href="#/task/detail/{{task.gid}}">
+                        <span ng-bind="task.totalLength | readableVolume"></span>
+                        <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
                             <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                         </a><i class="icon-error fa fa-times" ng-if="task && task.status == 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status == 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
+                        <a class="pointer-cursor" ng-if="task && task.status == 'error' && task.errorDescription && !task.bittorrent" ng-click="restart(task)" title="{{'Restart' | translate}}" translate>Restart</a>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-12">
@@ -63,12 +64,12 @@
                         <span class="task-last-time"
                               ng-bind="task.status === 'waiting' ? '--:--:--' : (task.status === 'paused' ? '' : (task.status === 'active' ? ((0 <= task.remainTime && task.remainTime < 86400) ? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)) : ''))"></span>
                         <span class="task-download-speed visible-xs-inline pull-right"
-                              ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-') : ''))"></span>
+                              ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : ''))"></span>
                         <span class="task-seeders pull-right" ng-bind="task.status === 'active' ? ((task.numSeeders ? (task.numSeeders + '/') : '') + task.connections) : ''"></span>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 hidden-xs">
-                    <span class="task-download-speed" ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolumn) + '/s' : '-') : ''))"></span>
+                    <span class="task-download-speed" ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : ''))"></span>
                 </div>
             </div>
         </div>

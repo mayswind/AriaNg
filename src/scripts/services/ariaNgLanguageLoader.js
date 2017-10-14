@@ -3,18 +3,18 @@
 
     angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'localStorageService', 'ariaNgConstants', 'ariaNgLanguages', function ($http, $q, localStorageService, ariaNgConstants, ariaNgLanguages) {
         var getKeyValuePair = function (line) {
-            var equalSignPos = line.indexOf('=');
-
-            if (equalSignPos > 0) {
-                return {
-                    key: line.substring(0, equalSignPos),
-                    value: line.substring(equalSignPos + 1, line.length)
+            for (var i = 0; i < line.length; i++) {
+                if (i > 0 && line.charAt(i - 1) !== '\\' && line.charAt(i) === '=') {
+                    return {
+                        key: line.substring(0, i).replace('\\=', '='),
+                        value: line.substring(i + 1, line.length).replace('\\=', '=')
+                    };
                 }
-            } else {
-                return {
-                    value: line
-                };
             }
+
+            return {
+                value: line
+            };
         };
 
         var getCategory = function (langObj, category) {
@@ -64,6 +64,8 @@
                     continue;
                 }
 
+                line = line.replace('\r', '');
+
                 if (/^\[.+\]$/.test(line)) {
                     currentCatagory = getCategory(langObj, line);
                     continue;
@@ -99,11 +101,11 @@
             $http({
                 url: languagePath,
                 method: 'GET'
-            }).success(function (data) {
-                var languageObject = getLanguageObject(data);
+            }).then(function onSuccess(response) {
+                var languageObject = getLanguageObject(response.data);
                 localStorageService.set(languageKey, languageObject);
                 return deferred.resolve(languageObject);
-            }).error(function (data) {
+            }).catch(function onError(response) {
                 return deferred.reject(options.key);
             });
 

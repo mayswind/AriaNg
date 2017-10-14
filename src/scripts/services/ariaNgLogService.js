@@ -5,17 +5,33 @@
         return {
             debug: function (msg, obj) {
                 if (ariaNgSettingService.isEnableDebugMode()) {
-                    $log.debug('[AriaNg Debug]' + msg, obj);
+                    if (obj) {
+                        $log.debug('[AriaNg Debug]' + msg, obj);
+                    } else {
+                        $log.debug('[AriaNg Debug]' + msg);
+                    }
                 }
             },
             info: function (msg, obj) {
-                $log.info('[AriaNg Info]' + msg, obj);
+                if (obj) {
+                    $log.info('[AriaNg Info]' + msg, obj);
+                } else {
+                    $log.info('[AriaNg Info]' + msg);
+                }
             },
             warn: function (msg, obj) {
-                $log.warn('[AriaNg Warn]' + msg, obj);
+                if (obj) {
+                    $log.warn('[AriaNg Warn]' + msg, obj);
+                } else {
+                    $log.warn('[AriaNg Warn]' + msg);
+                }
             },
             error: function (msg, obj) {
-                $log.error('[AriaNg Error]' + msg, obj);
+                if (obj) {
+                    $log.error('[AriaNg Error]' + msg, obj);
+                } else {
+                    $log.error('[AriaNg Error]' + msg);
+                }
             }
         };
     }]);

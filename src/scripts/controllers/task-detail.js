@@ -9,11 +9,9 @@
         var getAvailableOptions = function (status, isBittorrent) {
             var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
 
-            if (!keys) {
-                return;
-            }
-
-            return aria2SettingService.getSpecifiedOptions(keys);
+            return aria2SettingService.getSpecifiedOptions(keys, {
+                disableRequired: true
+            });
         };
 
         var processTask = function (task) {
@@ -59,12 +57,10 @@
         var refreshDownloadTask = function (silent) {
             if (pauseDownloadTaskRefresh) {
                 return;
-                }
+            }
 
             var processError = function (message) {
-                if (message === aria2RpcErrors.Unauthorized.message) {
-                    $interval.cancel(downloadTaskRefreshPromise);
-                }
+                $interval.cancel(downloadTaskRefreshPromise);
             };
 
             var includeLocalPeer = true;
@@ -231,6 +227,10 @@
 
             for (var i = 0; i < $scope.task.files.length; i++) {
                 var extension = ariaNgCommonService.getFileExtension($scope.task.files[i].fileName);
+
+                if (extension) {
+                    extension = extension.toLowerCase();
+                }
 
                 if (extensions.indexOf(extension) >= 0) {
                     fileIndexes.push(i);

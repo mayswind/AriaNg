@@ -1,6 +1,6 @@
 <section class="content no-padding">
     <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" ng-if="task">
             <li ng-class="{'active': context.currentTab == 'overview'}">
                 <a class="pointer-cursor" ng-click="changeTab('overview')" translate>Overview</a>
             </li>
@@ -23,12 +23,13 @@
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
                 <div class="settings-table striped hoverable">
-                    <div class="row">
+                    <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Name</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span class="allow-word-break" ng-bind="task.taskName"></span>
+                            <span class="allow-word-break" ng-bind="task.taskName" ng-tooltip-container="body" ng-tooltip-placement="bottom"
+                                  ng-tooltip="{{(task.bittorrent && task.bittorrent.comment) ? task.bittorrent.comment : task.taskName}}"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task">
@@ -36,7 +37,7 @@
                             <span translate>Task Size</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="task.totalLength | readableVolumn"></span>
+                            <span ng-bind="task.totalLength | readableVolume"></span>
                             <a class="pointer-cursor" ng-if="task.files" ng-click="changeTab('filelist')">
                                 <span ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                             </a>
@@ -48,7 +49,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="task | taskStatus | translate: {errorcode: task.errorCode}"></span>
-                            <i class="icon-primary fa fa-question-circle" ng-if="task.errorCode && task.errorCode != '0'"
+                            <i class="icon-primary fa fa-question-circle" ng-if="task.errorCode && task.errorCode != '0' && task.errorMessage"
                                   ng-tooltip="{{task.errorMessage}}" ng-tooltip-container="body" ng-tooltip-placement="top"></i>
                         </div>
                     </div>
@@ -73,7 +74,7 @@
                             <span translate>Download</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.completedLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolumn) + '/s' : '')"></span>
+                            <span ng-bind="(task.completedLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task && task.bittorrent">
@@ -81,7 +82,7 @@
                             <span translate>Upload</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.uploadLength | readableVolumn) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolumn) + '/s' : '')"></span>
+                            <span ng-bind="(task.uploadLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-if="task && task.bittorrent">
@@ -124,6 +125,14 @@
                             <span class="allow-word-break" ng-bind="task.infoHash"></span>
                         </div>
                     </div>
+                    <div class="row" ng-if="task && task.singleUrl">
+                        <div class="setting-key col-sm-4">
+                            <span translate>Download Url</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <span class="allow-word-break" ng-bind="task.singleUrl"></span>
+                        </div>
+                    </div>
                     <div class="row" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Dir</span>
@@ -142,7 +151,7 @@
                                title="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <div class="auto-ellipsis" ng-bind="serverAddress" title="{{serverAddress}}"
+                            <div class="auto-ellipsis" ng-bind="serverAddress.length ? serverAddress.join(',') : serverAddress" title="{{serverAddress.length ? serverAddress.join(',') : serverAddress}}"
                                  ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
                         </div>
                     </div>
@@ -240,7 +249,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <span class="task-size" ng-bind="file.length | readableVolumn"></span>
+                                <span class="task-size" ng-bind="file.length | readableVolume"></span>
                             </div>
                         </div>
                     </div>
@@ -305,9 +314,9 @@
                             <div class="col-md-3 col-sm-4 col-xs-8">
                                 <div class="task-peer-download-speed">
                                     <i class="icon-download fa fa-arrow-down"></i>
-                                    <span ng-bind="(peer.downloadSpeed | readableVolumn) + '/s'"></span>&nbsp;
+                                    <span ng-bind="(peer.downloadSpeed | readableVolume) + '/s'"></span>&nbsp;
                                     <i class="icon-upload fa fa-arrow-up"></i>
-                                    <span ng-bind="(peer.uploadSpeed | readableVolumn) + '/s'"></span>
+                                    <span ng-bind="(peer.uploadSpeed | readableVolume) + '/s'"></span>
                                 </div>
                             </div>
                         </div>
