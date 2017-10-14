@@ -1,8 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgSettingService, ariaNgFileService, aria2SettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'base64', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, base64, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, ariaNgFileService, aria2SettingService, aria2TaskService) {
         var tabOrders = ['links', 'options'];
+        var parameters = $location.search();
 
         var downloadByLinks = function (pauseOnAdded, responseCallback) {
             var urls = ariaNgCommonService.parseUrlsFromOriginInput($scope.context.urls);
@@ -61,6 +62,14 @@
                 bittorrent: false
             }
         };
+
+        if (parameters.url) {
+            try {
+                $scope.context.urls = base64.urldecode(parameters.url);
+            } catch (ex) {
+                ariaNgLogService.error('[NewTaskController] base64 decode error, url=' + parameters.url, ex);
+            }
+        }
 
         $scope.changeTab = function (tabName) {
             if (tabName === 'options') {
