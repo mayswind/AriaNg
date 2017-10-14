@@ -80,9 +80,9 @@
         };
 
         var doCommand = function (path, params) {
-            if (path.indexOf('/new/') === 0) {
+            if (path.indexOf('/new') === 0) {
                 return doNewTaskCommand(params.url);
-            } else if (path.indexOf('/settings/rpc/set/') === 0) {
+            } else if (path.indexOf('/settings/rpc/set') === 0) {
                 return doSetRpcCommand(params.protocol, params.host, params.port, params.interface, params.secret);
             } else {
                 ariaNgCommonService.showError('Parameter is invalid!');
@@ -90,7 +90,9 @@
             }
         };
 
-        if (!doCommand(path, $routeParams)) {
+        var allParameters = angular.extend({}, $routeParams, $location.search());
+
+        if (!doCommand(path, allParameters)) {
             $location.path('/downloading');
         }
     }]);
