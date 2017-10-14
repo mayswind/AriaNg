@@ -51,6 +51,7 @@
     "angular-busy": "^4.1.4",
     "angular-promise-buttons": "^0.1.21",
     "angular-dragula": "^1.2.8",
+    "angular-clipboard": "^1.6.2",
     "ngSweetAlert": "^1.1.2"
   },
   "resolutions": {

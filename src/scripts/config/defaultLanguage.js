@@ -91,6 +91,7 @@
             'Download Url': 'Download Url',
             'Download Dir': 'Download Dir',
             'BT Tracker Servers': 'BT Tracker Servers',
+            'Copy': 'Copy',
             '(Choose Files)': '(Choose Files)',
             'Videos': 'Videos',
             'Audios': 'Audios',

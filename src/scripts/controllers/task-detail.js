@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcErrors', 'ariaNgFileTypes', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, aria2RpcErrors, ariaNgFileTypes, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'clipboard', 'aria2RpcErrors', 'ariaNgFileTypes', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, clipboard, aria2RpcErrors, ariaNgFileTypes, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
@@ -322,6 +322,25 @@
         $scope.$on('$destroy', function () {
             if (downloadTaskRefreshPromise) {
                 $interval.cancel(downloadTaskRefreshPromise);
+            }
+        });
+
+        angular.element('#overview-items .row').contextmenu({
+            target:'#task-overview-contextmenu',
+            onItem: function (context, e) {
+                var name = context.find('.setting-key > span').text().trim();
+                var value = "";
+
+                context.find('.setting-value > span').each(function (i, element) {
+                    if (i > 0) {
+                        value += '\n';
+                    }
+
+                    value += angular.element(element).text().trim();
+                });
+
+                var info = name + ': ' + value;
+                clipboard.copyText(info);
             }
         });
 

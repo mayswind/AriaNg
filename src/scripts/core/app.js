@@ -19,6 +19,7 @@
         'cgBusy',
         'angularPromiseButtons',
         'oitozero.ngSweetAlert',
+        'angular-clipboard',
         angularDragula(angular)
     ]);
 }());

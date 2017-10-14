@@ -24,6 +24,10 @@
     border-top: inherit;
 }
 
+.settings-table + .settings-table > div.row:first-child {
+    border-top: 1px solid #ddd;
+}
+
 .settings-table .input-group-addon {
     background-color: #eee;
 }
@@ -36,6 +40,7 @@
     color: #888;
     font-size: 12px;
     font-weight: normal;
+    font-style: normal;
 }
 
 .settings-table .description {
@@ -89,6 +94,10 @@
 .settings-table .tip {
     font-size: 12px;
     padding: 4px 8px 4px 8px;
+}
+
+.settings-table .multi-line {
+    display: block;
 }
 
 @media (max-width: 767px) {

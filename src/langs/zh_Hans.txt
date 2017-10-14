@@ -87,6 +87,7 @@ Seed Creation Time=种子创建时间
 Download Url=下载地址
 Download Dir=下载路径
 BT Tracker Servers=BT 服务器
+Copy=复制
 (Choose Files)=(选择文件)
 Videos=视频
 Audios=音频
