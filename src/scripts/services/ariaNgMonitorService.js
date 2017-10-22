@@ -53,7 +53,7 @@
                     type: 'value',
                     axisLabel: {
                         formatter: function (value) {
-                            return $filter('readableVolume')(value, 0);
+                            return $filter('readableVolume')(value, 'auto');
                         }
                     }
                 },
