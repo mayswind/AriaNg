@@ -36,7 +36,7 @@
                         var uploadSpeed = $filter('readableVolume')(params[0].value) + '/s';
                         var downloadSpeed = $filter('readableVolume')(params[1].value) + '/s';
 
-                        return '<div>' + time + '</div>'
+                        return '<div><i class="fa fa-clock-o"></i> ' + time + '</div>'
                             + '<div><i class="icon-download fa fa-arrow-down"></i> ' + downloadSpeed +'</div>'
                             + '<div><i class="icon-upload fa fa-arrow-up"></i> ' + uploadSpeed + '</div>';
                     }
@@ -53,7 +53,7 @@
                     type: 'value',
                     axisLabel: {
                         formatter: function (value) {
-                            return $filter('readableVolume')(value, 0);
+                            return $filter('readableVolume')(value, 'auto');
                         }
                     }
                 },
