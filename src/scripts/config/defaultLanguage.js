@@ -24,6 +24,7 @@
             'Select None': 'Select None',
             'Select Invert': 'Select Invert',
             'Display Order': 'Display Order',
+            'Copy Download Url': 'Copy Download Url',
             'Help': 'Help',
             'Search': 'Search',
             'Default': 'Default',

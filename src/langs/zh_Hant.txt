@@ -20,6 +20,7 @@ Select All=全選
 Select None=不選
 Select Invert=反選
 Display Order=顯示順序
+Copy Download Url=複製下載鏈接
 Help=幫助
 Search=搜索
 Default=默認

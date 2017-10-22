@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$window', '$location', '$document', '$interval', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTitleService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $window, $location, $document, $interval, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgTitleService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$window', '$location', '$document', '$interval', 'clipboard', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTitleService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $window, $location, $document, $interval, clipboard, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgTitleService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
         var pageTitleRefreshPromise = null;
         var globalStatRefreshPromise = null;
 
@@ -42,6 +42,16 @@
 
         $scope.isTaskSelected = function () {
             return $rootScope.taskContext.getSelectedTaskIds().length > 0;
+        };
+
+        $scope.isSingleUrlTaskSelected = function () {
+            var selectedTask = $rootScope.taskContext.getSelectedTasks();
+
+            if (selectedTask.length !== 1) {
+                return false;
+            }
+
+            return !!selectedTask[0].singleUrl;
         };
 
         $scope.isSpecifiedTaskSelected = function () {
@@ -195,6 +205,14 @@
 
         $scope.selectAllTasks = function () {
             $rootScope.taskContext.selectAll();
+        };
+
+        $scope.copySelectedOneTaskDownloadLink = function () {
+            var selectedTask = $rootScope.taskContext.getSelectedTasks();
+
+            if (selectedTask.length === 1) {
+                clipboard.copyText(selectedTask[0].singleUrl);
+            }
         };
 
         $scope.changeDisplayOrder = function (type, autoSetReverse) {

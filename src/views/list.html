@@ -144,6 +144,13 @@
                         </li>
                     </ul>
                 </li>
+                <li class="divider" ng-show="isSingleUrlTaskSelected()"></li>
+                <li ng-show="isSingleUrlTaskSelected()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Copy Download Url' | translate}}" ng-click="copySelectedOneTaskDownloadLink()">
+                        <i class="fa fa-copy"></i>
+                        <span translate>Copy Download Url</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
