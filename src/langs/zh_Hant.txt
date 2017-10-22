@@ -409,6 +409,8 @@ bt-force-encryption.name=強制加密
 bt-force-encryption.description=BT 消息中的內容需要使用 arc4 加密. 此選項是設置 --bt-require-crypto --bt-min-crypto-level=arc4 這兩個選項的快捷方式. 此選項不會修改上述兩個選項的內容. 如果設置為"是", 將拒絕以前的 BT 握手, 並僅使用模糊握手及加密消息.
 bt-hash-check-seed.name=做種前檢查文件哈希
 bt-hash-check-seed.description=如果設置為"是", 當使用 --check-integrity 選項完成哈希檢查及文件完成後才繼續做種. 如果您希望僅當文件損壞或未完成時檢查文件, 請設置為"否". 此選項僅對 BT 下載有效
+bt-load-saved-metadata.name=加載已保存的元數據文件
+bt-load-saved-metadata.description=當使用磁鏈下載時, 在從 DHT 獲取種子元數據之前, 首先嘗試加載使用 --bt-save-metadata 選項保存的文件. 如果文件加載成功, 則不會從 DHT 下載元數據.
 bt-max-open-files.name=最多打開文件數
 bt-max-open-files.description=設置 BT/Metalink 下載全局打開的最大文件數.
 bt-max-peers.name=最大連接節點數
@@ -463,6 +465,8 @@ max-upload-limit.name=最大上傳速度
 max-upload-limit.description=設置每個任務的最大上傳速度 (位元組/秒). 0 表示不限制. 您可以增加數值的單位 K 或 M (1K = 1024, 1M = 1024K).
 peer-id-prefix.name=節點 ID 前綴
 peer-id-prefix.description=指定節點 ID 的前綴. BT 中節點 ID 長度為 20 位元組. 如果超過 20 位元組, 將僅使用前 20 位元組. 如果少於 20 位元組, 將在其後不足隨機的數據保證為 20 位元組.
+peer-agent.name=Peer Agent
+peer-agent.description=指定 BT 擴展握手期間用於節點客戶端版本的字符串.
 seed-ratio.name=最小分享率
 seed-ratio.description=指定分享率. 當分享率達到此選項設置的值時會完成做種. 強烈建議您將此選項設置為大於等於 1.0. 如果您想不限制分享比率, 可以設置為 0.0. 如果同時設置了 --seed-time 選項, 當任意一個條件滿足時將停止做種.
 seed-time.name=最小做種時間
