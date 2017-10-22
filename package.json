@@ -30,7 +30,7 @@
   },
   "name": "ariang",
   "description": "AriaNg, a modern web frontend making aria2 easier to use.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
