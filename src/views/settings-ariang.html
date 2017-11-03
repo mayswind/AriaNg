@@ -127,6 +127,17 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Removing Old Task After Restarting</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.removeOldTaskAfterRestarting"
+                                    ng-change="setRemoveOldTaskAfterRestarting(context.settings.removeOldTaskAfterRestarting)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
                     <div class="row tip no-background no-hover">
                         <span class="asterisk">*</span>
                         <span translate>Changes to the settings take effect after refreshing page.</span>

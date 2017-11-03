@@ -146,6 +146,7 @@ Are you sure you want to remove rpc setting "{{rpcName}}"?=您是否要删除 RP
 Global Stat Refresh Interval=全局状态刷新间隔
 Download Task Refresh Interval=下载任务刷新间隔
 Action After Creating New Tasks=创建新任务后执行操作
+Removing Old Task After Restarting=重试任务后删除原任务
 Navigate to Task List Page=转到任务列表页面
 Navigate to Task Detail Page=转到任务详情页面
 Supported Placeholder=支持的占位符

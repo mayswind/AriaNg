@@ -108,6 +108,10 @@
             ariaNgSettingService.setAfterCreatingNewTask(value);
         };
 
+        $scope.setRemoveOldTaskAfterRestarting = function (value) {
+            ariaNgSettingService.setRemoveOldTaskAfterRestarting(value);
+        };
+
         $scope.setDebugMode = function (value) {
             ariaNgSettingService.setDebugMode(value);
         };

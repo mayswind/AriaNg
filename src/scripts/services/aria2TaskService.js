@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', 'ariaNgLogService', function ($q, $translate, bittorrentPeeridService, aria2Errors, aria2RpcService, ariaNgCommonService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$q', '$translate', 'bittorrentPeeridService', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($q, $translate, bittorrentPeeridService, aria2Errors, aria2RpcService, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
         var getFileName = function (file) {
             if (!file) {
                 ariaNgLogService.warn('[aria2TaskService.getFileName] file is null');
@@ -532,6 +532,18 @@
                                     deferred.reject(response);
                                     callback(response);
                                     return;
+                                }
+
+                                if (ariaNgSettingService.getRemoveOldTaskAfterRestarting()) {
+                                    aria2RpcService.removeDownloadResult({
+                                        gid: gid,
+                                        silent: true,
+                                        callback: function (response) {
+                                            if (!response.success) {
+                                                ariaNgLogService.warn('[aria2TaskService.restartTask] removeDownloadResult response is not success');
+                                            }
+                                        }
+                                    });
                                 }
 
                                 deferred.resolve(response);

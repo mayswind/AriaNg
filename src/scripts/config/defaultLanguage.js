@@ -150,6 +150,7 @@
             'Global Stat Refresh Interval': 'Global Stat Refresh Interval',
             'Download Task Refresh Interval': 'Download Task Refresh Interval',
             'Action After Creating New Tasks': 'Action After Creating New Tasks',
+            'Removing Old Task After Restarting': 'Removing Old Task After Restarting',
             'Navigate to Task List Page': 'Navigate to Task List Page',
             'Navigate to Task Detail Page': 'Navigate to Task Detail Page',
             'Supported Placeholder': 'Supported Placeholder',

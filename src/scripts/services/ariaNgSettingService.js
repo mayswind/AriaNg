@@ -265,6 +265,12 @@
             setAfterCreatingNewTask: function (value) {
                 setOption('afterCreatingNewTask', value);
             },
+            getRemoveOldTaskAfterRestarting: function () {
+                return getOption('removeOldTaskAfterRestarting');
+            },
+            setRemoveOldTaskAfterRestarting: function (value) {
+                setOption('removeOldTaskAfterRestarting', value);
+            },
             getBrowserNotification: function () {
                 return getOption('browserNotification');
             },
