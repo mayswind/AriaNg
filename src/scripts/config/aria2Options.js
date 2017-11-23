@@ -940,6 +940,16 @@
                 canUpdate: 'new|waiting|paused'
             },
             {
+                key: 'http-user',
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
+            },
+            {
+                key: 'http-passwd',
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
+            },
+            {
                 key: 'all-proxy',
                 category: 'http',
                 canUpdate: 'new|waiting|paused'
