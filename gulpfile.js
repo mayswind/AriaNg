@@ -78,7 +78,9 @@ gulp.task('manifest', function () {
         'dist/css/**',
         'dist/js/**',
         'dist/fonts/fontawesome-webfont.woff2',
-        'dist/*.html'
+        'dist/*.html',
+        'dist/*.ico',
+        'dist/*.png'
     ], {base: 'dist/'})
         .pipe($.manifest({
             hash: true,
@@ -116,6 +118,8 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], function () {
 
     gulp.watch([
         'src/*.html',
+        'src/*.ico',
+        'src/*.png',
         'src/langs/*.txt',
         'src/views/*.html',
         'src/imgs/**/*',
