@@ -17,6 +17,11 @@
         };
 
         return {
+            isOptionKeyValid: function (key) {
+                var option = aria2AllOptions[key];
+
+                return !!option;
+            },
             getAvailableGlobalOptionsKeys: function (type) {
                 if (type === 'basic') {
                     return aria2GlobalAvailableOptions.basicOptions;

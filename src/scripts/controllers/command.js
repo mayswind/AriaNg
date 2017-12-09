@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'base64', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $window, $location, $routeParams, base64, ariaNgDefaultOptions, ariaNgCommonService, ariaNgSettingService, aria2TaskService, ariaNgLogService) {
+    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'base64', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $window, $location, $routeParams, base64, ariaNgDefaultOptions, ariaNgCommonService, ariaNgSettingService, aria2SettingService, aria2TaskService, ariaNgLogService) {
         var path = $location.path();
 
-        var doNewTaskCommand = function (url) {
+        var doNewTaskCommand = function (url, params) {
             try {
                 url = base64.urldecode(url);
             } catch (ex) {
@@ -12,9 +12,23 @@
                 return false;
             }
 
+            var options = {};
+
+            if (params) {
+                for (var key in params) {
+                    if (!params.hasOwnProperty(key)) {
+                        continue;
+                    }
+
+                    if (aria2SettingService.isOptionKeyValid(key)) {
+                        options[key] = params[key];
+                    }
+                }
+            }
+
             $rootScope.loadPromise = aria2TaskService.newUriTask({
                 urls: [url],
-                options: {}
+                options: options
             }, false, function (response) {
                 if (!response.success) {
                     return false;
@@ -81,7 +95,7 @@
 
         var doCommand = function (path, params) {
             if (path.indexOf('/new') === 0) {
-                return doNewTaskCommand(params.url);
+                return doNewTaskCommand(params.url, params);
             } else if (path.indexOf('/settings/rpc/set') === 0) {
                 return doSetRpcCommand(params.protocol, params.host, params.port, params.interface, params.secret);
             } else {
