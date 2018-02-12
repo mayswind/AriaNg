@@ -1,7 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').config(['$qProvider', '$translateProvider', 'localStorageServiceProvider', 'NotificationProvider', 'ariaNgConstants', 'ariaNgLanguages', function ($qProvider, $translateProvider, localStorageServiceProvider, NotificationProvider, ariaNgConstants, ariaNgLanguages) {
+    angular.module('ariaNg').config(['$compileProvider', '$qProvider', '$translateProvider', 'localStorageServiceProvider', 'NotificationProvider', 'ariaNgConstants', 'ariaNgLanguages', function ($compileProvider, $qProvider, $translateProvider, localStorageServiceProvider, NotificationProvider, ariaNgConstants, ariaNgLanguages) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+        
         $qProvider.errorOnUnhandledRejections(false);
 
         localStorageServiceProvider
