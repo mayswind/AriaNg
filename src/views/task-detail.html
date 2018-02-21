@@ -22,8 +22,8 @@
 
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
-                <div class="settings-table striped hoverable">
-                    <div class="row" ng-if="task">
+                <div id="overview-items" class="settings-table striped hoverable" data-toggle="context" data-target="#task-overview-contextmenu">
+                    <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Name</span>
                         </div>
@@ -32,7 +32,7 @@
                                   ng-tooltip="{{(task.bittorrent && task.bittorrent.comment) ? task.bittorrent.comment : task.taskName}}"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Size</span>
                         </div>
@@ -43,7 +43,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Status</span>
                         </div>
@@ -53,7 +53,7 @@
                                   ng-tooltip="{{task.errorMessage}}" ng-tooltip-container="body" ng-tooltip-placement="top"></i>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.status == 'error' && task.errorDescription">
+                    <div class="row" ng-show="task && task.status == 'error' && task.errorDescription">
                         <div class="setting-key col-sm-4">
                             <span translate>Error Description</span>
                         </div>
@@ -61,7 +61,7 @@
                             <span ng-bind="task.errorDescription | translate"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="('Progress' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percentage' | translate) + ')' : '')"></span>
                         </div>
@@ -69,7 +69,7 @@
                             <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (context.healthPercent | percent: 2) + '%' + ')' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download</span>
                         </div>
@@ -77,7 +77,7 @@
                             <span ng-bind="(task.completedLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent">
+                    <div class="row" ng-show="task && task.bittorrent">
                         <div class="setting-key col-sm-4">
                             <span translate>Upload</span>
                         </div>
@@ -85,7 +85,7 @@
                             <span ng-bind="(task.uploadLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent">
+                    <div class="row" ng-show="task && task.bittorrent">
                         <div class="setting-key col-sm-4">
                             <span translate>Share Ratio</span>
                         </div>
@@ -93,7 +93,7 @@
                             <span ng-bind="(task.shareRatio | number: 2)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.status == 'active' && task.completedLength < task.totalLength">
+                    <div class="row" ng-show="task && task.status == 'active' && task.completedLength < task.totalLength">
                         <div class="setting-key col-sm-4">
                             <span translate>Remain Time</span>
                         </div>
@@ -101,7 +101,7 @@
                             <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.status == 'active'">
+                    <div class="row" ng-show="task && task.status == 'active'">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="(task.bittorrent ? ('Seeders' | translate) + ' / ' : '') + ('Connections' | translate)">Connections</span>
                         </div>
@@ -109,7 +109,7 @@
                             <span ng-bind="(task.numSeeders ? (task.numSeeders + ' / ') : '') + task.connections"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent && task.bittorrent.creationDate">
+                    <div class="row" ng-show="task && task.bittorrent && task.bittorrent.creationDate">
                         <div class="setting-key col-sm-4">
                             <span translate>Seed Creation Time</span>
                         </div>
@@ -117,7 +117,7 @@
                             <span ng-bind="task.bittorrent.creationDate | amFromUnix | longDate"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.infoHash">
+                    <div class="row" ng-show="task && task.infoHash">
                         <div class="setting-key col-sm-4">
                             <span translate>Info Hash</span>
                         </div>
@@ -125,7 +125,7 @@
                             <span class="allow-word-break" ng-bind="task.infoHash"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.singleUrl">
+                    <div class="row" ng-show="task && task.singleUrl">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Url</span>
                         </div>
@@ -133,7 +133,7 @@
                             <span class="allow-word-break" ng-bind="task.singleUrl"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Dir</span>
                         </div>
@@ -141,20 +141,22 @@
                             <span class="allow-word-break" ng-bind="task.dir"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent && task.bittorrent.announceList && task.bittorrent.announceList.length > 0">
+                    <div class="row" ng-show="task && task.bittorrent && task.bittorrent.announceList && task.bittorrent.announceList.length > 0">
                         <div class="setting-key col-sm-4">
                             <span translate>BT Tracker Servers</span>
-                            <span class="description-inline" ng-bind="'format.settings.total-count' | translate: {count: task.bittorrent.announceList.length}"></span>
+                            <em class="description-inline" ng-bind="'format.settings.total-count' | translate: {count: task.bittorrent.announceList.length}"></em>
                             <i class="icon-expand pointer-cursor fa" ng-if="task.bittorrent.announceList.length > 1"
                                ng-class="{'fa-plus': context.collapseTrackers, 'fa-minus': !context.collapseTrackers}"
                                ng-click="context.collapseTrackers = !context.collapseTrackers"
                                title="{{(context.collapseTrackers ? 'Expand' : 'Collapse') | translate}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <div class="auto-ellipsis" ng-bind="serverAddress.length ? serverAddress.join(',') : serverAddress" title="{{serverAddress.length ? serverAddress.join(',') : serverAddress}}"
-                                 ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></div>
+                            <span class="multi-line auto-ellipsis" ng-bind="serverAddress.length ? serverAddress.join(',') : serverAddress" title="{{serverAddress.length ? serverAddress.join(',') : serverAddress}}"
+                                 ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></span>
                         </div>
                     </div>
+                </div>
+                <div class="settings-table">
                     <div class="row no-hover no-background" ng-if="context.isEnableSpeedChart && task && task.status == 'active'">
                         <div class="col-sm-12">
                             <div class="task-status-chart-wrapper">
@@ -337,4 +339,14 @@
             </div>
         </div>
     </div><!-- /.nav-tabs-custom -->
+    <div id="task-overview-contextmenu">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a id="mnu-overview-copy" tabindex="-1" class="mnu-copy pointer-cursor" title="{{'Copy' | translate}}" ng-click="copySelectedRowText()">
+                    <i class="fa fa-copy"></i>
+                    <span translate>Copy</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </section>

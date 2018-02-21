@@ -1,10 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'aria2RpcErrors', 'ariaNgFileTypes', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, aria2RpcErrors, ariaNgFileTypes, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'clipboard', 'aria2RpcErrors', 'ariaNgFileTypes', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, clipboard, aria2RpcErrors, ariaNgFileTypes, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['overview', 'blocks', 'filelist', 'btpeers'];
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
+        var currentRowTriggeredMenu = null;
 
         var getAvailableOptions = function (status, isBittorrent) {
             var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
@@ -308,6 +309,26 @@
             }, true);
         };
 
+        $scope.copySelectedRowText = function () {
+            if (!currentRowTriggeredMenu) {
+                return;
+            }
+
+            var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
+            var value = "";
+
+            currentRowTriggeredMenu.find('.setting-value > span').each(function (i, element) {
+                if (i > 0) {
+                    value += '\n';
+                }
+
+                value += angular.element(element).text().trim();
+            });
+
+            var info = name + ': ' + value;
+            clipboard.copyText(info);
+        };
+
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
                 if ($scope.task && ($scope.task.status === 'complete' || $scope.task.status === 'error' || $scope.task.status === 'removed')) {
@@ -323,6 +344,17 @@
             if (downloadTaskRefreshPromise) {
                 $interval.cancel(downloadTaskRefreshPromise);
             }
+        });
+
+        angular.element('#overview-items .row').contextmenu({
+            target: '#task-overview-contextmenu',
+            before: function (e, context) {
+                currentRowTriggeredMenu = context;
+            }
+        });
+
+        angular.element('#task-overview-contextmenu').on('hide.bs.context', function () {
+            currentRowTriggeredMenu = null;
         });
 
         $rootScope.loadPromise = refreshDownloadTask(false);
