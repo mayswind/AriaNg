@@ -33,8 +33,9 @@
             </div>
         </div>
         <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
-            <div class="row" ng-repeat="task in taskContext.list | filter: filterByTaskName | taskOrderBy: getOrderType()"
-                 data-gid="{{task.gid}}" data-toggle="context" data-target="#task-table-contextmenu">
+            <div class="row pointer-cursor" ng-repeat="task in taskContext.list | filter: filterByTaskName | taskOrderBy: getOrderType()"
+                 data-gid="{{task.gid}}" data-toggle="context" data-target="#task-table-contextmenu"
+                 ng-click="taskContext.selected[task.gid] = !taskContext.selected[task.gid]">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
@@ -47,7 +48,7 @@
                         <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
                             <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                         </a><i class="icon-error fa fa-times" ng-if="task && task.status == 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status == 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
-                        <a class="pointer-cursor" ng-if="task && task.status == 'error' && task.errorDescription && !task.bittorrent" ng-click="restart(task)" title="{{'Restart' | translate}}" translate>Restart</a>
+                        <a ng-if="task && task.status == 'error' && task.errorDescription && !task.bittorrent" ng-click="restart(task)" title="{{'Restart' | translate}}" translate>Restart</a>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-12">
