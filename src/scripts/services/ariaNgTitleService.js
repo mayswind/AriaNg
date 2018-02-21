@@ -84,7 +84,7 @@
 
         var replaceDownloadSpeed = function (title, value) {
             return replacePlaceholders(title, 'downspeed', {
-                prefix: $translate.instant('Download') + ': ',
+                prefix: ↓ + ': ',
                 value: value,
                 type: 'volume',
                 suffix: '/s'
@@ -93,7 +93,7 @@
 
         var replaceUploadSpeed = function (title, value) {
             return replacePlaceholders(title, 'upspeed', {
-                prefix: $translate.instant('Upload') + ': ',
+                prefix: ↑ + ': ',
                 value: value,
                 type: 'volume',
                 suffix: '/s'
