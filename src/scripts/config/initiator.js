@@ -8,7 +8,6 @@
             week: null
         });
 
-        amMoment.changeLocale(language);
         ariaNgSettingService.applyLanguage(language);
     }]);
 }());
