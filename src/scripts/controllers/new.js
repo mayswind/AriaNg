@@ -25,12 +25,21 @@
         };
 
         var downloadByTorrent = function (pauseOnAdded, responseCallback) {
-            var task = {
-                content: $scope.context.uploadFile.base64Content,
-                options: angular.copy($scope.context.options)
-            };
 
-            return aria2TaskService.newTorrentTask(task, pauseOnAdded, responseCallback);
+            var num = $scope.context.uploadFile.length;
+            var blackHole = function(){};
+
+            for(var i = 0; i < num; i++){
+                var task={
+                    content: $scope.context.uploadFile[i].base64Content,
+                    options: angular.copy($scope.context.options)
+                };
+                if( i < num - 1){
+                    $rootScope.loadPromise=aria2TaskService.newTorrentTask(task, pauseOnAdded, blackHole);
+                }else{
+                    return aria2TaskService.newTorrentTask(task, pauseOnAdded, responseCallback);
+                }
+            };
         };
 
         var downloadByMetalink = function (pauseOnAdded, responseCallback) {
@@ -115,7 +124,7 @@
 
         $scope.openTorrent = function () {
             ariaNgFileService.openFileContent('.torrent', function (result) {
-                $scope.context.uploadFile = result;
+                $scope.context.uploadFile = [result];
                 $scope.context.taskType = 'torrent';
                 $scope.changeTab('options');
             }, function (error) {
@@ -125,21 +134,21 @@
 
         // open multiple torrent files
         $scope.openTorrents = function() {
-            ariaNgFileService.openFileContent('.torrent', function(result, nextTask) {
-                $scope.context.uploadFile = result;
-                $scope.context.taskType = 'torrent';
 
-                var responseCallback = function() {
-                    if (nextTask) {
-                        nextTask();
-                    } else {
-                        // switch to downloading tab when finished
-                        $location.path('/downloading');
-                    }
-                };
+            var uploadFiles=[];
 
-                // send to aria2 directly and check next torrent file.
-                $rootScope.loadPromise = downloadByTorrent(false, responseCallback);
+            ariaNgFileService.openFileContent('.torrent', function(result, readNextFile) {
+
+                uploadFiles.push(result);
+
+                if (readNextFile) {
+                    readNextFile();
+                } else {
+                    // 读取种子文件完成
+                    $scope.context.taskType = 'torrent';
+                    $scope.context.uploadFile = uploadFiles;
+                    $scope.changeTab('options');
+                }
             }, function(error) {
                 ariaNgCommonService.showError(error);
             }, true);  // batchMode = true;

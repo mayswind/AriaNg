@@ -126,11 +126,13 @@
                         readFile(files[curTask], allowedExtensions, success, fail);
                     };
 
-                    if (multipleFiles) {
-                        addTasks(this.files, 0);
-                    } else {
-                        readFile(this.files[0], allowedExtensions, successCallback, errorCallback);
-                    }
+                    addTasks(this.files, 0);
+
+                    // if (multipleFiles) {
+                    //     addTasks(this.files, 0);
+                    // } else {
+                    //     readFile(this.files[0], allowedExtensions, successCallback, errorCallback);
+                    // }
 
                 }).trigger('click');
             }
