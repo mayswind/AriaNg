@@ -123,6 +123,28 @@
             });
         };
 
+        // open multiple torrent files
+        $scope.openTorrents = function() {
+            ariaNgFileService.openFileContent('.torrent', function(result, nextTask) {
+                $scope.context.uploadFile = result;
+                $scope.context.taskType = 'torrent';
+
+                var responseCallback = function() {
+                    if (nextTask) {
+                        nextTask();
+                    } else {
+                        // switch to downloading tab when finished
+                        $location.path('/downloading');
+                    }
+                };
+
+                // send to aria2 directly and check next torrent file.
+                $rootScope.loadPromise = downloadByTorrent(false, responseCallback);
+            }, function(error) {
+                ariaNgCommonService.showError(error);
+            }, true);  // batchMode = true;
+        };
+
         $scope.openMetalink = function () {
             ariaNgFileService.openFileContent('.meta4,.metalink', function (result) {
                 $scope.context.uploadFile = result;

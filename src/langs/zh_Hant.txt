@@ -116,6 +116,7 @@ Download Links:=下載連結:
 Start Download=立即下載
 Manual Download=手動下載
 Open Torrent File=打開種子文件
+Open Torrent Files=打開多個種子文件
 Open Metalink File=打開 Metalink 文件
 Support multiple URLs, one URL per line.=支援多個 URL 位址, 每個位址佔一行.
 Your browser does not support loading file!=您的瀏覽器不支援載入文件!

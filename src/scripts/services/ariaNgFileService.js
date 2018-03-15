@@ -45,8 +45,40 @@
             return false;
         };
 
+        var readFile = function(file, allowedExtensions, success, fail) {
+            var fileName = file.name;
+
+            if (!checkFileExtension(fileName, allowedExtensions)) {
+                if (fail) {
+                    fail('The selected file type is invalid!');
+                }
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var result = {
+                    fileName: fileName,
+                    base64Content: this.result.replace(/.*?base64,/, '')
+                };
+
+                if (success) {
+                    success(result);
+                }
+            };
+
+            reader.onerror = function() {
+                if (fail) {
+                    fail("Failed to load file!");
+                }
+            };
+
+            reader.readAsDataURL(file);
+        };
+
         return {
-            openFileContent: function (fileFilter, successCallback, errorCallback) {
+            openFileContent: function (fileFilter, successCallback, errorCallback, multipleFiles) {
                 if (!isSupportFileReader) {
                     if (errorCallback) {
                         errorCallback('Your browser does not support loading file!');
@@ -56,43 +88,50 @@
                 }
 
                 var allowedExtensions = getAllowedExtensions(fileFilter);
+                var html = '<input type="file" style="display: none"/>';
+                if(multipleFiles){
+                    html = '<input type="file" style="display: none" multiple/>';
+                }
 
-                angular.element('<input type="file" style="display: none"/>').change(function () {
+                angular.element(html).change(function () {
                     if (!this.files || this.files.length < 1) {
                         return;
                     }
 
-                    var file = this.files[0];
-                    var fileName = file.name;
+                    // Recursively read files
+                    function addTasks(files, curTask) {
 
-                    if (!checkFileExtension(fileName, allowedExtensions)) {
-                        if (errorCallback) {
-                            errorCallback('The selected file type is invalid!');
-                        }
+                        var nextTask = curTask + 1;
+                        var done = files.length <= nextTask;
 
-                        return;
-                    }
-
-                    var reader = new FileReader();
-
-                    reader.onload = function () {
-                        var result = {
-                            fileName: fileName,
-                            base64Content: this.result.replace(/.*?base64,/, '')
+                        // if read file success, send file content to aria2 and read next file.
+                        var success = function(result) {
+                            if (done) {
+                                successCallback(result);
+                            } else {
+                                successCallback(result, function() {
+                                    addTasks(files, nextTask);
+                                });
+                            }
                         };
 
-                        if (successCallback) {
-                            successCallback(result);
-                        }
+                        // if read file fail, skip and read next file.
+                        var fail = function(error) {
+                            errorCallback(error);
+                            if (!done) {
+                                addTasks(files, nextTask);
+                            }
+                        };
+
+                        readFile(files[curTask], allowedExtensions, success, fail);
                     };
 
-                    reader.onerror = function () {
-                        if (errorCallback) {
-                            errorCallback('Failed to load file!');
-                        }
-                    };
+                    if (multipleFiles) {
+                        addTasks(this.files, 0);
+                    } else {
+                        readFile(this.files[0], allowedExtensions, successCallback, errorCallback);
+                    }
 
-                    reader.readAsDataURL(file);
                 }).trigger('click');
             }
         };
