@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgFileService', ['$window', function ($window) {
+    angular.module('ariaNg').factory('ariaNgFileService', ['$q', '$rootScope', '$window', function ($q, $rootScope, $window) {
         var isSupportFileReader = !!$window.FileReader;
 
         var getAllowedExtensions = function (fileFilter) {
@@ -45,36 +45,34 @@
             return false;
         };
 
-        var readFile = function(file, allowedExtensions, success, fail) {
-            var fileName = file.name;
+        var qReader =function(file, allowedExtensions) {
 
-            if (!checkFileExtension(fileName, allowedExtensions)) {
-                if (fail) {
-                    fail('The selected file type is invalid!');
+            var p = $q(function(resolve, reject){
+
+                var fileName = file.name;
+
+                if (!checkFileExtension(fileName, allowedExtensions)) {
+                    reject('The selected file type is invalid!');
                 }
-                return;
-            }
 
-            var reader = new FileReader();
+                var reader = new FileReader();
 
-            reader.onload = function() {
-                var result = {
-                    fileName: fileName,
-                    base64Content: this.result.replace(/.*?base64,/, '')
+                reader.onload = function() {
+                    var result = {
+                        fileName: fileName,
+                        base64Content: this.result.replace(/.*?base64,/, '')
+                    };
+                    resolve(result);
                 };
 
-                if (success) {
-                    success(result);
-                }
-            };
+                reader.onerror = function() {
+                    reject("Failed to load file!");
+                };
 
-            reader.onerror = function() {
-                if (fail) {
-                    fail("Failed to load file!");
-                }
-            };
+                reader.readAsDataURL(file);
+            });
 
-            reader.readAsDataURL(file);
+            return p;
         };
 
         return {
@@ -123,16 +121,20 @@
                             }
                         };
 
-                        readFile(files[curTask], allowedExtensions, success, fail);
+                        qReader(files[curTask], allowedExtensions)
+                            .then(function(result){
+                                console.log("QR[ok]: ", result.fileName);
+                                success(result);
+                            })
+                            .catch(function(error){
+                                console.log("QR[fail]: ", result.fileName);
+                                fail(error);
+                            });
+
                     };
 
-                    addTasks(this.files, 0);
 
-                    // if (multipleFiles) {
-                    //     addTasks(this.files, 0);
-                    // } else {
-                    //     readFile(this.files[0], allowedExtensions, successCallback, errorCallback);
-                    // }
+                    addTasks(this.files, 0);
 
                 }).trigger('click');
             }
