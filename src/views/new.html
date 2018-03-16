@@ -54,7 +54,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="new-task-table" ng-if="context.taskType === 'torrent' || context.taskType === 'metalink'">
+                    <div class="new-task-table" ng-if="context.taskType === 'torrent' && context.uploadFile && context.uploadFile.length > 0">
+                        <div class="row">
+                            <div class="col-sm-12" ng-repeat="file in context.uploadFile">
+                                <p translate>File Name:</p>
+                                <input class="form-control" ng-value="file.fileName" readonly="readonly"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-task-table" ng-if="context.taskType === 'metalink'">
                         <div class="row">
                             <div class="col-sm-12">
                                 <p translate>File Name:</p>

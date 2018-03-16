@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgFileService', ['$window', function ($window) {
+    angular.module('ariaNg').factory('ariaNgFileService', ['$q', '$window', function ($q, $window) {
         var isSupportFileReader = !!$window.FileReader;
 
         var getAllowedExtensions = function (fileFilter) {
@@ -45,14 +45,13 @@
             return false;
         };
 
-        var readFile = function(file, allowedExtensions, success, fail) {
+        var readFile = function (file, allowedExtensions) {
+
+            var deferred = $q.defer();
             var fileName = file.name;
 
             if (!checkFileExtension(fileName, allowedExtensions)) {
-                if (fail) {
-                    fail('The selected file type is invalid!');
-                }
-                return;
+                deferred.reject('The selected file type is invalid!');
             }
 
             var reader = new FileReader();
@@ -62,23 +61,20 @@
                     fileName: fileName,
                     base64Content: this.result.replace(/.*?base64,/, '')
                 };
-
-                if (success) {
-                    success(result);
-                }
+                deferred.resolve(result);
             };
 
             reader.onerror = function() {
-                if (fail) {
-                    fail("Failed to load file!");
-                }
+                deferred.reject("Failed to load file!");
             };
 
             reader.readAsDataURL(file);
+
+            return deferred.promise;
         };
 
         return {
-            openFileContent: function (fileFilter, successCallback, errorCallback, multipleFiles) {
+            openFileContent: function (fileFilter, successCallback, errorCallback, multipleFileMode) {
                 if (!isSupportFileReader) {
                     if (errorCallback) {
                         errorCallback('Your browser does not support loading file!');
@@ -89,48 +85,44 @@
 
                 var allowedExtensions = getAllowedExtensions(fileFilter);
                 var html = '<input type="file" style="display: none"/>';
-                if(multipleFiles){
+
+                if (multipleFileMode){
                     html = '<input type="file" style="display: none" multiple/>';
                 }
 
                 angular.element(html).change(function () {
+
                     if (!this.files || this.files.length < 1) {
                         return;
                     }
 
-                    // Recursively read files
-                    function addTasks(files, curTask) {
+                    // read files recursively
+                    function addFiles(files, curFile) {
 
-                        var nextTask = curTask + 1;
-                        var done = files.length <= nextTask;
+                        var nextFile = curFile + 1;
+                        var done = files.length <= nextFile;
 
-                        // if read file success, send file content to aria2 and read next file.
-                        var success = function(result) {
-                            if (done) {
-                                successCallback(result);
-                            } else {
-                                successCallback(result, function() {
-                                    addTasks(files, nextTask);
-                                });
-                            }
-                        };
-
-                        // if read file fail, skip and read next file.
-                        var fail = function(error) {
-                            errorCallback(error);
-                            if (!done) {
-                                addTasks(files, nextTask);
-                            }
-                        };
-
-                        readFile(files[curTask], allowedExtensions, success, fail);
+                        readFile(files[curFile], allowedExtensions)
+                            .then(function(result) {
+                                // read file success
+                                if (done) {
+                                    successCallback(result);
+                                } else {
+                                    successCallback(result, function() {
+                                        addFiles(files, nextFile);
+                                    });
+                                }
+                            })
+                            .catch(function(error) {
+                                // read file fail
+                                errorCallback(error);
+                                if (!done) {
+                                    addFiles(files, nextFile);
+                                }
+                            });
                     };
 
-                    if (multipleFiles) {
-                        addTasks(this.files, 0);
-                    } else {
-                        readFile(this.files[0], allowedExtensions, successCallback, errorCallback);
-                    }
+                    addFiles(this.files, 0);
 
                 }).trigger('click');
             }
