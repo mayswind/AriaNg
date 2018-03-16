@@ -45,7 +45,7 @@
             return false;
         };
 
-        var readFile =function(file, allowedExtensions) {
+        var readFile = function (file, allowedExtensions) {
 
             var deferred = $q.defer();
             var fileName = file.name;
@@ -96,15 +96,15 @@
                         return;
                     }
 
-                    // Recursively read files
+                    // read files recursively
                     function addFiles(files, curFile) {
 
                         var nextFile = curFile + 1;
                         var done = files.length <= nextFile;
 
                         readFile(files[curFile], allowedExtensions)
-                            .then(function(result){
-                                // if read file success
+                            .then(function(result) {
+                                // read file success
                                 if (done) {
                                     successCallback(result);
                                 } else {
@@ -113,8 +113,8 @@
                                     });
                                 }
                             })
-                            .catch(function(error){
-                                // if read file fail
+                            .catch(function(error) {
+                                // read file fail
                                 errorCallback(error);
                                 if (!done) {
                                     addFiles(files, nextFile);

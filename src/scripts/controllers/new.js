@@ -29,14 +29,14 @@
             var num = $scope.context.uploadFile.length;
             var blackHole = function(){};
 
-            for(var i = 0; i < num; i++){
-                var task={
+            for (var i = 0; i < num; i++) {
+                var task = {
                     content: $scope.context.uploadFile[i].base64Content,
                     options: angular.copy($scope.context.options)
                 };
-                if( i < num - 1){
-                    $rootScope.loadPromise=aria2TaskService.newTorrentTask(task, pauseOnAdded, blackHole);
-                }else{
+                if ( i < num - 1) {
+                    $rootScope.loadPromise = aria2TaskService.newTorrentTask(task, pauseOnAdded, blackHole);
+                } else {
                     return aria2TaskService.newTorrentTask(task, pauseOnAdded, responseCallback);
                 }
             };
@@ -135,23 +135,24 @@
         // open multiple torrent files
         $scope.openTorrents = function() {
 
-            var uploadFiles=[];
+            var torrentFiles=[];
 
             ariaNgFileService.openFileContent('.torrent', function(result, readNextFile) {
 
-                uploadFiles.push(result);
+                torrentFiles.push(result);
 
                 if (readNextFile) {
                     readNextFile();
                 } else {
-                    // 读取种子文件完成
+                    // read file finished
                     $scope.context.taskType = 'torrent';
-                    $scope.context.uploadFile = uploadFiles;
+                    $scope.context.uploadFile = torrentFiles;
                     $scope.changeTab('options');
                 }
-            }, function(error) {
+                
+            }, function (error) {
                 ariaNgCommonService.showError(error);
-            }, true);  // batchMode = true;
+            }, true);  // multipleFileMode = true;
         };
 
         $scope.openMetalink = function () {
