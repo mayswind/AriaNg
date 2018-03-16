@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgFileService', ['$window', function ($window) {
+    angular.module('ariaNg').factory('ariaNgFileService', ['$q', '$window', function ($q, $window) {
         var isSupportFileReader = !!$window.FileReader;
 
         var getAllowedExtensions = function (fileFilter) {
@@ -45,8 +45,36 @@
             return false;
         };
 
+        var readFile = function (file, allowedExtensions) {
+
+            var deferred = $q.defer();
+            var fileName = file.name;
+
+            if (!checkFileExtension(fileName, allowedExtensions)) {
+                deferred.reject('The selected file type is invalid!');
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var result = {
+                    fileName: fileName,
+                    base64Content: this.result.replace(/.*?base64,/, '')
+                };
+                deferred.resolve(result);
+            };
+
+            reader.onerror = function() {
+                deferred.reject("Failed to load file!");
+            };
+
+            reader.readAsDataURL(file);
+
+            return deferred.promise;
+        };
+
         return {
-            openFileContent: function (fileFilter, successCallback, errorCallback) {
+            openFileContent: function (fileFilter, successCallback, errorCallback, multipleFileMode) {
                 if (!isSupportFileReader) {
                     if (errorCallback) {
                         errorCallback('Your browser does not support loading file!');
@@ -56,43 +84,46 @@
                 }
 
                 var allowedExtensions = getAllowedExtensions(fileFilter);
+                var html = '<input type="file" style="display: none"/>';
 
-                angular.element('<input type="file" style="display: none"/>').change(function () {
+                if (multipleFileMode){
+                    html = '<input type="file" style="display: none" multiple/>';
+                }
+
+                angular.element(html).change(function () {
+
                     if (!this.files || this.files.length < 1) {
                         return;
                     }
 
-                    var file = this.files[0];
-                    var fileName = file.name;
+                    // read files recursively
+                    function addFiles(files, curFile) {
 
-                    if (!checkFileExtension(fileName, allowedExtensions)) {
-                        if (errorCallback) {
-                            errorCallback('The selected file type is invalid!');
-                        }
+                        var nextFile = curFile + 1;
+                        var done = files.length <= nextFile;
 
-                        return;
-                    }
-
-                    var reader = new FileReader();
-
-                    reader.onload = function () {
-                        var result = {
-                            fileName: fileName,
-                            base64Content: this.result.replace(/.*?base64,/, '')
-                        };
-
-                        if (successCallback) {
-                            successCallback(result);
-                        }
+                        readFile(files[curFile], allowedExtensions)
+                            .then(function(result) {
+                                // read file success
+                                if (done) {
+                                    successCallback(result);
+                                } else {
+                                    successCallback(result, function() {
+                                        addFiles(files, nextFile);
+                                    });
+                                }
+                            })
+                            .catch(function(error) {
+                                // read file fail
+                                errorCallback(error);
+                                if (!done) {
+                                    addFiles(files, nextFile);
+                                }
+                            });
                     };
 
-                    reader.onerror = function () {
-                        if (errorCallback) {
-                            errorCallback('Failed to load file!');
-                        }
-                    };
+                    addFiles(this.files, 0);
 
-                    reader.readAsDataURL(file);
                 }).trigger('click');
             }
         };
