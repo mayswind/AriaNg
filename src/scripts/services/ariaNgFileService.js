@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgFileService', ['$q', '$rootScope', '$window', function ($q, $rootScope, $window) {
+    angular.module('ariaNg').factory('ariaNgFileService', ['$q', '$window', function ($q, $window) {
         var isSupportFileReader = !!$window.FileReader;
 
         var getAllowedExtensions = function (fileFilter) {
@@ -47,36 +47,34 @@
 
         var qReader =function(file, allowedExtensions) {
 
-            var p = $q(function(resolve, reject){
+            var deferred = $q.defer();
+            var fileName = file.name;
 
-                var fileName = file.name;
+            if (!checkFileExtension(fileName, allowedExtensions)) {
+                deferred.reject('The selected file type is invalid!');
+            }
 
-                if (!checkFileExtension(fileName, allowedExtensions)) {
-                    reject('The selected file type is invalid!');
-                }
+            var reader = new FileReader();
 
-                var reader = new FileReader();
-
-                reader.onload = function() {
-                    var result = {
-                        fileName: fileName,
-                        base64Content: this.result.replace(/.*?base64,/, '')
-                    };
-                    resolve(result);
+            reader.onload = function() {
+                var result = {
+                    fileName: fileName,
+                    base64Content: this.result.replace(/.*?base64,/, '')
                 };
+                deferred.resolve(result);
+            };
 
-                reader.onerror = function() {
-                    reject("Failed to load file!");
-                };
+            reader.onerror = function() {
+                deferred.reject("Failed to load file!");
+            };
 
-                reader.readAsDataURL(file);
-            });
+            reader.readAsDataURL(file);
 
-            return p;
+            return deferred.promise;
         };
 
         return {
-            openFileContent: function (fileFilter, successCallback, errorCallback, multipleFiles) {
+            openFileContent: function (fileFilter, successCallback, errorCallback, multipleFileMode) {
                 if (!isSupportFileReader) {
                     if (errorCallback) {
                         errorCallback('Your browser does not support loading file!');
@@ -87,20 +85,22 @@
 
                 var allowedExtensions = getAllowedExtensions(fileFilter);
                 var html = '<input type="file" style="display: none"/>';
-                if(multipleFiles){
+
+                if (multipleFileMode){
                     html = '<input type="file" style="display: none" multiple/>';
                 }
 
                 angular.element(html).change(function () {
+
                     if (!this.files || this.files.length < 1) {
                         return;
                     }
 
                     // Recursively read files
-                    function addTasks(files, curTask) {
+                    function addFiles(files, curFile) {
 
-                        var nextTask = curTask + 1;
-                        var done = files.length <= nextTask;
+                        var nextFile = curFile + 1;
+                        var done = files.length <= nextFile;
 
                         // if read file success, send file content to aria2 and read next file.
                         var success = function(result) {
@@ -108,7 +108,7 @@
                                 successCallback(result);
                             } else {
                                 successCallback(result, function() {
-                                    addTasks(files, nextTask);
+                                    addFiles(files, nextFile);
                                 });
                             }
                         };
@@ -117,24 +117,23 @@
                         var fail = function(error) {
                             errorCallback(error);
                             if (!done) {
-                                addTasks(files, nextTask);
+                                addFiles(files, nextFile);
                             }
                         };
 
-                        qReader(files[curTask], allowedExtensions)
+                        qReader(files[curFile], allowedExtensions)
                             .then(function(result){
-                                console.log("QR[ok]: ", result.fileName);
+                                // console.log("QR[ok]: ", result.fileName);
                                 success(result);
                             })
                             .catch(function(error){
-                                console.log("QR[fail]: ", result.fileName);
+                                // console.log("QR[fail]: ", result.fileName);
                                 fail(error);
                             });
 
                     };
 
-
-                    addTasks(this.files, 0);
+                    addFiles(this.files, 0);
 
                 }).trigger('click');
             }
