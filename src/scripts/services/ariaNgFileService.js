@@ -45,7 +45,7 @@
             return false;
         };
 
-        var qReader =function(file, allowedExtensions) {
+        var readFile =function(file, allowedExtensions) {
 
             var deferred = $q.defer();
             var fileName = file.name;
@@ -102,35 +102,24 @@
                         var nextFile = curFile + 1;
                         var done = files.length <= nextFile;
 
-                        // if read file success, send file content to aria2 and read next file.
-                        var success = function(result) {
-                            if (done) {
-                                successCallback(result);
-                            } else {
-                                successCallback(result, function() {
-                                    addFiles(files, nextFile);
-                                });
-                            }
-                        };
-
-                        // if read file fail, skip and read next file.
-                        var fail = function(error) {
-                            errorCallback(error);
-                            if (!done) {
-                                addFiles(files, nextFile);
-                            }
-                        };
-
-                        qReader(files[curFile], allowedExtensions)
+                        readFile(files[curFile], allowedExtensions)
                             .then(function(result){
-                                // console.log("QR[ok]: ", result.fileName);
-                                success(result);
+                                // if read file success
+                                if (done) {
+                                    successCallback(result);
+                                } else {
+                                    successCallback(result, function() {
+                                        addFiles(files, nextFile);
+                                    });
+                                }
                             })
                             .catch(function(error){
-                                // console.log("QR[fail]: ", result.fileName);
-                                fail(error);
+                                // if read file fail
+                                errorCallback(error);
+                                if (!done) {
+                                    addFiles(files, nextFile);
+                                }
                             });
-
                     };
 
                     addFiles(this.files, 0);
