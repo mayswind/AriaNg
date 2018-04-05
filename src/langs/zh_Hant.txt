@@ -59,6 +59,7 @@ BitTorrent Settings=BitTorrent 設定
 Metalink Settings=Metalink 設定
 RPC Settings=RPC 設定
 Advanced Settings=進階設定
+AriaNg Debug Console=AriaNg 調試控制台
 Aria2 Status=Aria2 狀態
 File Name=文件名
 File Size=大小
@@ -158,6 +159,8 @@ Waiting Count=正在等待數量
 Stopped Count=已停止數量
 You have disabled notification in your browser. You should change your browser's settings before you enable this function.=您已經在瀏覽器中禁用通知功能. 如需使用此功能, 請修改您瀏覽器的設定.
 Configuration has been modified, please reload the page for the changes to take effect.=配置已經修改, 請重新載入頁面使其生效.
+Show Detail=顯示詳情
+Log Detail=日誌詳情
 Reload Page=重新載入頁面
 Show Secret=顯示密鑰
 Hide Secret=隱藏密鑰
@@ -206,6 +209,7 @@ RPC secret is not base64 encoded!=RPC 密鑰不是 Base64 編碼後的字元串!
 URL is not base64 encoded!=指定 URL 不是 Base64 編碼後的字元串!
 Tap to configure and get started with AriaNg.=您還沒有進行過設定, 點擊這裡進行設定.
 Cannot initialize WebSocket!=無法初始化 WebSocket!
+Access Denied!=拒絕訪問!
 
 [error]
 unknown=未知錯誤.
@@ -255,6 +259,7 @@ task.pieceinfo=已完成: {{completed}}, 共計: {{total}} 塊
 task.error-occurred=發生錯誤 ({{errorcode}})
 settings.file-count=({{count}} 個文件)
 settings.total-count=(共計: {{count}}個)
+debug.latest-logs=最近 {{count}} 條日誌
 
 [rpc.error]
 unauthorized=認證失敗!

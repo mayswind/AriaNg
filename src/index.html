@@ -234,6 +234,9 @@
                         </li>
                     </ul>
                 </li>
+                <li class="ng-cloak" data-href-match="/debug" ng-if="enableDebugMode()">
+                    <a href="#!/debug"><i class="fa fa-wrench"></i> <span translate>AriaNg Debug Console</span></a>
+                </li>
                 <li data-href-match="/status">
                     <a href="#!/status">
                         <span class="label pull-right" ng-if="globalStatusContext.isEnabled" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Not Connected'}" ng-bind="taskContext.rpcStatus | translate"></span>
@@ -356,6 +359,7 @@
 <script src="scripts/config/aria2Errors.js"></script>
 <script src="scripts/config/aria2RpcConstants.js"></script>
 <script src="scripts/controllers/command.js"></script>
+<script src="scripts/controllers/debug.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/new.js"></script>
 <script src="scripts/controllers/list.js"></script>
@@ -377,6 +381,7 @@
 <script src="scripts/filters/longDate.js"></script>
 <script src="scripts/filters/peerOrderBy.js"></script>
 <script src="scripts/filters/percent.js"></script>
+<script src="scripts/filters/reverse.js"></script>
 <script src="scripts/filters/taskOrderBy.js"></script>
 <script src="scripts/filters/taskStatus.js"></script>
 <script src="scripts/filters/volume.js"></script>

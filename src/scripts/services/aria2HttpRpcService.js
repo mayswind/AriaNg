@@ -66,12 +66,12 @@
                     requestContext.url = getUrlWithQueryString(requestContext.url, context.requestBody);
                 }
 
-                ariaNgLogService.debug('[aria2HttpRpcService.request] request start', requestContext);
+                ariaNgLogService.debug('[aria2HttpRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'request start', requestContext);
 
                 return $http(requestContext).then(function onSuccess(response) {
                     var data = response.data;
 
-                    ariaNgLogService.debug('[aria2HttpRpcService.request] response success', data);
+                    ariaNgLogService.debug('[aria2HttpRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response success', response);
 
                     if (!data) {
                         return;
@@ -83,7 +83,7 @@
                 }).catch(function onError(response) {
                     var data = response.data;
 
-                    ariaNgLogService.debug('[aria2HttpRpcService.request] response error', data);
+                    ariaNgLogService.debug('[aria2HttpRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response error', response);
 
                     if (!data) {
                         data = {

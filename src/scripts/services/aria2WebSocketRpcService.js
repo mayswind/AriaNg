@@ -29,13 +29,13 @@
             });
 
             if (content.result && context.successCallback) {
-                ariaNgLogService.debug('[aria2WebSocketRpcService.request] response success', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response success', content);
 
                 context.successCallback(context.id, content.result);
             }
 
             if (content.error && context.errorCallback) {
-                ariaNgLogService.debug('[aria2WebSocketRpcService.request] response error', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response error', content);
 
                 context.errorCallback(context.id, content.error);
             }
@@ -110,7 +110,7 @@
                 var uniqueId = context.uniqueId;
                 var requestBody = angular.toJson(context.requestBody);
 
-                ariaNgLogService.debug('[aria2WebSocketRpcService.request] request start', context);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'request start', context);
 
                 var deferred = $q.defer();
 
