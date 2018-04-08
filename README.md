@@ -35,6 +35,17 @@ Latest Release: [https://github.com/mayswind/AriaNg/releases](https://github.com
 
 Latest Daily Build: [https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip](https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip)
 
+#### Running:
+
+1- Make sure you run aria2 in rpc mode on the server that you want to connect
+
+```aria2c --enable-rpc --rpc-listen-all --rpc-allow-origin-all=true```
+
+2-serve the files and navigate to http://[url]:[port]/#!/settings/ariangsettings/ariang and set the url to the server
+
+
+And set 
+
 #### Building from source
 Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/), [Gulp](https://gulpjs.com/) and [Bower](https://bower.io/) installed. Then download the source code, and follow these steps.
 
