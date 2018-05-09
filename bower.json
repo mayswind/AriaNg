@@ -40,7 +40,7 @@
     "angular-messages": "1.6.5",
     "angular-cookies": "1.6.5",
     "angular-animate": "1.6.5",
-    "angular-translate": "^2.15.2",
+    "angular-translate": "^2.17.0",
     "angular-moment": "1.0.1",
     "angular-websocket": "^2.0.0",
     "angular-utf8-base64": "^0.0.5",
@@ -49,7 +49,7 @@
     "angular-ui-notification": "^0.3.6",
     "angular-bittorrent-peerid": "^1.2.0",
     "angular-busy": "^4.1.4",
-    "angular-promise-buttons": "^0.1.21",
+    "angular-promise-buttons": "^0.1.23",
     "angular-dragula": "^1.2.8",
     "angular-clipboard": "^1.6.2",
     "ngSweetAlert": "^1.1.2"
