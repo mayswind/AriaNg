@@ -13,6 +13,7 @@
             }
 
             var options = {};
+            var isPaused = false;
 
             if (params) {
                 for (var key in params) {
@@ -24,17 +25,25 @@
                         options[key] = params[key];
                     }
                 }
+
+                if (params.pause === 'true') {
+                    isPaused = true;
+                }
             }
 
             $rootScope.loadPromise = aria2TaskService.newUriTask({
                 urls: [url],
                 options: options
-            }, false, function (response) {
+            }, isPaused, function (response) {
                 if (!response.success) {
                     return false;
                 }
 
-                $location.path('/downloading');
+                if (isPaused) {
+                    $location.path('/waiting');
+                } else {
+                    $location.path('/downloading');
+                }
             });
 
             ariaNgLogService.info('[CommandController] new download: ' + url);
