@@ -43,7 +43,7 @@
                     return false;
                 }
             },
-            getaria2QuickSettingsAvailableOptions: function (type) {
+            getAria2QuickSettingsAvailableOptions: function (type) {
                 if (type === 'globalSpeedLimit') {
                     return aria2QuickSettingsAvailableOptions.globalSpeedLimitOptions;
                 } else {

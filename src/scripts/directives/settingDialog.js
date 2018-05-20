@@ -27,7 +27,7 @@
                 };
 
                 var loadOptions = function (type) {
-                    var keys = aria2SettingService.getaria2QuickSettingsAvailableOptions(type);
+                    var keys = aria2SettingService.getAria2QuickSettingsAvailableOptions(type);
 
                     if (!keys) {
                         ariaNgCommonService.showError('Type is illegal!');
