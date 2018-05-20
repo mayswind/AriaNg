@@ -61,7 +61,7 @@
                     var unitIndex = 0;
 
                     for (var i = 0; i < sizeUnits.length; i++) {
-                        if ((size < 1024) || (size % 1024 != 0)) {
+                        if ((size < 1024) || (size % 1024 !== 0)) {
                             break;
                         }
 

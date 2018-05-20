@@ -485,7 +485,7 @@
                             options = response.data[1][0];
                         }
 
-                        if (!task || !options || !task.files || task.files.length != 1 || task.bittorrent) {
+                        if (!task || !options || !task.files || task.files.length !== 1 || task.bittorrent) {
                             if (!task) {
                                 ariaNgLogService.warn('[aria2TaskService.restartTask] task is null');
                             }

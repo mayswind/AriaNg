@@ -47,14 +47,14 @@
                         <span ng-bind="task.totalLength | readableVolume"></span>
                         <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
                             <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
-                        </a><i class="icon-error fa fa-times" ng-if="task && task.status == 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status == 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
-                        <a ng-if="task && task.status == 'error' && task.errorDescription && !task.bittorrent" ng-click="restart(task)" title="{{'Restart' | translate}}" translate>Restart</a>
+                        </a><i class="icon-error fa fa-times" ng-if="task && task.status === 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status === 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
+                        <a ng-if="task && task.status === 'error' && task.errorDescription && !task.bittorrent" ng-click="restart(task)" title="{{'Restart' | translate}}" translate>Restart</a>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-12">
                     <div class="progress">
                         <div class="progress-bar" role="progressbar"
-                             ng-class="{'progress-bar-primary': task.status != 'error', 'progress-bar-warning': task.status == 'error'}"
+                             ng-class="{'progress-bar-primary': task.status !== 'error', 'progress-bar-warning': task.status === 'error'}"
                              aria-valuenow="{{task.completePercent}}" aria-valuemin="1"
                              aria-valuemax="100" ng-style="{ width: task.completePercent + '%' }">
                             <span ng-class="{'progress-lower': task.completePercent < 50}"
