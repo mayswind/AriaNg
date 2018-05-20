@@ -20,6 +20,7 @@
         'angularPromiseButtons',
         'oitozero.ngSweetAlert',
         'angular-clipboard',
+        'inputDropdown',
         angularDragula(angular)
     ]);
 }());

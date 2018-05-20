@@ -110,6 +110,23 @@
     margin-bottom: 2px;
 }
 
+/* angular-input-dropdown */
+input-dropdown[input-class-name="form-control"] > .input-dropdown {
+    width: 100%
+}
+
+.input-dropdown ul {
+    border: 1px solid #888;
+}
+
+.input-dropdown ul > li.active {
+    background-color: #e1e3e9;
+}
+
+.input-dropdown ul > li {
+    padding: 2px 14px 2px 14px;
+}
+
 /* angular-dragula extend */
 .gu-mirror {
     cursor: grabbing;

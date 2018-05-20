@@ -6,6 +6,7 @@
         appPrefix: 'AriaNg',
         optionStorageKey: 'Options',
         languageStorageKeyPrefix: 'Language',
+        settingHistoryKeyPrefix: 'History',
         languagePath: 'langs',
         languageFileExtension: '.txt',
         defaultLanguage: 'en',
@@ -16,6 +17,7 @@
         lazySaveTimeout: 500,
         errorTooltipDelay: 500,
         notificationInPageTimeout: 2000,
+        historyMaxStoreCount: 10,
         cachedDebugLogsLimit: 100
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
