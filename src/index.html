@@ -23,13 +23,13 @@
     <!-- endbuild -->
     <!-- build:css css/plugins.min.css -->
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../bower_components/AdminLTE/dist/css/AdminLTE.min.css"/>
+    <link rel="stylesheet" href="../bower_components/admin-lte/dist/css/AdminLTE.min.css"/>
     <link rel="stylesheet" href="../bower_components/sweetalert/dist/sweetalert.css"/>
     <link rel="stylesheet" href="../bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"/>
     <link rel="stylesheet" href="../bower_components/angular/angular-csp.css"/>
     <link rel="stylesheet" href="../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css"/>
     <link rel="stylesheet" href="../bower_components/angular-busy/dist/angular-busy.min.css"/>
-    <link rel="stylesheet" href="../bower_components/angular-dragula/dist/dragula.min.css"/>
+    <link rel="stylesheet" href="../bower_components/angularjs-dragula/dist/dragula.min.css"/>
     <!-- endbuild -->
     <!-- build:css css/aria-ng.min.css -->
     <link rel="stylesheet" href="styles/core/core.css">
@@ -184,7 +184,7 @@
 
     <aside class="main-sidebar">
         <section class="sidebar">
-            <ul id="siderbar-menu" class="sidebar-menu">
+            <ul id="siderbar-menu" class="sidebar-menu" data-widget="tree" data-animation-speed="300">
                 <li class="header" translate>Download</li>
                 <li data-href-match="/downloading">
                     <a href="#!/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
@@ -258,7 +258,7 @@
             <div class="navbar-toolbar">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a data-toggle="offcanvas" role="button" title="{{'Toggle Navigation' | translate}}">
+                        <a data-toggle="push-menu" role="button" title="{{'Toggle Navigation' | translate}}">
                             <i class="fa fa-bars"></i>
                         </a>
                     </li>
@@ -299,10 +299,10 @@
     <ng-setting-dialog setting="quickSettingContext"></ng-setting-dialog>
 </div>
 
-<!-- build:js js/jquery-2.2.4.min.js -->
+<!-- build:js js/jquery-3.3.1.min.js -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/angular-packages-1.6.5.min.js -->
+<!-- build:js js/angular-packages-1.6.10.min.js -->
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
 <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
@@ -314,17 +314,17 @@
 <!-- build:js js/bootstrap-3.3.7.min.js -->
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/moment-with-locales-2.18.1.min.js -->
+<!-- build:js js/moment-with-locales-2.22.2.min.js -->
 <script src="../bower_components/moment/min/moment.min.js"></script>
 <script src="../bower_components/moment/locale/zh-cn.js"></script>
 <script src="../bower_components/moment/locale/zh-tw.js"></script>
 <script src="../bower_components/moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js"></script>
 <!-- endbuild -->
-<!-- build:js js/echarts-common-3.7.1.min.js -->
+<!-- build:js js/echarts-common-3.8.5.min.js -->
 <script src="../bower_components/echarts/dist/echarts.common.min.js"></script>
 <!-- endbuild -->
 <!-- build:js js/plugins.min.js -->
-<script src="../bower_components/AdminLTE/dist/js/app.min.js"></script>
+<script src="../bower_components/admin-lte/dist/js/adminlte.js"></script>
 <script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="../bower_components/sweetalert/dist/sweetalert.min.js"></script>
 <script src="../bower_components/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
@@ -338,13 +338,12 @@
 <script src="../bower_components/angular-bittorrent-peerid/angular-bittorrent-peerid.min.js"></script>
 <script src="../bower_components/angular-busy/dist/angular-busy.min.js"></script>
 <script src="../bower_components/angular-promise-buttons/dist/angular-promise-buttons.min.js"></script>
-<script src="../bower_components/angular-dragula/dist/angular-dragula.min.js"></script>
 <script src="../bower_components/angular-clipboard/angular-clipboard.js"></script>
+<script src="../bower_components/angularjs-dragula/dist/angularjs-dragula.min.js"></script>
 <script src="../bower_components/ngSweetAlert/SweetAlert.js"></script>
 <!-- endbuild -->
 <!-- build:js js/aria-ng.min.js -->
 <script src="scripts/core/__core.js"></script>
-<script src="scripts/core/__config.js"></script>
 <script src="scripts/core/__fix.js"></script>
 <script src="scripts/core/app.js"></script>
 <script src="scripts/core/router.js"></script>
