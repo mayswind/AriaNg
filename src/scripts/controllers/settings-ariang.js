@@ -177,7 +177,7 @@
                 ariaNgSettingService.removeRpcSetting(setting);
                 $scope.context.rpcSettings.splice(index, 1);
 
-                if (index >= $scope.context.rpcSettings.length) {
+                if ($scope.isCurrentRpcTab(index) && index >= $scope.context.rpcSettings.length) {
                     $scope.changeRpcTab($scope.context.rpcSettings.length - 1);
                 }
             }, false, {
