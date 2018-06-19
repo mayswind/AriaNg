@@ -29,7 +29,6 @@ gulp.task('inject-env', function () {
     ]).pipe(replace('secret: \'\'', `secret: '${process.env.SECRET}'`))
         .pipe(replace('shouldDisableShutdown: false', `shouldDisableShutdown: ${process.env.DISABLE_SHUTDOWN ? 'true' : 'false'}`))
         .pipe(gulp.dest('.tmp/scripts/config'))
-        .pipe($.revReplace())
         .pipe(reload({stream: true}));
 });
 
