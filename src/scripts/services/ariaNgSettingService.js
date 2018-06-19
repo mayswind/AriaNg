@@ -91,6 +91,20 @@
             return ariaNgConstants.defaultHost;
         };
 
+        var getDefaultRpcPort = function () {
+            var currentPort = $location.port();
+
+            if (currentPort) {
+                return currentPort;
+            }
+
+            return ariaNgConstants.defaultHost;
+        };
+
+        var getDefaultRpcProtocol = function () {
+            return $location.protocol();
+        };
+
         var setOptions = function (options) {
             return localStorageService.set(ariaNgConstants.optionStorageKey, options);
         };
@@ -107,7 +121,7 @@
                 options.language = getDefaultLanguage();
 
                 if (!options.rpcHost) {
-                    initRpcSettingWithDefaultHostAndProtocol(options);
+                    initRpcSettingWithDefaultHostAndPortAndProtocol(options);
                 }
 
                 if (angular.isArray(options.extendRpcServers)) {
@@ -115,7 +129,7 @@
                         var rpcSetting = options.extendRpcServers[i];
 
                         if (!rpcSetting.rpcHost) {
-                            initRpcSettingWithDefaultHostAndProtocol(rpcSetting);
+                            initRpcSettingWithDefaultHostAndPortAndProtocol(rpcSetting);
                         }
                     }
                 }
@@ -149,8 +163,10 @@
             setOptions(options);
         };
 
-        var initRpcSettingWithDefaultHostAndProtocol = function (setting) {
+        var initRpcSettingWithDefaultHostAndPortAndProtocol = function (setting) {
             setting.rpcHost = getDefaultRpcHost();
+            setting.rpcPort = getDefaultRpcPort();
+            setting.protocol = getDefaultRpcProtocol();
 
             if (isInsecureProtocolDisabled()) {
                 setting.protocol = ariaNgConstants.defaultSecureProtocol;
@@ -173,7 +189,7 @@
             var setting = cloneRpcSetting(ariaNgDefaultOptions);
             setting.rpcId = ariaNgCommonService.generateUniqueId();
 
-            initRpcSettingWithDefaultHostAndProtocol(setting);
+            initRpcSettingWithDefaultHostAndPortAndProtocol(setting);
 
             return setting;
         };

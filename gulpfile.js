@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var gulpLoadPlugins = require('gulp-load-plugins');
 var browserSync = require('browser-sync');
 var del = require('del');
+var replace = require('gulp-replace');
 
 var $ = gulpLoadPlugins();
 var reload = browserSync.reload;
@@ -16,9 +17,18 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
     return gulp.src([
-        'src/scripts/**/*.js'
+        'src/scripts/**/*.js', '!src/scripts/config/constants.js'
     ]).pipe($.plumber())
         .pipe(gulp.dest('.tmp/scripts'))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('inject-env', function () {
+    return gulp.src([
+        'src/scripts/config/constants.js'
+    ]).pipe(replace('secret: \'\'', `secret: '${process.env.SECRET}'`))
+        .pipe(replace('shouldDisableShutdown: false', `shouldDisableShutdown: ${process.env.DISABLE_SHUTDOWN ? 'true' : 'false'}`))
+        .pipe(gulp.dest('.tmp/scripts/config'))
         .pipe(reload({stream: true}));
 });
 
@@ -39,7 +49,7 @@ gulp.task('lint', function () {
         .pipe(gulp.dest('src/scripts'));
 });
 
-gulp.task('html', ['styles', 'scripts', 'views'], function () {
+gulp.task('html', ['styles', 'scripts', 'inject-env', 'views'], function () {
     return gulp.src([
         'src/*.html'
     ]).pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
