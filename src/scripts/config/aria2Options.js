@@ -66,7 +66,7 @@
             suffix: 'Bytes',
             defaultValue: '0',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'max-connection-per-server': {
             type: 'integer',
@@ -92,7 +92,7 @@
             suffix: 'Bytes',
             defaultValue: '20M',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'netrc-path': {
             type: 'string',
@@ -363,7 +363,7 @@
             suffix: 'Bytes',
             defaultValue: '50K',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'bt-save-metadata': {
             type: 'boolean',
@@ -461,14 +461,14 @@
             suffix: 'Bytes',
             defaultValue: '0',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'max-upload-limit': {
             type: 'string',
             suffix: 'Bytes',
             defaultValue: '0',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'peer-id-prefix': {
             type: 'string',
@@ -711,7 +711,7 @@
             suffix: 'Bytes',
             defaultValue: '9223372036854775807',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'max-resume-failure-tries': {
             type: 'integer',
@@ -741,7 +741,7 @@
             suffix: 'Bytes',
             defaultValue: '1M',
             required: true,
-            pattern: '^(0|[1-9]\\d*M?)$'
+            pattern: '^(0|[1-9]\\d*(M|m)?)$'
         },
         'show-console-readout': {
             type: 'boolean',
@@ -759,14 +759,14 @@
             suffix: 'Bytes',
             defaultValue: '0',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'max-download-limit': {
             type: 'string',
             suffix: 'Bytes',
             defaultValue: '0',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'no-conf': {
             type: 'boolean',
@@ -777,7 +777,7 @@
             suffix: 'Bytes',
             defaultValue: '5M',
             required: true,
-            pattern: '^(0|[1-9]\\d*(K|M)?)$'
+            pattern: '^(0|[1-9]\\d*(K|k|M|m)?)$'
         },
         'parameterized-uri': {
             type: 'boolean',

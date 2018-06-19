@@ -1,4 +1,12 @@
 /* bootstrap */
+.progress-bar {
+    -webkit-transition: initial !important;
+    -moz-transition: initial !important;
+    -ms-transition: initial !important;
+    -o-transition: initial !important;
+    transition: initial !important;
+}
+
 .input-group-addon-compact {
     padding: 0 4px 0 4px;
 }

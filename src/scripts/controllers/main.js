@@ -36,6 +36,10 @@
             data: ariaNgMonitorService.getGlobalStatsData()
         };
 
+        $scope.enableDebugMode = function () {
+            return ariaNgSettingService.isEnableDebugMode();
+        };
+
         $scope.quickSettingContext = null;
 
         $scope.rpcSettings = ariaNgSettingService.getAllRpcSettings();

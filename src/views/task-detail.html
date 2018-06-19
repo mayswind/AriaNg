@@ -1,19 +1,19 @@
 <section class="content no-padding">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" ng-if="task">
-            <li ng-class="{'active': context.currentTab == 'overview'}">
+            <li ng-class="{'active': context.currentTab === 'overview'}">
                 <a class="pointer-cursor" ng-click="changeTab('overview')" translate>Overview</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'blocks'}">
+            <li ng-class="{'active': context.currentTab === 'blocks'}">
                 <a class="pointer-cursor" ng-click="changeTab('blocks')" translate>Blocks</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'filelist'}">
+            <li ng-class="{'active': context.currentTab === 'filelist'}">
                 <a class="pointer-cursor" ng-click="changeTab('filelist')" translate>Files</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
+            <li ng-class="{'active': context.currentTab === 'btpeers'}" ng-if="task && task.status === 'active' && task.bittorrent">
                 <a class="pointer-cursor" ng-click="changeTab('btpeers')" translate>Peers</a>
             </li>
-            <li ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')" class="slim">
+            <li ng-class="{'active': context.currentTab === 'settings'}" ng-if="task && (task.status === 'active' || task.status === 'waiting' || task.status === 'paused')" class="slim">
                 <a class="pointer-cursor" ng-click="changeTab('settings')">
                     <i class="fa fa-gear"></i>
                 </a>
@@ -21,7 +21,7 @@
         </ul>
 
         <div class="tab-content no-padding">
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'overview'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'overview'}">
                 <div id="overview-items" class="settings-table striped hoverable" data-toggle="context" data-target="#task-overview-contextmenu">
                     <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
@@ -53,7 +53,7 @@
                                   ng-tooltip="{{task.errorMessage}}" ng-tooltip-container="body" ng-tooltip-placement="top"></i>
                         </div>
                     </div>
-                    <div class="row" ng-show="task && task.status == 'error' && task.errorDescription">
+                    <div class="row" ng-show="task && task.status === 'error' && task.errorDescription">
                         <div class="setting-key col-sm-4">
                             <span translate>Error Description</span>
                         </div>
@@ -63,10 +63,10 @@
                     </div>
                     <div class="row" ng-show="task">
                         <div class="setting-key col-sm-4">
-                            <span ng-bind="('Progress' | translate) + (task.status == 'active' && task.bittorrent ? ' (' + ('Health Percentage' | translate) + ')' : '')"></span>
+                            <span ng-bind="('Progress' | translate) + (task.status === 'active' && task.bittorrent ? ' (' + ('Health Percentage' | translate) + ')' : '')"></span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status == 'active' && task.bittorrent ? ' (' + (context.healthPercent | percent: 2) + '%' + ')' : '')"></span>
+                            <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status === 'active' && task.bittorrent ? ' (' + (context.healthPercent | percent: 2) + '%' + ')' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-show="task">
@@ -74,7 +74,7 @@
                             <span translate>Download</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.completedLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.downloadSpeed | readableVolume) + '/s' : '')"></span>
+                            <span ng-bind="(task.completedLength | readableVolume) + (task.status === 'active' ? ' @ ' + (task.downloadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-show="task && task.bittorrent">
@@ -82,7 +82,7 @@
                             <span translate>Upload</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <span ng-bind="(task.uploadLength | readableVolume) + (task.status == 'active' ? ' @ ' + (task.uploadSpeed | readableVolume) + '/s' : '')"></span>
+                            <span ng-bind="(task.uploadLength | readableVolume) + (task.status === 'active' ? ' @ ' + (task.uploadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
                     <div class="row" ng-show="task && task.bittorrent">
@@ -93,7 +93,7 @@
                             <span ng-bind="(task.shareRatio | number: 2)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-show="task && task.status == 'active' && task.completedLength < task.totalLength">
+                    <div class="row" ng-show="task && task.status === 'active' && task.completedLength < task.totalLength">
                         <div class="setting-key col-sm-4">
                             <span translate>Remain Time</span>
                         </div>
@@ -101,7 +101,7 @@
                             <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-show="task && task.status == 'active'">
+                    <div class="row" ng-show="task && task.status === 'active'">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="(task.bittorrent ? ('Seeders' | translate) + ' / ' : '') + ('Connections' | translate)">Connections</span>
                         </div>
@@ -157,7 +157,7 @@
                     </div>
                 </div>
                 <div class="settings-table">
-                    <div class="row no-hover no-background" ng-if="context.isEnableSpeedChart && task && task.status == 'active'">
+                    <div class="row no-hover no-background" ng-if="context.isEnableSpeedChart && task && task.status === 'active'">
                         <div class="col-sm-12">
                             <div class="task-status-chart-wrapper">
                                 <ng-chart ng-data="context.statusData" height="200"></ng-chart>
@@ -166,7 +166,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'blocks'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'blocks'}">
                 <div class="piece-legends">
                     <div class="piece-legend" title="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}">
                         <div class="piece piece-completed"></div><span translate>Completed</span>
@@ -177,14 +177,14 @@
                 </div>
                 <ng-piece-map bit-field="task.bitfield" piece-count="task.numPieces"></ng-piece-map>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'filelist'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'filelist'}">
                 <div class="task-table">
                     <div class="task-table-title">
                         <div class="row">
                             <div class="col-sm-8">
                                 <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
                                 <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
-                                <a ng-click="showChooseFilesToolbar()" ng-if="task && task.files && task.files.length > 1 && (task.status == 'waiting' || task.status == 'paused')" translate>(Choose Files)</a>
+                                <a ng-click="showChooseFilesToolbar()" ng-if="task && task.files && task.files.length > 1 && (task.status === 'waiting' || task.status === 'paused')" translate>(Choose Files)</a>
                             </div>
                             <div class="col-sm-2">
                                 <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Progress</a>
@@ -235,7 +235,7 @@
                         <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()" data-file-index="{{file.index}}">
                             <div class="col-sm-8">
                                 <div class="checkbox checkbox-primary">
-                                    <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status != 'waiting' && task.status != 'paused')"
+                                    <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status !== 'waiting' && task.status !== 'paused')"
                                            ng-model="file.selected" ng-change="setSelectedFile()"/>
                                     <label for="{{'file_' + file.index}}" class="allow-word-break" ng-bind="file.fileName" title="{{file.fileName}}"></label>
                                 </div>
@@ -257,7 +257,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'btpeers'}" ng-if="task && task.status == 'active' && task.bittorrent">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'btpeers'}" ng-if="task && task.status === 'active' && task.bittorrent">
                 <div class="task-table">
                     <div class="task-table-title">
                         <div class="row">
@@ -330,7 +330,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab == 'settings'}" ng-if="task && (task.status == 'active' || task.status == 'waiting' || task.status == 'paused')">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'settings'}" ng-if="task && (task.status === 'active' || task.status === 'waiting' || task.status === 'paused')">
                 <div class="settings-table striped hoverable">
                     <ng-setting ng-repeat="option in context.availableOptions" option="option"
                                 ng-model="context.options[option.key]" default-value="option.defaultValue"

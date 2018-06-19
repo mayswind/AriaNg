@@ -59,6 +59,7 @@ BitTorrent Settings=BitTorrent 设置
 Metalink Settings=Metalink 设置
 RPC Settings=RPC 设置
 Advanced Settings=高级设置
+AriaNg Debug Console=AriaNg 调试控制台
 Aria2 Status=Aria2 状态
 File Name=文件名
 File Size=大小
@@ -193,6 +194,8 @@ GET=GET
 Disabled=禁用
 BitTorrent=BitTorrent
 Changes to the settings take effect after refreshing page.=设置将在页面刷新后生效.
+Show Detail=显示详情
+Log Detail=日志详情
 Type is illegal!=类型错误!
 Parameter is invalid!=请求参数无效!
 Option value cannot be empty!=参数内容不能为空!
@@ -206,6 +209,7 @@ RPC secret is not base64 encoded!=RPC 密钥不是 Base64 编码后的字符串!
 URL is not base64 encoded!=指定 URL 不是 Base64 编码后的字符串!
 Tap to configure and get started with AriaNg.=您还没有进行过设置, 点击这里进行设置.
 Cannot initialize WebSocket!=无法初始化 WebSocket!
+Access Denied!=拒绝访问!
 
 [error]
 unknown=未知错误.
@@ -255,6 +259,7 @@ task.pieceinfo=已完成: {{completed}}, 共计: {{total}} 块
 task.error-occurred=发生错误 ({{errorcode}})
 settings.file-count=({{count}} 个文件)
 settings.total-count=(共计: {{count}}个)
+debug.latest-logs=最近 {{count}} 条日志
 
 [rpc.error]
 unauthorized=认证失败!

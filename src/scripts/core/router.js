@@ -75,6 +75,10 @@
                 template: '',
                 controller: 'CommandController'
             })
+            .when('/debug', {
+                templateUrl: 'views/debug.html',
+                controller: 'AriaNgDebugController'
+            })
             .when('/status', {
                 templateUrl: 'views/status.html',
                 controller: 'Aria2StatusController'

@@ -2,10 +2,10 @@
     <form name="newTaskForm" ng-submit="startDownload()" novalidate>
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                <li ng-class="{'active': context.currentTab == 'links'}">
+                <li ng-class="{'active': context.currentTab === 'links'}">
                     <a class="pointer-cursor" ng-click="changeTab('links')" ng-bind="(context.taskType === 'torrent' ? 'Torrent File' : (context.taskType === 'metalink' ? 'Metalink File' : 'Links') | translate)">Links</a>
                 </li>
-                <li ng-class="{'active': context.currentTab == 'options'}">
+                <li ng-class="{'active': context.currentTab === 'options'}">
                     <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
                 </li>
                 <li class="divider"></li>
@@ -37,7 +37,7 @@
             </ul>
 
             <div class="tab-content no-padding">
-                <div class="tab-pane" ng-class="{'active': context.currentTab == 'links'}">
+                <div class="tab-pane" ng-class="{'active': context.currentTab === 'links'}">
                     <div class="new-task-table" ng-if="context.taskType === 'urls'">
                         <div class="row">
                             <div class="col-sm-12">
@@ -61,8 +61,9 @@
                             </div>
                         </div>
                     </div>
+                    <input id="file-holder" type="file" style="display: none"/>
                 </div>
-                <div class="tab-pane" ng-class="{'active': context.currentTab == 'options'}">
+                <div class="tab-pane" ng-class="{'active': context.currentTab === 'options'}">
                     <div class="settings-table striped hoverable">
                         <div class="settings-table-title new-task-filter-title">
                             <div class="row">

@@ -2,7 +2,7 @@
     <div class="setting-key setting-key-without-desc col-sm-4">
         <span ng-bind="option.nameKey | translate"></span>
         <em ng-bind="'(' + option.key + ')'"></em>
-        <i class="icon-primary fa fa-question-circle" ng-if="(option.descriptionKey | translate) != ''"
+        <i class="icon-primary fa fa-question-circle" ng-if="(option.descriptionKey | translate) !== ''"
            data-toggle="popover" data-trigger="hover" data-placement="auto top" data-container="body" data-content="{{option.descriptionKey | translate}}"></i>
         <span class="description" ng-if="option.showCount && option.split && optionValue"
               ng-bind="'format.settings.total-count' | translate: {count: getTotalCount()}"></span>
@@ -12,13 +12,13 @@
         <div ng-class="{'input-group': !!option.suffix}">
             <div class="form-group has-feedback" ng-class="[optionStatus.getStatusFeedbackStyle()]">
                 <input class="form-control" type="text" placeholder="{{::placeholder}}" ng-disabled="!!option.readonly"
-                       ng-if="option.type == 'string' || option.type == 'integer' || option.type == 'float'"
+                       ng-if="option.type === 'string' || option.type === 'integer' || option.type === 'float'"
                        ng-model="optionValue" ng-change="changeValue(optionValue, true)"/>
                 <textarea class="form-control" rows="6" placeholder="{{::placeholder}}" ng-disabled="!!option.readonly"
-                          ng-if="option.type == 'text'"
+                          ng-if="option.type === 'text'"
                           ng-model="optionValue" ng-change="changeValue(optionValue, true)"></textarea>
                 <select class="form-control" style="width: 100%;" ng-disabled="!!option.readonly" ng-class="{'placeholder': !optionValue}"
-                        ng-if="option.type == 'boolean' || option.type == 'option'"
+                        ng-if="option.type === 'boolean' || option.type === 'option'"
                         ng-model="optionValue" ng-change="changeValue(optionValue, false)"
                         ng-options="item.value as (item.name | translate) for item in option.options">
                     <option value="" disabled="disabled" ng-bind="(placeholder | translate)" style="display: none;"></option>

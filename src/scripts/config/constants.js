@@ -15,7 +15,8 @@
         taskStatStorageCapacity: 300,
         lazySaveTimeout: 500,
         errorTooltipDelay: 500,
-        notificationInPageTimeout: 2000
+        notificationInPageTimeout: 2000,
+        cachedDebugLogsLimit: 100
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
         title: '↓${downspeed:noprefix:nosuffix:scale=1} ↑${upspeed:noprefix:nosuffix:scale=1} - ${title}',

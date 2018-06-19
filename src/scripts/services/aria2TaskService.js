@@ -190,6 +190,8 @@
                 }
             }
 
+            ariaNgLogService.debug('[aria2TaskService.processDownloadTask] process success', task);
+
             return task;
         };
 
@@ -469,7 +471,7 @@
                         }
 
                         if (!response.success) {
-                            ariaNgLogService.warn('[aria2TaskService.restartTask] response is not success');
+                            ariaNgLogService.warn('[aria2TaskService.restartTask] response is not success', response);
                             deferred.reject(response);
                             callback(response);
                             return;
@@ -483,7 +485,7 @@
                             options = response.data[1][0];
                         }
 
-                        if (!task || !options || !task.files || task.files.length != 1 || task.bittorrent) {
+                        if (!task || !options || !task.files || task.files.length !== 1 || task.bittorrent) {
                             if (!task) {
                                 ariaNgLogService.warn('[aria2TaskService.restartTask] task is null');
                             }
@@ -528,7 +530,7 @@
                             silent: !!silent,
                             callback: function (response) {
                                 if (!response.success) {
-                                    ariaNgLogService.warn('[aria2TaskService.restartTask] addUri response is not success');
+                                    ariaNgLogService.warn('[aria2TaskService.restartTask] addUri response is not success', response);
                                     deferred.reject(response);
                                     callback(response);
                                     return;
@@ -540,7 +542,7 @@
                                         silent: true,
                                         callback: function (response) {
                                             if (!response.success) {
-                                                ariaNgLogService.warn('[aria2TaskService.restartTask] removeDownloadResult response is not success');
+                                                ariaNgLogService.warn('[aria2TaskService.restartTask] removeDownloadResult response is not success', response);
                                             }
                                         }
                                     });
@@ -685,7 +687,7 @@
             },
             processDownloadTasks: function (tasks) {
                 if (!angular.isArray(tasks)) {
-                    ariaNgLogService.warn('[aria2TaskService.processDownloadTasks] tasks is not array');
+                    ariaNgLogService.warn('[aria2TaskService.processDownloadTasks] tasks is not array', tasks);
                     return;
                 }
 
@@ -701,7 +703,7 @@
             },
             estimateHealthPercentFromPeers: function (task, peers) {
                 if (!task || task.numPieces < 1 || peers.length < 1) {
-                    ariaNgLogService.warn('[aria2TaskService.estimateHealthPercentFromPeers] tasks is null or numPieces < 1 or peers < 1');
+                    ariaNgLogService.warn('[aria2TaskService.estimateHealthPercentFromPeers] tasks is null or numPieces < 1 or peers < 1', task);
                     return task.completePercent;
                 }
 

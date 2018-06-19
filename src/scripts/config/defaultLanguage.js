@@ -63,6 +63,7 @@
             'Metalink Settings': 'Metalink Settings',
             'RPC Settings': 'RPC Settings',
             'Advanced Settings': 'Advanced Settings',
+            'AriaNg Debug Console': 'AriaNg Debug Console',
             'Aria2 Status': 'Aria2 Status',
             'File Name': 'File Name',
             'File Size': 'File Size',
@@ -197,6 +198,9 @@
             'Disabled': 'Disabled',
             'BitTorrent': 'BitTorrent',
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.',
+            'Latest {{count}} Logs': 'Latest {{count}} Logs',
+            'Show Detail': 'Show Detail',
+            'Log Detail': 'Log Detail',
             'Type is illegal!': 'Type is illegal!',
             'Parameter is invalid!': 'Parameter is invalid!',
             'Option value cannot be empty!': 'Option value cannot be empty!',
@@ -210,6 +214,7 @@
             'URL is not base64 encoded!': 'URL is not base64 encoded!',
             'Tap to configure and get started with AriaNg.': 'Tap to configure and get started with AriaNg.',
             'Cannot initialize WebSocket!': 'Cannot initialize WebSocket!',
+            'Access Denied!': 'Access Denied!',
             'error': {
                 'unknown': 'Unknown error occurred.',
                 'operation.timeout': 'Operation timed out.',
@@ -257,7 +262,8 @@
                 'task.pieceinfo': 'Completed: {{completed}}, Total: {{total}}',
                 'task.error-occurred': 'Error Occurred ({{errorcode}})',
                 'settings.file-count': '({{count}} Files)',
-                'settings.total-count': '(Total Count: {{count}})'
+                'settings.total-count': '(Total Count: {{count}})',
+                'debug.latest-logs': 'Latest {{count}} Logs'
             },
             'rpc': {
                 'error': {

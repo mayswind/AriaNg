@@ -61,6 +61,10 @@ td {
     cursor: pointer;
 }
 
+.main-sidebar {
+    z-index: 1010;
+}
+
 .content-wrapper, .right-side {
     background-color: #fff;
 }

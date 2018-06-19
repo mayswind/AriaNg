@@ -120,7 +120,7 @@
                 $scope.changeTab('options');
             }, function (error) {
                 ariaNgCommonService.showError(error);
-            });
+            }, angular.element('#file-holder'));
         };
 
         $scope.openMetalink = function () {
@@ -130,7 +130,7 @@
                 $scope.changeTab('options');
             }, function (error) {
                 ariaNgCommonService.showError(error);
-            });
+            }, angular.element('#file-holder'));
         };
 
         $scope.startDownload = function (pauseOnAdded) {
