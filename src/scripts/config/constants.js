@@ -34,6 +34,6 @@
         downloadTaskRefreshInterval: 1000,
         afterCreatingNewTask: 'task-list',
         removeOldTaskAfterRestarting: false,
-        shouldDisableShutdown: true
+        shouldDisableShutdown: false
     });
 }());
