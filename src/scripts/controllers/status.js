@@ -1,11 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', function ($rootScope, $scope, ariaNgCommonService, ariaNgSettingService, aria2SettingService) {
+    angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', 'ariaNgDefaultOptions', function ($rootScope, $scope, ariaNgCommonService, ariaNgSettingService, aria2SettingService, ariaNgDefaultOptions) {
         $scope.context = {
             host: ariaNgSettingService.getCurrentRpcUrl(),
             status: 'Connecting',
-            serverStatus: null
+            serverStatus: null,
+            shouldEnableShutdown: !ariaNgDefaultOptions.shouldDisableShutdown
         };
 
         $scope.saveSession = function () {
@@ -17,6 +18,9 @@
         };
 
         $scope.shutdown = function () {
+            if (ariaNgDefaultOptions.shouldDisableShutdown) {
+                return;
+            }
             ariaNgCommonService.confirm('Confirm Shutdown', 'Are you sure you want to shutdown aria2?', 'warning', function (status) {
                 return aria2SettingService.shutdown(function (response) {
                     if (response.success && response.data === 'OK') {

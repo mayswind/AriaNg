@@ -18,20 +18,21 @@
         notificationInPageTimeout: 2000
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
-        title: '${downspeed}, ${upspeed} - ${title}',
+        title: '↓${downspeed:noprefix:nosuffix:scale=1} ↑${upspeed:noprefix:nosuffix:scale=1} - ${title}',
         titleRefreshInterval: 5000,
         browserNotification: false,
         rpcAlias: '',
         rpcHost: '',
-        rpcPort: '6800',
+        rpcPort: '',
         rpcInterface: 'jsonrpc',
-        protocol: 'http',
+        protocol: '',
         httpMethod: 'POST',
         secret: '',
         extendRpcServers: [],
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000,
         afterCreatingNewTask: 'task-list',
-        removeOldTaskAfterRestarting: false
+        removeOldTaskAfterRestarting: false,
+        shouldDisableShutdown: true
     });
 }());

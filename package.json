@@ -33,7 +33,9 @@
   "version": "0.4.0",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "start": "node .\\node_modules\\gulp\\bin\\gulp.js serve",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "node .\\node_modules\\gulp\\bin\\gulp.js clean build"
   },
   "repository": {
     "type": "git",
@@ -50,5 +52,8 @@
   "bugs": {
     "url": "https://github.com/mayswind/AriaNg/issues"
   },
-  "homepage": "http://ariang.mayswind.net/"
+  "homepage": "http://ariang.mayswind.net/",
+  "dependencies": {
+    "bower": "^1.8.4"
+  }
 }

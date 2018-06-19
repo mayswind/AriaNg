@@ -46,7 +46,7 @@
                 <button class="btn btn-sm btn-primary" ng-click="saveSession()" promise-btn>
                     <span translate>Save Session</span>
                 </button>
-                <button class="btn btn-sm btn-danger" ng-click="shutdown()">
+                <button class="btn btn-sm btn-danger" ng-click="shutdown()" ng-if="context.shouldEnableShutdown">
                     <span translate>Shutdown Aria2</span>
                 </button>
             </div>
