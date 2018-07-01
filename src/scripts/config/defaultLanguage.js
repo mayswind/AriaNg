@@ -270,7 +270,7 @@
                     'unauthorized': 'Authorization Failed!'
                 }
             },
-            'options': {
+            'option': {
                 'true': 'True',
                 'false': 'False',
                 'default': 'Default',
@@ -308,7 +308,9 @@
                 'SSLv3': 'SSLv3',
                 'TLSv1': 'TLSv1',
                 'TLSv1.1': 'TLSv1.1',
-                'TLSv1.2': 'TLSv1.2',
+                'TLSv1.2': 'TLSv1.2'
+            },
+            'options': {
                 'dir.name': 'Download Path',
                 'dir.description': '',
                 'log.name': 'Log File',

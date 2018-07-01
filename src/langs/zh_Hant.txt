@@ -1,4 +1,4 @@
-[default]
+[global]
 Operation Succeeded=操作成功
 Connection Succeeded=連線成功
 Error=錯誤
@@ -264,7 +264,7 @@ debug.latest-logs=最近 {{count}} 條記錄
 [rpc.error]
 unauthorized=認證失敗!
 
-[options]
+[option]
 true=是
 false=否
 default=預設
@@ -289,6 +289,8 @@ feedback=反饋
 geom=幾何
 inorder=順序
 random=隨機
+
+[options]
 dir.name=下載路徑
 dir.description=
 log.name=記錄檔案

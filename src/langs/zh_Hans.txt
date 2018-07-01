@@ -1,4 +1,4 @@
-[default]
+[global]
 Operation Succeeded=操作成功
 Connection Succeeded=连接成功
 Error=错误
@@ -264,7 +264,7 @@ debug.latest-logs=最近 {{count}} 条日志
 [rpc.error]
 unauthorized=认证失败!
 
-[options]
+[option]
 true=是
 false=否
 default=默认
@@ -289,6 +289,8 @@ feedback=反馈
 geom=几何
 inorder=顺序
 random=随机
+
+[options]
 dir.name=下载路径
 dir.description=
 log.name=日志文件

@@ -28,7 +28,7 @@
                 category = category.substring(1, category.length - 1);
             }
 
-            if (category === 'default') {
+            if (category === 'global') {
                 return currentCategory;
             }
 

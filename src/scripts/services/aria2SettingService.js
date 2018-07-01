@@ -157,7 +157,7 @@
 
                         for (var j = 0; j < option.options.length; j++) {
                             availableOptions.push({
-                                name: 'options.' + option.options[j],
+                                name: 'option.' + option.options[j],
                                 value: option.options[j]
                             });
                         }
