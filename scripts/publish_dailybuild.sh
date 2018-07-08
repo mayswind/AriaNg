@@ -3,7 +3,7 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   git config --global user.email "CircleCI";
 
   echo "Publishing daily build...";
-  git clone https://github.com/mayswind/AriaNg-DailyBuild.git $HOME/AriaNg-DailyBuild/
+  git clone git@github.com:mayswind/AriaNg-DailyBuild.git $HOME/AriaNg-DailyBuild/
 
   rm -rf $HOME/AriaNg-DailyBuild/*
   cp dist/* $HOME/AriaNg-DailyBuild/ -r;
