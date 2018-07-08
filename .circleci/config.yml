@@ -24,7 +24,8 @@ jobs:
     steps:
       - restore_cache:
           key: v1-ariang-{{ .Environment.CIRCLE_SHA1 }}
-       - add_ssh_keys
+      - add_ssh_keys:
+          fingerprints: 
       - run: bash ./scripts/publish_dailybuild.sh
 
 workflows:
