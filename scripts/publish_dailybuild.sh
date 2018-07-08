@@ -2,6 +2,8 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   git config --global user.name "CircleCI";
   git config --global user.email "CircleCI";
 
+  ssh -o StrictHostKeyChecking=no git@github.com
+
   echo "Publishing daily build...";
   git clone git@github.com:mayswind/AriaNg-DailyBuild.git $HOME/AriaNg-DailyBuild/
 
