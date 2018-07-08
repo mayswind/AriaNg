@@ -147,6 +147,8 @@
             'Reset Settings': 'Reset Settings',
             'Confirm Reset': 'Confirm Reset',
             'Are you sure you want to reset all settings?': 'Are you sure you want to reset all settings?',
+            'Clear Settings History': 'Clear Settings History',
+            'Are you sure you want to clear all settings history?': 'Are you sure you want to clear all settings history?',
             'Delete RPC Setting': 'Delete RPC Setting',
             'Add New RPC Setting': 'Add New RPC Setting',
             'Are you sure you want to remove rpc setting "{{rpcName}}"?': 'Are you sure you want to remove rpc setting "{{rpcName}}"?',

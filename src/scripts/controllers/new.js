@@ -5,6 +5,14 @@
         var tabOrders = ['links', 'options'];
         var parameters = $location.search();
 
+        var saveDownloadPath = function (options) {
+            if (!options || !options.dir) {
+                return;
+            }
+
+            aria2SettingService.addSettingHistory('dir', options.dir);
+        };
+
         var downloadByLinks = function (pauseOnAdded, responseCallback) {
             var urls = ariaNgCommonService.parseUrlsFromOriginInput($scope.context.urls);
             var options = angular.copy($scope.context.options);
@@ -21,6 +29,8 @@
                 });
             }
 
+            saveDownloadPath(options);
+
             return aria2TaskService.newUriTasks(tasks, pauseOnAdded, responseCallback);
         };
 
@@ -30,6 +40,8 @@
                 options: angular.copy($scope.context.options)
             };
 
+            saveDownloadPath(options);
+
             return aria2TaskService.newTorrentTask(task, pauseOnAdded, responseCallback);
         };
 
@@ -38,6 +50,8 @@
                 content: $scope.context.uploadFile.base64Content,
                 options: angular.copy($scope.context.options)
             };
+
+            saveDownloadPath(options);
 
             return aria2TaskService.newMetalinkTask(task, pauseOnAdded, responseCallback);
         };

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$translate', 'ariaNgConstants', function ($timeout, $translate, ariaNgConstants) {
+    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$q', '$translate', 'ariaNgConstants', 'aria2SettingService', function ($timeout, $q, $translate, ariaNgConstants, aria2SettingService) {
         return {
             restrict: 'E',
             templateUrl: 'views/setting.html',
@@ -21,6 +21,14 @@
                 };
 
                 angular.extend(options, attrs);
+
+                var loadHistory = function () {
+                    if (!scope.option || !scope.option.showHistory) {
+                        return;
+                    }
+
+                    scope.history = aria2SettingService.getSettingHistory(scope.option.key);
+                };
 
                 var destroyTooltip = function () {
                     angular.element(element).tooltip('destroy');
@@ -229,6 +237,20 @@
                     }
                 };
 
+                scope.filterHistory = function (userInput) {
+                    var result = [];
+
+                    if (scope.history && userInput) {
+                        for (var i = 0; i < scope.history.length; i++) {
+                            if (scope.history[i].indexOf(userInput) === 0) {
+                                result.push(scope.history[i]);
+                            }
+                        }
+                    }
+
+                    return $q.resolve(result);
+                };
+
                 if (ngModel) {
                     scope.$watch(function () {
                         return ngModel.$viewValue;
@@ -238,6 +260,7 @@
                 }
 
                 scope.$watch('option', function () {
+                    loadHistory();
                     element.find('[data-toggle="popover"]').popover();
                 });
 
@@ -257,6 +280,8 @@
 
                     scope.placeholder = getHumanReadableValue(displayValue);
                 });
+
+                loadHistory();
             }
         };
     }]);

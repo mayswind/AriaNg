@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'aria2SettingService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, aria2SettingService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
         var extendType = $routeParams.extendType;
         var lastRefreshPageNotification = null;
 
@@ -199,6 +199,13 @@
         $scope.resetSettings = function () {
             ariaNgCommonService.confirm('Confirm Reset', 'Are you sure you want to reset all settings?', 'warning', function () {
                 ariaNgSettingService.resetSettings();
+                $window.location.reload();
+            });
+        };
+
+        $scope.clearHistory = function () {
+            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear all settings history?', 'warning', function () {
+                aria2SettingService.clearSettingsHistorys();
                 $window.location.reload();
             });
         };

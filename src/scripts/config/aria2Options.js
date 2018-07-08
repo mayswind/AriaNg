@@ -889,12 +889,14 @@
         //     category: 'global|http|bittorrent',
         //     [canShow: 'new|active|waiting|paused',] // possible to show in specific status, supporting multiple choice. if not set, always show
         //     [canUpdate: 'new|active|waiting|paused',] // possible to write in specific status, supporting multiple choice. if not set, always writable
+        //     [showHistory: true|false,] // show history under the input box, only supporting "string" type. if not set, this is set to false
         // }
         taskOptions: [
             {
                 key: 'dir',
                 category: 'global',
-                canUpdate: 'new'
+                canUpdate: 'new',
+                showHistory: true
             },
             {
                 key: 'out',

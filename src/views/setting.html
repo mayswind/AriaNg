@@ -12,8 +12,14 @@
         <div ng-class="{'input-group': !!option.suffix}">
             <div class="form-group has-feedback" ng-class="[optionStatus.getStatusFeedbackStyle()]">
                 <input class="form-control" type="text" placeholder="{{::placeholder}}" ng-disabled="!!option.readonly"
-                       ng-if="option.type === 'string' || option.type === 'integer' || option.type === 'float'"
+                       ng-if="(option.type === 'string' && !option.showHistory) || option.type === 'integer' || option.type === 'float'"
                        ng-model="optionValue" ng-change="changeValue(optionValue, true)"/>
+                <input-dropdown input-class-name="form-control" style="width: 100%;" input-placeholder="{{::placeholder}}"
+                                ng-if="option.type === 'string' && option.showHistory" disabled="!!option.readonly"
+                                ng-model="optionValue" selected-item="optionValue" allow-custom-input="true"
+                                only-show-non-empty-dropdown="true" default-dropdown-items="history"
+                                filter-list-method="filterHistory(userInput)"
+                                value-changed-method="changeValue(value, from === 'input')"></input-dropdown>
                 <textarea class="form-control" rows="6" placeholder="{{::placeholder}}" ng-disabled="!!option.readonly"
                           ng-if="option.type === 'text'"
                           ng-model="optionValue" ng-change="changeValue(optionValue, true)"></textarea>
