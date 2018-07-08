@@ -10,8 +10,8 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm install -g bower
-      - run: npm install -g gulp
+      - run: sudo npm install -g bower
+      - run: sudo npm install -g gulp
       - run: bower install
       - run: gulp clean build
   publish_daily_build:
