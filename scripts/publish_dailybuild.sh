@@ -3,12 +3,12 @@ if [ $CI == "true" ] && [ $CIRCLE_BRANCH == "master" ]; then
   git config --global user.email "CircleCI";
 
   echo "Publishing daily build...";
-  git clone https://github.com/mayswind/AriaNg-DailyBuild.git $CIRCLE_ARTIFACTS/AriaNg-DailyBuild/
+  git clone https://github.com/mayswind/AriaNg-DailyBuild.git $ARIANG_WORKING_DIR/AriaNg-DailyBuild/
 
-  rm -rf $CIRCLE_ARTIFACTS/AriaNg-DailyBuild/*
-  cp dist/* $CIRCLE_ARTIFACTS/AriaNg-DailyBuild/ -r;
+  rm -rf $ARIANG_WORKING_DIR/AriaNg-DailyBuild/*
+  cp dist/* $ARIANG_WORKING_DIR/AriaNg-DailyBuild/ -r;
 
-  cd $CIRCLE_ARTIFACTS/AriaNg-DailyBuild/;
+  cd $ARIANG_WORKING_DIR/AriaNg-DailyBuild/;
 
   git add -A;
   git commit -a -m "daily build #$CIRCLE_SHA1";
