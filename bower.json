@@ -51,7 +51,7 @@
     "angular-busy": "^4.1.4",
     "angular-promise-buttons": "^0.1.23",
     "angular-clipboard": "^1.6.2",
-    "angular-input-dropdown": "mayswind/angular-input-dropdown#33e48a818215b9d582f5db8d3b59fce4ed6b92c7",
+    "angular-input-dropdown": "mayswind/angular-input-dropdown#68670e39816698b3eb98c0e740a0efe77d5fbdd1",
     "angularjs-dragula": "^2.0.0",
     "ngSweetAlert": "^1.1.2"
   },
