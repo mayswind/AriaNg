@@ -40,7 +40,7 @@
                 options: angular.copy($scope.context.options)
             };
 
-            saveDownloadPath(options);
+            saveDownloadPath(task.options);
 
             return aria2TaskService.newTorrentTask(task, pauseOnAdded, responseCallback);
         };
@@ -51,7 +51,7 @@
                 options: angular.copy($scope.context.options)
             };
 
-            saveDownloadPath(options);
+            saveDownloadPath(task.options);
 
             return aria2TaskService.newMetalinkTask(task, pauseOnAdded, responseCallback);
         };
