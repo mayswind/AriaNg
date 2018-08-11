@@ -212,6 +212,7 @@ URL is not base64 encoded!=指定 URL 不是 Base64 編碼後的字串!
 Tap to configure and get started with AriaNg.=您還沒有進行過設定, 點選這裡進行設定.
 Cannot initialize WebSocket!=無法初始化 WebSocket!
 Access Denied!=拒絕訪問!
+You cannot use AriaNg because this browser does not support data storage.=您無法使用 AriaNg, 您的瀏覽器不支援資料儲存.
 
 [error]
 unknown=不詳錯誤.

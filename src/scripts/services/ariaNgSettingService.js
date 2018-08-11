@@ -2,6 +2,17 @@
     'use strict';
 
     angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService) {
+        var browserFeatures = (function () {
+            var supportLocalStroage = localStorageService.isSupported;
+            var supportCookies = $window.navigator.cookieEnabled;
+
+            return {
+                localStroage: supportLocalStroage,
+                cookies: supportCookies
+            };
+        })();
+        var browserSupportStorage = browserFeatures.localStroage || browserFeatures.cookies;
+
         var onFirstVisitCallbacks = [];
         var firstVisitCallbackfired = false;
         var sessionSettings = {
@@ -9,6 +20,10 @@
         };
 
         var fireFirstVisitEvent = function () {
+            if (!browserSupportStorage) {
+                return;
+            }
+
             if (firstVisitCallbackfired || !angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
                 return;
             }
@@ -182,6 +197,12 @@
         };
 
         return {
+            isBrowserSupportStorage: function () {
+                return browserSupportStorage;
+            },
+            getBrowserFeatures: function () {
+                return browserFeatures;
+            },
             getAllOptions: function () {
                 var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
 

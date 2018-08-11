@@ -22,6 +22,24 @@ td {
     vertical-align: middle !important;
 }
 
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false);
+}
+
+.disable-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    cursor: not-allowed;
+}
+
 .main-header .logo {
     overflow: visible;
 }

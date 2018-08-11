@@ -217,6 +217,7 @@
             'Tap to configure and get started with AriaNg.': 'Tap to configure and get started with AriaNg.',
             'Cannot initialize WebSocket!': 'Cannot initialize WebSocket!',
             'Access Denied!': 'Access Denied!',
+            'You cannot use AriaNg because this browser does not support data storage.': 'You cannot use AriaNg because this browser does not support data storage.',
             'error': {
                 'unknown': 'Unknown error occurred.',
                 'operation.timeout': 'Operation timed out.',

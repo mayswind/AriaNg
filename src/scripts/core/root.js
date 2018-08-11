@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgNotificationService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $location, $document, SweetAlert, ariaNgNotificationService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgNotificationService', 'ariaNgSettingService', 'ariaNgLogService', 'aria2TaskService', function ($rootScope, $location, $document, SweetAlert, ariaNgNotificationService, ariaNgSettingService, ariaNgLogService, aria2TaskService) {
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -20,6 +20,29 @@
             }
 
             return false;
+        };
+
+        var initCheck = function () {
+            var browserFeatures = ariaNgSettingService.getBrowserFeatures();
+
+            if (!browserFeatures.localStroage) {
+                ariaNgLogService.warn('[root.initCheck] LocalStorage is not supported!');
+            }
+
+            if (!browserFeatures.cookies) {
+                ariaNgLogService.warn('[root.initCheck] Cookies is not supported!');
+            }
+
+            if (!ariaNgSettingService.isBrowserSupportStorage()) {
+                angular.element('body').prepend('<div class="disable-overlay"></div>');
+                angular.element('.main-sidebar').addClass('blur');
+                angular.element('.navbar').addClass('blur');
+                angular.element('.content-body').addClass('blur');
+                ariaNgNotificationService.notifyInPage('', 'You cannot use AriaNg because this browser does not support data storage.', {
+                    type: 'error',
+                    delay: false
+                });
+            }
         };
 
         var initNavbar = function () {
@@ -219,6 +242,7 @@
             $document.unbind('keypress');
         });
 
+        initCheck();
         initNavbar();
     }]);
 }());
