@@ -3,12 +3,13 @@
 
     angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService) {
         var onFirstVisitCallbacks = [];
+        var firstVisitCallbackfired = false;
         var sessionSettings = {
             debugMode: false
         };
 
         var fireFirstVisitEvent = function () {
-            if (!angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
+            if (firstVisitCallbackfired || !angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
                 return;
             }
 
@@ -16,6 +17,8 @@
                 var callback = onFirstVisitCallbacks[i];
                 callback();
             }
+
+            firstVisitCallbackfired = true;
         };
 
         var isInsecureProtocolDisabled = function () {
