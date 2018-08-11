@@ -277,6 +277,15 @@
             setBrowserNotification: function (value) {
                 setOption('browserNotification', value);
             },
+            getCurrentRpcDisplayName: function () {
+                var options = getOptions();
+
+                if (options.rpcAlias) {
+                    return options.rpcAlias;
+                }
+
+                return options.rpcHost + ':' + options.rpcPort;
+            },
             getCurrentRpcUrl: function () {
                 var options = getOptions();
                 var protocol = options.protocol;

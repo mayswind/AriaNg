@@ -1,6 +1,6 @@
 [global]
 Operation Succeeded=操作成功
-Connection Succeeded=連線成功
+{{name}} is connected={{name}} 已連線
 Error=錯誤
 OK=確定
 Confirm=確認

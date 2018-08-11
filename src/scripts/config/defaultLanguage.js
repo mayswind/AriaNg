@@ -4,7 +4,7 @@
     angular.module('ariaNg').config(['$translateProvider', 'ariaNgConstants', function ($translateProvider, ariaNgConstants) {
         var defaultLanguageResource = {
             'Operation Succeeded': 'Operation Succeeded',
-            'Connection Succeeded': 'Connection Succeeded',
+            '{{name}} is connected': '{{name}} is connected',
             'Error': 'Error',
             'OK': 'OK',
             'Confirm': 'Confirm',

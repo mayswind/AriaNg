@@ -67,14 +67,14 @@
             });
         };
 
-        var fireCustomEvent = function (callbacks) {
+        var fireCustomEvent = function (callbacks, context) {
             if (!angular.isArray(callbacks) || callbacks.length < 1) {
                 return;
             }
 
             for (var i = 0; i < callbacks.length; i++) {
                 var callback = callbacks[i];
-                callback();
+                callback(context);
             }
         };
 
@@ -153,7 +153,10 @@
 
                     if (!isConnected) {
                         isConnected = true;
-                        fireCustomEvent(onFirstSuccessCallbacks);
+                        var firstSuccessContext = {
+                            rpcName: ariaNgSettingService.getCurrentRpcDisplayName()
+                        };
+                        fireCustomEvent(onFirstSuccessCallbacks, firstSuccessContext);
                     }
                 };
 

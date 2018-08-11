@@ -50,11 +50,11 @@
                 }
 
                 if (title) {
-                    title = $translate.instant(title);
+                    title = $translate.instant(title, options.titleParams);
                 }
 
                 if (content) {
-                    content = $translate.instant(content);
+                    content = $translate.instant(content, options.contentParams);
                 }
 
                 if (!content) {
