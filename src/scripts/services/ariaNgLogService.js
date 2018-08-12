@@ -1,13 +1,13 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgLogService', ['$log', 'moment', 'ariaNgConstants', function ($log, moment, ariaNgConstants) {
+    angular.module('ariaNg').factory('ariaNgLogService', ['$log', 'ariaNgConstants', function ($log, ariaNgConstants) {
         var enableDebugLog = false;
         var cachedDebugLogs = [];
 
         var createNewCacheLogItem = function (msg, level, obj) {
             return {
-                time: moment(),
+                time: new Date(),
                 level: level,
                 content: msg,
                 attachment: obj

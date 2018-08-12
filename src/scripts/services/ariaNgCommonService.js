@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, base64, SweetAlert, $translate, ariaNgConstants) {
+    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'moment', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, base64, moment, SweetAlert, $translate, ariaNgConstants) {
         return {
             generateUniqueId: function () {
                 var sourceId = ariaNgConstants.appPrefix + '_' + Math.round(new Date().getTime() / 1000) + '_' + Math.random();
@@ -214,6 +214,12 @@
                 });
 
                 return obj;
+            },
+            getCurrentUnixTime: function () {
+                return moment().format('X');
+            },
+            getLongTimeFronUnixTime: function (unixTime) {
+                return moment(unixTime, 'X').format('HH:mm:ss');
             },
             getTimeOptions: function (timeList, withDisabled) {
                 var options = [];

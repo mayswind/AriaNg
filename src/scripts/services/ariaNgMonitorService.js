@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', '$translate', 'moment', 'ariaNgConstants', function ($filter, $translate, moment, ariaNgConstants) {
+    angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', '$translate', 'ariaNgConstants', 'ariaNgCommonService', function ($filter, $translate, ariaNgConstants, ariaNgCommonService) {
         var currentGlobalStat = {};
         var storagesInMemory = {};
         var globalStorageKey = 'global';
@@ -32,7 +32,7 @@
                             return '<div>' + $translate.instant('No Data') + '</div>';
                         }
 
-                        var time = moment(params[0].name, 'X').format('HH:mm:ss');
+                        var time = ariaNgCommonService.getLongTimeFronUnixTime(params[0].name);
                         var uploadSpeed = $filter('readableVolume')(params[0].value) + '/s';
                         var downloadSpeed = $filter('readableVolume')(params[1].value) + '/s';
 
@@ -132,7 +132,7 @@
                     initStorage(key);
                 }
 
-                stat.time = moment().format('X');
+                stat.time = ariaNgCommonService.getCurrentUnixTime();
                 pushToStorage(key, stat);
             },
             getStatsData: function (key) {
