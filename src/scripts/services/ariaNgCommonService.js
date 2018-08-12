@@ -227,7 +227,7 @@
             getCurrentUnixTime: function () {
                 return moment().format('X');
             },
-            getLongTimeFronUnixTime: function (unixTime) {
+            getLongTimeFromUnixTime: function (unixTime) {
                 return moment(unixTime, 'X').format('HH:mm:ss');
             },
             getTimeOptions: function (timeList, withDisabled) {

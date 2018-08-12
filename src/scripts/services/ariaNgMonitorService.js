@@ -32,7 +32,7 @@
                             return '<div>' + $translate.instant('No Data') + '</div>';
                         }
 
-                        var time = ariaNgCommonService.getLongTimeFronUnixTime(params[0].name);
+                        var time = ariaNgCommonService.getLongTimeFromUnixTime(params[0].name);
                         var uploadSpeed = $filter('readableVolume')(params[0].value) + '/s';
                         var downloadSpeed = $filter('readableVolume')(params[1].value) + '/s';
 
