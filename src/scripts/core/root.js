@@ -42,6 +42,8 @@
                     type: 'error',
                     delay: false
                 });
+
+                throw new Error('You cannot use AriaNg because this browser does not support data storage.');
             }
         };
 
