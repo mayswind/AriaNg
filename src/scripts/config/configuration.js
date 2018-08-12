@@ -35,7 +35,6 @@
         $translateProvider.useLoader('ariaNgLanguageLoader')
             .useLoaderCache(true)
             .registerAvailableLanguageKeys(supportedLangs, languageAliases)
-            .determinePreferredLanguage()
             .fallbackLanguage(ariaNgConstants.defaultLanguage)
             .useSanitizeValueStrategy('escapeParameters');
 
