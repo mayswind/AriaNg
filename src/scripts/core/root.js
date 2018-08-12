@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'SweetAlert', 'ariaNgNotificationService', 'ariaNgSettingService', 'ariaNgLogService', 'aria2TaskService', function ($rootScope, $location, $document, SweetAlert, ariaNgNotificationService, ariaNgSettingService, ariaNgLogService, aria2TaskService) {
+    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgSettingService', 'ariaNgLogService', 'aria2TaskService', function ($rootScope, $location, $document, ariaNgCommonService, ariaNgNotificationService, ariaNgSettingService, ariaNgLogService, aria2TaskService) {
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -219,7 +219,7 @@
         });
 
         $rootScope.$on('$locationChangeStart', function (event) {
-            SweetAlert.close();
+            ariaNgCommonService.closeAllDialogs();
 
             $rootScope.loadPromise = null;
 

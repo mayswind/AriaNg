@@ -55,6 +55,9 @@
                     }
                 });
             },
+            closeAllDialogs: function () {
+                SweetAlert.close();
+            },
             getFileExtension: function (filePath) {
                 if (!filePath || filePath.lastIndexOf('.') < 0) {
                     return filePath;
