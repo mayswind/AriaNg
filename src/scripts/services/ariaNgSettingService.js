@@ -14,7 +14,7 @@
         var browserSupportStorage = browserFeatures.localStroage || browserFeatures.cookies;
 
         var onFirstVisitCallbacks = [];
-        var firstVisitCallbackfired = false;
+        var firstVisitCallbackFired = false;
         var sessionSettings = {
             debugMode: false
         };
@@ -24,7 +24,7 @@
                 return;
             }
 
-            if (firstVisitCallbackfired || !angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
+            if (firstVisitCallbackFired || !angular.isArray(onFirstVisitCallbacks) || onFirstVisitCallbacks.length < 1) {
                 return;
             }
 
@@ -33,7 +33,7 @@
                 callback();
             }
 
-            firstVisitCallbackfired = true;
+            firstVisitCallbackFired = true;
         };
 
         var isInsecureProtocolDisabled = function () {
