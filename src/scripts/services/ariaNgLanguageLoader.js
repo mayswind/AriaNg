@@ -107,7 +107,7 @@
                 return deferred.resolve(languageObject);
             }).catch(function onError(response) {
                 ariaNgLogService.warn('[ariaNgLanguageLoader] cannot get language resource');
-                ariaNgNotificationService.notifyInPage('', 'AriaNg cannot get the language resource, please check if the language resource exists and the browser has permission to get.', {
+                ariaNgNotificationService.notifyInPage('', 'AriaNg cannot get language resources, and will display in default language.', {
                     type: 'error',
                     delay: false
                 });
