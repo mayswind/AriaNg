@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'base64', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, base64, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, ariaNgFileService, aria2SettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, ariaNgFileService, aria2SettingService, aria2TaskService) {
         var tabOrders = ['links', 'options'];
         var parameters = $location.search();
 
@@ -79,7 +79,7 @@
 
         if (parameters.url) {
             try {
-                $scope.context.urls = base64.urldecode(parameters.url);
+                $scope.context.urls = ariaNgCommonService.base64UrlDecode(parameters.url);
             } catch (ex) {
                 ariaNgLogService.error('[NewTaskController] base64 decode error, url=' + parameters.url, ex);
             }

@@ -3,9 +3,18 @@
 
     angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'moment', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, base64, moment, SweetAlert, $translate, ariaNgConstants) {
         return {
+            base64Encode: function (value) {
+                return base64.encode(value);
+            },
+            base64Decode: function (value) {
+                return base64.decode(value);
+            },
+            base64UrlDecode: function (value) {
+                return base64.urldecode(value);
+            },
             generateUniqueId: function () {
                 var sourceId = ariaNgConstants.appPrefix + '_' + Math.round(new Date().getTime() / 1000) + '_' + Math.random();
-                var hashedId = base64.encode(sourceId);
+                var hashedId = this.base64Encode(sourceId);
 
                 return hashedId;
             },

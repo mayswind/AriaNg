@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', function ($window, $location, $filter, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService) {
         var browserFeatures = (function () {
             var supportLocalStroage = localStorageService.isSupported;
             var supportCookies = $window.navigator.cookieEnabled;
@@ -207,7 +207,7 @@
                 var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
 
                 if (options.secret) {
-                    options.secret = base64.decode(options.secret);
+                    options.secret = ariaNgCommonService.base64Decode(options.secret);
                 }
 
                 if (angular.isArray(options.extendRpcServers)) {
@@ -215,7 +215,7 @@
                         var rpcSetting = options.extendRpcServers[i];
 
                         if (rpcSetting.secret) {
-                            rpcSetting.secret = base64.decode(rpcSetting.secret);
+                            rpcSetting.secret = ariaNgCommonService.base64Decode(rpcSetting.secret);
                         }
                     }
                 }
@@ -333,7 +333,7 @@
             },
             getCurrentRpcSecret: function () {
                 var value = getOption('secret');
-                return (value ? base64.decode(value) : value);
+                return (value ? ariaNgCommonService.base64Decode(value) : value);
             },
             addNewRpcSetting: function () {
                 var options = getOptions();
@@ -366,7 +366,7 @@
                     value = Math.max(parseInt(value), 0);
                 } else if (field === 'secret') {
                     if (value) {
-                        value = base64.encode(value);
+                        value = ariaNgCommonService.base64Encode(value);
                     }
                 }
 
@@ -439,7 +439,7 @@
                     newDefaultSetting = cloneRpcSetting(setting);
 
                     if (newDefaultSetting.secret) {
-                        newDefaultSetting.secret = base64.encode(newDefaultSetting.secret);
+                        newDefaultSetting.secret = ariaNgCommonService.base64Encode(newDefaultSetting.secret);
                     }
                 }
 

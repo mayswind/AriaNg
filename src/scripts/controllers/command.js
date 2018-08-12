@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'base64', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $window, $location, $routeParams, base64, ariaNgDefaultOptions, ariaNgCommonService, ariaNgSettingService, aria2SettingService, aria2TaskService, ariaNgLogService) {
+    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $window, $location, $routeParams, ariaNgDefaultOptions, ariaNgCommonService, ariaNgSettingService, aria2SettingService, aria2TaskService, ariaNgLogService) {
         var path = $location.path();
 
         var doNewTaskCommand = function (url, params) {
             try {
-                url = base64.urldecode(url);
+                url = ariaNgCommonService.base64UrlDecode(url);
             } catch (ex) {
                 ariaNgCommonService.showError('URL is not base64 encoded!');
                 return false;
@@ -70,7 +70,7 @@
 
             if (secret) {
                 try {
-                    secret = base64.urldecode(secret);
+                    secret = ariaNgCommonService.base64UrlDecode(secret);
                 } catch (ex) {
                     ariaNgCommonService.showError('RPC secret is not base64 encoded!');
                     return false;

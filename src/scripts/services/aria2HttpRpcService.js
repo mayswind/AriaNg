@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'base64', 'ariaNgSettingService', 'ariaNgLogService', function ($http, base64, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var method = ariaNgSettingService.getCurrentRpcHttpMethod();
 
@@ -29,7 +29,7 @@
 
                 if (angular.isObject(value) || angular.isArray(value)) {
                     value = angular.toJson(value);
-                    value = base64.encode(value);
+                    value = ariaNgCommonService.base64Encode(value);
                     value = encodeURIComponent(value);
                 }
 
