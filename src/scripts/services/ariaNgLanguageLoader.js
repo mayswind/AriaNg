@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'localStorageService', 'ariaNgConstants', 'ariaNgLanguages', function ($http, $q, localStorageService, ariaNgConstants, ariaNgLanguages) {
+    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'localStorageService', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgNotificationService', 'ariaNgLogService', function ($http, $q, localStorageService, ariaNgConstants, ariaNgLanguages, ariaNgNotificationService, ariaNgLogService) {
         var getKeyValuePair = function (line) {
             for (var i = 0; i < line.length; i++) {
                 if (i > 0 && line.charAt(i - 1) !== '\\' && line.charAt(i) === '=') {
@@ -106,6 +106,11 @@
                 localStorageService.set(languageKey, languageObject);
                 return deferred.resolve(languageObject);
             }).catch(function onError(response) {
+                ariaNgLogService.warn('[ariaNgLanguageLoader] cannot get language resource');
+                ariaNgNotificationService.notifyInPage('', 'AriaNg cannot get the language resource, please check if the language resource exists and the browser has permission to get.', {
+                    type: 'error',
+                    delay: false
+                });
                 return deferred.reject(options.key);
             });
 
