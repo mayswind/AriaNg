@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['amMoment', 'moment', 'ariaNgSettingService', function (amMoment, moment, ariaNgSettingService) {
+    angular.module('ariaNg').run(['moment', 'ariaNgSettingService', function (moment, ariaNgSettingService) {
         var language = ariaNgSettingService.getLanguage();
 
         moment.updateLocale('zh-cn', {
