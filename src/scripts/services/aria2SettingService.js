@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2SettingService', ['localStorageService', 'ariaNgConstants', 'aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2QuickSettingsAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', 'ariaNgLogService', function (localStorageService, ariaNgConstants, aria2AllOptions, aria2GlobalAvailableOptions, aria2QuickSettingsAvailableOptions, aria2TaskAvailableOptions, aria2RpcService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2SettingService', ['ariaNgConstants', 'aria2AllOptions', 'aria2GlobalAvailableOptions', 'aria2QuickSettingsAvailableOptions', 'aria2TaskAvailableOptions', 'aria2RpcService', 'ariaNgLogService', 'ariaNgStorageService', function (ariaNgConstants, aria2AllOptions, aria2GlobalAvailableOptions, aria2QuickSettingsAvailableOptions, aria2TaskAvailableOptions, aria2RpcService, ariaNgLogService, ariaNgStorageService) {
         var processStatResult = function (stat) {
             if (!stat) {
                 return stat;
@@ -18,10 +18,6 @@
 
         var getSettingHistoryKey = function (key) {
             return ariaNgConstants.settingHistoryKeyPrefix + '.' + key;
-        };
-
-        var isSettingHistoryKey = function (key) {
-            return key.indexOf(ariaNgConstants.settingHistoryKeyPrefix + '.') === 0;
         };
 
         return {
@@ -191,7 +187,7 @@
                 }
 
                 var storageKey = getSettingHistoryKey(key);
-                var history = localStorageService.get(storageKey) || [];
+                var history = ariaNgStorageService.get(storageKey) || [];
                 var newHistory = [];
 
                 for (var i = 0; i < Math.min(history.length, ariaNgConstants.historyMaxStoreCount); i++) {
@@ -206,7 +202,7 @@
                 }
 
                 var storageKey = getSettingHistoryKey(key);
-                var history = localStorageService.get(storageKey) || [];
+                var history = ariaNgStorageService.get(storageKey) || [];
                 var newHistory = [];
                 newHistory.push(value);
 
@@ -216,17 +212,15 @@
                     }
                 }
 
-                localStorageService.set(storageKey, newHistory);
+                ariaNgStorageService.set(storageKey, newHistory);
 
                 return newHistory;
             },
             clearSettingsHistorys: function () {
-                var keys = localStorageService.keys();
+                var keys = ariaNgStorageService.keys(ariaNgConstants.settingHistoryKeyPrefix + '.');
 
                 for (var i = 0; i < keys.length; i++) {
-                    if (isSettingHistoryKey(keys[i])) {
-                        localStorageService.remove(keys[i]);
-                    }
+                    ariaNgStorageService.remove(keys[i]);
                 }
             },
             getGlobalOption: function (callback, silent) {

@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', function ($window, $location, $filter, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgStorageService', function ($window, $location, $filter, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService, ariaNgStorageService) {
         var browserFeatures = (function () {
-            var supportLocalStroage = localStorageService.isSupported;
-            var supportCookies = $window.navigator.cookieEnabled;
+            var supportLocalStroage = ariaNgStorageService.isLocalStorageSupported();
+            var supportCookies = ariaNgStorageService.isCookiesSupported();
 
             return {
                 localStroage: supportLocalStroage,
@@ -110,11 +110,11 @@
         };
 
         var setOptions = function (options) {
-            return localStorageService.set(ariaNgConstants.optionStorageKey, options);
+            return ariaNgStorageService.set(ariaNgConstants.optionStorageKey, options);
         };
 
         var getOptions = function () {
-            var options = localStorageService.get(ariaNgConstants.optionStorageKey);
+            var options = ariaNgStorageService.get(ariaNgConstants.optionStorageKey);
 
             if (options && !ariaNgLanguages[options.language]) {
                 options.language = getLanguageNameFromAliasOrDefaultLanguage(options.language);
@@ -146,7 +146,7 @@
         };
 
         var clearAll = function () {
-            return localStorageService.clearAll();
+            return ariaNgStorageService.clearAll();
         };
 
         var getOption = function (key) {

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'localStorageService', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgNotificationService', 'ariaNgLogService', function ($http, $q, localStorageService, ariaNgConstants, ariaNgLanguages, ariaNgNotificationService, ariaNgLogService) {
+    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgStorageService', function ($http, $q, ariaNgConstants, ariaNgLanguages, ariaNgNotificationService, ariaNgLogService, ariaNgStorageService) {
         var getKeyValuePair = function (line) {
             for (var i = 0; i < line.length; i++) {
                 if (i > 0 && line.charAt(i - 1) !== '\\' && line.charAt(i) === '=') {
@@ -90,7 +90,7 @@
             }
 
             var languageKey = ariaNgConstants.languageStorageKeyPrefix + '.' + options.key;
-            var languageResource = localStorageService.get(languageKey);
+            var languageResource = ariaNgStorageService.get(languageKey);
 
             if (languageResource) {
                 deferred.resolve(languageResource);
@@ -103,7 +103,7 @@
                 method: 'GET'
             }).then(function onSuccess(response) {
                 var languageObject = getLanguageObject(response.data);
-                localStorageService.set(languageKey, languageObject);
+                ariaNgStorageService.set(languageKey, languageObject);
                 return deferred.resolve(languageObject);
             }).catch(function onError(response) {
                 ariaNgLogService.warn('[ariaNgLanguageLoader] cannot get language resource');
