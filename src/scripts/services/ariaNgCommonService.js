@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'moment', 'SweetAlert', '$translate', 'ariaNgConstants', function ($location, $timeout, base64, moment, SweetAlert, $translate, ariaNgConstants) {
+    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'moment', 'SweetAlert', 'ariaNgConstants', function ($location, $timeout, base64, moment, SweetAlert, ariaNgConstants) {
         return {
             base64Encode: function (value) {
                 return base64.encode(value);
@@ -18,13 +18,13 @@
 
                 return hashedId;
             },
-            showDialog: function (title, text, type, callback) {
+            showDialog: function (title, text, type, callback, options) {
                 $timeout(function () {
                     SweetAlert.swal({
-                        title: $translate.instant(title),
-                        text: $translate.instant(text),
+                        title: title,
+                        text: text,
                         type: type,
-                        confirmButtonText: $translate.instant('OK')
+                        confirmButtonText: options && options.confirmButtonText || null
                     }, function () {
                         if (callback) {
                             callback();
@@ -32,22 +32,16 @@
                     });
                 }, 100);
             },
-            showError: function (text, callback) {
-                this.showDialog('Error', text, 'error', callback);
-            },
-            showOperationSucceeded: function (text, callback) {
-                this.showDialog('Operation Succeeded', text, 'success', callback);
-            },
             confirm: function (title, text, type, callback, notClose, extendSettings) {
                 var options = {
-                    title: $translate.instant(title),
-                    text: $translate.instant(text, (angular.isObject(extendSettings) ? extendSettings.textParams : null)),
+                    title: title,
+                    text: text,
                     type: type,
                     showCancelButton: true,
                     showLoaderOnConfirm: !!notClose,
                     closeOnConfirm: !notClose,
-                    confirmButtonText: $translate.instant('OK'),
-                    cancelButtonText: $translate.instant('Cancel')
+                    confirmButtonText: extendSettings && extendSettings.confirmButtonText || null,
+                    cancelButtonText: extendSettings && extendSettings.cancelButtonText || null
                 };
 
                 if (type === 'warning') {
@@ -229,6 +223,9 @@
             },
             getLongTimeFromUnixTime: function (unixTime) {
                 return moment(unixTime, 'X').format('HH:mm:ss');
+            },
+            formatDateTime: function (datetime, format) {
+                return moment(datetime).format(format);
             },
             getTimeOptions: function (timeList, withDisabled) {
                 var options = [];

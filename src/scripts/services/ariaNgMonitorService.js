@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', '$translate', 'ariaNgConstants', 'ariaNgCommonService', function ($filter, $translate, ariaNgConstants, ariaNgCommonService) {
+    angular.module('ariaNg').factory('ariaNgMonitorService', ['$filter', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgLocalizationService', function ($filter, ariaNgConstants, ariaNgCommonService, ariaNgLocalizationService) {
         var currentGlobalStat = {};
         var storagesInMemory = {};
         var globalStorageKey = 'global';
@@ -29,7 +29,7 @@
                     show: true,
                     formatter: function (params) {
                         if (params[0].name === '') {
-                            return '<div>' + $translate.instant('No Data') + '</div>';
+                            return '<div>' + ariaNgLocalizationService.getLocalizedText('No Data') + '</div>';
                         }
 
                         var time = ariaNgCommonService.getLongTimeFromUnixTime(params[0].name);

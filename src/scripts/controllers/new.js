@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'ariaNgFileService', 'aria2SettingService', 'aria2TaskService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, ariaNgFileService, aria2SettingService, aria2TaskService) {
+    angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var tabOrders = ['links', 'options'];
         var parameters = $location.search();
 
@@ -133,7 +133,7 @@
                 $scope.context.taskType = 'torrent';
                 $scope.changeTab('options');
             }, function (error) {
-                ariaNgCommonService.showError(error);
+                ariaNgLocalizationService.showError(error);
             }, angular.element('#file-holder'));
         };
 
@@ -143,7 +143,7 @@
                 $scope.context.taskType = 'metalink';
                 $scope.changeTab('options');
             }, function (error) {
-                ariaNgCommonService.showError(error);
+                ariaNgLocalizationService.showError(error);
             }, angular.element('#file-holder'));
         };
 

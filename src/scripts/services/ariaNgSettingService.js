@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', function ($window, $location, $filter, $translate, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', function ($window, $location, $filter, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService) {
         var browserFeatures = (function () {
             var supportLocalStroage = localStorageService.isSupported;
             var supportCookies = $window.navigator.cookieEnabled;
@@ -247,23 +247,16 @@
             isInsecureProtocolDisabled: function () {
                 return isInsecureProtocolDisabled();
             },
-            applyLanguage: function (lang) {
-                if (!ariaNgLanguages[lang]) {
-                    return false;
-                }
-
-                $translate.use(lang);
-                amMoment.changeLocale(lang);
-
-                return true;
-            },
             getLanguage: function () {
                 return getOption('language');
             },
             setLanguage: function (value) {
-                if (this.applyLanguage(value)) {
-                    setOption('language', value);
+                if (!ariaNgLanguages[value]) {
+                    return false;
                 }
+
+                setOption('language', value);
+                return true;
             },
             isEnableDebugMode: function () {
                 return sessionSettings.debugMode;

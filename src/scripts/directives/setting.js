@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$q', '$translate', 'ariaNgConstants', 'aria2SettingService', function ($timeout, $q, $translate, ariaNgConstants, aria2SettingService) {
+    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$q', 'ariaNgConstants', 'ariaNgLocalizationService', 'aria2SettingService', function ($timeout, $q, ariaNgConstants, ariaNgLocalizationService, aria2SettingService) {
         return {
             restrict: 'E',
             templateUrl: 'views/setting.html',
@@ -47,7 +47,7 @@
                         }
 
                         angular.element(element).tooltip({
-                            title: $translate.instant(cause, causeParams),
+                            title: ariaNgLocalizationService.getLocalizedText(cause, causeParams),
                             trigger: 'focus',
                             placement: 'auto top',
                             container: element,

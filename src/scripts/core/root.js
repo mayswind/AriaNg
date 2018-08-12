@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgSettingService', 'ariaNgLogService', 'aria2TaskService', function ($rootScope, $location, $document, ariaNgCommonService, ariaNgNotificationService, ariaNgSettingService, ariaNgLogService, aria2TaskService) {
+    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $location, $document, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -38,7 +38,7 @@
                 angular.element('.main-sidebar').addClass('blur');
                 angular.element('.navbar').addClass('blur');
                 angular.element('.content-body').addClass('blur');
-                ariaNgNotificationService.notifyInPage('', 'You cannot use AriaNg because this browser does not support data storage.', {
+                ariaNgLocalizationService.notifyInPage('', 'You cannot use AriaNg because this browser does not support data storage.', {
                     type: 'error',
                     delay: false
                 });
@@ -181,7 +181,7 @@
         };
 
         ariaNgSettingService.onFirstAccess(function () {
-            ariaNgNotificationService.notifyInPage('', 'Tap to configure and get started with AriaNg.', {
+            ariaNgLocalizationService.notifyInPage('', 'Tap to configure and get started with AriaNg.', {
                 delay: false,
                 onClose: function () {
                     $location.path('/settings/ariang');
@@ -190,7 +190,7 @@
         });
 
         aria2TaskService.onFirstSuccess(function (event) {
-            ariaNgNotificationService.notifyInPage('', '{{name}} is connected', {
+            ariaNgLocalizationService.notifyInPage('', '{{name}} is connected', {
                 type: 'success',
                 contentParams: {
                     name: event.rpcName
@@ -207,15 +207,15 @@
         });
 
         aria2TaskService.onTaskCompleted(function (event) {
-            ariaNgNotificationService.notifyTaskComplete(event.task);
+            ariaNgLocalizationService.notifyTaskComplete(event.task);
         });
 
         aria2TaskService.onBtTaskCompleted(function (event) {
-            ariaNgNotificationService.notifyBtTaskComplete(event.task);
+            ariaNgLocalizationService.notifyBtTaskComplete(event.task);
         });
 
         aria2TaskService.onTaskErrorOccur(function (event) {
-            ariaNgNotificationService.notifyTaskError(event.task);
+            ariaNgLocalizationService.notifyTaskError(event.task);
         });
 
         $rootScope.$on('$locationChangeStart', function (event) {

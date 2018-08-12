@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgTitleService', ['$filter', '$translate', 'ariaNgConstants', 'ariaNgSettingService', function ($filter, $translate, ariaNgConstants, ariaNgSettingService) {
+    angular.module('ariaNg').factory('ariaNgTitleService', ['$filter', 'ariaNgConstants', 'ariaNgLocalizationService', 'ariaNgSettingService', function ($filter, ariaNgConstants, ariaNgLocalizationService, ariaNgSettingService) {
         var parseSettings = function (placeholder) {
             if (!placeholder) {
                 return {};
@@ -63,28 +63,28 @@
 
         var replaceDownloadingCount = function (title, value) {
             return replacePlaceholders(title, 'downloading', {
-                prefix: $translate.instant('Downloading') + ': ',
+                prefix: ariaNgLocalizationService.getLocalizedText('Downloading') + ': ',
                 value: value
             });
         };
 
         var replaceWaitingCount = function (title, value) {
             return replacePlaceholders(title, 'waiting', {
-                prefix: $translate.instant('Waiting') + ': ',
+                prefix: ariaNgLocalizationService.getLocalizedText('Waiting') + ': ',
                 value: value
             });
         };
 
         var replaceStoppedCount = function (title, value) {
             return replacePlaceholders(title, 'stopped', {
-                prefix: $translate.instant('Finished / Stopped') + ': ',
+                prefix: ariaNgLocalizationService.getLocalizedText('Finished / Stopped') + ': ',
                 value: value
             });
         };
 
         var replaceDownloadSpeed = function (title, value) {
             return replacePlaceholders(title, 'downspeed', {
-                prefix: $translate.instant('Download') + ': ',
+                prefix: ariaNgLocalizationService.getLocalizedText('Download') + ': ',
                 value: value,
                 type: 'volume',
                 suffix: '/s'
@@ -93,7 +93,7 @@
 
         var replaceUploadSpeed = function (title, value) {
             return replacePlaceholders(title, 'upspeed', {
-                prefix: $translate.instant('Upload') + ': ',
+                prefix: ariaNgLocalizationService.getLocalizedText('Upload') + ': ',
                 value: value,
                 type: 'volume',
                 suffix: '/s'

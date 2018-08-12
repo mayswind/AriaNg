@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgDebugController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($rootScope, $scope, $location, $timeout, ariaNgConstants, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').controller('AriaNgDebugController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgConstants', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', function ($rootScope, $scope, $location, $timeout, ariaNgConstants, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService) {
         $scope.logMaxCount = ariaNgConstants.cachedDebugLogsLimit;
         $scope.currentLog = null;
 
@@ -24,7 +24,7 @@
 
         $rootScope.loadPromise = $timeout(function () {
             if (!ariaNgSettingService.isEnableDebugMode()) {
-                ariaNgCommonService.showError('Access Denied!', function () {
+                ariaNgLocalizationService.showError('Access Denied!', function () {
                     if (!ariaNgSettingService.isEnableDebugMode()) {
                         $location.path('/settings/ariang');
                     }

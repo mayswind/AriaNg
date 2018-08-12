@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').filter('longDate', ['$translate', 'moment', function ($translate, moment) {
+    angular.module('ariaNg').filter('longDate', ['ariaNgCommonService', 'ariaNgLocalizationService', function (ariaNgCommonService, ariaNgLocalizationService) {
         return function (time) {
-            var format = $translate.instant('format.longdate');
-            return moment(time).format(format);
+            var format = ariaNgLocalizationService.getLongDateFormat();
+            return ariaNgCommonService.formatDateTime(time, format);
         };
     }]);
 }());

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'aria2SettingService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'ariaNgTitleService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, aria2SettingService, ariaNgSettingService, ariaNgMonitorService, ariaNgNotificationService, ariaNgTitleService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
         var extendType = $routeParams.extendType;
         var lastRefreshPageNotification = null;
 
@@ -20,7 +20,7 @@
                 $window.location.reload();
             };
 
-            lastRefreshPageNotification = ariaNgNotificationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
+            lastRefreshPageNotification = ariaNgLocalizationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
                 delay: false,
                 type: 'info',
                 templateUrl: 'setting-changed-notification.html',
@@ -100,7 +100,10 @@
         };
 
         $scope.setLanguage = function (value) {
-            ariaNgSettingService.setLanguage(value);
+            if (ariaNgSettingService.setLanguage(value)) {
+                ariaNgLocalizationService.applyLanguage(value);
+            }
+
             $scope.updateTitlePreview();
         };
 
@@ -137,7 +140,7 @@
                 ariaNgNotificationService.requestBrowserPermission(function (permission) {
                     if (!ariaNgNotificationService.isPermissionGranted(permission)) {
                         $scope.context.settings.browserNotification = false;
-                        ariaNgCommonService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
+                        ariaNgLocalizationService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
                     }
                 });
             }
@@ -170,7 +173,7 @@
         $scope.removeRpcSetting = function (setting) {
             var rpcName = (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort);
 
-            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{{rpcName}}"?', 'warning', function () {
+            ariaNgLocalizationService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{{rpcName}}"?', 'warning', function () {
                 setNeedRefreshPage();
 
                 var index = $scope.context.rpcSettings.indexOf(setting);
@@ -197,14 +200,14 @@
         };
 
         $scope.resetSettings = function () {
-            ariaNgCommonService.confirm('Confirm Reset', 'Are you sure you want to reset all settings?', 'warning', function () {
+            ariaNgLocalizationService.confirm('Confirm Reset', 'Are you sure you want to reset all settings?', 'warning', function () {
                 ariaNgSettingService.resetSettings();
                 $window.location.reload();
             });
         };
 
         $scope.clearHistory = function () {
-            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear all settings history?', 'warning', function () {
+            ariaNgLocalizationService.confirm('Confirm Clear', 'Are you sure you want to clear all settings history?', 'warning', function () {
                 aria2SettingService.clearSettingsHistorys();
                 $window.location.reload();
             });

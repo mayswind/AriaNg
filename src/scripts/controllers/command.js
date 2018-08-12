@@ -1,14 +1,14 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgSettingService', 'aria2SettingService', 'aria2TaskService', 'ariaNgLogService', function ($rootScope, $window, $location, $routeParams, ariaNgDefaultOptions, ariaNgCommonService, ariaNgSettingService, aria2SettingService, aria2TaskService, ariaNgLogService) {
+    angular.module('ariaNg').controller('CommandController', ['$rootScope', '$window', '$location', '$routeParams', 'ariaNgDefaultOptions', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $window, $location, $routeParams, ariaNgDefaultOptions, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var path = $location.path();
 
         var doNewTaskCommand = function (url, params) {
             try {
                 url = ariaNgCommonService.base64UrlDecode(url);
             } catch (ex) {
-                ariaNgCommonService.showError('URL is not base64 encoded!');
+                ariaNgLocalizationService.showError('URL is not base64 encoded!');
                 return false;
             }
 
@@ -59,12 +59,12 @@
             ariaNgLogService.info('[CommandController] set rpc: ' + rpcProtocol + '://' + rpcHost + ':' + rpcPort + '/' + rpcInterface + ', secret: ' + secret);
 
             if (!rpcProtocol || (rpcProtocol !== 'http' && rpcProtocol !== 'https' && rpcProtocol !== 'ws' && rpcProtocol !== 'wss')) {
-                ariaNgCommonService.showError('Protocol is invalid!');
+                ariaNgLocalizationService.showError('Protocol is invalid!');
                 return false;
             }
 
             if (!rpcHost) {
-                ariaNgCommonService.showError('RPC host cannot be empty!');
+                ariaNgLocalizationService.showError('RPC host cannot be empty!');
                 return false;
             }
 
@@ -72,7 +72,7 @@
                 try {
                     secret = ariaNgCommonService.base64UrlDecode(secret);
                 } catch (ex) {
-                    ariaNgCommonService.showError('RPC secret is not base64 encoded!');
+                    ariaNgLocalizationService.showError('RPC secret is not base64 encoded!');
                     return false;
                 }
             }
@@ -108,7 +108,7 @@
             } else if (path.indexOf('/settings/rpc/set') === 0) {
                 return doSetRpcCommand(params.protocol, params.host, params.port, params.interface, params.secret);
             } else {
-                ariaNgCommonService.showError('Parameter is invalid!');
+                ariaNgLocalizationService.showError('Parameter is invalid!');
                 return false;
             }
         };

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$window', '$location', '$document', '$interval', 'clipboard', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgTitleService', 'ariaNgMonitorService', 'ariaNgNotificationService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $window, $location, $document, $interval, clipboard, aria2RpcErrors, ariaNgCommonService, ariaNgSettingService, ariaNgTitleService, ariaNgMonitorService, ariaNgNotificationService, aria2TaskService, aria2SettingService) {
+    angular.module('ariaNg').controller('MainController', ['$rootScope', '$scope', '$route', '$window', '$location', '$document', '$interval', 'clipboard', 'aria2RpcErrors', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $route, $window, $location, $document, $interval, clipboard, aria2RpcErrors, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2TaskService, aria2SettingService) {
         var pageTitleRefreshPromise = null;
         var globalStatRefreshPromise = null;
 
@@ -113,7 +113,7 @@
 
             $rootScope.loadPromise = invoke(gids, function (response) {
                 if (response.hasError && gids.length > 1) {
-                    ariaNgCommonService.showError('Failed to change some tasks state.');
+                    ariaNgLocalizationService.showError('Failed to change some tasks state.');
                 }
 
                 if (!response.hasSuccess) {
@@ -139,10 +139,10 @@
         };
 
         $scope.restart = function (task) {
-            ariaNgCommonService.confirm('Confirm Restart', 'Are you sure you want to restart this task? AriaNg will create a same task after clicking OK.', 'info', function () {
+            ariaNgLocalizationService.confirm('Confirm Restart', 'Are you sure you want to restart this task? AriaNg will create a same task after clicking OK.', 'info', function () {
                 $rootScope.loadPromise = aria2TaskService.restartTask(task.gid, function (response) {
                     if (!response.success) {
-                        ariaNgCommonService.showError('Failed to restart this task.');
+                        ariaNgLocalizationService.showError('Failed to restart this task.');
                         return;
                     }
 
@@ -166,10 +166,10 @@
                 return;
             }
 
-            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
+            ariaNgLocalizationService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.removeTasks(tasks, function (response) {
                     if (response.hasError && tasks.length > 1) {
-                        ariaNgCommonService.showError('Failed to remove some task(s).');
+                        ariaNgLocalizationService.showError('Failed to remove some task(s).');
                     }
 
                     if (!response.hasSuccess) {
@@ -190,7 +190,7 @@
         };
 
         $scope.clearStoppedTasks = function () {
-            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear stopped tasks?', 'warning', function () {
+            ariaNgLocalizationService.confirm('Confirm Clear', 'Are you sure you want to clear stopped tasks?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.clearStoppedTasks(function (response) {
                     if (!response.success) {
                         return;
