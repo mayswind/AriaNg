@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$translate', 'base64', 'amMoment', 'localStorageService', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', function ($window, $location, $filter, $translate, base64, amMoment, localStorageService, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService) {
         var browserFeatures = (function () {
             var supportLocalStroage = localStorageService.isSupported;
             var supportCookies = $window.navigator.cookieEnabled;
@@ -270,6 +270,7 @@
             },
             setDebugMode: function (value) {
                 sessionSettings.debugMode = value;
+                ariaNgLogService.setEnableDebugLog(value);
             },
             getTitle: function () {
                 return getOption('title');
