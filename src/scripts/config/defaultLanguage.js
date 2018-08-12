@@ -13,7 +13,7 @@
             'False': 'False',
             'Connecting': 'Connecting',
             'Connected': 'Connected',
-            'Not Connected': 'Not Connected',
+            'Disconnected': 'Disconnected',
             'Global': 'Global',
             'New': 'New',
             'Start': 'Start',

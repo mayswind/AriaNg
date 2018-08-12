@@ -240,7 +240,7 @@
                 </li>
                 <li data-href-match="/status">
                     <a href="#!/status">
-                        <span class="label pull-right" ng-if="globalStatusContext.isEnabled" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Not Connected'}" ng-bind="taskContext.rpcStatus | translate"></span>
+                        <span class="label pull-right" ng-if="globalStatusContext.isEnabled" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Disconnected'}" ng-bind="taskContext.rpcStatus | translate"></span>
                         <i class="fa fa-server"></i> <span translate>Aria2 Status</span>
                     </a>
                 </li>

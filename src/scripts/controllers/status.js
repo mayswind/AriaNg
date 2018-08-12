@@ -32,7 +32,7 @@
                     $scope.context.status = 'Connected';
                     $scope.context.serverStatus = response.data;
                 } else {
-                    $scope.context.status = 'Not Connected';
+                    $scope.context.status = 'Disconnected';
                 }
             });
         })();

@@ -203,7 +203,7 @@
         });
 
         aria2TaskService.onConnectError(function () {
-            $rootScope.taskContext.rpcStatus = 'Not Connected';
+            $rootScope.taskContext.rpcStatus = 'Disconnected';
         });
 
         aria2TaskService.onTaskCompleted(function (event) {

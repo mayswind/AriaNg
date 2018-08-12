@@ -13,7 +13,7 @@
                 <span translate>Aria2 Status</span>
             </div>
             <div class="setting-value col-sm-8">
-                <span class="label" ng-class="{'label-primary': context.status === 'Connecting', 'label-success': context.status === 'Connected', 'label-danger': context.status === 'Not Connected'}"
+                <span class="label" ng-class="{'label-primary': context.status === 'Connecting', 'label-success': context.status === 'Connected', 'label-danger': context.status === 'Disconnected'}"
                       ng-bind="context.status | translate"></span>
             </div>
         </div>
