@@ -2,7 +2,12 @@
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a class="pointer-cursor" ng-bind="('format.debug.latest-logs' | translate: {count: logMaxCount})" ng-click="reloadLogs()">Latest Logs</a>
+                <a class="pointer-cursor" ng-bind="('format.debug.latest-logs' | translate: {count: logMaxCount})">Latest Logs</a>
+            </li>
+            <li class="slim">
+                <a class="pointer-cursor" ng-click="reloadLogs()">
+                    <i class="fa fa-refresh"></i>
+                </a>
             </li>
         </ul>
         <div class="tab-content no-padding">
