@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2TaskService', ['$q', 'bittorrentPeeridService', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', function ($q, bittorrentPeeridService, aria2Errors, aria2RpcService, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService) {
+    angular.module('ariaNg').factory('aria2TaskService', ['$q', 'bittorrentPeeridService', 'ariaNgConstants', 'aria2Errors', 'aria2RpcService', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', function ($q, bittorrentPeeridService, ariaNgConstants, aria2Errors, aria2RpcService, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService) {
         var getFileName = function (file) {
             if (!file) {
                 ariaNgLogService.warn('[aria2TaskService.getFileName] file is null');
@@ -52,6 +52,150 @@
                 name: taskName,
                 success: success
             };
+        };
+
+        var getRelativePath = function (task, file) {
+            var downloadPath = task.dir;
+            var relativePath = file.path;
+
+            if (downloadPath) {
+                downloadPath = downloadPath.replace(/\\/g, ariaNgConstants.defaultPathSeparator);
+            }
+
+            if (relativePath) {
+                relativePath = relativePath.replace(/\\/g, ariaNgConstants.defaultPathSeparator);
+            }
+
+            var trimStartPathSeparator = function () {
+                if (relativePath.length > 1 && relativePath.charAt(0) === ariaNgConstants.defaultPathSeparator) {
+                    relativePath = relativePath.substr(1);
+                }
+            };
+
+            var trimEndPathSeparator = function () {
+                if (relativePath.length > 1 && relativePath.charAt(relativePath.length - 1) === ariaNgConstants.defaultPathSeparator) {
+                    relativePath = relativePath.substr(0, relativePath.length - 1);
+                }
+            };
+
+            if (downloadPath && relativePath.indexOf(downloadPath) === 0) {
+                relativePath = relativePath.substr(downloadPath.length);
+            }
+
+            trimStartPathSeparator();
+
+            if (task.bittorrent && task.bittorrent.mode === 'multi' && task.bittorrent.info && task.bittorrent.info.name) {
+                var bittorrentName = task.bittorrent.info.name;
+
+                if (relativePath.indexOf(bittorrentName) === 0) {
+                    relativePath = relativePath.substr(bittorrentName.length);
+                }
+            }
+
+            trimStartPathSeparator();
+
+            if (file.fileName && ((relativePath.lastIndexOf(file.fileName) + file.fileName.length) === relativePath.length)) {
+                relativePath = relativePath.substr(0, relativePath.length - file.fileName.length);
+            }
+
+            trimEndPathSeparator();
+
+            return relativePath;
+        };
+
+        var getDirectoryNode = function (path, allDirectories, allDirectoryMap) {
+            var node = allDirectoryMap[path];
+
+            if (node) {
+                return node;
+            }
+
+            var parentNode = null;
+            var nodeName = path;
+
+            if (path.length) {
+                var parentPath = '';
+                var lastSeparatorIndex = path.lastIndexOf(ariaNgConstants.defaultPathSeparator);
+
+                if (lastSeparatorIndex > 0) {
+                    parentPath = path.substring(0, lastSeparatorIndex);
+                    nodeName = path.substring(lastSeparatorIndex + 1);
+                }
+
+                parentNode = getDirectoryNode(parentPath, allDirectories, allDirectoryMap);
+            }
+
+            node = {
+                isDir: true,
+                nodePath: path,
+                nodeName: nodeName,
+                relativePath: (parentNode && parentNode.nodePath) || '',
+                level: (parentNode && parentNode.level + 1) || 0,
+                length: 0,
+                selected: true,
+                partialSelected: false,
+                files: [],
+                subDirs: []
+            };
+
+            allDirectories.push(node);
+            allDirectoryMap[path] = node;
+
+            if (parentNode) {
+                parentNode.subDirs.push(node);
+            }
+
+            return node;
+        };
+
+        var pushFileToDirectoryNode = function (file, allDirectories, allDirectoryMap) {
+            if (!file || !allDirectories || !allDirectoryMap) {
+                return;
+            }
+
+            var nodePath = file.relativePath || '';
+            var directoryNode = getDirectoryNode(nodePath, allDirectories, allDirectoryMap);
+
+            directoryNode.files.push(file);
+
+            return directoryNode;
+        };
+
+        var fillAllNodes = function (node, allDirectoryMap, allNodes) {
+            if (!node) {
+                return;
+            }
+
+            var allSubNodesLength = 0;
+            var selectedSubNodesCount = 0;
+            var partitalSelectedSubNodesCount = 0;
+
+            if (node.subDirs && node.subDirs.length) {
+                for (var i = 0; i < node.subDirs.length; i++) {
+                    var dirNode = node.subDirs[i];
+                    allNodes.push(dirNode);
+
+                    fillAllNodes(dirNode, allDirectoryMap, allNodes);
+
+                    allSubNodesLength += dirNode.length;
+                    selectedSubNodesCount += (dirNode.selected ? 1 : 0);
+                    partitalSelectedSubNodesCount += (dirNode.partialSelected ? 1 : 0);
+                }
+            }
+
+            if (node.files && node.files.length) {
+                for (var i = 0; i < node.files.length; i++) {
+                    var fileNode = node.files[i];
+                    allNodes.push(fileNode);
+
+                    allSubNodesLength += fileNode.length;
+                    selectedSubNodesCount += (fileNode.selected ? 1 : 0);
+                }
+            }
+
+            node.length = allSubNodesLength;
+            node.selected = (selectedSubNodesCount > 0 && selectedSubNodesCount === (node.subDirs.length + node.files.length));
+            node.partialSelected = ((selectedSubNodesCount > 0 && selectedSubNodesCount < (node.subDirs.length + node.files.length)) || partitalSelectedSubNodesCount > 0);
         };
 
         var getTaskErrorDescription = function (task) {
@@ -121,11 +265,13 @@
             return combinedPieces;
         };
 
-        var processDownloadTask = function (task) {
+        var processDownloadTask = function (task, addVirtualFileNode) {
             if (!task) {
                 ariaNgLogService.warn('[aria2TaskService.processDownloadTask] task is null');
                 return task;
             }
+
+            addVirtualFileNode = addVirtualFileNode && task.bittorrent && task.bittorrent.mode === 'multi';
 
             var pieceStatus = getPieceStatus(task.bitfield, task.numPieces);
 
@@ -156,6 +302,8 @@
 
             if (task.files) {
                 var selectedFileCount = 0;
+                var allDirectories = [];
+                var allDirectoryMap = {};
 
                 for (var i = 0; i < task.files.length; i++) {
                     var file = task.files[i];
@@ -166,7 +314,22 @@
                     file.completedLength = parseInt(file.completedLength);
                     file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
 
+                    if (addVirtualFileNode) {
+                        file.relativePath = getRelativePath(task, file);
+                        var dirNode = pushFileToDirectoryNode(file, allDirectories, allDirectoryMap);
+                        file.level = dirNode.level + 1;
+                    }
+
                     selectedFileCount += file.selected ? 1 : 0;
+                }
+
+                if (addVirtualFileNode && allDirectories.length > 1) {
+                    var allNodes = [];
+                    var rootNode = allDirectoryMap[''];
+                    fillAllNodes(rootNode, allDirectoryMap, allNodes);
+
+                    task.files = allNodes;
+                    task.multiDir = true;
                 }
 
                 task.selectedFileCount = selectedFileCount;
@@ -304,7 +467,7 @@
                     }
                 });
             },
-            getTaskStatus: function (gid, callback, silent) {
+            getTaskStatus: function (gid, callback, silent, addVirtualFileNode) {
                 return aria2RpcService.tellStatus({
                     gid: gid,
                     silent: !!silent,
@@ -315,7 +478,7 @@
                         }
 
                         if (response.success) {
-                            processDownloadTask(response.data);
+                            processDownloadTask(response.data, addVirtualFileNode);
                         }
 
                         callback(response);
@@ -371,7 +534,7 @@
                     }
                 });
             },
-            getTaskStatusAndBtPeers: function (gid, callback, silent, requirePeers, includeLocalPeer) {
+            getTaskStatusAndBtPeers: function (gid, callback, silent, requirePeers, includeLocalPeer, addVirtualFileNode) {
                 var methods = [
                     aria2RpcService.tellStatus({ gid: gid }, true)
                 ];
@@ -393,7 +556,7 @@
 
                         if (response.success && response.data.length > 0) {
                             response.task = response.data[0][0];
-                            processDownloadTask(response.task);
+                            processDownloadTask(response.task, addVirtualFileNode);
                         }
 
                         if (response.success && response.task.bittorrent && response.data.length > 1) {
@@ -685,14 +848,14 @@
                     callback: createTaskEventCallback(this.getTaskStatus, callback, 'error')
                 });
             },
-            processDownloadTasks: function (tasks) {
+            processDownloadTasks: function (tasks, addVirtualFileNode) {
                 if (!angular.isArray(tasks)) {
                     ariaNgLogService.warn('[aria2TaskService.processDownloadTasks] tasks is not array', tasks);
                     return;
                 }
 
                 for (var i = 0; i < tasks.length; i++) {
-                    processDownloadTask(tasks[i]);
+                    processDownloadTask(tasks[i], addVirtualFileNode);
                 }
             },
             getPieceStatus: function (bitField, pieceCount) {

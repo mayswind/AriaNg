@@ -454,7 +454,10 @@
 }
 
 /* awesome-bootstrap-checkbox extend */
-.skin-aria-ng .checkbox-primary input[type="checkbox"]:checked + label::before, .checkbox-primary input[type="radio"]:checked + label::before {
+.skin-aria-ng .checkbox-primary input[type="checkbox"]:checked + label::before,
+.skin-aria-ng .checkbox-primary input[type="radio"]:checked + label::before,
+.skin-aria-ng .checkbox-primary input[type="checkbox"]:indeterminate + label::before,
+.skin-aria-ng .checkbox-primary input[type="radio"]:indeterminate + label::before {
     background-color: #208fe5;
     border-color: #208fe5;
 }

@@ -12,6 +12,7 @@
         defaultLanguage: 'en',
         defaultHost: 'localhost',
         defaultSecureProtocol: 'https',
+        defaultPathSeparator: '/',
         globalStatStorageCapacity: 120,
         taskStatStorageCapacity: 300,
         lazySaveTimeout: 500,

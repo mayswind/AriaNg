@@ -110,6 +110,14 @@
     margin-bottom: 2px;
 }
 
+.checkbox-inline {
+    display: inline-block;
+}
+
+.icon-expand + .checkbox {
+    margin-left: 4px;
+}
+
 /* angular-input-dropdown */
 input-dropdown[input-class-name="form-control"] > .input-dropdown {
     width: 100%

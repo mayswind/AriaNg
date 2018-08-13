@@ -3,7 +3,7 @@
 
     angular.module('ariaNg').filter('fileOrderBy', ['$filter', 'ariaNgCommonService', function ($filter, ariaNgCommonService) {
         return function (array, type) {
-            if (!angular.isArray(array)) {
+            if (!angular.isArray(array) || !type) {
                 return array;
             }
 

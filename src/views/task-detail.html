@@ -182,17 +182,17 @@
                     <div class="task-table-title">
                         <div class="row">
                             <div class="col-sm-8">
-                                <a ng-click="changeFileListDisplayOrder('name:asc', true)" translate>File Name</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
+                                <a ng-click="changeFileListDisplayOrder('name:asc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]" translate>File Name</a>
+                                <i ng-if="!task.multiDir" class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
                                 <a ng-click="showChooseFilesToolbar()" ng-if="task && task.files && task.files.length > 1 && (task.status === 'waiting' || task.status === 'paused')" translate>(Choose Files)</a>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" translate>Progress</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
+                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]" translate>Progress</a>
+                                <i ng-if="!task.multiDir" class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('size:asc', true)" translate>File Size</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('size:desc')}"></i>
+                                <a ng-click="changeFileListDisplayOrder('size:asc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]" translate>File Size</a>
+                                <i ng-if="!task.multiDir" class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('size:desc')}"></i>
                             </div>
                         </div>
                     </div>
@@ -226,27 +226,38 @@
                                     <i class="fa fa-file-archive-o"></i>
                                     <span translate>Archives</span>
                                 </button>
-                                <button class="btn btn-xs btn-success" ng-click="saveChoosedFiles()" ng-disabled="getSelectedFileCount() < 1" translate>Confirm</button>
+                                <button class="btn btn-xs btn-success" ng-click="saveChoosedFiles()" ng-disabled="!isAnyFileSelected()" translate>Confirm</button>
                                 <button class="btn btn-xs btn-default" ng-click="cancelChooseFiles()" translate>Cancel</button>
                             </div>
                         </div>
                     </div>
                     <div class="task-table-body">
-                        <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()" data-file-index="{{file.index}}">
-                            <div class="col-sm-8">
+                        <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()"
+                             ng-if="!context.collapsedDirs[file.relativePath]" data-file-index="{{file.index}}">
+                            <div class="col-sm-10" ng-if="file.isDir" style="{{'padding-left: ' + (file.level * 16) + 'px'}}">
+                                <i class="icon-expand pointer-cursor fa" ng-click="collapseDir(file)"
+                                   ng-class="{true: 'fa-plus', false: 'fa-minus'}[!!context.collapsedDirs[file.nodePath]]"
+                                   title="{{(context.collapsedDirs[file.nodePath] ? 'Expand' : 'Collapse') | translate}}"></i>
+                                <div class="checkbox checkbox-primary checkbox-inline">
+                                    <input id="{{'node_' + file.nodePath}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length <= 1 || (task.status !== 'waiting' && task.status !== 'paused')"
+                                           ng-model="file.selected" ng-indeterminate="file.partialSelected" ng-change="setSelectedNode(file)"/>
+                                    <label for="{{'node_' + file.nodePath}}" class="allow-word-break" ng-bind="file.nodeName" title="{{file.nodeName}}"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8" ng-if="!file.isDir" style="{{'padding-left: ' + (11 + 3 + 4 + file.level * 16) + 'px'}}">
                                 <div class="checkbox checkbox-primary">
-                                    <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length < 2 || (task.status !== 'waiting' && task.status !== 'paused')"
-                                           ng-model="file.selected" ng-change="setSelectedFile()"/>
+                                    <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length <= 1 || (task.status !== 'waiting' && task.status !== 'paused')"
+                                           ng-model="file.selected" ng-change="setSelectedFile(true)"/>
                                     <label for="{{'file_' + file.index}}" class="allow-word-break" ng-bind="file.fileName" title="{{file.fileName}}"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2" ng-if="!file.isDir">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-primary" role="progressbar"
                                          aria-valuenow="{{file.completePercent}}" aria-valuemin="1"
                                          aria-valuemax="100" ng-style="{ width: file.completePercent + '%' }">
-                                        <span ng-class="{'progress-lower': file.completePercent < 50}"
-                                              ng-bind="(file.completePercent | percent: 2) + '%'"></span>
+                                    <span ng-class="{'progress-lower': file.completePercent < 50}"
+                                          ng-bind="(file.completePercent | percent: 2) + '%'"></span>
                                     </div>
                                 </div>
                             </div>
