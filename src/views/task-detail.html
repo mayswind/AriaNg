@@ -244,7 +244,7 @@
                                     <label for="{{'node_' + file.nodePath}}" class="allow-word-break" ng-bind="file.nodeName" title="{{file.nodeName}}"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-8" ng-if="!file.isDir" style="{{'padding-left: ' + (11 + 3 + 4 + file.level * 16) + 'px'}}">
+                            <div class="col-sm-8" ng-if="!file.isDir" style="{{'padding-left: ' + (11 + 4 + file.level * 16) + 'px'}}">
                                 <div class="checkbox checkbox-primary">
                                     <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length <= 1 || (task.status !== 'waiting' && task.status !== 'paused')"
                                            ng-model="file.selected" ng-change="setSelectedFile(true)"/>
