@@ -264,8 +264,12 @@
         };
 
         $scope.showChooseFilesToolbar = function () {
-            pauseDownloadTaskRefresh = true;
-            $scope.context.showChooseFilesToolbar = true;
+            if (!$scope.context.showChooseFilesToolbar) {
+                pauseDownloadTaskRefresh = true;
+                $scope.context.showChooseFilesToolbar = true;
+            } else {
+                $scope.cancelChooseFiles();
+            }
         };
 
         $scope.isAnyFileSelected = function () {
