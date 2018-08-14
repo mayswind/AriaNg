@@ -37,6 +37,9 @@
         downloadTaskRefreshInterval: 1000,
         rpcListDisplayOrder: 'recentlyUsed',
         afterCreatingNewTask: 'task-list',
-        removeOldTaskAfterRestarting: false
+        removeOldTaskAfterRestarting: false,
+        displayOrder: 'default:asc',
+        fileListDisplayOrder: 'default:asc',
+        peerListDisplayOrder: 'default:asc'
     });
 }());

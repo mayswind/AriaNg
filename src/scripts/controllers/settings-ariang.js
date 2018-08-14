@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
         var extendType = $routeParams.extendType;
         var lastRefreshPageNotification = null;
 
@@ -41,7 +41,10 @@
             isInsecureProtocolDisabled: ariaNgSettingService.isInsecureProtocolDisabled(),
             settings: ariaNgSettingService.getAllOptions(),
             sessionSettings: ariaNgSettingService.getAllSessionOptions(),
-            rpcSettings: ariaNgSettingService.getAllRpcSettings()
+            rpcSettings: ariaNgSettingService.getAllRpcSettings(),
+            isSupportBlob: ariaNgFileService.isSupportBlob(),
+            importSettings: null,
+            exportSettings: null
         };
 
         $scope.context.showDebugMode = $scope.context.sessionSettings.debugMode || extendType === 'debug';
@@ -160,6 +163,60 @@
         $scope.setRemoveOldTaskAfterRestarting = function (value) {
             ariaNgSettingService.setRemoveOldTaskAfterRestarting(value);
         };
+
+        $scope.showImportSettingsModal = function () {
+            $scope.context.importSettings = null;
+            angular.element('#import-settings-modal').modal();
+        };
+
+        $('#import-settings-modal').on('hide.bs.modal', function (e) {
+            $scope.context.importSettings = null;
+        });
+
+        $scope.openAriaNgConfigFile = function () {
+            ariaNgFileService.openFileContent({
+                fileFilter: '.json',
+                fileType: 'text'
+            }, function (result) {
+                $scope.context.importSettings = result.content;
+            }, function (error) {
+                ariaNgLocalizationService.showError(error);
+            }, angular.element('#import-file-holder'));
+        };
+
+        $scope.importSettings = function (settings) {
+            var settingsObj = null;
+
+            try {
+                settingsObj = JSON.parse(settings);
+            } catch (e) {
+                ariaNgLogService.error('[AriaNgSettingsController.importSettings] parse settings json error', e);
+                ariaNgLocalizationService.showError('Invalid settings data format!');
+                return;
+            }
+
+            if (!angular.isObject(settingsObj) || angular.isArray(settingsObj)) {
+                ariaNgLogService.error('[AriaNgSettingsController.importSettings] settings json is not object');
+                ariaNgLocalizationService.showError('Invalid settings data format!');
+                return;
+            }
+
+            if (settingsObj) {
+                ariaNgLocalizationService.confirm('Confirm Import', 'Are you sure you want to import all settings?', 'warning', function () {
+                    ariaNgSettingService.importAllOptions(settingsObj);
+                    $window.location.reload();
+                });
+            }
+        };
+
+        $scope.showExportSettingsModal = function () {
+            $scope.context.exportSettings = $filter('json')(ariaNgSettingService.exportAllOptions());
+            angular.element('#export-settings-modal').modal();
+        };
+
+        $('#export-settings-modal').on('hide.bs.modal', function (e) {
+            $scope.context.exportSettings = null;
+        });
 
         $scope.addNewRpcSetting = function () {
             setNeedRefreshPage();

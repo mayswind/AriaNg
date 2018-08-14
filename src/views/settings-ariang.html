@@ -151,6 +151,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Import / Export AriaNg Settings</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <button class="btn btn-sm btn-default" ng-click="showImportSettingsModal()">
+                                <span translate>Import Settings</span>
+                            </button>
+                            <button class="btn btn-sm btn-default" ng-click="showExportSettingsModal()">
+                                <span translate>Export Settings</span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="row tip no-background no-hover">
                         <span class="asterisk">*</span>
                         <span translate>Changes to the settings take effect after refreshing page.</span>
@@ -248,6 +261,64 @@
                             <span translate>Activate</span>
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="import-settings-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">
+                        <span translate>Import Settings</span>
+                        <small>
+                            <a class="pointer-cursor" title="{{'Open' | translate}}" ng-click="openAriaNgConfigFile()">
+                                <i class="icon-primary fa fa-folder-open-o"></i>
+                            </a>
+                        </small>
+                    </h4>
+                </div>
+                <div class="modal-body no-padding">
+                    <div class="settings-table striped">
+                        <input id="import-file-holder" type="file" style="display: none"/>
+                        <textarea class="form-control" ng-model="context.importSettings" rows="20"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-disabled="!context.importSettings || !context.importSettings.length"
+                            ng-click="importSettings(context.importSettings)" translate>Import</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" translate>Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="export-settings-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">
+                        <span translate>Export Settings</span>
+                        <small>
+                            <a class="pointer-cursor" title="{{'Copy' | translate}}" text="context.exportSettings" clipboard>
+                                <i class="icon-primary fa fa-copy"></i>
+                            </a>
+                            <a class="pointer-cursor" title="{{'Save' | translate}}" ng-if="context.isSupportBlob"
+                               ng-blob-download="context.exportSettings" ng-file-name="AriaNgConfig.json" ng-content-type="application/json">
+                                <i class="icon-primary fa fa-save"></i>
+                            </a>
+                        </small>
+                    </h4>
+                </div>
+                <div class="modal-body no-padding">
+                    <div class="settings-table striped">
+                        <textarea class="form-control" ng-model="context.exportSettings" rows="20" readonly="readonly"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" translate>Cancel</button>
                 </div>
             </div>
         </div>
