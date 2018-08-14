@@ -128,7 +128,10 @@
         };
 
         $scope.openTorrent = function () {
-            ariaNgFileService.openFileContent('.torrent', function (result) {
+            ariaNgFileService.openFileContent({
+                fileFilter: '.torrent',
+                fileType: 'binary'
+            }, function (result) {
                 $scope.context.uploadFile = result;
                 $scope.context.taskType = 'torrent';
                 $scope.changeTab('options');
@@ -138,7 +141,10 @@
         };
 
         $scope.openMetalink = function () {
-            ariaNgFileService.openFileContent('.meta4,.metalink', function (result) {
+            ariaNgFileService.openFileContent({
+                fileFilter: '.meta4,.metalink',
+                fileType: 'binary'
+            }, function (result) {
                 $scope.context.uploadFile = result;
                 $scope.context.taskType = 'metalink';
                 $scope.changeTab('options');

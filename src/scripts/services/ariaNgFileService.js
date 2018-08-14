@@ -3,6 +3,7 @@
 
     angular.module('ariaNg').factory('ariaNgFileService', ['$window', function ($window) {
         var isSupportFileReader = !!$window.FileReader;
+        var isSupportBlob = !!$window.Blob;
 
         var getAllowedExtensions = function (fileFilter) {
             var extensions = [];
@@ -46,7 +47,13 @@
         };
 
         return {
-            openFileContent: function (fileFilter, successCallback, errorCallback, element) {
+            isSupportFileReader: function () {
+                return isSupportFileReader;
+            },
+            isSupportBlob: function () {
+                return isSupportBlob;
+            },
+            openFileContent: function (options, successCallback, errorCallback, element) {
                 if (!isSupportFileReader) {
                     if (errorCallback) {
                         errorCallback('Your browser does not support loading file!');
@@ -55,11 +62,18 @@
                     return;
                 }
 
-                var allowedExtensions = getAllowedExtensions(fileFilter);
+                options = angular.extend({
+                    fileFilter: null,
+                    fileType: 'binary' // or 'text'
+                }, options);
+
+                var allowedExtensions = getAllowedExtensions(options.fileFilter);
 
                 if (!element || !element.change) {
                     element = angular.element('<input type="file" style="display: none"/>');
                 }
+
+                element.val('');
 
                 if (element.attr('data-ariang-file-initialized') !== 'true') {
                     element.change(function () {
@@ -82,9 +96,18 @@
 
                         reader.onload = function () {
                             var result = {
-                                fileName: fileName,
-                                base64Content: this.result.replace(/.*?base64,/, '')
+                                fileName: fileName
                             };
+
+                            switch (options.fileType) {
+                                case 'text':
+                                    result.content = this.result;
+                                    break;
+                                case 'binary':
+                                default:
+                                    result.base64Content = this.result.replace(/.*?base64,/, '');
+                                    break;
+                            }
 
                             if (successCallback) {
                                 successCallback(result);
@@ -97,11 +120,52 @@
                             }
                         };
 
-                        reader.readAsDataURL(file);
+                        switch (options.fileType) {
+                            case 'text':
+                                reader.readAsText(file);
+                                break;
+                            case 'binary':
+                            default:
+                                reader.readAsDataURL(file);
+                                break;
+                        }
                     }).attr('data-ariang-file-initialized', 'true');
                 }
 
                 element.trigger('click');
+            },
+            saveFileContent: function (content, element, options) {
+                if (!isSupportBlob) {
+                    return;
+                }
+
+                options = angular.extend({
+                    fileName: null,
+                    contentType: 'application/octet-stream',
+                    autoTrigger: false,
+                    autoRevoke: false
+                }, options);
+
+                var blob = new Blob([content], { type: options.contentType });
+                var objectUrl = URL.createObjectURL(blob);
+
+                if (!element) {
+                    element = angular.element('<a style="display: none"/>');
+                }
+
+                element.attr('href', objectUrl);
+
+                if (options.fileName) {
+                    element.attr('download', options.fileName);
+                }
+
+                if (options.autoTrigger) {
+                    element.trigger('click');
+                }
+
+                if (options.autoRevoke) {
+                    URL.revokeObjectURL(objectUrl);
+                }
             }
         };
     }]);
