@@ -76,25 +76,25 @@
         </div>
         <div id="task-table-contextmenu">
             <ul class="dropdown-menu" role="menu">
-                <li ng-show="isSpecifiedTaskSelected('paused')">
+                <li ng-if="isSpecifiedTaskSelected('paused')">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
                         <i class="fa fa-play"></i>
                         <span translate>Start</span>
                     </a>
                 </li>
-                <li ng-show="isSpecifiedTaskSelected('active', 'waiting')">
+                <li ng-if="isSpecifiedTaskSelected('active', 'waiting')">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
                         <i class="fa fa-pause"></i>
                         <span translate>Pause</span>
                     </a>
                 </li>
-                <li ng-show="isTaskSelected()">
+                <li ng-if="isTaskSelected()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Delete' | translate}}" ng-click="removeTasks()">
                         <i class="fa fa-trash-o"></i>
                         <span translate>Delete</span>
                     </a>
                 </li>
-                <li class="divider" ng-show="isTaskSelected()"></li>
+                <li class="divider" ng-if="isTaskSelected()"></li>
                 <li class="dropdown dropdown-submenu">
                     <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
                         <i class="fa fa-sort-alpha-asc"></i>
@@ -145,8 +145,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="divider" ng-show="isSingleUrlTaskSelected()"></li>
-                <li ng-show="isSingleUrlTaskSelected()">
+                <li class="divider" ng-if="isSingleUrlTaskSelected()"></li>
+                <li ng-if="isSingleUrlTaskSelected()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Copy Download Url' | translate}}" ng-click="copySelectedOneTaskDownloadLink()">
                         <i class="fa fa-copy"></i>
                         <span translate>Copy Download Url</span>
