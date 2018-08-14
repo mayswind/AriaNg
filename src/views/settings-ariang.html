@@ -64,6 +64,18 @@
                             <em>[<span translate>Preview</span>] <span ng-bind="context.titlePreview"></span></em>
                         </div>
                     </div>
+                    <div class="row" ng-if="isSupportNotification()">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Enable Browser Notification</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.browserNotification"
+                                    ng-change="setEnableBrowserNotification(context.settings.browserNotification)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Page Title Refresh Interval</span>
@@ -74,18 +86,6 @@
                                     ng-model="context.settings.titleRefreshInterval"
                                     ng-change="setTitleRefreshInterval(context.settings.titleRefreshInterval)"
                                     ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row" ng-if="isSupportNotification()">
-                        <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Enable Browser Notification</span>
-                        </div>
-                        <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;"
-                                    ng-model="context.settings.browserNotification"
-                                    ng-change="setEnableBrowserNotification(context.settings.browserNotification)"
-                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
                             </select>
                         </div>
                     </div>

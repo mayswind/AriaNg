@@ -287,11 +287,29 @@
             setTitle: function (value) {
                 setOption('title', value);
             },
+            getBrowserNotification: function () {
+                return getOption('browserNotification');
+            },
+            setBrowserNotification: function (value) {
+                setOption('browserNotification', value);
+            },
             getTitleRefreshInterval: function () {
                 return getOption('titleRefreshInterval');
             },
             setTitleRefreshInterval: function (value) {
                 setOption('titleRefreshInterval', Math.max(parseInt(value), 0));
+            },
+            getGlobalStatRefreshInterval: function () {
+                return getOption('globalStatRefreshInterval');
+            },
+            setGlobalStatRefreshInterval: function (value) {
+                setOption('globalStatRefreshInterval', Math.max(parseInt(value), 0));
+            },
+            getDownloadTaskRefreshInterval: function () {
+                return getOption('downloadTaskRefreshInterval');
+            },
+            setDownloadTaskRefreshInterval: function (value) {
+                setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
             },
             getRPCListDisplayOrder: function () {
                 return getOption('rpcListDisplayOrder');
@@ -310,12 +328,6 @@
             },
             setRemoveOldTaskAfterRestarting: function (value) {
                 setOption('removeOldTaskAfterRestarting', value);
-            },
-            getBrowserNotification: function () {
-                return getOption('browserNotification');
-            },
-            setBrowserNotification: function (value) {
-                setOption('browserNotification', value);
             },
             getCurrentRpcDisplayName: function () {
                 var options = getOptions();
@@ -502,18 +514,6 @@
                 }
 
                 return true;
-            },
-            getGlobalStatRefreshInterval: function () {
-                return getOption('globalStatRefreshInterval');
-            },
-            setGlobalStatRefreshInterval: function (value) {
-                setOption('globalStatRefreshInterval', Math.max(parseInt(value), 0));
-            },
-            getDownloadTaskRefreshInterval: function () {
-                return getOption('downloadTaskRefreshInterval');
-            },
-            setDownloadTaskRefreshInterval: function (value) {
-                setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
             },
             getDisplayOrder: function () {
                 var value = getOption('displayOrder');

@@ -99,6 +99,11 @@
             }
         };
 
+        $scope.isSupportNotification = function () {
+            return ariaNgNotificationService.isSupportBrowserNotification() &&
+                ariaNgSettingService.isCurrentRpcUseWebSocket($scope.context.settings.protocol);
+        };
+
         $scope.setLanguage = function (value) {
             if (ariaNgSettingService.setLanguage(value)) {
                 ariaNgLocalizationService.applyLanguage(value);
@@ -107,35 +112,12 @@
             $scope.updateTitlePreview();
         };
 
-        $scope.setRPCListDisplayOrder = function (value) {
-            setNeedRefreshPage();
-            ariaNgSettingService.setRPCListDisplayOrder(value);
-        };
-
-        $scope.setAfterCreatingNewTask = function (value) {
-            ariaNgSettingService.setAfterCreatingNewTask(value);
-        };
-
-        $scope.setRemoveOldTaskAfterRestarting = function (value) {
-            ariaNgSettingService.setRemoveOldTaskAfterRestarting(value);
-        };
-
         $scope.setDebugMode = function (value) {
             ariaNgSettingService.setDebugMode(value);
         };
 
         $scope.setTitle = function (value) {
             ariaNgSettingService.setTitle(value);
-        };
-
-        $scope.setTitleRefreshInterval = function (value) {
-            setNeedRefreshPage();
-            ariaNgSettingService.setTitleRefreshInterval(value);
-        };
-
-        $scope.isSupportNotification = function () {
-            return ariaNgNotificationService.isSupportBrowserNotification() &&
-                ariaNgSettingService.isCurrentRpcUseWebSocket($scope.context.settings.protocol);
         };
 
         $scope.setEnableBrowserNotification = function (value) {
@@ -151,6 +133,11 @@
             }
         };
 
+        $scope.setTitleRefreshInterval = function (value) {
+            setNeedRefreshPage();
+            ariaNgSettingService.setTitleRefreshInterval(value);
+        };
+
         $scope.setGlobalStatRefreshInterval = function (value) {
             setNeedRefreshPage();
             ariaNgSettingService.setGlobalStatRefreshInterval(value);
@@ -159,6 +146,19 @@
         $scope.setDownloadTaskRefreshInterval = function (value) {
             setNeedRefreshPage();
             ariaNgSettingService.setDownloadTaskRefreshInterval(value);
+        };
+
+        $scope.setRPCListDisplayOrder = function (value) {
+            setNeedRefreshPage();
+            ariaNgSettingService.setRPCListDisplayOrder(value);
+        };
+
+        $scope.setAfterCreatingNewTask = function (value) {
+            ariaNgSettingService.setAfterCreatingNewTask(value);
+        };
+
+        $scope.setRemoveOldTaskAfterRestarting = function (value) {
+            ariaNgSettingService.setRemoveOldTaskAfterRestarting(value);
         };
 
         $scope.addNewRpcSetting = function () {
