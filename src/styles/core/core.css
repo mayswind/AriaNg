@@ -79,6 +79,11 @@ td {
     cursor: pointer;
 }
 
+.main-header .rpcselect-dropdown {
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
 .main-sidebar {
     z-index: 1010;
 }

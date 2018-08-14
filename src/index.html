@@ -55,7 +55,7 @@
                     <span class="dropdown-toggle" data-toggle="dropdown">
                         <span class="logo-lg-title">AriaNg</span><i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
                     </span>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <ul class="dropdown-menu dropdown-menu-right rpcselect-dropdown" role="menu">
                         <li ng-repeat="setting in rpcSettings" ng-class="{'active': setting.isDefault}">
                             <a class="pointer-cursor" ng-click="switchRpcSetting(setting)">
                                 <span ng-bind="(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)">RPC</span>
