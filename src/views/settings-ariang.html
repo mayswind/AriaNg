@@ -117,6 +117,19 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>RPC List Display Order</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.rpcListDisplayOrder"
+                                    ng-change="setRPCListDisplayOrder(context.settings.rpcListDisplayOrder)">
+                                <option value="recentlyUsed" translate>Recently Used</option>
+                                <option value="rpcAlias" translate>RPC Alias</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Action After Creating New Tasks</span>
                         </div>
                         <div class="setting-value col-sm-8">

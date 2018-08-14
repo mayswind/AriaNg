@@ -107,6 +107,11 @@
             $scope.updateTitlePreview();
         };
 
+        $scope.setRPCListDisplayOrder = function (value) {
+            setNeedRefreshPage();
+            ariaNgSettingService.setRPCListDisplayOrder(value);
+        };
+
         $scope.setAfterCreatingNewTask = function (value) {
             ariaNgSettingService.setAfterCreatingNewTask(value);
         };

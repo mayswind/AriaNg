@@ -35,6 +35,7 @@
         extendRpcServers: [],
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000,
+        rpcListDisplayOrder: 'recentlyUsed',
         afterCreatingNewTask: 'task-list',
         removeOldTaskAfterRestarting: false
     });
