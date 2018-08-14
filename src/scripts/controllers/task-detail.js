@@ -481,12 +481,14 @@
             }
         });
 
-        angular.element('#overview-items .row').contextmenu({
-            target: '#task-overview-contextmenu',
-            before: function (e, context) {
-                currentRowTriggeredMenu = context;
-            }
-        });
+        $scope.onOverviewMouseDown = function () {
+            angular.element('#overview-items .row[contextmenu-bind!="true"]').contextmenu({
+                target: '#task-overview-contextmenu',
+                before: function (e, context) {
+                    currentRowTriggeredMenu = context;
+                }
+            }).attr('contextmenu-bind', 'true');
+        };
 
         angular.element('#task-overview-contextmenu').on('hide.bs.context', function () {
             currentRowTriggeredMenu = null;
