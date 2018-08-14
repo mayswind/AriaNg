@@ -237,14 +237,14 @@
                             <div class="col-sm-10" ng-if="file.isDir" style="{{'padding-left: ' + (file.level * 16) + 'px'}}">
                                 <i class="icon-expand pointer-cursor fa" ng-click="collapseDir(file)"
                                    ng-class="{true: 'fa-plus', false: 'fa-minus'}[!!context.collapsedDirs[file.nodePath]]"
-                                   title="{{(context.collapsedDirs[file.nodePath] ? 'Expand' : 'Collapse') | translate}}"></i>
-                                <div class="checkbox checkbox-primary checkbox-inline">
+                                   title="{{(context.collapsedDirs[file.nodePath] ? 'Expand' : 'Collapse') | translate}}">
+                                </i><div class="checkbox checkbox-primary checkbox-inline">
                                     <input id="{{'node_' + file.nodePath}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length <= 1 || (task.status !== 'waiting' && task.status !== 'paused')"
                                            ng-model="file.selected" ng-indeterminate="file.partialSelected" ng-change="setSelectedNode(file)"/>
                                     <label for="{{'node_' + file.nodePath}}" class="allow-word-break" ng-bind="file.nodeName" title="{{file.nodeName}}"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-8" ng-if="!file.isDir" style="{{'padding-left: ' + (11 + 4 + file.level * 16) + 'px'}}">
+                            <div class="col-sm-8" ng-if="!file.isDir" style="{{'padding-left: ' + (11 + 6 + file.level * 16) + 'px'}}">
                                 <div class="checkbox checkbox-primary">
                                     <input id="{{'file_' + file.index}}" type="checkbox" ng-disabled="!task || !task.files || task.files.length <= 1 || (task.status !== 'waiting' && task.status !== 'paused')"
                                            ng-model="file.selected" ng-change="setSelectedFile(true)"/>
