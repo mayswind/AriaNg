@@ -22,7 +22,7 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
 5. Download finished notification
 6. Multi-languages support
 7. Multi aria2 RPC host support
-8. Import and export settings support
+8. Exporting and Importing settings support
 9. Less bandwidth usage, only requesting incremental data
 
 ## Screenshots
