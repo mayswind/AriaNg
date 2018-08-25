@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'clipboard', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, clipboard, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
         var extendType = $routeParams.extendType;
         var lastRefreshPageNotification = null;
 
@@ -44,7 +44,8 @@
             rpcSettings: ariaNgSettingService.getAllRpcSettings(),
             isSupportBlob: ariaNgFileService.isSupportBlob(),
             importSettings: null,
-            exportSettings: null
+            exportSettings: null,
+            exportSettingsCopied: false
         };
 
         $scope.context.showDebugMode = $scope.context.sessionSettings.debugMode || extendType === 'debug';
@@ -211,12 +212,19 @@
 
         $scope.showExportSettingsModal = function () {
             $scope.context.exportSettings = $filter('json')(ariaNgSettingService.exportAllOptions());
+            $scope.context.exportSettingsCopied = false;
             angular.element('#export-settings-modal').modal();
         };
 
         $('#export-settings-modal').on('hide.bs.modal', function (e) {
             $scope.context.exportSettings = null;
+            $scope.context.exportSettingsCopied = false;
         });
+        
+        $scope.copyExportSettings = function () {
+            clipboard.copyText($scope.context.exportSettings);
+            $scope.context.exportSettingsCopied = true;
+        };
 
         $scope.addNewRpcSetting = function () {
             setNeedRefreshPage();

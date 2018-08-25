@@ -248,3 +248,12 @@ td {
         width: 6px;
     }
 }
+
+/* animation */
+.fade-in.ng-enter {
+    transition:0.3s linear all;
+    opacity:0;
+}
+.fade-in.ng-enter.ng-enter-active {
+    opacity:1;
+}

@@ -283,7 +283,8 @@
                 <div class="modal-body no-padding">
                     <div class="settings-table striped">
                         <input id="import-file-holder" type="file" style="display: none"/>
-                        <textarea class="form-control" ng-model="context.importSettings" rows="20"></textarea>
+                        <textarea class="form-control" ng-model="context.importSettings" rows="20"
+                                  ng-placeholder="'AriaNg settings data' | translate"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -302,13 +303,14 @@
                     <h4 class="modal-title">
                         <span translate>Export Settings</span>
                         <small>
-                            <a class="pointer-cursor" title="{{'Copy' | translate}}" text="context.exportSettings" clipboard>
-                                <i class="icon-primary fa fa-copy"></i>
-                            </a>
                             <a class="pointer-cursor" title="{{'Save' | translate}}" ng-if="context.isSupportBlob"
                                ng-blob-download="context.exportSettings" ng-file-name="AriaNgConfig.json" ng-content-type="application/json">
                                 <i class="icon-primary fa fa-save"></i>
                             </a>
+                            <a class="pointer-cursor" title="{{'Copy' | translate}}" ng-click="copyExportSettings()">
+                                <i class="icon-primary fa fa-copy"></i>
+                            </a>
+                            <span class="label label-default fade-in" ng-if="context.exportSettingsCopied" translate>Data has been copied to clipboard.</span>
                         </small>
                     </h4>
                 </div>
