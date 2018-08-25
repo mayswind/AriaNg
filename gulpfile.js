@@ -68,7 +68,7 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function () {
     return gulp.src([
-        'bower_components/font-awesome/fonts/fontawesome-webfont.*'
+        'node_modules/font-awesome/fonts/fontawesome-webfont.*'
     ]).pipe(gulp.dest('.tmp/fonts'))
         .pipe(gulp.dest('dist/fonts'));
 });
@@ -111,7 +111,7 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], function () {
         server: {
             baseDir: ['.tmp', 'src'],
             routes: {
-                '/bower_components': 'bower_components'
+                '/node_modules': 'node_modules'
             }
         }
     });

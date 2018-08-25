@@ -41,7 +41,6 @@ Latest Daily Build: [https://github.com/mayswind/AriaNg-DailyBuild/archive/maste
 Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/), [Gulp](https://gulpjs.com/) and [Bower](https://bower.io/) installed. Then download the source code, and follow these steps.
 
     $ npm install
-    $ bower install
     $ gulp clean build
 
 The builds will be placed in the dist directory.

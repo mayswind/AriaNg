@@ -13,7 +13,6 @@ jobs:
       - run: npm install
       - run: sudo npm install -g bower
       - run: sudo npm install -g gulp
-      - run: bower install
       - run: gulp clean build
       - save_cache:
           key: v1-ariang-{{ .Environment.CIRCLE_SHA1 }}

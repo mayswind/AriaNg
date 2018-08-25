@@ -11,7 +11,7 @@
         'pascalprecht.translate',
         'angularMoment',
         'ngWebSocket',
-        'ab-base64',
+        'utf8-base64',
         'LocalStorageModule',
         'notification',
         'ui-notification',
