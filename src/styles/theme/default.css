@@ -264,7 +264,11 @@
 }
 
 .skin-aria-ng .icon-expand {
-    color: #5399e8  ;
+    color: #5399e8;
+}
+
+.skin-aria-ng .icon-dir-expand {
+    color: #999;
 }
 
 .skin-aria-ng .nav-tabs-custom {

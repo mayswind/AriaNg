@@ -235,7 +235,7 @@
                         <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()"
                              ng-if="!context.collapsedDirs[file.relativePath]" data-file-index="{{file.index}}">
                             <div class="col-sm-10" ng-if="file.isDir" style="{{'padding-left: ' + (file.level * 16) + 'px'}}">
-                                <i class="icon-expand pointer-cursor fa" ng-click="collapseDir(file)"
+                                <i class="icon-dir-expand pointer-cursor fa" ng-click="collapseDir(file)"
                                    ng-class="{true: 'fa-plus', false: 'fa-minus'}[!!context.collapsedDirs[file.nodePath]]"
                                    title="{{(context.collapsedDirs[file.nodePath] ? 'Expand' : 'Collapse') | translate}}">
                                 </i><div class="checkbox checkbox-primary checkbox-inline">

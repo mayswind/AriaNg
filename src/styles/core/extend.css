@@ -114,7 +114,7 @@
     display: inline-block;
 }
 
-.icon-expand + .checkbox {
+.icon-dir-expand + .checkbox {
     margin-left: 6px;
 }
 
