@@ -27,7 +27,6 @@
     "angular-websocket": "^2.0.0",
     "angular-utf8-base64": "^0.0.5",
     "angular-local-storage": "^0.7.1",
-    "angular-notification": "git://github.com/neoziro/angular-notification#775ee861c1737b284588bcb878ba1f4e43c70c97",
     "angular-ui-notification": "^0.3.6",
     "angular-bittorrent-peerid": "^1.2.0",
     "angular-busy": "^4.1.4",

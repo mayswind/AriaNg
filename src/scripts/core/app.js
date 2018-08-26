@@ -13,7 +13,6 @@
         'ngWebSocket',
         'utf8-base64',
         'LocalStorageModule',
-        'notification',
         'ui-notification',
         'angularBittorrentPeerid',
         'cgBusy',

@@ -1,47 +1,87 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgNotificationService', ['$notification', 'Notification', 'ariaNgSettingService', function ($notification, Notification, ariaNgSettingService) {
-        var isSupportBrowserNotification = $notification.isSupported;
+    angular.module('ariaNg').factory('ariaNgNotificationService', ['$window', 'Notification', 'ariaNgSettingService', function ($window, Notification, ariaNgSettingService) {
+        var isSupportBrowserNotification = !!$window.Notification;
 
-        var isPermissionGranted = function (permission) {
+        var isBrowserNotifactionGranted = function (permission) {
             return permission === 'granted';
+        };
+
+        var getBrowserNotifactionPermission = function () {
+            if (!$window.Notification) {
+                return null;
+            }
+
+            return $window.Notification.permission;
+        };
+
+        var requestBrowserNotifactionPermission = function (callback) {
+            if (!$window.Notification) {
+                return;
+            }
+
+            $window.Notification.requestPermission(function (permission) {
+                if (callback) {
+                    callback({
+                        granted: isBrowserNotifactionGranted(permission),
+                        permission: permission
+                    });
+                }
+            });
+        };
+
+        var showBrowserNotifaction = function (title, options) {
+            if (!$window.Notification) {
+                return;
+            }
+
+            if (!isBrowserNotifactionGranted(getBrowserNotifactionPermission())) {
+                return;
+            }
+
+            options = angular.extend({
+                icon: 'tileicon.png'
+            }, options);
+
+            new $window.Notification(title, options);
         };
 
         return {
             isSupportBrowserNotification: function () {
                 return isSupportBrowserNotification;
             },
-            isPermissionGranted: function (permission) {
-                return isPermissionGranted(permission);
-            },
             hasBrowserPermission: function () {
                 if (!isSupportBrowserNotification) {
                     return false;
                 }
 
-                return isPermissionGranted($notification.getPermission());
+                return isBrowserNotifactionGranted(getBrowserNotifactionPermission());
             },
             requestBrowserPermission: function (callback) {
                 if (!isSupportBrowserNotification) {
                     return;
                 }
 
-                $notification.requestPermission().then(function (permission) {
-                    if (!isPermissionGranted(permission)) {
+                requestBrowserNotifactionPermission(function (result) {
+                    if (!result.granted) {
                         ariaNgSettingService.setBrowserNotification(false);
                     }
 
                     if (callback) {
-                        callback(permission);
+                        callback(result);
                     }
                 });
             },
-            notifyViaBrowser: function (title, content) {
+            notifyViaBrowser: function (title, content, options) {
+                if (!options) {
+                    options = {};
+                }
+
+                options.body = content;
+
                 if (isSupportBrowserNotification && ariaNgSettingService.getBrowserNotification()) {
-                    $notification(title, {
-                        body: content
-                    });
+                    showBrowserNotifaction(title, options);
                 }
             },
             notifyInPage: function (title, content, options) {

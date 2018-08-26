@@ -128,8 +128,8 @@
             ariaNgSettingService.setBrowserNotification(value);
 
             if (value && !ariaNgNotificationService.hasBrowserPermission()) {
-                ariaNgNotificationService.requestBrowserPermission(function (permission) {
-                    if (!ariaNgNotificationService.isPermissionGranted(permission)) {
+                ariaNgNotificationService.requestBrowserPermission(function (result) {
+                    if (!result.granted) {
                         $scope.context.settings.browserNotification = false;
                         ariaNgLocalizationService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
                     }
@@ -220,7 +220,7 @@
             $scope.context.exportSettings = null;
             $scope.context.exportSettingsCopied = false;
         });
-        
+
         $scope.copyExportSettings = function () {
             clipboard.copyText($scope.context.exportSettings);
             $scope.context.exportSettingsCopied = true;

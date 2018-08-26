@@ -54,7 +54,7 @@
 
                 ariaNgCommonService.confirm(title, text, type, callback, notClose, extendSettings);
             },
-            notifyViaBrowser: function (title, content) {
+            notifyViaBrowser: function (title, content, options) {
                 if (title) {
                     title = this.getLocalizedText(title);
                 }
@@ -63,7 +63,7 @@
                     content = this.getLocalizedText(content);
                 }
 
-                return ariaNgNotificationService.notifyViaBrowser(title, content);
+                return ariaNgNotificationService.notifyViaBrowser(title, content, options);
             },
             notifyInPage: function (title, content, options) {
                 if (!options) {
