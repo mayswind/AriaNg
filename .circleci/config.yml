@@ -11,7 +11,6 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: sudo npm install -g bower
       - run: sudo npm install -g gulp
       - run: gulp clean build
       - save_cache:

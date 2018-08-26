@@ -38,7 +38,7 @@ Latest Release: [https://github.com/mayswind/AriaNg/releases](https://github.com
 Latest Daily Build: [https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip](https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip)
 
 #### Building from source
-Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/), [Gulp](https://gulpjs.com/) and [Bower](https://bower.io/) installed. Then download the source code, and follow these steps.
+Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Gulp](https://gulpjs.com/) installed. Then download the source code, and follow these steps.
 
     $ npm install
     $ gulp clean build
