@@ -66,6 +66,14 @@
             return $scope.context.currentTab === 'rpc' + rpcIndex;
         };
 
+        $scope.getCurrentRpcTabIndex = function () {
+            if ($scope.isCurrentGlobalTab()) {
+                return -1;
+            }
+
+            return parseInt($scope.context.currentTab.substring(3));
+        };
+
         $scope.updateTitlePreview = function () {
             $scope.context.titlePreview = getFinalTitle();
         };
@@ -74,7 +82,7 @@
             var tabIndex = -1;
 
             if (!$scope.isCurrentGlobalTab()) {
-                tabIndex = parseInt($scope.context.currentTab.substring(3));
+                tabIndex = parseInt($scope.getCurrentRpcTabIndex());
             }
 
             if (tabIndex < $scope.context.rpcSettings.length - 1) {
@@ -89,7 +97,7 @@
             var tabIndex = -1;
 
             if (!$scope.isCurrentGlobalTab()) {
-                tabIndex = parseInt($scope.context.currentTab.substring(3));
+                tabIndex = parseInt($scope.getCurrentRpcTabIndex());
             }
 
             if (tabIndex > 0) {
@@ -246,12 +254,17 @@
             ariaNgLocalizationService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{{rpcName}}"?', 'warning', function () {
                 setNeedRefreshPage();
 
+                var currentIndex = $scope.getCurrentRpcTabIndex();
                 var index = $scope.context.rpcSettings.indexOf(setting);
                 ariaNgSettingService.removeRpcSetting(setting);
                 $scope.context.rpcSettings.splice(index, 1);
 
-                if ($scope.isCurrentRpcTab(index) && index >= $scope.context.rpcSettings.length) {
+                if (currentIndex >= $scope.context.rpcSettings.length) {
                     $scope.changeRpcTab($scope.context.rpcSettings.length - 1);
+                } else if (currentIndex <= 0 || currentIndex <= index) {
+                    ; // Do Nothing
+                } else { // currentIndex > index
+                    $scope.changeRpcTab(currentIndex - 1);
                 }
             }, false, {
                 textParams: {
