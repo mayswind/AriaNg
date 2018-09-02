@@ -245,13 +245,7 @@
                     // Do Nothing
                 } else if (displayOrder === 'rpcAlias') {
                     result.sort(function (rpc1, rpc2) {
-                        if (rpc1.rpcAlias < rpc2.rpcAlias) {
-                            return -1;
-                        } else if (rpc1.rpcAlias > rpc2.rpcAlias) {
-                            return 1;
-                        } else {
-                            return 0;
-                        }
+                        return String.naturalCompare(rpc1.rpcAlias, rpc2.rpcAlias);
                     });
                 }
 
