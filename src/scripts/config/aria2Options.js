@@ -228,7 +228,9 @@
             required: true
         },
         'header': {
-            type: 'text'
+            type: 'text',
+            split: '\n',
+            showCount: true
         },
         'save-cookies': {
             type: 'string'

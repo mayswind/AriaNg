@@ -417,7 +417,7 @@
                 'enable-http-pipelining.name': 'Enable HTTP Pipelining',
                 'enable-http-pipelining.description': 'Enable HTTP/1.1 pipelining.',
                 'header.name': 'Custom Header',
-                'header.description': 'Append HEADER to HTTP request header.',
+                'header.description': 'Append HEADER to HTTP request header. Put one item per line, each item containing "header name: header value".',
                 'save-cookies.name': 'Cookies Path',
                 'save-cookies.description': 'Save Cookies to FILE in Mozilla/Firefox(1.x/2.x)/ Netscape format. If FILE already exists, it is overwritten. Session Cookies are also saved and their expiry values are treated as 0.',
                 'use-head.name': 'Use HEAD Method',
