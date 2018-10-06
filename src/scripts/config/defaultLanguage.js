@@ -517,7 +517,7 @@
                 'seed-ratio.name': 'Min Share Ratio',
                 'seed-ratio.description': 'Specify share ratio. Seed completed torrents until share ratio reaches RATIO. You are strongly encouraged to specify equals or more than 1.0 here. Specify 0.0 if you intend to do seeding regardless of share ratio. If --seed-time option is specified along with this option, seeding ends when at least one of the conditions is satisfied.',
                 'seed-time.name': 'Min Seed Time',
-                'seed-time.description': 'Specifying --seed-time=0 disables seeding after download completed.',
+                'seed-time.description': 'Specify seeding time in (fractional) minutes. Specifying --seed-time=0 disables seeding after download completed.',
                 'follow-metalink.name': 'Follow Metalink',
                 'follow-metalink.description': 'If true or mem is specified, when a file whose suffix is .meta4 or .metalink or content type of application/metalink4+xml or application/metalink+xml is downloaded, aria2 parses it as a metalink file and downloads files mentioned in it. If mem is specified, a metalink file is not written to the disk, but is just kept in memory. If false is specified, the .metalink file is downloaded to the disk, but is not parsed as a metalink file and its contents are not downloaded.',
                 'metalink-base-uri.name': 'Base URI',
