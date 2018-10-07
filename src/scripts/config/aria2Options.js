@@ -10,6 +10,7 @@
         //     [defaultValue: '',]
         //     [required: true|false,] //default: false
         //     [split: '',] //SUPPORT 'text' type
+        //     [submitFormat: 'string|array'] //default: string, parameter 'split' is required
         //     [showCount: true|false,] //SUPPORT 'text' type, parameter 'split' is required, default: false
         //     [options: [],] //SUPPORT 'option' type
         //     [min: 0,] //SUPPORT 'integer', 'float'
@@ -230,6 +231,7 @@
         'header': {
             type: 'text',
             split: '\n',
+            submitFormat: 'array',
             showCount: true
         },
         'save-cookies': {
