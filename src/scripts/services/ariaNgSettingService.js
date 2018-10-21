@@ -366,6 +366,12 @@
             setRemoveOldTaskAfterRestarting: function (value) {
                 setOption('removeOldTaskAfterRestarting', value);
             },
+            getAfterRestartingTask: function () {
+                return getOption('afterRestartingTask');
+            },
+            setAfterRestartingTask: function (value) {
+                setOption('afterRestartingTask', value);
+            },
             getCurrentRpcDisplayName: function () {
                 var options = getOptions();
 

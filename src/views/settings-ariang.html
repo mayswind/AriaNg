@@ -153,6 +153,19 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Action After Restarting Task</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.afterRestartingTask"
+                                    ng-change="setAfterRestartingTask(context.settings.afterRestartingTask)">
+                                <option value="task-list-downloading" translate>Navigate to Downloading Task List Page</option>
+                                <option value="task-detail" translate>Navigate to Task Detail Page</option>
+                                <option value="stay-on-current" translate>Stay on Current Page</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Import / Export AriaNg Settings</span>
                         </div>
                         <div class="setting-value col-sm-8">

@@ -148,9 +148,18 @@
 
                     refreshGlobalStat(true);
 
-                    if (response.success) {
-                        if ($location.path() !== '/downloading') {
-                            $location.path('/downloading');
+                    var actionAfterRestartingTask = ariaNgSettingService.getAfterRestartingTask();
+
+                    if (response.success && response.data) {
+                        console.log(response);
+                        if (actionAfterRestartingTask === 'task-list-downloading') {
+                            if ($location.path() !== '/downloading') {
+                                $location.path('/downloading');
+                            } else {
+                                $route.reload();
+                            }
+                        } else if (actionAfterRestartingTask === 'task-detail') {
+                            $location.path('/task/detail/' + response.data);
                         } else {
                             $route.reload();
                         }

@@ -173,6 +173,10 @@
             ariaNgSettingService.setRemoveOldTaskAfterRestarting(value);
         };
 
+        $scope.setAfterRestartingTask = function (value) {
+            ariaNgSettingService.setAfterRestartingTask(value);
+        };
+
         $scope.showImportSettingsModal = function () {
             $scope.context.importSettings = null;
             angular.element('#import-settings-modal').modal();
