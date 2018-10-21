@@ -151,7 +151,6 @@
                     var actionAfterRestartingTask = ariaNgSettingService.getAfterRestartingTask();
 
                     if (response.success && response.data) {
-                        console.log(response);
                         if (actionAfterRestartingTask === 'task-list-downloading') {
                             if ($location.path() !== '/downloading') {
                                 $location.path('/downloading');
