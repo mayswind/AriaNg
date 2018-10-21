@@ -7,8 +7,8 @@
         var secret = ariaNgSettingService.getCurrentRpcSecret();
 
         var onFirstSuccessCallbacks = [];
-        var onConnectSuccessCallbacks = [];
-        var onConnectErrorCallbacks = [];
+        var onOperationSuccessCallbacks = [];
+        var onOperationErrorCallbacks = [];
         var onDownloadStartCallbacks = [];
         var onDownloadPauseCallbacks = [];
         var onDownloadStopCallbacks = [];
@@ -149,7 +149,7 @@
                         });
                     }
 
-                    fireCustomEvent(onConnectSuccessCallbacks);
+                    fireCustomEvent(onOperationSuccessCallbacks);
 
                     if (!isConnected) {
                         isConnected = true;
@@ -177,7 +177,7 @@
                         });
                     }
 
-                    fireCustomEvent(onConnectErrorCallbacks);
+                    fireCustomEvent(onOperationErrorCallbacks);
                 };
             }
 
@@ -471,11 +471,11 @@
             onFirstSuccess: function (context) {
                 onFirstSuccessCallbacks.push(context.callback);
             },
-            onConnectSuccess: function (context) {
-                onConnectSuccessCallbacks.push(context.callback);
+            onOperationSuccess: function (context) {
+                onOperationSuccessCallbacks.push(context.callback);
             },
-            onConnectError: function (context) {
-                onConnectErrorCallbacks.push(context.callback);
+            onOperationError: function (context) {
+                onOperationErrorCallbacks.push(context.callback);
             },
             onDownloadStart: function (context) {
                 onDownloadStartCallbacks.push(context.callback);

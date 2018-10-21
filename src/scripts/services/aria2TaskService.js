@@ -797,23 +797,23 @@
                     callback: callback
                 });
             },
-            onConnectSuccess: function (callback) {
+            onOperationSuccess: function (callback) {
                 if (!callback) {
-                    ariaNgLogService.warn('[aria2TaskService.onConnectSuccess] callback is null');
+                    ariaNgLogService.warn('[aria2TaskService.onOperationSuccess] callback is null');
                     return;
                 }
 
-                aria2RpcService.onConnectSuccess({
+                aria2RpcService.onOperationSuccess({
                     callback: callback
                 });
             },
-            onConnectError: function (callback) {
+            onOperationError: function (callback) {
                 if (!callback) {
-                    ariaNgLogService.warn('[aria2TaskService.onConnectError] callback is null');
+                    ariaNgLogService.warn('[aria2TaskService.onOperationError] callback is null');
                     return;
                 }
 
-                aria2RpcService.onConnectError({
+                aria2RpcService.onOperationError({
                     callback: callback
                 });
 
