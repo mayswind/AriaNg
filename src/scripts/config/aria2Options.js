@@ -971,6 +971,11 @@
                 canUpdate: 'new|waiting|paused'
             },
             {
+                key: 'referer',
+                category: 'http',
+                canUpdate: 'new'
+            },
+            {
                 key: 'header',
                 category: 'http',
                 canUpdate: 'new'
