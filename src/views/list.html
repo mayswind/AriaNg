@@ -145,6 +145,12 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
+                        <i class="fa fa-th-large"></i>
+                        <span translate>Select All</span>
+                    </a>
+                </li>
                 <li class="divider" ng-if="isSingleUrlTaskSelected()"></li>
                 <li ng-if="isSingleUrlTaskSelected()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Copy Download Url' | translate}}" ng-click="copySelectedOneTaskDownloadLink()">
