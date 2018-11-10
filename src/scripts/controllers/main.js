@@ -215,6 +215,10 @@
             });
         };
 
+        $scope.isAllTasksSelected = function () {
+            return $rootScope.taskContext.isAllSelected();
+        };
+
         $scope.selectAllTasks = function () {
             $rootScope.taskContext.selectAll();
         };

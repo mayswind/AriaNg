@@ -133,15 +133,7 @@
 
                 return result;
             },
-            selectAll: function () {
-                if (!this.list || !this.selected || this.list.length < 1) {
-                    return;
-                }
-
-                if (!this.enableSelectAll) {
-                    return;
-                }
-
+            isAllSelected: function () {
                 var isAllSelected = true;
 
                 for (var i = 0; i < this.list.length; i++) {
@@ -152,6 +144,19 @@
                         break;
                     }
                 }
+
+                return isAllSelected;
+            },
+            selectAll: function () {
+                if (!this.list || !this.selected || this.list.length < 1) {
+                    return;
+                }
+
+                if (!this.enableSelectAll) {
+                    return;
+                }
+
+                var isAllSelected = this.isAllSelected();
 
                 for (var i = 0; i < this.list.length; i++) {
                     var task = this.list[i];
