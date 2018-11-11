@@ -235,6 +235,10 @@
                                     <i class="fa fa-file-archive-o"></i>
                                     <span translate>Archives</span>
                                 </button>
+                                <button class="btn btn-xs btn-default" ng-click="showCustomChooseFileModal()">
+                                    <i class="fa fa-filter"></i>
+                                    <span translate>Custom</span>
+                                </button>
                                 <button class="btn btn-xs btn-success" ng-click="saveChoosedFiles()" ng-disabled="!isAnyFileSelected()" translate>Confirm</button>
                                 <button class="btn btn-xs btn-default" ng-click="cancelChooseFiles()" translate>Cancel</button>
                             </div>
@@ -368,5 +372,33 @@
                 </a>
             </li>
         </ul>
+    </div>
+    <div id="custom-choose-file-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" translate>Custom Choose File</h4>
+                </div>
+                <div class="modal-body no-padding">
+                    <div class="settings-table striped hoverable">
+                        <div class="row" ng-repeat="(extensionTypeName, extensionTypeInfo) in context.fileExtensions">
+                            <div class="setting-key setting-key-without-desc col-sm-4" ng-bind="extensionTypeInfo.name | translate"></div>
+                            <div class="setting-value col-sm-8">
+                                <div class="checkbox checkbox-primary checkbox-inline" ng-repeat="info in extensionTypeInfo.extensions">
+                                    <input id="{{info.extension}}" type="checkbox" ng-model="info.selected"
+                                           ng-indeterminate="info.selectedCount > 0 && info.unSelectedCount > 0"
+                                           ng-change="setSelectedExtension(info.extension, info.selected)">
+                                    <label for="{{info.extension}}" ng-bind="info.extension"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" translate>Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
