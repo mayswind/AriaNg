@@ -15,20 +15,25 @@
             getLongDateFormat: function () {
                 return this.getLocalizedText('format.longdate');
             },
-            showDialog: function (title, text, type, callback) {
+            showDialog: function (title, text, type, callback, extendSettings) {
+                if (!extendSettings) {
+                    extendSettings = {};
+                }
+
                 if (title) {
                     title = this.getLocalizedText(title);
                 }
 
                 if (text) {
-                    text = this.getLocalizedText(text);
+                    text = this.getLocalizedText(text, extendSettings.textParams);
                 }
 
-                var options = {
-                    confirmButtonText: this.getLocalizedText('OK')
-                };
+                extendSettings.confirmButtonText = this.getLocalizedText('OK');
 
-                ariaNgCommonService.showDialog(title, text, type, callback, options);
+                ariaNgCommonService.showDialog(title, text, type, callback, extendSettings);
+            },
+            showInfo: function (title, text, callback, extendSettings) {
+                this.showDialog(title, text, 'info', callback, extendSettings);
             },
             showError: function (text, callback) {
                 this.showDialog('Error', text, 'error', callback);

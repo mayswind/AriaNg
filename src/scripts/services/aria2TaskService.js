@@ -720,6 +720,63 @@
 
                 return deferred.promise;
             },
+            retryTasks: function (tasks, callback, silent) {
+                if (!callback) {
+                    ariaNgLogService.warn('[aria2TaskService.retryTasks] callback is null');
+                    return;
+                }
+
+                var retryTaskFunc = this.retryTask;
+
+                var deferred = $q.defer();
+                var lastPromise = null;
+
+                var successCount = 0;
+                var failedCount = 0;
+
+                var doRetryFunc = function (task, index) {
+                    return retryTaskFunc(task.gid, function (response) {
+                        ariaNgLogService.debug('[aria2TaskService.retryTasks] task#' + index + ', gid=' + task.gid + ', result=' + response.success, task);
+
+                        if (response.success) {
+                            successCount++;
+                        } else {
+                            failedCount++;
+                        }
+
+                        if ((successCount + failedCount) === tasks.length) {
+                            var finalResponse = {
+                                successCount: successCount,
+                                failedCount: failedCount,
+                                hasSuccess: successCount > 0,
+                                hasError: failedCount > 0
+                            };
+
+                            deferred.resolve(finalResponse);
+                            callback(finalResponse);
+                        }
+                    }, silent);
+                };
+
+                for (var i = 0; i < tasks.length; i++) {
+                    var task = tasks[i];
+                    var currentPromise = null;
+
+                    if (!lastPromise) {
+                        currentPromise = doRetryFunc(task, i);
+                    } else {
+                        currentPromise = (function (task, index) {
+                            return lastPromise.then(function () {
+                                return doRetryFunc(task, index);
+                            });
+                        })(task, i);
+                    }
+
+                    lastPromise = currentPromise;
+                }
+
+                return deferred.promise;
+            },
             removeTasks: function (tasks, callback, silent) {
                 var runningTaskGids = [];
                 var stoppedTaskGids = [];

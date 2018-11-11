@@ -48,7 +48,7 @@
                         <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
                             <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
                         </a><i class="icon-error fa fa-times" ng-if="task && task.status === 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status === 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
-                        <a ng-if="task && task.status === 'error' && task.errorDescription && !task.bittorrent" ng-click="retryTask(task)" title="{{'Retry' | translate}}" translate>Retry</a>
+                        <a ng-if="isTaskRetryable(task)" ng-click="retryTask(task)" title="{{'Retry' | translate}}" translate>Retry</a>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-12">
@@ -76,6 +76,13 @@
         </div>
         <div id="task-table-contextmenu">
             <ul class="dropdown-menu" role="menu">
+                <li ng-if="isSelectedTaskRetryable()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Retry Selected Tasks' | translate}}" ng-click="retryTasks()">
+                        <i class="fa fa-refresh"></i>
+                        <span translate>Retry Selected Tasks</span>
+                    </a>
+                </li>
+                <li class="divider" ng-if="isSelectedTaskRetryable()"></li>
                 <li ng-if="isSpecifiedTaskSelected('paused')">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
                         <i class="fa fa-play"></i>

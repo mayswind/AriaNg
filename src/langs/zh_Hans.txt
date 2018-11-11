@@ -1,4 +1,5 @@
 [global]
+Operation Result=操作结果
 Operation Succeeded=操作成功
 {{name}} is connected={{name}} 已连接
 Error=错误
@@ -16,6 +17,7 @@ New=新建
 Start=开始任务
 Pause=暂停任务
 Retry=重试
+Retry Selected Tasks=重试选中任务
 Delete=删除任务
 Select All=全部选中
 Select None=全部不选
@@ -113,8 +115,9 @@ No Data=无数据
 No connected peers=没有连接到其他节点
 Failed to change some tasks state.=修改一些任务状态时失败.
 Confirm Retry=确认重试
-Are you sure you want to retry this task? AriaNg will create a same task after clicking OK.=您是否要重试这个任务? 点击 "确定" 后, AriaNg 将会创建一个相同的任务.
+Are you sure you want to retry the selected task? AriaNg will create same task after clicking OK.=您是否要重试选中的任务? 点击 "确定" 后, AriaNg 将会创建相同的任务.
 Failed to retry this task.=该任务重试失败.
+{{successCount}} tasks have been retried and {{failedCount}} tasks are failed.={{successCount}} 个任务重试成功以及 {{failedCount}} 个任务失败.
 Confirm Remove=确认删除
 Are you sure you want to remove the selected task?=您是否要删除选中的任务?
 Failed to remove some task(s).=删除一些任务时失败.

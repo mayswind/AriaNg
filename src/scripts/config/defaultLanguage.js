@@ -3,6 +3,7 @@
 
     angular.module('ariaNg').config(['$translateProvider', 'ariaNgConstants', function ($translateProvider, ariaNgConstants) {
         var defaultLanguageResource = {
+            'Operation Result': 'Operation Result',
             'Operation Succeeded': 'Operation Succeeded',
             '{{name}} is connected': '{{name}} is connected',
             'Error': 'Error',
@@ -20,6 +21,7 @@
             'Start': 'Start',
             'Pause': 'Pause',
             'Retry': 'Retry',
+            'Retry Selected Tasks': 'Retry Selected Tasks',
             'Delete': 'Delete',
             'Select All': 'Select All',
             'Select None': 'Select None',
@@ -117,8 +119,9 @@
             'No connected peers': 'No connected peers',
             'Failed to change some tasks state.': 'Failed to change some tasks state.',
             'Confirm Retry': 'Confirm Retry',
-            'Are you sure you want to retry this task? AriaNg will create a same task after clicking OK.': 'Are you sure you want to retry this task? AriaNg will create a same task after clicking OK.',
+            'Are you sure you want to retry the selected task? AriaNg will create same task after clicking OK.': 'Are you sure you want to retry the selected task? AriaNg will create same task after clicking OK.',
             'Failed to retry this task.': 'Failed to retry this task.',
+            '{{successCount}} tasks have been retried and {{failedCount}} tasks are failed.': '{{successCount}} tasks have been retried and {{failedCount}} tasks are failed.',
             'Confirm Remove': 'Confirm Remove',
             'Are you sure you want to remove the selected task?': 'Are you sure you want to remove the selected task?',
             'Failed to remove some task(s).': 'Failed to remove some task(s).',
