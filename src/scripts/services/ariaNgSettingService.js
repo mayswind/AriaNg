@@ -360,17 +360,17 @@
             setAfterCreatingNewTask: function (value) {
                 setOption('afterCreatingNewTask', value);
             },
-            getRemoveOldTaskAfterRestarting: function () {
-                return getOption('removeOldTaskAfterRestarting');
+            getRemoveOldTaskAfterRetrying: function () {
+                return getOption('removeOldTaskAfterRetrying');
             },
-            setRemoveOldTaskAfterRestarting: function (value) {
-                setOption('removeOldTaskAfterRestarting', value);
+            setRemoveOldTaskAfterRetrying: function (value) {
+                setOption('removeOldTaskAfterRetrying', value);
             },
-            getAfterRestartingTask: function () {
-                return getOption('afterRestartingTask');
+            getAfterRetryingTask: function () {
+                return getOption('afterRetryingTask');
             },
-            setAfterRestartingTask: function (value) {
-                setOption('afterRestartingTask', value);
+            setAfterRetryingTask: function (value) {
+                setOption('afterRetryingTask', value);
             },
             getCurrentRpcDisplayName: function () {
                 var options = getOptions();

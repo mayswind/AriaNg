@@ -138,26 +138,26 @@
             }, (gids.length > 1));
         };
 
-        $scope.restart = function (task) {
-            ariaNgLocalizationService.confirm('Confirm Restart', 'Are you sure you want to restart this task? AriaNg will create a same task after clicking OK.', 'info', function () {
-                $rootScope.loadPromise = aria2TaskService.restartTask(task.gid, function (response) {
+        $scope.retryTask = function (task) {
+            ariaNgLocalizationService.confirm('Confirm Retry', 'Are you sure you want to retry this task? AriaNg will create a same task after clicking OK.', 'info', function () {
+                $rootScope.loadPromise = aria2TaskService.retryTask(task.gid, function (response) {
                     if (!response.success) {
-                        ariaNgLocalizationService.showError('Failed to restart this task.');
+                        ariaNgLocalizationService.showError('Failed to retry this task.');
                         return;
                     }
 
                     refreshGlobalStat(true);
 
-                    var actionAfterRestartingTask = ariaNgSettingService.getAfterRestartingTask();
+                    var actionAfterRetryingTask = ariaNgSettingService.getAfterRetryingTask();
 
                     if (response.success && response.data) {
-                        if (actionAfterRestartingTask === 'task-list-downloading') {
+                        if (actionAfterRetryingTask === 'task-list-downloading') {
                             if ($location.path() !== '/downloading') {
                                 $location.path('/downloading');
                             } else {
                                 $route.reload();
                             }
-                        } else if (actionAfterRestartingTask === 'task-detail') {
+                        } else if (actionAfterRetryingTask === 'task-detail') {
                             $location.path('/task/detail/' + response.data);
                         } else {
                             $route.reload();

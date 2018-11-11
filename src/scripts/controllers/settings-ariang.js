@@ -169,12 +169,12 @@
             ariaNgSettingService.setAfterCreatingNewTask(value);
         };
 
-        $scope.setRemoveOldTaskAfterRestarting = function (value) {
-            ariaNgSettingService.setRemoveOldTaskAfterRestarting(value);
+        $scope.setRemoveOldTaskAfterRetrying = function (value) {
+            ariaNgSettingService.setRemoveOldTaskAfterRetrying(value);
         };
 
-        $scope.setAfterRestartingTask = function (value) {
-            ariaNgSettingService.setAfterRestartingTask(value);
+        $scope.setAfterRetryingTask = function (value) {
+            ariaNgSettingService.setAfterRetryingTask(value);
         };
 
         $scope.showImportSettingsModal = function () {

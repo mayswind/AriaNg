@@ -142,22 +142,22 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Removing Old Task After Restarting</span>
+                            <span translate>Removing Old Task After Retrying</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;" ng-model="context.settings.removeOldTaskAfterRestarting"
-                                    ng-change="setRemoveOldTaskAfterRestarting(context.settings.removeOldTaskAfterRestarting)"
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.removeOldTaskAfterRetrying"
+                                    ng-change="setRemoveOldTaskAfterRetrying(context.settings.removeOldTaskAfterRetrying)"
                                     ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Action After Restarting Task</span>
+                            <span translate>Action After Retrying Task</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;" ng-model="context.settings.afterRestartingTask"
-                                    ng-change="setAfterRestartingTask(context.settings.afterRestartingTask)">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.afterRetryingTask"
+                                    ng-change="setAfterRetryingTask(context.settings.afterRetryingTask)">
                                 <option value="task-list-downloading" translate>Navigate to Downloading Task List Page</option>
                                 <option value="task-detail" translate>Navigate to Task Detail Page</option>
                                 <option value="stay-on-current" translate>Stay on Current Page</option>

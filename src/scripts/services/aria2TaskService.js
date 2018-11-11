@@ -614,7 +614,7 @@
                     callback: callback
                 });
             },
-            restartTask: function (gid, callback, silent) {
+            retryTask: function (gid, callback, silent) {
                 var deferred = $q.defer();
 
                 var methods = [
@@ -629,12 +629,12 @@
                     silent: !!silent,
                     callback: function (response) {
                         if (!callback) {
-                            ariaNgLogService.warn('[aria2TaskService.restartTask] callback is null');
+                            ariaNgLogService.warn('[aria2TaskService.retryTask] callback is null');
                             return;
                         }
 
                         if (!response.success) {
-                            ariaNgLogService.warn('[aria2TaskService.restartTask] response is not success', response);
+                            ariaNgLogService.warn('[aria2TaskService.retryTask] response is not success', response);
                             deferred.reject(response);
                             callback(response);
                             return;
@@ -650,23 +650,23 @@
 
                         if (!task || !options || !task.files || task.files.length !== 1 || task.bittorrent) {
                             if (!task) {
-                                ariaNgLogService.warn('[aria2TaskService.restartTask] task is null');
+                                ariaNgLogService.warn('[aria2TaskService.retryTask] task is null');
                             }
 
                             if (!options) {
-                                ariaNgLogService.warn('[aria2TaskService.restartTask] options is null');
+                                ariaNgLogService.warn('[aria2TaskService.retryTask] options is null');
                             }
 
                             if (!task.files) {
-                                ariaNgLogService.warn('[aria2TaskService.restartTask] task file is null');
+                                ariaNgLogService.warn('[aria2TaskService.retryTask] task file is null');
                             }
 
                             if (task.files.length !== 1) {
-                                ariaNgLogService.warn('[aria2TaskService.restartTask] task file length is not equal 1');
+                                ariaNgLogService.warn('[aria2TaskService.retryTask] task file length is not equal 1');
                             }
 
                             if (task.bittorrent) {
-                                ariaNgLogService.warn('[aria2TaskService.restartTask] task is bittorrent');
+                                ariaNgLogService.warn('[aria2TaskService.retryTask] task is bittorrent');
                             }
 
                             deferred.reject(gid);
@@ -693,19 +693,19 @@
                             silent: !!silent,
                             callback: function (response) {
                                 if (!response.success) {
-                                    ariaNgLogService.warn('[aria2TaskService.restartTask] addUri response is not success', response);
+                                    ariaNgLogService.warn('[aria2TaskService.retryTask] addUri response is not success', response);
                                     deferred.reject(response);
                                     callback(response);
                                     return;
                                 }
 
-                                if (ariaNgSettingService.getRemoveOldTaskAfterRestarting()) {
+                                if (ariaNgSettingService.getRemoveOldTaskAfterRetrying()) {
                                     aria2RpcService.removeDownloadResult({
                                         gid: gid,
                                         silent: true,
                                         callback: function (response) {
                                             if (!response.success) {
-                                                ariaNgLogService.warn('[aria2TaskService.restartTask] removeDownloadResult response is not success', response);
+                                                ariaNgLogService.warn('[aria2TaskService.retryTask] removeDownloadResult response is not success', response);
                                             }
                                         }
                                     });
