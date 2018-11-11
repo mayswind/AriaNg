@@ -199,9 +199,18 @@
                     <div class="task-table-title" ng-if="context.showChooseFilesToolbar">
                         <div class="row">
                             <div class="col-sm-12">
-                                <button class="btn btn-xs btn-primary" ng-click="selectFiles('all')" translate>Select All</button>
-                                <button class="btn btn-xs btn-primary" ng-click="selectFiles('none')" translate>Select None</button>
-                                <button class="btn btn-xs btn-primary" ng-click="selectFiles('reverse')" translate>Select Invert</button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs" ng-click="selectFiles('auto')"
+                                            ng-bind="(isAllFileSelected() ? 'Select None' : 'Select All') | translate">Select All</button>
+                                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" ng-click="selectFiles('all')" translate>Select All</a></li>
+                                        <li><a href="javascript:void(0);" ng-click="selectFiles('none')" translate>Select None</a></li>
+                                        <li><a href="javascript:void(0);" ng-click="selectFiles('reverse')" translate>Select Invert</a></li>
+                                    </ul>
+                                </div>
                                 <button class="btn btn-xs btn-default" ng-click="chooseSpecifiedFiles('video')">
                                     <i class="fa fa-file-video-o"></i>
                                     <span translate>Videos</span>

@@ -273,6 +273,10 @@
         };
 
         $scope.isAnyFileSelected = function () {
+            if (!$scope.task || !$scope.task.files) {
+                return false;
+            }
+
             for (var i = 0; i < $scope.task.files.length; i++) {
                 var file = $scope.task.files[i];
 
@@ -284,9 +288,33 @@
             return false;
         };
 
+        $scope.isAllFileSelected = function () {
+            if (!$scope.task || !$scope.task.files) {
+                return false;
+            }
+
+            for (var i = 0; i < $scope.task.files.length; i++) {
+                var file = $scope.task.files[i];
+
+                if (!file.isDir && !file.selected) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
         $scope.selectFiles = function (type) {
             if (!$scope.task || !$scope.task.files) {
                 return;
+            }
+
+            if (type === 'auto') {
+                if ($scope.isAllFileSelected()) {
+                    type = 'none';
+                } else {
+                    type = 'all';
+                }
             }
 
             for (var i = 0; i < $scope.task.files.length; i++) {
