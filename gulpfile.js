@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var gulpLoadPlugins = require('gulp-load-plugins');
 var browserSync = require('browser-sync');
 var del = require('del');
+var fs = require('fs');
 
 var $ = gulpLoadPlugins();
 var reload = browserSync.reload;
@@ -148,6 +149,66 @@ gulp.task('info', function () {
 });
 
 gulp.task('build', $.sequence('lint', 'html', 'langs', 'images', 'fonts', 'manifest', 'extras', 'info'));
+
+gulp.task('bundle-assets', function () {
+    return gulp.src('dist/index.html')
+        .pipe($.replace(/<link rel="stylesheet" href="(css\/[a-zA-Z0-9\-_.]+\.css)">/g, function(match, fileName) {
+            var content = fs.readFileSync('dist/' + fileName, 'utf8');
+            return '<style type="text/css">' + content + '</style>';
+        }))
+        .pipe($.replace(/<script src="(js\/[a-zA-Z0-9\-_.]+\.js)"><\/script>/g, function(match, fileName) {
+            var content = fs.readFileSync('dist/' + fileName, 'utf8');
+            return '<script type="application/javascript">' + content + '</script>';
+        }))
+        .pipe($.replace(/url\(\.\.\/(fonts\/[a-zA-Z0-9\-]+\.woff)(\?[a-zA-Z0-9\-_=.]+)?\)/g, function(match, fileName) {
+            if (!fs.existsSync('dist/' + fileName)) {
+                return match;
+            }
+
+            var contentBuffer = fs.readFileSync('dist/' + fileName);
+            var contentBase64 = contentBuffer.toString('base64');
+            return 'url(data:application/x-font-woff;base64,' + contentBase64 + ')';
+        }))
+        .pipe($.replace(/<\/body>/g, function(match) {
+            var langDir = 'src/langs/';
+            var result = '</body>';
+            var fileNames = fs.readdirSync(langDir, 'utf8');
+
+            if (fileNames.length > 0) {
+                var script = '<script type="application/javascript">' +
+                    'angular.module("ariaNg").config(["ariaNgAssetsCacheServiceProvider",function(e){';
+
+                for (var i = 0; i < fileNames.length; i++) {
+                    var fileName = fileNames[i];
+                    var content = fs.readFileSync(langDir + fileName, 'utf8');
+
+                    var lastPointIndex = fileName.lastIndexOf('.');
+                    var languageName = fileName.substr(0, lastPointIndex);
+
+                    content = content.replace(/\n/g, '\\n');
+                    content = content.replace(/"/g, '\\"');
+                    script += 'e.setLanguageAsset(\'' + languageName + '\',"' + content + '");';
+                }
+
+                script += '}]);</script>';
+                result = script + result;
+            }
+
+            return result;
+        }))
+        .pipe($.replace(/<[a-z]+( [a-z\-]+="[a-zA-Z0-9\- ]+")* [a-z\-]+="((favicon.ico)|(favicon.png)|(tileicon.png)|(touchicon.png))"\/?>/g, ''))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('bundle-extras', function () {
+    return gulp.src([
+        'LICENSE'
+    ]).pipe(gulp.dest('dist'));
+});
+
+gulp.task('bundle-clean', del.bind(null, ['dist/css', 'dist/js', 'dist/fonts']));
+
+gulp.task('build-bundle', $.sequence('lint', 'html', 'images', 'fonts', 'bundle-assets', 'bundle-extras', 'bundle-clean', 'info'));
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');

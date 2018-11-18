@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgStorageService', function ($http, $q, ariaNgConstants, ariaNgLanguages, ariaNgNotificationService, ariaNgLogService, ariaNgStorageService) {
+    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgAssetsCacheService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgStorageService', function ($http, $q, ariaNgConstants, ariaNgLanguages, ariaNgAssetsCacheService, ariaNgNotificationService, ariaNgLogService, ariaNgStorageService) {
         var getKeyValuePair = function (line) {
             for (var i = 0; i < line.length; i++) {
                 if (i > 0 && line.charAt(i - 1) !== '\\' && line.charAt(i) === '=') {
@@ -94,6 +94,14 @@
 
             if (languageResource) {
                 deferred.resolve(languageResource);
+            }
+
+            if (ariaNgAssetsCacheService.getLanguageAsset(options.key)) {
+                var languageObject = getLanguageObject(ariaNgAssetsCacheService.getLanguageAsset(options.key));
+                ariaNgStorageService.set(languageKey, languageObject);
+                deferred.resolve(languageObject);
+                
+                return deferred.promise;
             }
 
             var languagePath = ariaNgConstants.languagePath + '/' + options.key + ariaNgConstants.languageFileExtension;
