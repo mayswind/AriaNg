@@ -73,6 +73,10 @@
                     element = angular.element('<input type="file" style="display: none"/>');
                 }
 
+                if (options.fileFilter) {
+                    element.attr('accept', options.fileFilter);
+                }
+
                 element.val('');
 
                 if (element.attr('data-ariang-file-initialized') !== 'true') {
