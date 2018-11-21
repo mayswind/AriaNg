@@ -1,4 +1,5 @@
 [global]
+AriaNg Version=AriaNg 版本
 Operation Result=操作结果
 Operation Succeeded=操作成功
 {{name}} is connected={{name}} 已连接

@@ -3,6 +3,7 @@
 
     angular.module('ariaNg').config(['$translateProvider', 'ariaNgConstants', function ($translateProvider, ariaNgConstants) {
         var defaultLanguageResource = {
+            'AriaNg Version': 'AriaNg Version',
             'Operation Result': 'Operation Result',
             'Operation Succeeded': 'Operation Succeeded',
             '{{name}} is connected': '{{name}} is connected',

@@ -21,6 +21,12 @@
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': isCurrentGlobalTab()}">
                 <div class="settings-table striped hoverable">
+                    <div class="row" ng-if="context.ariaNgVersion">
+                        <div class="setting-key col-sm-4">
+                            <span translate>AriaNg Version</span>
+                        </div>
+                        <div class="setting-value col-sm-8" ng-bind="context.ariaNgVersion + (context.buildCommit ? ' (' + context.buildCommit + ')' : '')"></div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Language</span>

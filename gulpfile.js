@@ -3,6 +3,7 @@ var gulpLoadPlugins = require('gulp-load-plugins');
 var browserSync = require('browser-sync');
 var del = require('del');
 var fs = require('fs');
+var git = require('git-rev-sync');
 
 var $ = gulpLoadPlugins();
 var reload = browserSync.reload;
@@ -54,6 +55,8 @@ gulp.task('prepare-scripts', function () {
     return gulp.src([
         'src/scripts/**/*.js'
     ]).pipe($.plumber())
+        .pipe($.injectVersion({replace: '${ARIANG_VERSION}'}))
+        .pipe($.replace(/\${ARIANG_BUILD_COMMIT}/g, git.short()))
         .pipe(gulp.dest('.tmp/scripts'))
         .pipe(reload({stream: true}));
 });
@@ -70,7 +73,6 @@ gulp.task('prepare-html', ['prepare-styles', 'prepare-scripts', 'prepare-views']
     return gulp.src([
         'src/*.html'
     ]).pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
-        .pipe($.injectVersion())
         .pipe($.if('js/*.js', $.replace(/\/\/# sourceMappingURL=.*/g, '')))
         .pipe($.if('css/*.css', $.replace(/\/\*# sourceMappingURL=.* \*\/$/g, '')))
         .pipe($.if(['js/moment-with-locales-*.min.js', 'js/plugins.min.js', 'js/aria-ng.min.js'], $.uglify({preserveComments: 'license'})))
