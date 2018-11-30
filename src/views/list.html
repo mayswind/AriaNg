@@ -27,8 +27,16 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2">
-                    <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
-                    <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('dspeed:desc')}"></i>
+                  <div class="row">
+                    <div class="" ng-class="{'col-sm-6': isSetShowUploadSpeedInTaskList(), 'col-sm-12': !isSetShowUploadSpeedInTaskList()}">
+                      <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
+                      <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('dspeed:desc')}"></i>
+                    </div>
+                    <div class="col-sm-6" ng-if="isSetShowUploadSpeedInTaskList()">
+                      <a ng-click="changeDisplayOrder('uspeed:desc', true)" translate>Upload Speed</a>
+                      <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('uspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('uspeed:desc')}"></i>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -64,13 +72,19 @@
                     <div>
                         <span class="task-last-time"
                               ng-bind="task.status === 'waiting' ? '--:--:--' : (task.status === 'paused' ? '' : (task.status === 'active' ? ((0 <= task.remainTime && task.remainTime < 86400) ? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)) : ''))"></span>
+                        <span class="task-upload-speed visible-xs-inline pull-right"
+                            ng-if="isSetShowUploadSpeedInTaskList()"
+                            ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.uploadSpeed > 0 ? '/' + (task.uploadSpeed | readableVolume) + '/s' : '/-') : ''))"></span>
                         <span class="task-download-speed visible-xs-inline pull-right"
                               ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : ''))"></span>
                         <span class="task-seeders pull-right" ng-bind="task.status === 'active' ? ((task.numSeeders ? (task.numSeeders + '/') : '') + task.connections) : ''"></span>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2 hidden-xs">
+                <div class="hidden-xs" ng-class="{'col-md-1 col-sm-1': isSetShowUploadSpeedInTaskList(), 'col-md-2 col-sm-2': !isSetShowUploadSpeedInTaskList()}">
                     <span class="task-download-speed" ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : ''))"></span>
+                </div>
+                <div class="col-md-1 col-sm-1 hidden-xs" ng-if="isSetShowUploadSpeedInTaskList()">
+                    <span class="task-download-speed" ng-bind="task.status === 'waiting' ? ('Waiting' | translate) : (task.status === 'paused' ? ('Paused' | translate) : (task.status === 'active' ? (!task.seeder || task.uploadSpeed > 0 ? (task.uploadSpeed | readableVolume) + '/s' : '-') : ''))"></span>
                 </div>
             </div>
         </div>

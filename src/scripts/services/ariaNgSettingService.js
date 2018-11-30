@@ -366,6 +366,12 @@
             setRemoveOldTaskAfterRetrying: function (value) {
                 setOption('removeOldTaskAfterRetrying', value);
             },
+            getShowUploadSpeedInTaskList: function () {
+                return getOption('showUploadSpeedInTaskList');
+            },
+            setShowUploadSpeedInTaskList: function (value) {
+                setOption('showUploadSpeedInTaskList', value);
+            },
             getAfterRetryingTask: function () {
                 return getOption('afterRetryingTask');
             },

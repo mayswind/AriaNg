@@ -175,6 +175,16 @@
             ariaNgSettingService.setRemoveOldTaskAfterRetrying(value);
         };
 
+        $scope.setShowUploadSpeedInTaskList = function (value) {
+            if(value === false) {
+                var displayOrder = ariaNgSettingService.getDisplayOrder();
+                if (displayOrder === 'uspeed:desc' || displayOrder === 'uspeed:asc') {
+                    ariaNgSettingService.setDisplayOrder('default:asc')
+                }
+            }
+            ariaNgSettingService.setShowUploadSpeedInTaskList(value);
+        };
+
         $scope.setAfterRetryingTask = function (value) {
             ariaNgSettingService.setAfterRetryingTask(value);
         };

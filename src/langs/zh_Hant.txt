@@ -168,6 +168,7 @@ Navigate to Task Detail Page=轉到工作詳情頁面
 Action After Retrying Task=重試工作後執行操作
 Navigate to Downloading Task List Page=轉到正在下載工作清單頁面
 Stay on Current Page=留在目前頁面
+Show Upload Speed In Task List Page=任務列表顯示上傳速度
 RPC List Display Order=RPC 清單顯示順序
 Recently Used=最近使用
 RPC Alias=RPC 別名

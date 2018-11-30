@@ -39,6 +39,7 @@
         afterCreatingNewTask: 'task-list',
         removeOldTaskAfterRetrying: false,
         afterRetryingTask: 'task-list-downloading',
+        showUploadSpeedInTaskList: false,
         displayOrder: 'default:asc',
         fileListDisplayOrder: 'default:asc',
         peerListDisplayOrder: 'default:asc'
