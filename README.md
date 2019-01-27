@@ -65,5 +65,8 @@ Since AriaNg standard version loads language resources asynchronously, you may n
 ## Demo
 Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
 
+## Third Party Extensions
+There are some third-party applications based on AriaNg, so you can use AriaNg in more scenarios or devices. Please visit [Third Party Extensions](http://ariang.mayswind.net/3rd-extensions.html) for more information.
+
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
