@@ -102,3 +102,23 @@
         float: right;
     }
 }
+
+.task-table .task-right-arrow {
+    visibility: hidden;
+    position: fixed;
+    right: 14px;
+    margin-top: -12px;
+}
+
+.task-table .row:hover .task-right-arrow {
+    visibility: visible;
+}
+
+.task-table .task-right-arrow i {
+    color: #c8c8c8;
+    font-size: 60px;
+}
+
+.task-table .task-right-arrow i:hover {
+    color: #d8d8d8;
+}
