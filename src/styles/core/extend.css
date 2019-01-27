@@ -1,4 +1,8 @@
 /* bootstrap */
+.btn-group + .btn {
+    margin-left: 4px;
+}
+
 .progress-bar {
     -webkit-transition: initial !important;
     -moz-transition: initial !important;
