@@ -78,90 +78,90 @@
             <ul class="dropdown-menu" role="menu">
                 <li ng-if="isSelectedTaskRetryable()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Retry Selected Tasks' | translate}}" ng-click="retryTasks()">
-                        <i class="fa fa-refresh"></i>
+                        <i class="fa fa-refresh fa-fw"></i>
                         <span translate>Retry Selected Tasks</span>
                     </a>
                 </li>
                 <li class="divider" ng-if="isSelectedTaskRetryable()"></li>
                 <li ng-if="isSpecifiedTaskSelected('paused')">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
-                        <i class="fa fa-play"></i>
+                        <i class="fa fa-play fa-fw"></i>
                         <span translate>Start</span>
                     </a>
                 </li>
                 <li ng-if="isSpecifiedTaskSelected('active', 'waiting')">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
-                        <i class="fa fa-pause"></i>
+                        <i class="fa fa-pause fa-fw"></i>
                         <span translate>Pause</span>
                     </a>
                 </li>
                 <li ng-if="isTaskSelected()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Delete' | translate}}" ng-click="removeTasks()">
-                        <i class="fa fa-trash-o"></i>
+                        <i class="fa fa-trash-o fa-fw"></i>
                         <span translate>Delete</span>
                     </a>
                 </li>
                 <li class="divider" ng-if="isTaskSelected()"></li>
                 <li class="dropdown dropdown-submenu">
                     <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
-                        <i class="fa fa-sort-alpha-asc"></i>
+                        <i class="fa fa-sort-alpha-asc fa-fw"></i>
                         <span translate>Display Order</span>
                     </a>
                     <ul class="dropdown-menu" style="right: 160px;">
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('default:asc')">
                                 <span translate>Default</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('name:asc')">
                                 <span translate>By File Name</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('size:asc')">
                                 <span translate>By File Size</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:desc')">
                                 <span translate>By Progress</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
                                 <span translate>By Remain Time</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:desc')">
                                 <span translate>By Download Speed</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
                             </a>
                         </li>
                         <li>
                             <a class="pointer-cursor" ng-click="changeDisplayOrder('uspeed:desc')">
                                 <span translate>By Upload Speed</span>
-                                <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('uspeed')}"></i>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('uspeed')}"></i>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a tabindex="-1" class="pointer-cursor" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
-                        <i class="fa fa-th-large"></i>
+                        <i class="fa fa-th-large fa-fw"></i>
                         <span translate>Select All</span>
                     </a>
                 </li>
                 <li class="divider" ng-if="isSingleUrlTaskSelected()"></li>
                 <li ng-if="isSingleUrlTaskSelected()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Copy Download Url' | translate}}" ng-click="copySelectedOneTaskDownloadLink()">
-                        <i class="fa fa-copy"></i>
+                        <i class="fa fa-copy fa-fw"></i>
                         <span translate>Copy Download Url</span>
                     </a>
                 </li>
