@@ -110,7 +110,7 @@
     margin-top: -12px;
 }
 
-.task-table .row:hover .task-right-arrow {
+.task-table .row:hover .task-right-arrow, .task-table .row[data-selected=true] .task-right-arrow {
     visibility: visible;
 }
 

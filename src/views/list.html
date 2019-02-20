@@ -34,7 +34,7 @@
         </div>
         <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
             <div class="row pointer-cursor" ng-repeat="task in taskContext.list | filter: filterByTaskName | taskOrderBy: getOrderType()"
-                 data-gid="{{task.gid}}" data-toggle="context" data-target="#task-table-contextmenu"
+                 data-gid="{{task.gid}}" data-selected="{{!!taskContext.selected[task.gid]}}" data-toggle="context" data-target="#task-table-contextmenu"
                  ng-click="taskContext.selected[task.gid] = !taskContext.selected[task.gid]">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
