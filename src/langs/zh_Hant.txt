@@ -182,6 +182,7 @@ Data has been copied to clipboard.=資料已經複製到剪貼簿中.
 Supported Placeholder=支援的預留位置
 AriaNg Title=AriaNg 標題
 Downloading Count=正在下載數量
+Current RPC Alias=目前 RPC 別名
 Waiting Count=正在等待數量
 Stopped Count=已停止數量
 You have disabled notification in your browser. You should change your browser's settings before you enable this function.=您已經在瀏覽器中停用通知功能. 如需使用此功能, 請修改您瀏覽器的設定.

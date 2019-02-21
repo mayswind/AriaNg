@@ -6,7 +6,25 @@
         var lastRefreshPageNotification = null;
 
         var getFinalTitle = function () {
-            return ariaNgTitleService.getFinalTitleByGlobalStat(ariaNgMonitorService.getCurrentGlobalStat());
+            return ariaNgTitleService.getFinalTitleByGlobalStat({
+                globalStat: ariaNgMonitorService.getCurrentGlobalStat(),
+                currentRpcProfile: getCurrentRPCProfile()
+            });
+        };
+
+        var getCurrentRPCProfile = function () {
+            if (!$scope.context || !$scope.context.rpcSettings || $scope.context.rpcSettings.length < 1) {
+                return null;
+            }
+
+            for (var i = 0; i < $scope.context.rpcSettings.length; i++) {
+                var rpcSetting = $scope.context.rpcSettings[i];
+                if (rpcSetting.isDefault) {
+                    return rpcSetting;
+                }
+            }
+
+            return null;
         };
 
         var setNeedRefreshPage = function () {
@@ -50,6 +68,7 @@
             exportSettingsCopied: false
         };
 
+        $scope.context.titlePreview = getFinalTitle();
         $scope.context.showDebugMode = $scope.context.sessionSettings.debugMode || extendType === 'debug';
 
         $scope.changeGlobalTab = function () {

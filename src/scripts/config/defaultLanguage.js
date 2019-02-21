@@ -185,6 +185,7 @@
             'Data has been copied to clipboard.': 'Data has been copied to clipboard.',
             'Supported Placeholder': 'Supported Placeholder',
             'AriaNg Title': 'AriaNg Title',
+            'Current RPC Alias': 'Current RPC Alias',
             'Downloading Count': 'Downloading Count',
             'Waiting Count': 'Waiting Count',
             'Stopped Count': 'Stopped Count',

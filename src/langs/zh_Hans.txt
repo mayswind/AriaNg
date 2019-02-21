@@ -181,6 +181,7 @@ Invalid settings data format!=无效的设置数据格式!
 Data has been copied to clipboard.=数据已经复制到剪贴板中.
 Supported Placeholder=支持的占位符
 AriaNg Title=AriaNg 标题
+Current RPC Alias=当前 RPC 别名
 Downloading Count=正在下载数量
 Waiting Count=正在等待数量
 Stopped Count=已停止数量

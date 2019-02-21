@@ -61,6 +61,12 @@
             return title;
         };
 
+        var replaceCurrentRPCAlias = function (title, value) {
+            return replacePlaceholders(title, 'rpcprofile', {
+                value: value
+            });
+        };
+
         var replaceDownloadingCount = function (title, value) {
             return replacePlaceholders(title, 'downloading', {
                 prefix: ariaNgLocalizationService.getLocalizedText('Downloading') + ': ',
@@ -118,6 +124,7 @@
                     uploadSpeed: 0
                 }, context);
 
+                title = replaceCurrentRPCAlias(title, context.currentRPCAlias);
                 title = replaceDownloadingCount(title, context.downloadingCount);
                 title = replaceWaitingCount(title, context.waitingCount);
                 title = replaceStoppedCount(title, context.stoppedCount);
@@ -127,13 +134,14 @@
 
                 return title;
             },
-            getFinalTitleByGlobalStat: function (globalStat) {
+            getFinalTitleByGlobalStat: function (params) {
                 var context = {
-                    downloadingCount: (globalStat ? globalStat.numActive : 0),
-                    waitingCount: (globalStat ? globalStat.numWaiting : 0),
-                    stoppedCount: (globalStat ? globalStat.numStopped : 0),
-                    downloadSpeed: (globalStat ? globalStat.downloadSpeed : 0),
-                    uploadSpeed: (globalStat ? globalStat.uploadSpeed : 0)
+                    currentRPCAlias: (params && params.currentRpcProfile ? (params.currentRpcProfile.rpcAlias || (params.currentRpcProfile.rpcHost + ':' + params.currentRpcProfile.rpcPort)) : ''),
+                    downloadingCount: (params && params.globalStat ? params.globalStat.numActive : 0),
+                    waitingCount: (params && params.globalStat ? params.globalStat.numWaiting : 0),
+                    stoppedCount: (params && params.globalStat ? params.globalStat.numStopped : 0),
+                    downloadSpeed: (params && params.globalStat ? params.globalStat.downloadSpeed : 0),
+                    uploadSpeed: (params && params.globalStat ? params.globalStat.uploadSpeed : 0)
                 };
 
                 return this.getFinalTitle(context);

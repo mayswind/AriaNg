@@ -6,7 +6,10 @@
         var globalStatRefreshPromise = null;
 
         var refreshPageTitle = function () {
-            $document[0].title = ariaNgTitleService.getFinalTitleByGlobalStat($scope.globalStat);
+            $document[0].title = ariaNgTitleService.getFinalTitleByGlobalStat({
+                globalStat: $scope.globalStat,
+                currentRpcProfile: getCurrentRPCProfile()
+            });
         };
 
         var refreshGlobalStat = function (silent, callback) {
@@ -25,6 +28,21 @@
                     callback(response);
                 }
             }, silent);
+        };
+
+        var getCurrentRPCProfile = function () {
+            if (!$scope.rpcSettings || $scope.rpcSettings.length < 1) {
+                return null;
+            }
+
+            for (var i = 0; i < $scope.rpcSettings.length; i++) {
+                var rpcSetting = $scope.rpcSettings[i];
+                if (rpcSetting.isDefault) {
+                    return rpcSetting;
+                }
+            }
+
+            return null;
         };
 
         if (ariaNgSettingService.getBrowserNotification()) {
