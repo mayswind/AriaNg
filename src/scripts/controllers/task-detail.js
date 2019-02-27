@@ -543,14 +543,14 @@
             }
         };
 
-        $scope.collapseDir = function (dirNode, newValue) {
+        $scope.collapseDir = function (dirNode, newValue, forceRecurse) {
             var nodePath = dirNode.nodePath;
 
             if (angular.isUndefined(newValue)) {
                 newValue = !$scope.context.collapsedDirs[nodePath];
             }
 
-            if (newValue) {
+            if (newValue || forceRecurse) {
                 for (var i = 0; i < dirNode.subDirs.length; i++) {
                     $scope.collapseDir(dirNode.subDirs[i], newValue);
                 }
@@ -558,6 +558,22 @@
 
             if (nodePath) {
                 $scope.context.collapsedDirs[nodePath] = newValue;
+            }
+        };
+
+        $scope.collapseAllDirs = function (newValue) {
+            if (!$scope.task || !$scope.task.files) {
+                return;
+            }
+
+            for (var i = 0; i < $scope.task.files.length; i++) {
+                var node = $scope.task.files[i];
+
+                if (!node.isDir) {
+                    continue;
+                }
+
+                $scope.collapseDir(node, newValue, true);
             }
         };
 
