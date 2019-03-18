@@ -4,6 +4,7 @@ var browserSync = require('browser-sync');
 var del = require('del');
 var fs = require('fs');
 var git = require('git-rev-sync');
+var tryFn = require('nice-try');
 
 var $ = gulpLoadPlugins();
 var reload = browserSync.reload;
@@ -56,7 +57,7 @@ gulp.task('prepare-scripts', function () {
         'src/scripts/**/*.js'
     ]).pipe($.plumber())
         .pipe($.injectVersion({replace: '${ARIANG_VERSION}'}))
-        .pipe($.replace(/\${ARIANG_BUILD_COMMIT}/g, git.short()))
+        .pipe($.replace(/\${ARIANG_BUILD_COMMIT}/g, tryFn(git.short) || 'Local'))
         .pipe(gulp.dest('.tmp/scripts'))
         .pipe(reload({stream: true}));
 });
