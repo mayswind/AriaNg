@@ -25,6 +25,7 @@ Select None=全部不選
 Select Invert=反向選擇
 Display Order=顯示順序
 Copy Download Url=複製下載連結
+Copy Magnet Link=複製磁力連結
 Help=說明
 Search=搜尋
 Default=預設

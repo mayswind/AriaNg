@@ -69,13 +69,23 @@
         };
 
         $scope.isSingleUrlTaskSelected = function () {
-            var selectedTask = $rootScope.taskContext.getSelectedTasks();
+            var selectedTasks = $rootScope.taskContext.getSelectedTasks();
 
-            if (selectedTask.length !== 1) {
+            if (selectedTasks.length !== 1) {
                 return false;
             }
 
-            return !!selectedTask[0].singleUrl;
+            return !!selectedTasks[0].singleUrl;
+        };
+
+        $scope.isSingleBittorrentHasInfoHashTaskSelected = function () {
+            var selectedTasks = $rootScope.taskContext.getSelectedTasks();
+
+            if (selectedTasks.length !== 1) {
+                return false;
+            }
+
+            return !!selectedTasks[0].bittorrent && !!selectedTasks[0].infoHash;
         };
 
         $scope.isSpecifiedTaskSelected = function () {
@@ -313,10 +323,18 @@
         };
 
         $scope.copySelectedOneTaskDownloadLink = function () {
-            var selectedTask = $rootScope.taskContext.getSelectedTasks();
+            var selectedTasks = $rootScope.taskContext.getSelectedTasks();
 
-            if (selectedTask.length === 1) {
-                clipboard.copyText(selectedTask[0].singleUrl);
+            if (selectedTasks.length === 1) {
+                clipboard.copyText(selectedTasks[0].singleUrl);
+            }
+        };
+
+        $scope.copySelectedOneTaskMagnetLink = function () {
+            var selectedTasks = $rootScope.taskContext.getSelectedTasks();
+
+            if (selectedTasks.length === 1) {
+                clipboard.copyText('magnet:?xt=urn:btih:' + selectedTasks[0].infoHash);
             }
         };
 

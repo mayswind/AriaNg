@@ -25,6 +25,7 @@ Select None=全部不选
 Select Invert=反向选择
 Display Order=显示顺序
 Copy Download Url=复制下载链接
+Copy Magnet Link=复制磁力链接
 Help=帮助
 Search=搜索
 Default=默认

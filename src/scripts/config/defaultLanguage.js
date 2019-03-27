@@ -29,6 +29,7 @@
             'Select Invert': 'Select Invert',
             'Display Order': 'Display Order',
             'Copy Download Url': 'Copy Download Url',
+            'Copy Magnet Link': 'Copy Magnet Link',
             'Help': 'Help',
             'Search': 'Search',
             'Default': 'Default',

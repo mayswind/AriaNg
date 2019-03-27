@@ -163,11 +163,17 @@
                         <span translate>Select All</span>
                     </a>
                 </li>
-                <li class="divider" ng-if="isSingleUrlTaskSelected()"></li>
+                <li class="divider" ng-if="isSingleUrlTaskSelected() || isSingleBittorrentHasInfoHashTaskSelected()"></li>
                 <li ng-if="isSingleUrlTaskSelected()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Copy Download Url' | translate}}" ng-click="copySelectedOneTaskDownloadLink()">
                         <i class="fa fa-copy fa-fw"></i>
                         <span translate>Copy Download Url</span>
+                    </a>
+                </li>
+                <li ng-if="isSingleBittorrentHasInfoHashTaskSelected()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Copy Magnet Link' | translate}}" ng-click="copySelectedOneTaskMagnetLink()">
+                        <i class="fa fa-copy fa-fw"></i>
+                        <span translate>Copy Magnet Link</span>
                     </a>
                 </li>
             </ul>
