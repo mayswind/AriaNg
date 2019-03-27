@@ -129,6 +129,7 @@
 
         $scope.openTorrent = function () {
             ariaNgFileService.openFileContent({
+                scope: $scope,
                 fileFilter: '.torrent',
                 fileType: 'binary'
             }, function (result) {
@@ -142,6 +143,7 @@
 
         $scope.openMetalink = function () {
             ariaNgFileService.openFileContent({
+                scope: $scope,
                 fileFilter: '.meta4,.metalink',
                 fileType: 'binary'
             }, function (result) {

@@ -63,15 +63,18 @@
                 }
 
                 options = angular.extend({
+                    scope: null,
                     fileFilter: null,
-                    fileType: 'binary' // or 'text'
+                    fileType: 'binary', // or 'text'
+                    successCallback: successCallback,
+                    errorCallback: errorCallback
                 }, options);
-
-                var allowedExtensions = getAllowedExtensions(options.fileFilter);
 
                 if (!element || !element.change) {
                     element = angular.element('<input type="file" style="display: none"/>');
                 }
+
+                element.data('options', options);
 
                 if (options.fileFilter) {
                     element.attr('accept', options.fileFilter);
@@ -85,12 +88,20 @@
                             return;
                         }
 
+                        var thisOptions = element.data('options');
+                        var allowedExtensions = getAllowedExtensions(thisOptions.fileFilter);
                         var file = this.files[0];
                         var fileName = file.name;
 
                         if (!checkFileExtension(fileName, allowedExtensions)) {
-                            if (errorCallback) {
-                                errorCallback('The selected file type is invalid!');
+                            if (thisOptions.errorCallback) {
+                                if (thisOptions.scope) {
+                                    thisOptions.scope.$apply(function () {
+                                        thisOptions.errorCallback('The selected file type is invalid!');
+                                    });
+                                } else {
+                                    thisOptions.errorCallback('The selected file type is invalid!');
+                                }
                             }
 
                             return;
@@ -103,7 +114,7 @@
                                 fileName: fileName
                             };
 
-                            switch (options.fileType) {
+                            switch (thisOptions.fileType) {
                                 case 'text':
                                     result.content = this.result;
                                     break;
@@ -113,18 +124,30 @@
                                     break;
                             }
 
-                            if (successCallback) {
-                                successCallback(result);
+                            if (thisOptions.successCallback) {
+                                if (thisOptions.scope) {
+                                    thisOptions.scope.$apply(function () {
+                                        thisOptions.successCallback(result);
+                                    });
+                                } else {
+                                    thisOptions.successCallback(result);
+                                }
                             }
                         };
 
                         reader.onerror = function () {
-                            if (errorCallback) {
-                                errorCallback('Failed to load file!');
+                            if (thisOptions.errorCallback) {
+                                if (thisOptions.scope) {
+                                    thisOptions.scope.$apply(function () {
+                                        thisOptions.errorCallback('Failed to load file!');
+                                    });
+                                } else {
+                                    thisOptions.errorCallback('Failed to load file!');
+                                }
                             }
                         };
 
-                        switch (options.fileType) {
+                        switch (thisOptions.fileType) {
                             case 'text':
                                 reader.readAsText(file);
                                 break;
