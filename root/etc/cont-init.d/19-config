@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+if [ "${SKIP_SSL,,}" = true ]; then
+  mv defaults/default.http defaults/default
+else
+  mv defaults/default.https defaults/default
+fi
