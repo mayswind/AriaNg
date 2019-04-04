@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bash
+
+exec s6-setuidgid abc aria2c --conf-path=/data/config/custom.conf --enable-rpc=true --rpc-secret=${RPC_TOKEN} --rpc-listen-port=6800 -d /data/downloads/ ${OVERRIDE_OPTIONS[@]}
