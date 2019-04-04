@@ -1,0 +1,18 @@
+server {
+  listen 4040 ssl;
+  server_name _;
+
+  ssl_certificate /config/keys/cert.crt;
+  ssl_certificate_key /config/keys/cert.key;
+
+  location / {
+    root /data/aria2c-webui;
+  }
+
+  location /jsonrpc {
+    proxy_pass http://127.0.0.1:6800;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+}
