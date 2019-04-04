@@ -35,6 +35,32 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
 ## Installation
 AriaNg now provides three versions, standard version, all-in-one version and [AriaNg Native](https://github.com/mayswind/AriaNg-Native). Standard version is suitable for deployment in the web server, and provides resource caching and on-demand loading. All-In-One version is suitable for local using, and you can download it and just open the only html file in browser. [AriaNg Native](https://github.com/mayswind/AriaNg-Native) is also suitable for local using, and is no need for browser. 
 
+### Docker
+```
+docker run -d \
+  --name=aria2 \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/London \
+  -p 4040:4040 \
+  -v </path/to/appdata/config>:/data/config \
+  -v </path/to/downloads>:/data/downloads \
+  --restart unless-stopped \
+  mayswind/aria2-AriaNg
+```
+
+| Parameter | Function |
+| :----: | --- |
+| `-p 4040` | http gui |
+| `-e PUID=1000` | for UserID - see below for explanation |
+| `-e PGID=1000` | for GroupID - see below for explanation |
+| `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
+| `-v /data/config` | aria2 Application Data. |
+| `-v /data/downloads` | Downloads Folder. |
+| `-e CUSTOM_RPC_TOKEN` | Optional. Specify custom RPC token vaule. |
+| `-e CUSTOM_OVERRIDE_OPTIONS` | Optional. Pass arguments to aria2 daemon |
+| `-e SKIP_SSL=true` | Optional. Disable HTTPS |
+
 #### Prebuilt release
 Latest Release: [https://github.com/mayswind/AriaNg/releases](https://github.com/mayswind/AriaNg/releases)
 
