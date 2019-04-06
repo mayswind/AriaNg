@@ -33,7 +33,7 @@
     "angular-promise-buttons": "^0.1.23",
     "angular-sweetalert": "^1.1.2",
     "angular-utf8-base64": "^0.0.5",
-    "angular-clipboard": "^1.6.2",
+    "angular-clipboard": "git://github.com/mayswind/angular-clipboard.git#597a03b73a13754926bd2406979e5de65eb98102",
     "angular-input-dropdown": "git://github.com/mayswind/angular-input-dropdown.git#68670e39816698b3eb98c0e740a0efe77d5fbdd1",
     "angularjs-dragula": "^2.0.0"
   },
