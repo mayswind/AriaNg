@@ -47,6 +47,7 @@
             'By File Name': 'By File Name',
             'By File Size': 'By File Size',
             'By Progress': 'By Progress',
+            'By Selected Status': 'By Selected Status',
             'By Remain Time': 'By Remain Time',
             'By Download Speed': 'By Download Speed',
             'By Upload Speed': 'By Upload Speed',

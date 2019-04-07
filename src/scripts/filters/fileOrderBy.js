@@ -21,6 +21,8 @@
                 return $filter('orderBy')(array, ['length'], orderType.reverse);
             } else if (orderType.type === 'percent') {
                 return $filter('orderBy')(array, ['completePercent'], orderType.reverse);
+            } else if (orderType.type === 'selected') {
+                return $filter('orderBy')(array, ['selected'], orderType.reverse);
             } else {
                 return array;
             }

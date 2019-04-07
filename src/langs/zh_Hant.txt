@@ -43,6 +43,7 @@ Click to view task detail=點選檢視工作詳情
 By File Name=依檔名
 By File Size=依檔案大小
 By Progress=依進度
+By Selected Status=依選中狀態
 By Remain Time=依剩餘時間
 By Download Speed=依下載速度
 By Upload Speed=依上傳速度

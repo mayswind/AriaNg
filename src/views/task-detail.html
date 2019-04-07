@@ -418,6 +418,12 @@
                             <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('size')}"></i>
                         </a>
                     </li>
+                    <li>
+                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('selected:desc')">
+                            <span translate>By Selected Status</span>
+                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('selected')}"></i>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
