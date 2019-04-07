@@ -27,6 +27,7 @@
             'Select All': 'Select All',
             'Select None': 'Select None',
             'Select Invert': 'Select Invert',
+            'Select All Failed Task': 'Select All Failed Task',
             'Display Order': 'Display Order',
             'Copy Download Url': 'Copy Download Url',
             'Copy Magnet Link': 'Copy Magnet Link',
