@@ -139,6 +139,10 @@
                 for (var i = 0; i < this.list.length; i++) {
                     var task = this.list[i];
 
+                    if (!$rootScope.filterTask(task)) {
+                        continue;
+                    }
+
                     if (!this.selected[task.gid]) {
                         isAllSelected = false;
                         break;
@@ -160,9 +164,26 @@
 
                 for (var i = 0; i < this.list.length; i++) {
                     var task = this.list[i];
+
+                    if (!$rootScope.filterTask(task)) {
+                        continue;
+                    }
+
                     this.selected[task.gid] = !isAllSelected;
                 }
             }
+        };
+
+        $rootScope.filterTask = function (task) {
+            if (!task || !angular.isString(task.taskName)) {
+                return false;
+            }
+
+            if (!$rootScope.searchContext || !$rootScope.searchContext.text) {
+                return true;
+            }
+
+            return (task.taskName.toLowerCase().indexOf($rootScope.searchContext.text.toLowerCase()) >= 0);
         };
 
         $rootScope.swipeActions = {

@@ -66,18 +66,6 @@
             }, silent);
         };
 
-        $scope.filterByTaskName = function (task) {
-            if (!task || !angular.isString(task.taskName)) {
-                return false;
-            }
-
-            if (!$rootScope.searchContext || !$rootScope.searchContext.text) {
-                return true;
-            }
-
-            return (task.taskName.toLowerCase().indexOf($rootScope.searchContext.text.toLowerCase()) >= 0);
-        };
-
         $scope.getOrderType = function () {
             return ariaNgSettingService.getDisplayOrder();
         };
