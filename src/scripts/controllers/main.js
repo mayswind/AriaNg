@@ -8,6 +8,7 @@
         var refreshPageTitle = function () {
             $document[0].title = ariaNgTitleService.getFinalTitleByGlobalStat({
                 globalStat: $scope.globalStat,
+                completedPercent: $rootScope.taskContext.getOverallPercent(),
                 currentRpcProfile: getCurrentRPCProfile()
             });
         };

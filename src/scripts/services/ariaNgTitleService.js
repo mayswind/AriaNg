@@ -34,6 +34,10 @@
                 value = $filter('readableVolume')(value, context.scale);
             }
 
+            if (context.type === 'percent') {
+                value = $filter('percent')(value, context.scale || 2);
+            }
+
             if (context.prefix && !context.noprefix) {
                 value = context.prefix + value;
             }
@@ -71,6 +75,15 @@
             return replacePlaceholders(title, 'downloading', {
                 prefix: ariaNgLocalizationService.getLocalizedText('Downloading') + ': ',
                 value: value
+            });
+        };
+
+        var replaceOverallCompletedPercentCount = function (title, value) {
+            return replacePlaceholders(title, 'completedPercent', {
+                prefix: ariaNgLocalizationService.getLocalizedText('Completed Percent') + ': ',
+                value: value,
+                type: 'percent',
+                suffix: '%'
             });
         };
 
@@ -118,6 +131,7 @@
 
                 context = angular.extend({
                     downloadingCount: 0,
+                    completedPercent: 0,
                     waitingCount: 0,
                     stoppedCount: 0,
                     downloadSpeed: 0,
@@ -126,6 +140,7 @@
 
                 title = replaceCurrentRPCAlias(title, context.currentRPCAlias);
                 title = replaceDownloadingCount(title, context.downloadingCount);
+                title = replaceOverallCompletedPercentCount(title, context.completedPercent);
                 title = replaceWaitingCount(title, context.waitingCount);
                 title = replaceStoppedCount(title, context.stoppedCount);
                 title = replaceDownloadSpeed(title, context.downloadSpeed);
@@ -138,6 +153,7 @@
                 var context = {
                     currentRPCAlias: (params && params.currentRpcProfile ? (params.currentRpcProfile.rpcAlias || (params.currentRpcProfile.rpcHost + ':' + params.currentRpcProfile.rpcPort)) : ''),
                     downloadingCount: (params && params.globalStat ? params.globalStat.numActive : 0),
+                    completedPercent: (params && params.completedPercent ? params.completedPercent : 0),
                     waitingCount: (params && params.globalStat ? params.globalStat.numWaiting : 0),
                     stoppedCount: (params && params.globalStat ? params.globalStat.numStopped : 0),
                     downloadSpeed: (params && params.globalStat ? params.globalStat.downloadSpeed : 0),

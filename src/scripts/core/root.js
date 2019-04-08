@@ -99,6 +99,27 @@
             list: [],
             selected: {},
             enableSelectAll: false,
+            getOverallPercent: function () {
+                var allCompletedLength = 0;
+                var allTotalLength = 0;
+
+                if (!this.list || this.list.length < 1) {
+                    return 0;
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    allCompletedLength += task.completedLength;
+                    allTotalLength += task.totalLength;
+                }
+
+                if (allCompletedLength <= 0 || allTotalLength <= 0) {
+                    return 0;
+                }
+
+                return allCompletedLength / allTotalLength * 100;
+            },
             getSelectedTaskIds: function () {
                 var result = [];
 

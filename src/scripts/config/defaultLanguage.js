@@ -194,6 +194,8 @@
             'AriaNg Title': 'AriaNg Title',
             'Current RPC Alias': 'Current RPC Alias',
             'Downloading Count': 'Downloading Count',
+            'Overall Completed Percent': 'Overall Completed Percent',
+            'Completed Percent': 'Completed Percent',
             'Waiting Count': 'Waiting Count',
             'Stopped Count': 'Stopped Count',
             'You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.': 'You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.',
