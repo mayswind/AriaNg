@@ -135,6 +135,7 @@ gulp.task('process-assets-bundle', ['prepare-fonts', 'prepare-langs', 'prepare-h
                     var lastPointIndex = fileName.lastIndexOf('.');
                     var languageName = fileName.substr(0, lastPointIndex);
 
+                    content = content.replace(/\\/g, '\\\\');
                     content = content.replace(/\r/g, '');
                     content = content.replace(/\n/g, '\\n');
                     content = content.replace(/"/g, '\\"');
