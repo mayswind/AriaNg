@@ -470,7 +470,7 @@ bt-prioritize-piece.description=嘗試先下載每個檔案開頭或結尾的分
 bt-remove-unselected-file.name=刪除未選擇的檔案
 bt-remove-unselected-file.description=當 BT 工作完成後刪除未選擇的檔案. 要選擇需要下載的檔案, 請使用 --select-file 選項. 如果沒有選擇, 則所有檔案都預設為需要下載. 此選項會從磁碟上直接刪除檔案, 請謹慎使用此選項.
 bt-require-crypto.name=需要加密
-bt-require-crypto.description=如果設定為"是", aria 將不會接受以前的 BitTorrent 握手協定(\\19BitTorrent 協定)並建立連線. 因此 aria2 總是模糊握手.
+bt-require-crypto.description=如果設定為"是", aria 將不會接受以前的 BitTorrent 握手協定(\19BitTorrent 協定)並建立連線. 因此 aria2 總是模糊握手.
 bt-request-peer-speed-limit.name=期望下載速度
 bt-request-peer-speed-limit.description=如果一個 BT 下載的整體下載速度低於此選項設定的值, aria2 會臨時提高連線數以提高下載速度. 在某些情況下, 設定期望下載速度可以提高您的下載速度. 您可以增加數值的單位 K 或 M (1K = 1024, 1M = 1024K).
 bt-save-metadata.name=儲存種子檔案
