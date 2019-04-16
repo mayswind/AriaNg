@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', 'ariaNgSettingService', 'ariaNgLogService', function ($q, $websocket, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', 'ariaNgConstants', 'ariaNgSettingService', 'ariaNgLogService', function ($q, $websocket, ariaNgConstants, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var socketClient = null;
 
@@ -72,7 +72,9 @@
         var getSocketClient = function (context) {
             if (socketClient === null) {
                 try {
-                    socketClient = $websocket(rpcUrl);
+                    socketClient = $websocket(rpcUrl, {
+                        reconnectIfNotNormalClose: ariaNgConstants.websocketAutoReconnect
+                    });
 
                     socketClient.onMessage(function (message) {
                         if (!message || !message.data) {
