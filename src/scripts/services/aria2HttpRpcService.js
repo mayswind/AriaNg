@@ -77,6 +77,13 @@
                         return;
                     }
 
+                    if (context.connectionSuccessCallback) {
+                        context.connectionSuccessCallback({
+                            rpcUrl: rpcUrl,
+                            method: method
+                        });
+                    }
+
                     if (context.successCallback) {
                         context.successCallback(data.id, data.result);
                     }
@@ -94,6 +101,13 @@
                                 innerError: true
                             }
                         };
+
+                        if (context.connectionFailedCallback) {
+                            context.connectionFailedCallback({
+                                rpcUrl: rpcUrl,
+                                method: method
+                            });
+                        }
                     }
 
                     if (context.errorCallback) {

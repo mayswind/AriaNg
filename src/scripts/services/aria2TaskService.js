@@ -844,6 +844,28 @@
                     callback: callback
                 });
             },
+            onConnectionSuccess: function (callback) {
+                if (!callback) {
+                    ariaNgLogService.warn('[aria2TaskService.onConnectionSuccess] callback is null');
+                    return;
+                }
+
+                aria2RpcService.onConnectionSuccess({
+                    callback: callback
+                });
+
+            },
+            onConnectionFailed: function (callback) {
+                if (!callback) {
+                    ariaNgLogService.warn('[aria2TaskService.onConnectionFailed] callback is null');
+                    return;
+                }
+
+                aria2RpcService.onConnectionFailed({
+                    callback: callback
+                });
+
+            },
             onFirstSuccess: function (callback) {
                 if (!callback) {
                     ariaNgLogService.warn('[aria2TaskService.onFirstSuccess] callback is null');

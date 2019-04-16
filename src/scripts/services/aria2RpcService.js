@@ -9,6 +9,8 @@
         var onFirstSuccessCallbacks = [];
         var onOperationSuccessCallbacks = [];
         var onOperationErrorCallbacks = [];
+        var onConnectionSuccessCallbacks = [];
+        var onConnectionFailedCallbacks = [];
         var onDownloadStartCallbacks = [];
         var onDownloadPauseCallbacks = [];
         var onDownloadStopCallbacks = [];
@@ -45,6 +47,8 @@
             var invokeContext = {
                 uniqueId: uniqueId,
                 requestBody: requestBody,
+                connectionSuccessCallback: requestContext.connectionSuccessCallback,
+                connectionFailedCallback: requestContext.connectionFailedCallback,
                 successCallback: requestContext.successCallback,
                 errorCallback: requestContext.errorCallback
             };
@@ -130,6 +134,14 @@
 
             var context = {
                 methodName: (!isSystemMethod ? getAria2MethodFullName(methodName) : methodName)
+            };
+
+            context.connectionSuccessCallback = function () {
+                fireCustomEvent(onConnectionSuccessCallbacks);
+            };
+
+            context.connectionFailedCallback = function () {
+                fireCustomEvent(onConnectionFailedCallbacks);
             };
 
             if (secret && !isSystemMethod) {
@@ -477,6 +489,12 @@
             },
             onOperationError: function (context) {
                 onOperationErrorCallbacks.push(context.callback);
+            },
+            onConnectionSuccess: function (context) {
+                onConnectionSuccessCallbacks.push(context.callback);
+            },
+            onConnectionFailed: function (context) {
+                onConnectionFailedCallbacks.push(context.callback);
             },
             onDownloadStart: function (context) {
                 onDownloadStartCallbacks.push(context.callback);

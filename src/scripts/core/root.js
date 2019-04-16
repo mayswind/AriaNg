@@ -285,12 +285,16 @@
             });
         });
 
-        aria2TaskService.onOperationSuccess(function () {
-            $rootScope.taskContext.rpcStatus = 'Connected';
+        aria2TaskService.onConnectionSuccess(function () {
+            if ($rootScope.taskContext.rpcStatus !== 'Connected') {
+                $rootScope.taskContext.rpcStatus = 'Connected';
+            }
         });
 
-        aria2TaskService.onOperationError(function () {
-            $rootScope.taskContext.rpcStatus = 'Disconnected';
+        aria2TaskService.onConnectionFailed(function () {
+            if ($rootScope.taskContext.rpcStatus !== 'Disconnected') {
+                $rootScope.taskContext.rpcStatus = 'Disconnected';
+            }
         });
 
         aria2TaskService.onTaskCompleted(function (event) {
