@@ -166,6 +166,21 @@
 
                 return false;
             },
+            hasCompletedTask: function () {
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (!$rootScope.filterTask(task)) {
+                        continue;
+                    }
+
+                    if (task.status === 'complete') {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
             selectAll: function () {
                 if (!this.list || !this.selected || this.list.length < 1) {
                     return;
@@ -222,6 +237,48 @@
                     }
 
                     if (!$rootScope.isTaskRetryable(task)) {
+                        this.selected[task.gid] = false;
+                        continue;
+                    }
+
+                    this.selected[task.gid] = !isAllFailedSelected;
+                }
+            },
+            selectAllCompleted: function () {
+                if (!this.list || !this.selected || this.list.length < 1) {
+                    return;
+                }
+
+                if (!this.enableSelectAll) {
+                    return;
+                }
+
+                var isAllFailedSelected = true;
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (!$rootScope.filterTask(task)) {
+                        continue;
+                    }
+
+                    if (task.status !== 'complete') {
+                        continue;
+                    }
+
+                    if (!this.selected[task.gid]) {
+                        isAllFailedSelected = false;
+                    }
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (!$rootScope.filterTask(task)) {
+                        continue;
+                    }
+
+                    if (task.status !== 'complete') {
                         this.selected[task.gid] = false;
                         continue;
                     }

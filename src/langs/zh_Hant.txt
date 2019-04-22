@@ -24,6 +24,7 @@ Select All=全部選中
 Select None=全部不選
 Select Invert=反向選擇
 Select All Failed Task=全選失敗工作
+Select All Completed Tasks=全選已完成工作
 Display Order=顯示順序
 Copy Download Url=複製下載連結
 Copy Magnet Link=複製磁力連結

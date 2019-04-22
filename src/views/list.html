@@ -164,6 +164,12 @@
                         <span translate>Select All Failed Task</span>
                     </a>
                 </li>
+                <li ng-if="hasCompletedTask()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Select All Completed Tasks' | translate}}" ng-click="selectAllCompletedTasks()">
+                        <i class="fa fa-fw"></i>
+                        <span translate>Select All Completed Tasks</span>
+                    </a>
+                </li>
                 <li>
                     <a tabindex="-1" class="pointer-cursor" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
                         <i class="fa fa-th-large fa-fw"></i>
