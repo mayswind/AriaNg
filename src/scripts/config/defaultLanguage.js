@@ -58,6 +58,8 @@
             'Download': 'Download',
             'Upload': 'Upload',
             'Downloading': 'Downloading',
+            'Pending Verification': 'Pending Verification',
+            'Verifying': 'Verifying',
             'Seeding': 'Seeding',
             'Waiting': 'Waiting',
             'Paused': 'Paused',

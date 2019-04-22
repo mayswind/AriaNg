@@ -32,6 +32,14 @@
                     $rootScope.taskContext.list = taskList;
                     needRequestWholeInfo = false;
                 } else {
+                    if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
+                        for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
+                            var task = $rootScope.taskContext.list[i];
+                            delete task.verifiedLength;
+                            delete task.verifyIntegrityPending;
+                        }
+                    }
+
                     if (ariaNgCommonService.extendArray(taskList, $rootScope.taskContext.list, 'gid')) {
                         needRequestWholeInfo = false;
                     } else {

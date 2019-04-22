@@ -280,7 +280,9 @@
                     'numSeeders',
                     'seeder',
                     'status',
-                    'errorCode'
+                    'errorCode',
+                    'verifiedLength',
+                    'verifyIntegrityPending'
                 ];
             },
             getFullTaskParams: function () {
