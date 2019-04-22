@@ -27,7 +27,7 @@
             'Select All': 'Select All',
             'Select None': 'Select None',
             'Select Invert': 'Select Invert',
-            'Select All Failed Task': 'Select All Failed Task',
+            'Select All Failed Tasks': 'Select All Failed Tasks',
             'Select All Completed Tasks': 'Select All Completed Tasks',
             'Display Order': 'Display Order',
             'Copy Download Url': 'Copy Download Url',
