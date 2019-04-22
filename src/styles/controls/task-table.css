@@ -105,7 +105,7 @@
 
 .task-table .task-right-arrow {
     visibility: hidden;
-    position: fixed;
+    position: absolute;
     right: 14px;
     margin-top: -12px;
 }
