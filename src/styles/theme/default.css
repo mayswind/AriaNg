@@ -3,7 +3,23 @@
     overflow-y: hidden;
 }
 
-.skin-aria-ng, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .sweet-alert {
+.skin-aria-ng,
+.skin-aria-ng h1,
+.skin-aria-ng h2,
+.skin-aria-ng h3,
+.skin-aria-ng h4,
+.skin-aria-ng h5,
+.skin-aria-ng h6,
+.skin-aria-ng .h1,
+.skin-aria-ng .h2,
+.skin-aria-ng .h3,
+.skin-aria-ng .h4,
+.skin-aria-ng .h5,
+.skin-aria-ng .h6,
+.skin-aria-ng .main-header .logo,
+.skin-aria-ng .sweet-alert,
+.skin-aria-ng .popover,
+.skin-aria-ng .tooltip {
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
