@@ -87,6 +87,12 @@
                             <i class="fa fa-pause"></i>
                         </a>
                     </li>
+                    <li ng-class="{'disabled':!hasRetryableTask()}">
+                        <a  class="toolbar" title="{{'resetAll' | translate}}" ng-click="resetAllTask()">
+                            <i class="fa fa-retweet"></i>
+
+                        </a>
+                    </li>
                     <li class="disabled" ng-class="{'disabled': !isTaskSelected() && !isSpecifiedTaskShowing('complete', 'error', 'removed')}">
                         <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Delete' | translate}}">
                             <i class="fa fa-trash-o"></i>
@@ -96,6 +102,11 @@
                             <li ng-if="isTaskSelected()">
                                 <a class="pointer-cursor" ng-click="removeTasks()">
                                     <span translate>Remove Task</span>
+                                </a>
+                            </li>
+                            <li ng-if="hasRetryableTask()">
+                                <a class="pointer-cursor" ng-click="clearSameNameTasks()">
+                                    <span translate>Clear Same Name Tasks</span>
                                 </a>
                             </li>
                             <li ng-if="taskContext.enableSelectAll && isSpecifiedTaskShowing('complete', 'error', 'removed')">
