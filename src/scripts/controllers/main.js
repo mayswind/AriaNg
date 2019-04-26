@@ -168,9 +168,7 @@
             , (gids.length > 1));
         };
         $scope.resetAllTask = function(){
-            // 获取所有的错误任务
-            var tasks = this.getAllFailedTasks();
-            // 重新开启所有的错误任务
+            var tasks =  $rootScope.taskContext.selectAllFailed();
             if (!tasks || tasks.length < 1) {
                 return;
             } else if (tasks.length === 1) {
@@ -193,7 +191,6 @@
                         ariaNgLocalizationService.showError('Failed to reset this task.');
                         return;
                     }
-                    //删除所有的错误任务
                     $rootScope.loadPromise = aria2TaskService.removeTasks(tasks,function (response) {
                         if (response.hasError && tasks.length > 1) {
                             console.log('Failed to remove some task(s).');
@@ -220,7 +217,7 @@
                     var _success=response.success;
                     var _data=response.data;
                     $rootScope.loadPromise = aria2TaskService.removeTasks([task],function (response) {
-                        if (response.hasError && [task].length > 1) {
+                        if (response.hasError) {
                             console.log('Failed to remove some task(s).');
                         }
                         refreshGlobalStat(true);
@@ -364,29 +361,28 @@
             });
         };
         $scope.clearSameNameTasks = function () {
-            var tasks = this.getAllFailedTasks();
+            var tasks =  $rootScope.taskContext.selectAllFailed();
             if (!tasks || tasks.length < 1) {
                 return;
             }
-            var waitDeleteTask = [];
+            var toDeleteTask = [];
             var realRetryTask = [];
-            for(var i in tasks){
-                if(realRetryTask.length===0){
+            for (var i in tasks) {
+                if (realRetryTask.length === 0) {
                     realRetryTask.push(tasks[i]);
-                    for(var j in realRetryTask){
-                        if(realRetryTask[j].taskName === tasks[i].taskName){
+                    for (var j in realRetryTask) {
+                        if (realRetryTask[j].taskName === tasks[i].taskName) {
                             realRetryTask.push(tasks[i]);
-                        }else{
-                            waitDeleteTask.push(tasks[i]);
+                        } else {
+                            toDeleteTask.push(tasks[i]);
                         }
                     }
                 }
             }
             ariaNgLocalizationService.confirm('Confirm Clear', 'Are you sure you want to clear same name tasks?', 'warning', function () {
-                //删除同名的错误任务
-                $rootScope.loadPromise = aria2TaskService.removeTasks(waitDeleteTask,function (response) {
-                    if (response.hasError && waitDeleteTask.length > 1) {
-                        console.log('Failed to remove some task(s).');
+                $rootScope.loadPromise = aria2TaskService.removeTasks(toDeleteTask, function (response) {
+                    if (response.hasError && toDeleteTask.length > 1) {
+                        AriaNgLogService.showError('Failed to remove some task(s).');
                     }
                     refreshGlobalStat(true);
                     if (!response.hasError) {
@@ -396,7 +392,7 @@
                             $route.reload();
                         }
                     }
-                },false);
+                }, false);
             });
         };
 
@@ -408,9 +404,6 @@
             $rootScope.taskContext.selectAll();
         };
 
-        $scope.selectAllFailedTasks = function () {
-            $rootScope.taskContext.selectAllFailed();
-        };
         $scope.getAllFailedTasks = function() {
            return $rootScope.taskContext.getAllFailed();
         };
