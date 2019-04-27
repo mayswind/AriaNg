@@ -302,20 +302,14 @@
         };
         
         $scope.clearSameNameTasks = function () {
-            var tasks =  $rootScope.taskContext.selectAllFailed();
+            var tasks =  $rootScope.taskContext.getAllFailed();
             if (!tasks || tasks.length < 1) {
                 return;
             }
-            tasks.sort();
+            debugger
             var toDeleteTask = [];
-            debugger;
-            tasks.map(function(task,i){
-                if( task[i].taskName === task[i+1].taskName)
-                {
-                    toDeleteTask.push(array[i+1]);
-                }
-            })
-            ariaNgLocalizationService.confirm('Confirm Clear', 'Are you want to clear same name tasks?', 'warning', function () {
+            var realRetryTask = [];
+            ariaNgLocalizationService.confirm('Confirm Clear', 'Do you want to clear the wrong task with the same name?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.removeTasks(toDeleteTask, function (response) {
                     if (response.hasError && toDeleteTask.length > 1) {
                         AriaNgLogService.showError('Failed to remove some task(s).');

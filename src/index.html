@@ -98,11 +98,6 @@
                                     <span translate>Remove Task</span>
                                 </a>
                             </li>
-                            <li ng-if="isSpecifiedTaskShowing('error')">
-                                <a class="pointer-cursor" ng-click="clearSameNameTasks()">
-                                    <span translate>Clear Same Name Tasks</span>
-                                </a>
-                            </li>
                             <li ng-if="taskContext.enableSelectAll && isSpecifiedTaskShowing('complete', 'error', 'removed')">
                                 <a class="pointer-cursor" ng-click="clearStoppedTasks()">
                                     <span translate>Clear Stopped Tasks</span>

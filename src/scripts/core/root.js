@@ -244,6 +244,24 @@
                     this.selected[task.gid] = !isAllFailedSelected;
                 }
             },
+            getAllFailed: function () {
+                var failedList  = [];
+                if (!this.list || this.list.length < 1) {
+                    return;
+                }
+                for (var i = 0; i < this.list.length; i++) {
+                    var task = this.list[i];
+
+                    if (!$rootScope.filterTask(task)) {
+                        continue;
+                    }
+                    if (!$rootScope.isTaskRetryable(task)) {
+                        continue;
+                    }
+                    failedList.push(task);
+                }
+                return failedList;
+            },
             selectAllCompleted: function () {
                 if (!this.list || !this.selected || this.list.length < 1) {
                     return;
