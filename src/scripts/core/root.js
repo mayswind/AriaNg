@@ -206,13 +206,10 @@
                 if (!this.list || !this.selected || this.list.length < 1) {
                     return;
                 }
-
                 if (!this.enableSelectAll) {
                     return;
                 }
-
                 var isAllFailedSelected = true;
-
                 for (var i = 0; i < this.list.length; i++) {
                     var task = this.list[i];
 
@@ -228,19 +225,15 @@
                         isAllFailedSelected = false;
                     }
                 }
-
                 for (var i = 0; i < this.list.length; i++) {
                     var task = this.list[i];
-
                     if (!$rootScope.filterTask(task)) {
                         continue;
                     }
-
                     if (!$rootScope.isTaskRetryable(task)) {
                         this.selected[task.gid] = false;
                         continue;
                     }
-
                     this.selected[task.gid] = !isAllFailedSelected;
                 }
             },
