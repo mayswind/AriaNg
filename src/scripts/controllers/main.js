@@ -314,7 +314,7 @@
                     toDeleteTask.push(array[i+1]);
                 }
             })
-            ariaNgLocalizationService.confirm('Confirm Clear', 'Do you want to clear failed tasks with the same name?', 'warning', function () {
+            ariaNgLocalizationService.confirm('Confirm Clear', 'Do you want to clear same name tasks?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.removeTasks(toDeleteTask, function (response) {
                     if (response.hasError && toDeleteTask.length > 1) {
                         AriaNgLogService.showError('Failed to remove some task(s).');
