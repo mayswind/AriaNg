@@ -139,7 +139,7 @@
             'Failed to remove some task(s).': 'Failed to remove some task(s).',
             'Confirm Clear': 'Confirm Clear',
             'Are you sure you want to clear stopped tasks?': 'Are you sure you want to clear stopped tasks?',
-            'Do you want to clear same name tasks?': 'Do you want to clear same name tasks?',
+            'Are you want to clear same name tasks?': 'Are you want to clear same name tasks?',
             'Download Links:': 'Download Links:',
             'Open Torrent File': 'Open Torrent File',
             'Open Metalink File': 'Open Metalink File',
