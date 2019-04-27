@@ -308,6 +308,7 @@
             }
             tasks.sort();
             var toDeleteTask = [];
+            debugger;
             tasks.map(function(task,i){
                 if( task[i].taskName === task[i+1].taskName)
                 {
