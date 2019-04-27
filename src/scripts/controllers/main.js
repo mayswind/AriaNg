@@ -133,6 +133,7 @@
             }
 
             var invoke = null;
+
             if (state === 'start') {
                 invoke = aria2TaskService.startTasks;
             } else if (state === 'pause') {
@@ -151,6 +152,7 @@
                 }
 
                 refreshGlobalStat(true);
+
                 if (!response.hasError && state === 'start') {
                     if ($location.path() === '/waiting') {
                         $location.path('/downloading');
@@ -164,8 +166,7 @@
                         $route.reload();
                     }
                 }
-                }
-            , (gids.length > 1));
+            }, (gids.length > 1));
         };
 
         $scope.retryTask = function (task) {
@@ -317,35 +318,6 @@
                 });
             });
         };
-        $scope.clearSameNameTasks = function () {
-            var tasks =  $rootScope.taskContext.selectAllFailed();
-            if (!tasks || tasks.length < 1) {
-                return;
-            }
-            tasks.sort();
-            var toDeleteTask = [];
-            tasks.map(function(task,i){
-                if( task[i].taskName === task[i+1].taskName)
-                {
-                    toDeleteTask.push(array[i+1]);
-                }
-            })
-            ariaNgLocalizationService.confirm('Confirm Clear', 'Do you want to clear failed tasks with the same name?', 'warning', function () {
-                $rootScope.loadPromise = aria2TaskService.removeTasks(toDeleteTask, function (response) {
-                    if (response.hasError && toDeleteTask.length > 1) {
-                        AriaNgLogService.showError('Failed to remove some task(s).');
-                    }
-                    refreshGlobalStat(true);
-                    if (!response.hasError) {
-                        if ($location.path() !== '/stopped') {
-                            $location.path('/stopped');
-                        } else {
-                            $route.reload();
-                        }
-                    }
-                }, false);
-            });
-        };
 
         $scope.isAllTasksSelected = function () {
             return $rootScope.taskContext.isAllSelected();
@@ -355,15 +327,17 @@
             $rootScope.taskContext.selectAll();
         };
 
-        $scope.getAllFailedTasks = function() {
-           return $rootScope.taskContext.getAllFailed();
+        $scope.selectAllFailedTasks = function () {
+            $rootScope.taskContext.selectAllFailed();
         };
+
         $scope.selectAllCompletedTasks = function () {
             $rootScope.taskContext.selectAllCompleted();
         };
 
         $scope.copySelectedOneTaskDownloadLink = function () {
             var selectedTasks = $rootScope.taskContext.getSelectedTasks();
+
             if (selectedTasks.length === 1) {
                 clipboard.copyText(selectedTasks[0].singleUrl);
             }

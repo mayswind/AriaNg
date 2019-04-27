@@ -20,7 +20,6 @@ Pause=暂停任务
 Retry=重试
 Retry Selected Tasks=重试选中任务
 Delete=删除任务
-Reset All=重置所有错误任务
 Select All=全部选中
 Select None=全部不选
 Select Invert=反向选择
