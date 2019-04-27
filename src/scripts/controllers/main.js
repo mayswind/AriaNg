@@ -167,46 +167,7 @@
                 }
             , (gids.length > 1));
         };
-        $scope.resetAllTask = function(){
-            var tasks =  $rootScope.taskContext.selectAllFailed();
-            if (!tasks || tasks.length < 1) {
-                return;
-            } else if (tasks.length === 1) {
-                return $scope.retryTask(tasks[0]);
-            }
-            var realRetryTask = [];
-            for(var i in tasks){
-                if(realRetryTask.length===0){
-                    realRetryTask.push(tasks[i]);
-                    for(var j in realRetryTask){
-                        if(realRetryTask[j].taskName === tasks[i].taskName){
-                            realRetryTask.push(tasks[i]);
-                        }
-                    }
-                }
-            }
-            ariaNgLocalizationService.confirm('Confirm Reset', 'Are you sure you want to reset the error task? AriaNg will create same task after clicking OK.', 'info', function () {
-                $rootScope.loadPromise = aria2TaskService.retryTasks(realRetryTask, function (response) {
-                    if (!response.hasSuccess) {
-                        ariaNgLocalizationService.showError('Failed to reset this task.');
-                        return;
-                    }
-                    $rootScope.loadPromise = aria2TaskService.removeTasks(tasks,function (response) {
-                        if (response.hasError && tasks.length > 1) {
-                            console.log('Failed to remove some task(s).');
-                        }
-                        refreshGlobalStat(true);
-                        if (!response.hasError) {
-                            if ($location.path() !== '/downloading') {
-                                $location.path('/downloading');
-                            } else {
-                                $route.reload();
-                            }
-                        }
-                    },false);
-                }, false);
-            });
-        };
+
         $scope.retryTask = function (task) {
             ariaNgLocalizationService.confirm('Confirm Retry', 'Are you sure you want to retry the selected task? AriaNg will create same task after clicking OK.', 'info', function () {
                 $rootScope.loadPromise = aria2TaskService.retryTask(task.gid, function (response) {
@@ -214,28 +175,24 @@
                         ariaNgLocalizationService.showError('Failed to retry this task.');
                         return;
                     }
-                    var _success=response.success;
-                    var _data=response.data;
-                    $rootScope.loadPromise = aria2TaskService.removeTasks([task],function (response) {
-                        if (response.hasError) {
-                            console.log('Failed to remove some task(s).');
-                        }
-                        refreshGlobalStat(true);
-                        var actionAfterRetryingTask = ariaNgSettingService.getAfterRetryingTask();
-                        if (_success && _data) {
-                            if (actionAfterRetryingTask === 'task-list-downloading') {
-                                if ($location.path() !== '/downloading') {
-                                    $location.path('/downloading');
-                                } else {
-                                    $route.reload();
-                                }
-                            } else if (actionAfterRetryingTask === 'task-detail') {
-                                $location.path('/task/detail/' + _data);
+
+                    refreshGlobalStat(true);
+
+                    var actionAfterRetryingTask = ariaNgSettingService.getAfterRetryingTask();
+
+                    if (response.success && response.data) {
+                        if (actionAfterRetryingTask === 'task-list-downloading') {
+                            if ($location.path() !== '/downloading') {
+                                $location.path('/downloading');
                             } else {
                                 $route.reload();
                             }
+                        } else if (actionAfterRetryingTask === 'task-detail') {
+                            $location.path('/task/detail/' + response.data);
+                        } else {
+                            $route.reload();
                         }
-                    },false);
+                    }
                 }, false);
             });
         };
@@ -365,21 +322,15 @@
             if (!tasks || tasks.length < 1) {
                 return;
             }
+            tasks.sort();
             var toDeleteTask = [];
-            var realRetryTask = [];
-            for (var i in tasks) {
-                if (realRetryTask.length === 0) {
-                    realRetryTask.push(tasks[i]);
-                    for (var j in realRetryTask) {
-                        if (realRetryTask[j].taskName === tasks[i].taskName) {
-                            realRetryTask.push(tasks[i]);
-                        } else {
-                            toDeleteTask.push(tasks[i]);
-                        }
-                    }
+            tasks.map(function(task,i){
+                if( task[i].taskName === task[i+1].taskName)
+                {
+                    toDeleteTask.push(array[i+1]);
                 }
-            }
-            ariaNgLocalizationService.confirm('Confirm Clear', 'Are you sure you want to clear same name tasks?', 'warning', function () {
+            })
+            ariaNgLocalizationService.confirm('Confirm Clear', 'Do you want to clear failed tasks with the same name?', 'warning', function () {
                 $rootScope.loadPromise = aria2TaskService.removeTasks(toDeleteTask, function (response) {
                     if (response.hasError && toDeleteTask.length > 1) {
                         AriaNgLogService.showError('Failed to remove some task(s).');

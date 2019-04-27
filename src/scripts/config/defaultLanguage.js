@@ -24,7 +24,6 @@
             'Retry': 'Retry',
             'Retry Selected Tasks': 'Retry Selected Tasks',
             'Delete': 'Delete',
-            'Reset All': 'Reset All',
             'Select All': 'Select All',
             'Select None': 'Select None',
             'Select Invert': 'Select Invert',
