@@ -4,10 +4,10 @@
     "node": ">=6"
   },
   "dependencies": {
-    "jquery": "3.3.1",
+    "jquery": "3.4.1",
     "bootstrap": "3.4.1",
     "moment": "2.24.0",
-    "moment-timezone": "0.5.23",
+    "moment-timezone": "0.5.25",
     "echarts": "3.8.5",
     "font-awesome": "^4.7.0",
     "admin-lte": "2.4.10",
