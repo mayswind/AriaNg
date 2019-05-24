@@ -294,6 +294,12 @@
             task.remainTime = calculateDownloadRemainTime(task.remainLength, task.downloadSpeed);
             task.seeder = (task.seeder === true || task.seeder === 'true');
 
+            if (task.verifiedLength && task.totalLength) {
+                task.verifiedPercent = parseInt(task.verifiedLength / task.totalLength * 100);
+            } else {
+                task.verifiedPercent = undefined;
+            }
+
             var taskNameResult = getTaskName(task);
             task.taskName = taskNameResult.name;
             task.hasTaskName = taskNameResult.success;

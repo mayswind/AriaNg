@@ -296,6 +296,7 @@ requires.aria2-version=需要 aria2 v{{version}} 或更高版本
 task.new.download-links=下載連結 ({{count}} 个連結):
 task.pieceinfo=已完成: {{completed}}, 共計: {{total}} 塊
 task.error-occurred=發生錯誤 ({{errorcode}})
+task.verifying-percent=正在驗證 ({{verifiedPercent}}%)
 settings.file-count=({{count}} 個檔案)
 settings.total-count=(共計: {{count}}個)
 debug.latest-logs=最近 {{count}} 條記錄

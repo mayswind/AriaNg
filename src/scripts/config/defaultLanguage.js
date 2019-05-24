@@ -300,6 +300,7 @@
                 'task.new.download-links': 'Download Links ({{count}} Links):',
                 'task.pieceinfo': 'Completed: {{completed}}, Total: {{total}}',
                 'task.error-occurred': 'Error Occurred ({{errorcode}})',
+                'task.verifying-percent': 'Verifying ({{verifiedPercent}}%)',
                 'settings.file-count': '({{count}} Files)',
                 'settings.total-count': '(Total Count: {{count}})',
                 'debug.latest-logs': 'Latest {{count}} Logs'

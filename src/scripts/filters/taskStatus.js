@@ -11,7 +11,7 @@
                 if (task.verifyIntegrityPending) {
                     return 'Pending Verification';
                 } else if (task.verifiedLength) {
-                    return 'Verifying';
+                    return (task.verifiedPercent ? 'format.task.verifying-percent' : 'Verifying');
                 } else if (task.seeder === true || task.seeder === 'true') {
                     return 'Seeding';
                 } else {
