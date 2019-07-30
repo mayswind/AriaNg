@@ -1013,6 +1013,11 @@
                 canUpdate: 'new|waiting|paused'
             },
             {
+                key: 'bt-seed-unverified',
+                category: 'bittorrent',
+                canShow: 'new|active|waiting|paused'
+            },
+            {
                 key: 'conditional-get',
                 category: 'global',
                 canShow: 'new'
