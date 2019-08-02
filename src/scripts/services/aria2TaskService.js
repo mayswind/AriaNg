@@ -741,6 +741,8 @@
                 var failedCount = 0;
 
                 var doRetryFunc = function (task, index) {
+                    ariaNgLogService.debug('[aria2TaskService.retryTasks] task#' + index + ', gid=' + task.gid + ' start retrying', task);
+
                     return retryTaskFunc(task.gid, function (response) {
                         ariaNgLogService.debug('[aria2TaskService.retryTasks] task#' + index + ', gid=' + task.gid + ', result=' + response.success, task);
 
@@ -772,7 +774,9 @@
                         currentPromise = doRetryFunc(task, i);
                     } else {
                         currentPromise = (function (task, index) {
-                            return lastPromise.then(function () {
+                            return lastPromise.then(function onSuccess() {
+                                return doRetryFunc(task, index);
+                            }).catch(function onError() {
                                 return doRetryFunc(task, index);
                             });
                         })(task, i);
