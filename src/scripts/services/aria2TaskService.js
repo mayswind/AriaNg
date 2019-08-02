@@ -829,7 +829,7 @@
                     }));
                 }
 
-                return $q.all(promises).then(function () {
+                return $q.all(promises).then(function onSuccess() {
                     if (callback) {
                         callback({
                             hasSuccess: !!hasSuccess,
