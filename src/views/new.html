@@ -22,7 +22,7 @@
                     <div class="btn-group">
                         <button type="submit" class="btn btn-sm"
                                 ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
-                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" translate>Start Download
+                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" translate>Download Now
                         </button>&nbsp;
                         <button type="button" class="btn btn-sm dropdown-toggle"
                                 ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
@@ -30,7 +30,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu right-align">
-                            <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Manual Download</a></li>
+                            <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Download Later</a></li>
                         </ul>
                     </div>
                 </li>

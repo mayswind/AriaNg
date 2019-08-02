@@ -62,7 +62,7 @@
                                 ('Stopped Count' | translate) + ': ${stopped}<br/>' +
                                 ('Download Speed' | translate) + ': ${downspeed}<br/>' +
                                 ('Upload Speed' | translate) + ': ${upspeed}<br/><br/>' +
-                                ('Tips: You can use the &quot;noprefix&quot; tag to ignore the prefix, &quot;nosuffix&quot; tag ignore the suffix, and &quot;scale=n&quot; tag to set the decimal precision.' | translate) + '<br/>' +
+                                ('Tips: You can use the &quot;noprefix&quot; tag to ignore the prefix, &quot;nosuffix&quot; tag to ignore the suffix, and &quot;scale=n&quot; tag to set the decimal precision.' | translate) + '<br/>' +
                                 ('Example: ${downspeed:noprefix:nosuffix:scale=1}' | translate)}}"></i>
                         </div>
                         <div class="setting-value col-sm-8">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Page Title Refresh Interval</span>
+                            <span translate>Updating Page Title Interval</span>
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
@@ -98,7 +98,7 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Global Stat Refresh Interval</span>
+                            <span translate>Updating Global Stat Interval</span>
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
@@ -111,7 +111,7 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Download Task Refresh Interval</span>
+                            <span translate>Updating Task Information Interval</span>
                             <span class="asterisk">*</span>
                         </div>
                         <div class="setting-value col-sm-8">
@@ -149,25 +149,25 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Removing Old Task After Retrying</span>
-                        </div>
-                        <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;" ng-model="context.settings.removeOldTaskAfterRetrying"
-                                    ng-change="setRemoveOldTaskAfterRetrying(context.settings.removeOldTaskAfterRetrying)"
-                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Action After Retrying Task</span>
                         </div>
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;" ng-model="context.settings.afterRetryingTask"
                                     ng-change="setAfterRetryingTask(context.settings.afterRetryingTask)">
-                                <option value="task-list-downloading" translate>Navigate to Downloading Task List Page</option>
+                                <option value="task-list-downloading" translate>Navigate to Downloading Tasks Page</option>
                                 <option value="task-detail" translate>Navigate to Task Detail Page</option>
                                 <option value="stay-on-current" translate>Stay on Current Page</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Remove Old Tasks After Retrying</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.removeOldTaskAfterRetrying"
+                                    ng-change="setRemoveOldTaskAfterRetrying(context.settings.removeOldTaskAfterRetrying)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
                             </select>
                         </div>
                     </div>

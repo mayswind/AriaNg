@@ -4,8 +4,8 @@
             <li ng-class="{'active': context.currentTab === 'overview'}">
                 <a class="pointer-cursor" ng-click="changeTab('overview')" translate>Overview</a>
             </li>
-            <li ng-class="{'active': context.currentTab === 'blocks'}">
-                <a class="pointer-cursor" ng-click="changeTab('blocks')" translate>Blocks</a>
+            <li ng-class="{'active': context.currentTab === 'pieces'}">
+                <a class="pointer-cursor" ng-click="changeTab('pieces')" translate>Pieces</a>
             </li>
             <li ng-class="{'active': context.currentTab === 'filelist'}">
                 <a class="pointer-cursor" ng-click="changeTab('filelist')" translate>Files</a>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="row" ng-if="task && task.status === 'active' && task.completedLength < task.totalLength">
                         <div class="setting-key col-sm-4">
-                            <span translate>Remain Time</span>
+                            <span translate>Remaining</span>
                         </div>
                         <div class="setting-value col-sm-8">
                             <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
@@ -166,7 +166,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab === 'blocks'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'pieces'}">
                 <div class="piece-legends">
                     <div class="piece-legend" title="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}">
                         <div class="piece piece-completed"></div><span translate>Completed</span>

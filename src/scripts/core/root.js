@@ -38,12 +38,12 @@
                 angular.element('.main-sidebar').addClass('blur');
                 angular.element('.navbar').addClass('blur');
                 angular.element('.content-body').addClass('blur');
-                ariaNgLocalizationService.notifyInPage('', 'You cannot use AriaNg because this browser does not support data storage.', {
+                ariaNgLocalizationService.notifyInPage('', 'You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.', {
                     type: 'error',
                     delay: false
                 });
 
-                throw new Error('You cannot use AriaNg because this browser does not support data storage.');
+                throw new Error('You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.');
             }
         };
 

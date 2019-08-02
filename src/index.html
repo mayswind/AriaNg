@@ -143,7 +143,7 @@
                             </li>
                             <li>
                                 <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
-                                    <span translate>By Remain Time</span>
+                                    <span translate>By Remaining</span>
                                     <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
                                 </a>
                             </li>
@@ -265,15 +265,15 @@
                     </li>
                     <li class="divider"></li>
                     <li class="dropup">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Quick Setting' | translate}}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Shortcut' | translate}}">
                             <i class="fa fa-wrench"></i>
-                            <span translate>Quick Setting</span>
+                            <span translate>Shortcut</span>
                             <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Speed Limit')">
-                                    <span translate>Global Speed Limit</span>
+                                <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Rate Limit')">
+                                    <span translate>Global Rate Limit</span>
                                 </a>
                             </li>
                         </ul>
