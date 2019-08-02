@@ -93,8 +93,8 @@
                 contexts[i].callback = function (response) {
                     results.push(response);
 
-                    hasSuccess = hasSuccess | response.success;
-                    hasError = hasError | !response.success;
+                    hasSuccess = hasSuccess || response.success;
+                    hasError = hasError || !response.success;
                 };
 
                 promises.push(methodFunc(contexts[i]));

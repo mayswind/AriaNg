@@ -811,8 +811,8 @@
                         silent: !!silent,
                         callback: function (response) {
                             ariaNgCommonService.pushArrayTo(results, response.results);
-                            hasSuccess = hasSuccess | response.hasSuccess;
-                            hasError = hasError | response.hasError;
+                            hasSuccess = hasSuccess || response.hasSuccess;
+                            hasError = hasError || response.hasError;
                         }
                     }));
                 }
@@ -823,8 +823,8 @@
                         silent: !!silent,
                         callback: function (response) {
                             ariaNgCommonService.pushArrayTo(results, response.results);
-                            hasSuccess = hasSuccess | response.hasSuccess;
-                            hasError = hasError | response.hasError;
+                            hasSuccess = hasSuccess || response.hasSuccess;
+                            hasError = hasError || response.hasError;
                         }
                     }));
                 }
