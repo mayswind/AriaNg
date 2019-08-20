@@ -100,7 +100,7 @@
                 var languageObject = getLanguageObject(ariaNgAssetsCacheService.getLanguageAsset(options.key));
                 ariaNgStorageService.set(languageKey, languageObject);
                 deferred.resolve(languageObject);
-                
+
                 return deferred.promise;
             }
 
@@ -115,10 +115,12 @@
                 return deferred.resolve(languageObject);
             }).catch(function onError(response) {
                 ariaNgLogService.warn('[ariaNgLanguageLoader] cannot get language resource');
-                ariaNgNotificationService.notifyInPage('', 'AriaNg cannot get language resources, and will display in default language.', {
-                    type: 'error',
-                    delay: false
-                });
+                if (!languageResource) {
+                    ariaNgNotificationService.notifyInPage('', 'AriaNg cannot get language resources, and will display in default language.', {
+                        type: 'error',
+                        delay: false
+                    });
+                }
                 return deferred.reject(options.key);
             });
 
