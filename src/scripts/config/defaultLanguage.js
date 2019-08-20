@@ -288,6 +288,11 @@
                 'rpc.request.parse.failed': 'Failed to parse JSON-RPC request.',
                 'checksum.failed': 'Checksum validation failed.'
             },
+            'languages': {
+                'English': 'English',
+                'Simplified Chinese': 'Simplified Chinese',
+                'Traditional Chinese': 'Traditional Chinese'
+            },
             'format': {
                 'longdate': 'MM/DD/YYYY HH:mm:ss',
                 'time.millisecond': '{{value}} Millisecond',

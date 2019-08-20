@@ -284,6 +284,11 @@ server.overload=遠端伺服器繁忙, 無法處理目前要求.
 rpc.request.parse.failed=處理 RPC 要求失敗.
 checksum.failed=檔案校驗失敗.
 
+[languages]
+English=英語
+Simplified Chinese=簡體中文
+Traditional Chinese=繁體中文
+
 [format]
 longdate=YYYY年MM月DD日 HH:mm:ss
 time.millisecond={{value}} 毫秒
