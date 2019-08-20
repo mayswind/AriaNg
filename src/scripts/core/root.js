@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($rootScope, $location, $document, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -322,6 +322,10 @@
                     showSidebar();
                 }
             }
+        };
+
+        $rootScope.refreshPage = function () {
+            $window.location.reload();
         };
 
         ariaNgSettingService.onFirstAccess(function () {

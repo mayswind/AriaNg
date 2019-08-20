@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgAssetsCacheService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgStorageService', function ($http, $q, ariaNgConstants, ariaNgLanguages, ariaNgAssetsCacheService, ariaNgNotificationService, ariaNgLogService, ariaNgStorageService) {
+    angular.module('ariaNg').factory('ariaNgLanguageLoader', ['$http', '$q', 'ariaNgConstants', 'ariaNgLanguages', 'ariaNgAssetsCacheService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgStorageService', function ($http, $q, ariaNgConstants, ariaNgLanguages, ariaNgAssetsCacheService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgStorageService) {
         var getKeyValuePair = function (line) {
             for (var i = 0; i < line.length; i++) {
                 if (i > 0 && line.charAt(i - 1) !== '\\' && line.charAt(i) === '=') {
@@ -81,6 +81,33 @@
             return langObj;
         };
 
+        var isLanguageResourceEquals = function (langObj1, langObj2) {
+            if (!angular.isObject(langObj1) || !angular.isObject(langObj2)) {
+                return false;
+            }
+
+            for (var key in langObj2) {
+                if (!langObj2.hasOwnProperty(key)) {
+                    continue;
+                }
+
+                var value = langObj2[key];
+
+                if (angular.isObject(value)) {
+                    var result = isLanguageResourceEquals(langObj1[key], value);
+                    if (!result) {
+                        return false;
+                    }
+                } else {
+                    if (value !== langObj1[key]) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        };
+
         return function (options) {
             var deferred = $q.defer();
 
@@ -111,7 +138,25 @@
                 method: 'GET'
             }).then(function onSuccess(response) {
                 var languageObject = getLanguageObject(response.data);
+                var languageUpdated = false;
+
+                if (languageResource) {
+                    languageUpdated = !isLanguageResourceEquals(languageResource, languageObject);
+                }
+
                 ariaNgStorageService.set(languageKey, languageObject);
+
+                if (languageUpdated) {
+                    ariaNgLogService.info("[ariaNgLanguageLoader] load language resource successfully, and resource is updated");
+                    ariaNgLocalizationService.notifyInPage('', 'Language resource has been updated, please reload the page for the changes to take effect.', {
+                        delay: false,
+                        type: 'info',
+                        templateUrl: 'views/notification-reloadable.html'
+                    });
+                } else {
+                    ariaNgLogService.info("[ariaNgLanguageLoader] load language resource successfully, but resource is not updated");
+                }
+
                 return deferred.resolve(languageObject);
             }).catch(function onError(response) {
                 ariaNgLogService.warn('[ariaNgLanguageLoader] cannot get language resource');
