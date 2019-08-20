@@ -32,17 +32,10 @@
                 return;
             }
 
-            var noticicationScope = $rootScope.$new();
-
-            noticicationScope.refreshPage = function () {
-                $window.location.reload();
-            };
-
             lastRefreshPageNotification = ariaNgLocalizationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
                 delay: false,
                 type: 'info',
-                templateUrl: 'setting-changed-notification.html',
-                scope: noticicationScope,
+                templateUrl: 'views/notification-reloadable.html',
                 onClose: function () {
                     lastRefreshPageNotification = null;
                 }
