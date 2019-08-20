@@ -328,6 +328,14 @@
             $window.location.reload();
         };
 
+        ariaNgSettingService.onApplicationCacheUpdated(function () {
+            ariaNgLocalizationService.notifyInPage('', 'Application cache has been updated, please reload the page for the changes to take effect.', {
+                delay: false,
+                type: 'info',
+                templateUrl: 'views/notification-reloadable.html'
+            });
+        });
+
         ariaNgSettingService.onFirstAccess(function () {
             ariaNgLocalizationService.notifyInPage('', 'Tap to configure and get started with AriaNg.', {
                 delay: false,

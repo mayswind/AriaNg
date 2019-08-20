@@ -200,6 +200,7 @@
             'Waiting Count': 'Waiting Count',
             'Stopped Count': 'Stopped Count',
             'You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.': 'You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.',
+            'Application cache has been updated, please reload the page for the changes to take effect.': 'Application cache has been updated, please reload the page for the changes to take effect.',
             'Language resource has been updated, please reload the page for the changes to take effect.': 'Language resource has been updated, please reload the page for the changes to take effect.',
             'Configuration has been modified, please reload the page for the changes to take effect.': 'Configuration has been modified, please reload the page for the changes to take effect.',
             'Reload AriaNg': 'Reload AriaNg',
