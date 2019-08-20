@@ -2,7 +2,7 @@
 AriaNg Version=AriaNg 版本
 Operation Result=操作结果
 Operation Succeeded=操作成功
-{{name}} is connected={{name}} 已连接
+is connected=已连接
 Error=错误
 OK=确定
 Confirm=确认

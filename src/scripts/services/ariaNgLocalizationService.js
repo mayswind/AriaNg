@@ -81,6 +81,10 @@
 
                 if (content) {
                     content = this.getLocalizedText(content, options.contentParams);
+
+                    if (options.contentPrefix) {
+                        content = options.contentPrefix + content;
+                    }
                 }
 
                 return ariaNgNotificationService.notifyInPage(title, content, options);

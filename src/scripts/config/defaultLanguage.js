@@ -6,7 +6,7 @@
             'AriaNg Version': 'AriaNg Version',
             'Operation Result': 'Operation Result',
             'Operation Succeeded': 'Operation Succeeded',
-            '{{name}} is connected': '{{name}} is connected',
+            'is connected': 'is connected',
             'Error': 'Error',
             'OK': 'OK',
             'Confirm': 'Confirm',

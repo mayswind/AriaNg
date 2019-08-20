@@ -346,11 +346,9 @@
         });
 
         aria2TaskService.onFirstSuccess(function (event) {
-            ariaNgLocalizationService.notifyInPage('', '{{name}} is connected', {
+            ariaNgLocalizationService.notifyInPage('', 'is connected', {
                 type: 'success',
-                contentParams: {
-                    name: event.rpcName
-                }
+                contentPrefix: event.rpcName + ' '
             });
         });
 
