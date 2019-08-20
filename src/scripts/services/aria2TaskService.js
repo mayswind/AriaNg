@@ -376,8 +376,8 @@
 
             for (var i = 0; i < peers.length; i++) {
                 var peer = peers[i];
-                var upstreamToSpeed = peer.uploadSpeed;
-                var downstreamFromSpeed = peer.downloadSpeed;
+                var upstreamToSpeed = parseInt(peer.uploadSpeed);
+                var downstreamFromSpeed = parseInt(peer.downloadSpeed);
                 var completedPieces = getPieceStatus(peer.bitfield, task.numPieces);
                 var completedPieceCount = ariaNgCommonService.countArray(completedPieces, true);
 
