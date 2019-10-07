@@ -14,8 +14,8 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
     * Search tasks
     * Retry tasks
     * Adjust task order by dragging
-    * More information of tasks (health percentage, client infomation of bt peers, etc.)
-    * Filter files by spectificed file types (videos, audios, pictures, documents, applications, archives, etc.) or file extensions
+    * More information of tasks (health percentage, client information of bt peers, etc.)
+    * Filter files by specified file types (videos, audios, pictures, documents, applications, archives, etc.) or file extensions
     * Tree view for multi-directory task
     * Download / upload speed chart for aria2 or single task
     * Full support for aria2 settings
