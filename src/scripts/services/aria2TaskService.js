@@ -20,7 +20,14 @@
                 return path;
             }
 
-            return path.substring(index + 1);
+            var fileNameAndQueryString = path.substring(index + 1);
+            var queryStringStartPos = fileNameAndQueryString.indexOf('?');
+
+            if (queryStringStartPos <= 0) {
+                return fileNameAndQueryString;
+            }
+
+            return fileNameAndQueryString.substring(0, queryStringStartPos);
         };
 
         var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {
