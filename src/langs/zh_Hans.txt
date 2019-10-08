@@ -178,6 +178,7 @@ Action After Retrying Task=重试任务后执行操作
 Navigate to Downloading Tasks Page=转到正在下载列表页面
 Stay on Current Page=留在当前页面
 Remove Old Tasks After Retrying=重试任务后删除原任务
+Confirm Task Removal=任务删除前确认
 RPC List Display Order=RPC 列表显示顺序
 Recently Used=最近使用
 RPC Alias=RPC 别名
