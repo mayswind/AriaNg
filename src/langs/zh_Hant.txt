@@ -232,6 +232,7 @@ WebSocket (Security)=WebSocket (安全)
 Http and WebSocket would be disabled when accessing AriaNg via Https.=使用 Https 訪問 AriaNg 時，Http 和 WebSocket 將被停用.
 POST=POST
 GET=GET
+Enabled=啟用
 Disabled=停用
 BitTorrent=BitTorrent
 Changes to the settings take effect after refreshing page.=設定將在頁面重新整理後生效.

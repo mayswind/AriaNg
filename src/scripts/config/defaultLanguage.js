@@ -236,6 +236,7 @@
             'Http and WebSocket would be disabled when accessing AriaNg via Https.': 'Http and WebSocket would be disabled when accessing AriaNg via Https.',
             'POST': 'POST',
             'GET': 'GET',
+            'Enabled': 'Enabled',
             'Disabled': 'Disabled',
             'BitTorrent': 'BitTorrent',
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.',

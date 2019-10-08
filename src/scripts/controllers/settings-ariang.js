@@ -49,7 +49,7 @@
             languages: ariaNgLanguages,
             titlePreview: getFinalTitle(),
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
-            trueFalseOptions: [{name: 'True', value: true}, {name: 'False', value: false}],
+            trueFalseOptions: [{name: 'Enabled', value: true}, {name: 'Disabled', value: false}],
             showRpcSecret: false,
             isInsecureProtocolDisabled: ariaNgSettingService.isInsecureProtocolDisabled(),
             settings: ariaNgSettingService.getAllOptions(),
