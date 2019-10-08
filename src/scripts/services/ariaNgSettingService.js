@@ -381,6 +381,12 @@
             setRemoveOldTaskAfterRetrying: function (value) {
                 setOption('removeOldTaskAfterRetrying', value);
             },
+            getConfirmTaskRemoval: function () {
+                return getOption('confirmTaskRemoval');
+            },
+            setConfirmTaskRemoval: function (value) {
+                setOption('confirmTaskRemoval', value);
+            },
             getAfterRetryingTask: function () {
                 return getOption('afterRetryingTask');
             },

@@ -187,6 +187,10 @@
             ariaNgSettingService.setRemoveOldTaskAfterRetrying(value);
         };
 
+        $scope.setConfirmTaskRemoval = function (value) {
+            ariaNgSettingService.setConfirmTaskRemoval(value);
+        };
+
         $scope.setAfterRetryingTask = function (value) {
             ariaNgSettingService.setAfterRetryingTask(value);
         };

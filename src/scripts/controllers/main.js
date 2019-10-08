@@ -290,7 +290,7 @@
                 return;
             }
 
-            ariaNgLocalizationService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', function () {
+            var removeTasks = function () {
                 $rootScope.loadPromise = aria2TaskService.removeTasks(tasks, function (response) {
                     if (response.hasError && tasks.length > 1) {
                         ariaNgLocalizationService.showError('Failed to remove some task(s).');
@@ -310,7 +310,13 @@
                         }
                     }
                 }, (tasks.length > 1));
-            });
+            };
+
+            if (ariaNgSettingService.getConfirmTaskRemoval()) {
+                ariaNgLocalizationService.confirm('Confirm Remove', 'Are you sure you want to remove the selected task?', 'warning', removeTasks);
+            } else {
+                removeTasks();
+            };
         };
 
         $scope.clearStoppedTasks = function () {
