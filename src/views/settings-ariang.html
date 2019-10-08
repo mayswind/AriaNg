@@ -173,6 +173,17 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Confirm Task Removal</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.confirmTaskRemoval"
+                                    ng-change="setConfirmTaskRemoval(context.settings.confirmTaskRemoval)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Import / Export AriaNg Settings</span>
                         </div>
                         <div class="setting-value col-sm-8">

@@ -39,6 +39,7 @@
         rpcListDisplayOrder: 'recentlyUsed',
         afterCreatingNewTask: 'task-list',
         removeOldTaskAfterRetrying: false,
+        confirmTaskRemoval: true,
         afterRetryingTask: 'task-list-downloading',
         displayOrder: 'default:asc',
         fileListDisplayOrder: 'default:asc',
