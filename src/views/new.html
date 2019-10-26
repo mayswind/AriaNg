@@ -84,7 +84,8 @@
                                 </div>
                             </div>
                         </div>
-                        <ng-setting ng-repeat="option in context.availableOptions" ng-if="context.optionFilter[option.category]"
+                        <ng-setting ng-repeat="option in context.availableOptions"
+                                    ng-if="context.globalOptions && context.optionFilter[option.category]"
                                     option="option" lazy-save-timeout="0" default-value="context.globalOptions[option.key]"
                                     on-change-value="setOption(key, value, optionStatus)"></ng-setting>
                     </div>
