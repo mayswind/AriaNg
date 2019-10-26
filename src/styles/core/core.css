@@ -94,6 +94,7 @@ td {
 
 .content-wrapper > .content-body {
     overflow-y: scroll;
+    min-height: calc(100vh - 95px);
 }
 
 .main-footer > .navbar {
