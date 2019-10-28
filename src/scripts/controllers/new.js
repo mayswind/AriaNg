@@ -130,7 +130,7 @@
         $scope.openTorrent = function () {
             ariaNgFileService.openFileContent({
                 scope: $scope,
-                fileFilter: '.torrent',
+                fileFilter: 'application/x-bittorrent',
                 fileType: 'binary'
             }, function (result) {
                 $scope.context.uploadFile = result;
