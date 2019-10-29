@@ -203,7 +203,7 @@
         $scope.openAriaNgConfigFile = function () {
             ariaNgFileService.openFileContent({
                 scope: $scope,
-                fileFilter: '.json',
+                fileFilter: 'application/json',
                 fileType: 'text'
             }, function (result) {
                 $scope.context.importSettings = result.content;

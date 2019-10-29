@@ -130,7 +130,7 @@
         $scope.openTorrent = function () {
             ariaNgFileService.openFileContent({
                 scope: $scope,
-                fileFilter: 'application/x-bittorrent',
+                fileFilter: 'application/x-bittorrent,.torrent',
                 fileType: 'binary'
             }, function (result) {
                 $scope.context.uploadFile = result;
@@ -144,7 +144,7 @@
         $scope.openMetalink = function () {
             ariaNgFileService.openFileContent({
                 scope: $scope,
-                fileFilter: '.meta4,.metalink',
+                fileFilter: 'application/octet-stream,application/metalink4+xml,application/metalink+xml,.meta4,.metalink',  // weird
                 fileType: 'binary'
             }, function (result) {
                 $scope.context.uploadFile = result;
