@@ -144,7 +144,7 @@
         $scope.openMetalink = function () {
             ariaNgFileService.openFileContent({
                 scope: $scope,
-                fileFilter: 'application/octet-stream,application/metalink4+xml,application/metalink+xml,.meta4,.metalink',  // weird
+                fileFilter: 'application/metalink4+xml,application/metalink+xml,.meta4,.metalink',
                 fileType: 'binary'
             }, function (result) {
                 $scope.context.uploadFile = result;
