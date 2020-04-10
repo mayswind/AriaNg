@@ -325,7 +325,7 @@
                 var content = context.task.content;
                 var options = buildRequestOptions(context.task.options, context);
 
-                return invoke(buildRequestContext('addMetalink', context, content, [], options), !!returnContextOnly);
+                return invoke(buildRequestContext('addMetalink', context, content, options), !!returnContextOnly);
             },
             remove: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('remove', context, context.gid), !!returnContextOnly);
