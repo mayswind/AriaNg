@@ -88,6 +88,10 @@ td {
     z-index: 1010;
 }
 
+.content-wrapper {
+    min-height: calc(100vh - 48px);
+}
+
 .content-wrapper, .right-side {
     background-color: #fff;
 }
