@@ -637,7 +637,6 @@
                 return;
             }
 
-            var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
             var value = "";
 
             currentRowTriggeredMenu.find('.setting-value > span').each(function (i, element) {
@@ -648,8 +647,7 @@
                 value += angular.element(element).text().trim();
             });
 
-            var info = name + ': ' + value;
-            clipboard.copyText(info);
+            clipboard.copyText(value);
         };
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
