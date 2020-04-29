@@ -1,0 +1,124 @@
+/* task-table */
+.task-table {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.task-table .task-table-title {
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.task-table .task-table-title a {
+    color: #000;
+    cursor: pointer;
+}
+
+.task-table > .task-table-body.draggable {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.task-table > .task-table-body > div.row {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.task-table > div.row:first-child {
+    border-top: inherit;
+}
+
+@media (max-width: 767px) {
+    .task-table > .task-table-title {
+        display: none !important;
+    }
+
+    .task-table > .task-table-body > div.row:first-child {
+        border-top: inherit;
+    }
+}
+
+.task-table .task-name {
+    font-size: 14px;
+    display: block;
+}
+
+.task-table .peer-name-wrapper {
+    display: inline-block;
+    width: 100%;
+}
+
+.task-table .task-files, .task-table .task-size {
+    font-size: 12px;
+    display: block;
+}
+
+.task-table .progress {
+    margin-bottom: 0;
+}
+
+.task-table .task-last-time, .task-table .task-seeders, .task-table .task-last-time + .task-download-speed {
+    color: #888;
+    font-size: 12px;
+}
+
+.task-table .task-seeders, .task-table .task-last-time + .task-download-speed {
+    margin-top: 1px;
+}
+
+.task-table .task-last-time + .task-download-speed {
+    padding-left: 20px;
+}
+
+.task-table .task-download-speed, .task-table .task-peer-download-speed {
+    font-size: 12px;
+}
+
+.task-table .checkbox, .task-table .radio {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.task-table .progress {
+    position: relative;
+}
+
+.task-table .progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+}
+
+.task-table .progress span.progress-lower {
+    color: #000;
+}
+
+@media (max-width: 767px) {
+    .task-table .task-peer-download-speed {
+        float: right;
+    }
+}
+
+.task-table .task-right-arrow {
+    visibility: hidden;
+    position: absolute;
+    right: 14px;
+    margin-top: -12px;
+}
+
+.task-table .row:hover .task-right-arrow, .task-table .row[data-selected=true] .task-right-arrow {
+    visibility: visible;
+}
+
+.task-table .task-right-arrow i {
+    color: #c8c8c8;
+    font-size: 60px;
+}
+
+.task-table .task-right-arrow i:hover {
+    color: #d8d8d8;
+}

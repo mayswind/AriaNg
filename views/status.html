@@ -1,0 +1,55 @@
+<section class="content no-padding">
+    <div class="settings-table striped hoverable">
+        <div class="row">
+            <div class="setting-key col-sm-4">
+                <span translate>Aria2 RPC Address</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <span ng-bind="context.host"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="setting-key col-sm-4">
+                <span translate>Aria2 Status</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <span class="label" ng-class="{'label-primary': context.status === 'Connecting', 'label-success': context.status === 'Connected', 'label-danger': context.status === 'Disconnected'}"
+                      ng-bind="context.status | translate"></span>
+            </div>
+        </div>
+        <div class="row ng-cloak" ng-if="context.serverStatus">
+            <div class="setting-key col-sm-4">
+                <span translate>Aria2 Version</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <span ng-bind="context.serverStatus.version"></span>
+            </div>
+        </div>
+        <div class="row ng-cloak" ng-if="context.serverStatus">
+            <div class="setting-key col-sm-4">
+                <span translate>Enabled Features</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <div class="checkbox checkbox-primary checkbox-compact default-cursor" ng-repeat="feature in context.serverStatus.enabledFeatures">
+                    <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled" class="default-cursor"/>
+                    <label for="{{'feature_' + $index}}" class="text-cursor">
+                        <span ng-bind="feature"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row ng-cloak" ng-if="context.serverStatus">
+            <div class="setting-key setting-key-without-desc col-sm-4">
+                <span translate>Operations</span>
+            </div>
+            <div class="setting-value col-sm-8">
+                <button class="btn btn-sm btn-primary" ng-click="saveSession()" promise-btn>
+                    <span translate>Save Session</span>
+                </button>
+                <button class="btn btn-sm btn-danger" ng-click="shutdown()">
+                    <span translate>Shutdown Aria2</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

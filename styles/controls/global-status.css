@@ -1,0 +1,20 @@
+/* global-status */
+.global-status {
+    cursor: pointer;
+}
+
+.global-status > .realtime-speed {
+    padding: 0 15px 0 15px;
+}
+
+.global-status > .realtime-speed:first-child {
+    padding-left: 5px;
+}
+
+.global-status > .realtime-speed:last-child {
+    padding-right: 5px;
+}
+
+.global-status span.realtime-speed > i {
+    padding-right: 2px;
+}

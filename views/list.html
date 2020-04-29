@@ -1,0 +1,195 @@
+<section class="content no-padding">
+    <div id="task-table" class="task-table">
+        <div class="task-table-title">
+            <div class="row">
+                <div class="col-md-8 col-sm-7">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <a ng-click="changeDisplayOrder('name:asc', true)" translate>File Name</a>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('name:desc')}"></i>
+                        </div>
+                        <div class="col-sm-4">
+                            <a ng-click="changeDisplayOrder('size:asc', true)" translate>File Size</a>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('size:desc')}"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a ng-click="changeDisplayOrder('percent:desc', true)" translate>Progress</a>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('percent:desc')}"></i>
+                        </div>
+                        <div class="col-sm-6">
+                            <a ng-click="changeDisplayOrder('remain:asc', true)" translate>Remaining</a>
+                            <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('remain:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('remain:desc')}"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2">
+                    <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
+                    <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('dspeed:desc')}"></i>
+                </div>
+            </div>
+        </div>
+        <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
+            <div class="row pointer-cursor" ng-repeat="task in taskContext.list | filter: filterTask | taskOrderBy: getOrderType()"
+                 data-gid="{{task.gid}}" data-selected="{{!!taskContext.selected[task.gid]}}" data-toggle="context" data-target="#task-table-contextmenu"
+                 ng-click="taskContext.selected[task.gid] = !taskContext.selected[task.gid]">
+                <div class="col-md-8 col-sm-7 col-xs-12">
+                    <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
+                        <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
+                        <label for="{{'task_' + task.gid}}">
+                            <span class="task-name auto-ellipsis" ng-bind="task.taskName" title="{{task.taskName}}"></span>
+                        </label>
+                    </div>
+                    <div class="task-files">
+                        <span ng-bind="task.totalLength | readableVolume"></span>
+                        <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
+                            <span ng-if="task.files" ng-bind="('format.settings.file-count' | translate: {count: task.selectedFileCount})"></span>
+                        </a><i class="icon-error fa fa-times" ng-if="task && task.status === 'error' && task.errorDescription" title="{{task.errorDescription | translate}}"></i><i class="icon-seeder fa fa-arrow-up" ng-if="task && task.status === 'active' && task.seeder" title="{{'Seeding' | translate}}"></i>
+                        <a ng-if="isTaskRetryable(task)" ng-click="retryTask(task)" title="{{'Retry' | translate}}" translate>Retry</a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                             ng-class="{'progress-bar-primary': task.status !== 'error', 'progress-bar-warning': task.status === 'error'}"
+                             aria-valuenow="{{task.completePercent}}" aria-valuemin="1"
+                             aria-valuemax="100" ng-style="{ width: task.completePercent + '%' }">
+                            <span ng-class="{'progress-lower': task.completePercent < 50}"
+                                ng-bind="(task.completePercent | percent: 2) + '%'"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="task-last-time"
+                              ng-bind="task.status === 'waiting' ? '--:--:--' : (task.status === 'paused' ? '' : (task.status === 'active' ? ((0 <= task.remainTime && task.remainTime < 86400) ? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)) : ''))"></span>
+                        <span class="task-download-speed visible-xs-inline pull-right"
+                              ng-bind="(task.status === 'active' && !task.verifyIntegrityPending && !task.verifiedLength ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : (task | taskStatus: true | translate: {errorcode: task.errorCode, verifiedPercent: task.verifiedPercent}))"></span>
+                        <span class="task-seeders pull-right" ng-bind="task.status === 'active' ? ((task.numSeeders ? (task.numSeeders + '/') : '') + task.connections) : ''"></span>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs">
+                    <span class="task-download-speed" title="{{task.status === 'active' ? (('Download Speed' | translate) + ': ' + (task.downloadSpeed | readableVolume) + '/s') + (task.bittorrent ? ', ' + ('Upload Speed' | translate) + ': ' + (task.uploadSpeed | readableVolume) + '/s' : '') : ''}}"
+                          ng-bind="(task.status === 'active' && !task.verifyIntegrityPending && !task.verifiedLength ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : (task | taskStatus: true | translate: {errorcode: task.errorCode, verifiedPercent: task.verifiedPercent}))"></span>
+                </div>
+                <div class="task-right-arrow visible-md visible-lg">
+                    <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="task-table-contextmenu">
+            <ul class="dropdown-menu" role="menu">
+                <li ng-if="isSelectedTaskRetryable()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Retry Selected Tasks' | translate}}" ng-click="retryTasks()">
+                        <i class="fa fa-refresh fa-fw"></i>
+                        <span translate>Retry Selected Tasks</span>
+                    </a>
+                </li>
+                <li class="divider" ng-if="isSelectedTaskRetryable()"></li>
+                <li ng-if="isSpecifiedTaskSelected('paused')">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
+                        <i class="fa fa-play fa-fw"></i>
+                        <span translate>Start</span>
+                    </a>
+                </li>
+                <li ng-if="isSpecifiedTaskSelected('active', 'waiting')">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
+                        <i class="fa fa-pause fa-fw"></i>
+                        <span translate>Pause</span>
+                    </a>
+                </li>
+                <li ng-if="isTaskSelected()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Delete' | translate}}" ng-click="removeTasks()">
+                        <i class="fa fa-trash-o fa-fw"></i>
+                        <span translate>Delete</span>
+                    </a>
+                </li>
+                <li class="divider" ng-if="isTaskSelected()"></li>
+                <li class="dropdown dropdown-submenu">
+                    <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
+                        <i class="fa fa-sort-alpha-asc fa-fw"></i>
+                        <span translate>Display Order</span>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 160px;">
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('default:asc')">
+                                <span translate>Default</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('name:asc')">
+                                <span translate>By File Name</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('size:asc')">
+                                <span translate>By File Size</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:desc')">
+                                <span translate>By Progress</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
+                                <span translate>By Remaining</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:desc')">
+                                <span translate>By Download Speed</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pointer-cursor" ng-click="changeDisplayOrder('uspeed:desc')">
+                                <span translate>By Upload Speed</span>
+                                <i class="fa fa-fw" ng-class="{'fa-check': isSetDisplayOrder('uspeed')}"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-if="hasRetryableTask()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Select All Failed Tasks' | translate}}" ng-click="selectAllFailedTasks()">
+                        <i class="fa fa-fw"></i>
+                        <span translate>Select All Failed Tasks</span>
+                    </a>
+                </li>
+                <li ng-if="hasCompletedTask()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Select All Completed Tasks' | translate}}" ng-click="selectAllCompletedTasks()">
+                        <i class="fa fa-fw"></i>
+                        <span translate>Select All Completed Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
+                        <i class="fa fa-th-large fa-fw"></i>
+                        <span translate>Select All</span>
+                    </a>
+                </li>
+                <li class="divider" ng-if="isSelectedTasksAllHaveUrl() || isSelectedTasksAllHaveInfoHash()"></li>
+                <li ng-if="isSelectedTasksAllHaveUrl()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Copy Download Url' | translate}}" ng-click="copySelectedTasksDownloadLink()">
+                        <i class="fa fa-copy fa-fw"></i>
+                        <span translate>Copy Download Url</span>
+                    </a>
+                </li>
+                <li ng-if="isSelectedTasksAllHaveInfoHash()">
+                    <a tabindex="-1" class="pointer-cursor" title="{{'Copy Magnet Link' | translate}}" ng-click="copySelectedTasksMagnetLink()">
+                        <i class="fa fa-copy fa-fw"></i>
+                        <span translate>Copy Magnet Link</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

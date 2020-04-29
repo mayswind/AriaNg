@@ -1,0 +1,35 @@
+/* chart */
+.chart-popover {
+    max-width: 320px;
+}
+
+.chart-popover .popover-content {
+    padding: 0;
+}
+
+.chart-pop-wrapper {
+    padding-left: 4px;
+    padding-right: 4px;
+    overflow-x: hidden;
+}
+
+.chart-pop {
+    display: table;
+}
+
+.chart-pop .loading {
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.global-status-chart {
+    width: 312px;
+    height: 200px;
+}
+
+.task-status-chart-wrapper {
+    overflow-x: hidden;
+}

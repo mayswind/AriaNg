@@ -1,0 +1,23 @@
+<div id="quickSettingModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" ng-bind="(setting ? (setting.title) : 'Shortcut') | translate">Shortcut</h4>
+            </div>
+            <div class="modal-body overlay-wrapper no-padding">
+                <div class="settings-table striped hoverable">
+                    <ng-setting ng-repeat="option in context.availableOptions" option="option"
+                                ng-model="context.globalOptions[option.key]" default-value="option.defaultValue"
+                                on-change-value="setGlobalOption(key, value, optionStatus)"></ng-setting>
+                </div>
+                <div class="overlay" ng-if="context.isLoading">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" translate>Cancel</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

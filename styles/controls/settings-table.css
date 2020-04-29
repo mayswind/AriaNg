@@ -1,0 +1,117 @@
+/* settings-table */
+.settings-table {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.settings-table .settings-table-title {
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.settings-table .settings-table-title a {
+    color: #000;
+}
+
+.settings-table > div.row {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.settings-table > div.row:first-child {
+    border-top: inherit;
+}
+
+.settings-table + .settings-table > div.row:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.settings-table .input-group-addon {
+    background-color: #eee;
+}
+
+.settings-table .asterisk {
+    color: red;
+}
+
+.settings-table .description, .settings-table .description-inline {
+    color: #888;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.settings-table .description {
+    display: block;
+}
+
+.settings-table .description-inline {
+    display: inline-block;
+}
+
+.settings-table em {
+    color: #888;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.settings-table .setting-value .form-group {
+    margin-bottom: 0;
+}
+
+.settings-table .setting-value .form-group .form-control-icon {
+    color: #3c8dbc;
+}
+
+.settings-table .setting-value .form-group select.form-control + .form-control-icon > .form-control-feedback {
+    right: 10px;
+}
+
+.settings-table .setting-value .input-group .form-group .form-control:focus {
+    z-index: inherit;
+}
+
+.settings-table .setting-value .input-group .form-control-rpcport {
+    min-width: 70px;
+}
+
+.settings-table .setting-value .input-group .form-control-rpcinterface {
+    min-width: 100px;
+}
+
+@media (max-width: 991px) {
+    .settings-table .setting-value .input-group .form-control-rpcport {
+        min-width: 60px;
+    }
+
+    .settings-table .setting-value .input-group .form-control-rpcinterface {
+        min-width: 60px;
+    }
+}
+
+.settings-table .tip {
+    font-size: 12px;
+    padding: 4px 8px 4px 8px;
+}
+
+.settings-table .multi-line {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .settings-table .setting-key {
+        font-weight: bold;
+    }
+
+    .settings-table .description {
+        display: inline-block;
+    }
+}
+
+@media (min-width: 768px) {
+    .settings-table .setting-key-without-desc {
+        padding-top: 6px;
+    }
+}
