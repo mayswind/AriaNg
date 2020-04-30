@@ -637,7 +637,12 @@
                 return;
             }
 
-            var value = "";
+            var value = '';
+
+            if (ariaNgSettingService.getTaskDetailCopyWithPerfix()) {
+                var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
+                value = name + ': ';
+            };
 
             currentRowTriggeredMenu.find('.setting-value > span').each(function (i, element) {
                 if (i > 0) {
