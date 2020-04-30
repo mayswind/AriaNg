@@ -387,6 +387,12 @@
             setConfirmTaskRemoval: function (value) {
                 setOption('confirmTaskRemoval', value);
             },
+            getTaskDetailCopyWithPerfix: function () {
+                return getOption('taskDetailCopyWithPerfix');
+            },
+            setTaskDetailCopyWithPerfix: function (value) {
+                setOption('taskDetailCopyWithPerfix', value);
+            },
             getAfterRetryingTask: function () {
                 return getOption('afterRetryingTask');
             },
