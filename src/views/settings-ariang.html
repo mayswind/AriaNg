@@ -184,11 +184,11 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
-                            <span translate>Task Detail Copy With Perfix</span>
+                            <span translate>Include Prefix When Copying From Task Details</span>
                         </div>
                         <div class="setting-value col-sm-8">
-                            <select class="form-control" style="width: 100%;" ng-model="context.settings.taskDetailCopyWithPerfix"
-                                    ng-change="setTaskDetailCopyWithPerfix(context.settings.taskDetailCopyWithPerfix)"
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.includePrefixWhenCopyingFromTaskDetails"
+                                    ng-change="setIncludePrefixWhenCopyingFromTaskDetails(context.settings.includePrefixWhenCopyingFromTaskDetails)"
                                     ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
                             </select>
                         </div>

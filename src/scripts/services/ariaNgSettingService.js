@@ -387,11 +387,11 @@
             setConfirmTaskRemoval: function (value) {
                 setOption('confirmTaskRemoval', value);
             },
-            getTaskDetailCopyWithPerfix: function () {
-                return getOption('taskDetailCopyWithPerfix');
+            getIncludePrefixWhenCopyingFromTaskDetails: function () {
+                return getOption('includePrefixWhenCopyingFromTaskDetails');
             },
-            setTaskDetailCopyWithPerfix: function (value) {
-                setOption('taskDetailCopyWithPerfix', value);
+            setIncludePrefixWhenCopyingFromTaskDetails: function (value) {
+                setOption('includePrefixWhenCopyingFromTaskDetails', value);
             },
             getAfterRetryingTask: function () {
                 return getOption('afterRetryingTask');

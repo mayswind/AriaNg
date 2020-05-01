@@ -637,12 +637,8 @@
                 return;
             }
 
-            var value = '';
-
-            if (ariaNgSettingService.getTaskDetailCopyWithPerfix()) {
-                var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
-                value = name + ': ';
-            };
+            var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
+            var value = "";
 
             currentRowTriggeredMenu.find('.setting-value > span').each(function (i, element) {
                 if (i > 0) {
@@ -652,7 +648,12 @@
                 value += angular.element(element).text().trim();
             });
 
-            clipboard.copyText(value);
+            if (ariaNgSettingService.getIncludePrefixWhenCopyingFromTaskDetails()) {
+                var info = name + ': ' + value;
+                clipboard.copyText(info);
+            } else {
+                clipboard.copyText(value);
+            };
         };
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
