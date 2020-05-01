@@ -191,8 +191,8 @@
             ariaNgSettingService.setConfirmTaskRemoval(value);
         };
 
-        $scope.setTaskDetailCopyWithPerfix = function (value) {
-            ariaNgSettingService.setTaskDetailCopyWithPerfix(value);
+        $scope.setIncludePrefixWhenCopyingFromTaskDetails = function (value) {
+            ariaNgSettingService.setIncludePrefixWhenCopyingFromTaskDetails(value);
         };
 
         $scope.setAfterRetryingTask = function (value) {
