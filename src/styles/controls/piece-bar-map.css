@@ -1,0 +1,43 @@
+/* piece-bar / piece-map */
+.piece-bar-wrapper {
+    height: 20px;
+}
+
+.piece-bar {
+    width: 100%;
+}
+
+.piece-map {
+    padding-left: 6px;
+    padding-right: 2px;
+    line-height: 11px;
+}
+
+.piece-legends {
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.piece-legend {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.piece-map .piece, .piece-legend > .piece {
+    width: 10px;
+    height: 10px;
+    background-color: #eef2f4;
+    border: #dee2e5 solid 1px;
+    display: inline-block;
+    margin-right: 1px;
+}
+
+.piece-map .piece.piece-completed, .piece-legend > .piece.piece-completed {
+    background-color: #b8dd69;
+    border-color: #b8dd69;
+}
+
+.piece-legend > .piece {
+    margin-right: 4px;
+}

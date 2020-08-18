@@ -1,0 +1,95 @@
+<section class="content no-padding">
+    <form name="newTaskForm" ng-submit="startDownload()" novalidate>
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li ng-class="{'active': context.currentTab === 'links'}">
+                    <a class="pointer-cursor" ng-click="changeTab('links')" ng-bind="(context.taskType === 'torrent' ? 'Torrent File' : (context.taskType === 'metalink' ? 'Metalink File' : 'Links') | translate)">Links</a>
+                </li>
+                <li ng-class="{'active': context.currentTab === 'options'}">
+                    <a class="pointer-cursor" ng-click="changeTab('options')" translate>Options</a>
+                </li>
+                <li class="divider"></li>
+                <li class="nav-toolbar">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-folder-open-o fa-1_1x"></i>
+                        </button>
+                        <ul class="dropdown-menu right-align">
+                            <li><a class="pointer-cursor" ng-click="openTorrent()" translate>Open Torrent File</a></li>
+                            <li><a class="pointer-cursor" ng-click="openMetalink()" translate>Open Metalink File</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-sm"
+                                ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
+                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" translate>Download Now
+                        </button>&nbsp;
+                        <button type="button" class="btn btn-sm dropdown-toggle"
+                                ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
+                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu right-align">
+                            <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Download Later</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="tab-content no-padding">
+                <div class="tab-pane" ng-class="{'active': context.currentTab === 'links'}">
+                    <div class="new-task-table" ng-if="context.taskType === 'urls'">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p ng-bind="'format.task.new.download-links' | translate: {count: getValidUrlsCount()}">Download Links:</p>
+                                <div class="form-group has-feedback no-margin" ng-class="{ 'has-error' : newTaskForm.urls.$invalid && newTaskForm.urls.$dirty, 'has-success' : newTaskForm.urls.$valid && newTaskForm.urls.$dirty }">
+                                    <textarea name="urls" class="form-control" rows="10" autofocus="autofocus" ng-auto-focus ng-valid-urls
+                                              ng-model="context.urls" ng-required="true" ng-keydown="urlTextboxKeyDown($event)"
+                                              ng-placeholder="'Support multiple URLs, one URL per line.' | translate"></textarea>
+                                    <div class="form-control-icon" ng-if="newTaskForm.urls.$dirty">
+                                        <i class="fa form-control-feedback" ng-class="{'fa-check':newTaskForm.urls.$valid, 'fa-times':newTaskForm.urls.$invalid}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-task-table" ng-if="context.taskType === 'torrent' || context.taskType === 'metalink'">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p translate>File Name:</p>
+                                <input class="form-control" ng-value="context.uploadFile ? context.uploadFile.fileName : ''" readonly="readonly"/>
+                            </div>
+                        </div>
+                    </div>
+                    <input id="file-holder" type="file" style="display: none"/>
+                </div>
+                <div class="tab-pane" ng-class="{'active': context.currentTab === 'options'}">
+                    <div class="settings-table striped hoverable">
+                        <div class="settings-table-title new-task-filter-title">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <span translate>Filters</span><span>:&nbsp;</span>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input id="optionFilterGlobal" type="checkbox" ng-model="context.optionFilter['global']"/>
+                                        <label for="optionFilterGlobal" translate>Global</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input id="optionFilterHttp" type="checkbox" ng-model="context.optionFilter['http']"/>
+                                        <label for="optionFilterHttp" translate>Http</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input id="optionFilterBittorrent" type="checkbox" ng-model="context.optionFilter['bittorrent']"/>
+                                        <label for="optionFilterBittorrent" translate>BitTorrent</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-setting ng-repeat="option in context.availableOptions" ng-if="context.optionFilter[option.category]"
+                                    option="option" lazy-save-timeout="0" default-value="context.globalOptions[option.key]"
+                                    on-change-value="setOption(key, value, optionStatus)"></ng-setting>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

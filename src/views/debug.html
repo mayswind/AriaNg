@@ -1,0 +1,54 @@
+<section class="content no-padding ng-cloak" ng-if="enableDebugMode()">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a class="pointer-cursor" ng-bind="('format.debug.latest-logs' | translate: {count: logMaxCount})">Latest Logs</a>
+            </li>
+            <li class="slim">
+                <a class="pointer-cursor" ng-click="reloadLogs()">
+                    <i class="fa fa-refresh"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content no-padding">
+            <div class="settings-table striped hoverable">
+                <div class="row" ng-repeat="log in logs | reverse">
+                    <div class="col-sm-12">
+                        <span class="label label-default" ng-bind="'#' + ($index + 1)"></span>
+                        <span ng-bind="log.time | longDate"></span>
+                        <span class="label" ng-class="{'DEBUG':'label-default', 'INFO':'label-primary', 'WARN':'label-warning', 'ERROR':'label-danger'}[log.level]" ng-bind="log.level"></span>
+                        <span ng-bind="log.content"></span>
+                        <a class="pointer-cursor" ng-click="showLogDetail(log)" ng-if="log.attachment"><i class="fa fa-file-o"></i> <span translate>Show Detail</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="log-detail-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" translate>Log Detail</h4>
+                </div>
+                <div class="modal-body no-padding">
+                    <div class="settings-table striped">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span ng-bind="currentLog.time | longDate"></span>
+                                <span class="label" ng-class="{'DEBUG':'label-default', 'INFO':'label-primary', 'WARN':'label-warning', 'ERROR':'label-danger'}[currentLog.level]" ng-bind="currentLog.level"></span>
+                                <span ng-bind="currentLog.content"></span>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="currentLog.attachment">
+                            <div class="col-sm-12">
+                                <pre ng-bind="currentLog.attachment | json"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

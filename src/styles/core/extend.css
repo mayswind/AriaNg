@@ -1,0 +1,147 @@
+/* bootstrap */
+.btn-group + .btn {
+    margin-left: 4px;
+}
+
+.progress-bar {
+    -webkit-transition: initial !important;
+    -moz-transition: initial !important;
+    -ms-transition: initial !important;
+    -o-transition: initial !important;
+    transition: initial !important;
+}
+
+.input-group-addon-compact {
+    padding: 0 4px 0 4px;
+}
+
+.nav-tabs-custom .nav-tabs > li > a {
+    display: inline-block;
+}
+
+.nav-tabs-custom .nav-tabs > li > a.nav-tab-close {
+    padding-left: 0;
+    margin-left: -12px;
+}
+
+.nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+@media (max-width: 991px) {
+    .nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-tabs-custom .nav-tabs > li.nav-tab-title-rpcname > a {
+        max-width: 120px;
+    }
+}
+
+.input-group.input-group-multiple > .input-group-addon {
+    border-left: 0;
+    border-right: 0;
+}
+
+.input-group.input-group-multiple > .input-group-addon:first-child,
+.input-group.input-group-multiple > .input-group-addon-container:first-child {
+    border-left: 1px solid #d2d6de;
+}
+
+.input-group .input-group-addon-container {
+    width: 1%;
+    display: table-cell;
+}
+
+/* font-awesome extend */
+.fa-half {
+    font-size: 0.5em;
+}
+
+.fa-1_1x {
+    font-size: 1.1em;
+}
+
+.fa-rotate-45 {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    filter: none;
+}
+
+.fa-right-bottom {
+    position: relative;
+    right: 0;
+    bottom: -6px;
+}
+
+.fa-order-asc, .fa-order-desc {
+    position: relative;
+}
+
+.fa-order-asc {
+    bottom: -2px;
+}
+
+.fa-order-desc {
+    bottom: 2px;
+}
+
+/* awesome-bootstrap-checkbox extend */
+.checkbox.checkbox-hide {
+    padding-left: 0;
+}
+
+.checkbox.checkbox-hide > input, .checkbox.checkbox-hide > input + label::before, .checkbox.checkbox-hide > input + label::after {
+    display: none !important;
+}
+
+.checkbox.checkbox-hide > label {
+    padding-left: 0;
+}
+
+.checkbox-compact {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.checkbox-inline {
+    display: inline-block;
+}
+
+.icon-dir-expand + .checkbox {
+    margin-left: 6px;
+}
+
+/* angular-input-dropdown */
+input-dropdown[input-class-name="form-control"] > .input-dropdown {
+    width: 100%
+}
+
+.input-dropdown ul {
+    border: 1px solid #888;
+}
+
+.input-dropdown ul > li.active {
+    background-color: #e1e3e9;
+}
+
+.input-dropdown ul > li {
+    padding: 2px 14px 2px 14px;
+}
+
+/* angular-dragula extend */
+.gu-mirror {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}

@@ -1,0 +1,92 @@
+{
+  "private": true,
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "jquery": "3.4.1",
+    "bootstrap": "3.4.1",
+    "moment": "2.24.0",
+    "moment-timezone": "0.5.28",
+    "echarts": "3.8.5",
+    "font-awesome": "^4.7.0",
+    "admin-lte": "2.4.18",
+    "sweetalert": "^1.1.3",
+    "awesome-bootstrap-checkbox": "^0.3.7",
+    "jquery-slimscroll": "^1.3.8",
+    "bootstrap-contextmenu": "^1.0.0",
+    "natural-compare": "1.4.0",
+    "angular": "1.6.10",
+    "angular-route": "1.6.10",
+    "angular-sanitize": "1.6.10",
+    "angular-touch": "1.6.10",
+    "angular-messages": "1.6.10",
+    "angular-cookies": "1.6.10",
+    "angular-animate": "1.6.10",
+    "angular-translate": "^2.18.2",
+    "angular-moment": "1.3.0",
+    "angular-websocket": "^2.0.1",
+    "angular-local-storage": "^0.7.1",
+    "angular-ui-notification": "^0.3.6",
+    "angular-bittorrent-peerid": "^1.3.2",
+    "angular-busy": "^4.1.4",
+    "angular-promise-buttons": "^0.1.23",
+    "angular-sweetalert": "^1.1.2",
+    "angular-utf8-base64": "^0.0.5",
+    "angular-clipboard": "^1.7.0",
+    "angular-input-dropdown": "git://github.com/mayswind/angular-input-dropdown.git#68670e39816698b3eb98c0e740a0efe77d5fbdd1",
+    "angularjs-dragula": "^2.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "del": "^4.1.0",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-plugin-angular": "^3.3.0",
+    "git-rev-sync": "^1.12.0",
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.2.6",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-eslint": "^4.0.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^2.0.2",
+    "gulp-inject-version": "^1.0.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-manifest": "^0.1.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-replace": "^1.0.0",
+    "gulp-rev": "^9.0.0",
+    "gulp-rev-replace": "^0.4.4",
+    "gulp-sequence": "^1.0.0",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp-useref": "^3.1.6",
+    "gulp-util": "^3.0.8",
+    "nice-try": "^2.0.0",
+    "uglify-save-license": "^0.4.1"
+  },
+  "name": "ariang",
+  "description": "AriaNg, a modern web frontend making aria2 easier to use.",
+  "version": "1.1.6",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayswind/AriaNg.git"
+  },
+  "keywords": [
+    "aria2",
+    "Web",
+    "Frontend",
+    "UI"
+  ],
+  "author": "MaysWind <i@mayswind.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mayswind/AriaNg/issues"
+  },
+  "homepage": "http://ariang.mayswind.net/"
+}

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html ng-app="ariaNg" manifest="index.manifest">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" name="viewport">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-title" content="AriaNg"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="msapplication-TileColor" content="#3c4852">
+    <meta name="msapplication-TileImage" content="tileicon.png">
+    <meta name="description" content="AriaNg, a modern web frontend making aria2 easier to use.">
+    <meta name="theme-color" content="#3c4852">
+    <meta name="format-detection" content="telephone=no"/>
+    <title>AriaNg</title>
+    <link rel="icon" href="favicon.png">
+    <!--[if IE]><link rel="shortcut icon" href="favicon.ico"><![endif]-->
+    <link rel="apple-touch-icon" href="touchicon.png">
+    <!-- build:css css/bootstrap-3.4.1.min.css -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- endbuild -->
+    <!-- build:css css/plugins.min.css -->
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../node_modules/admin-lte/dist/css/AdminLTE.min.css"/>
+    <link rel="stylesheet" href="../node_modules/sweetalert/dist/sweetalert.css"/>
+    <link rel="stylesheet" href="../node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"/>
+    <link rel="stylesheet" href="../node_modules/angular/angular-csp.css"/>
+    <link rel="stylesheet" href="../node_modules/angular-ui-notification/dist/angular-ui-notification.min.css"/>
+    <link rel="stylesheet" href="../node_modules/angular-busy/dist/angular-busy.min.css"/>
+    <link rel="stylesheet" href="../node_modules/angular-input-dropdown/inputDropdownStyles.css"/>
+    <link rel="stylesheet" href="../node_modules/angularjs-dragula/dist/dragula.min.css"/>
+    <!-- endbuild -->
+    <!-- build:css css/aria-ng.min.css -->
+    <link rel="stylesheet" href="styles/core/core.css">
+    <link rel="stylesheet" href="styles/core/extend.css">
+    <link rel="stylesheet" href="styles/controls/global-status.css"/>
+    <link rel="stylesheet" href="styles/controls/task-table.css"/>
+    <link rel="stylesheet" href="styles/controls/settings-table.css"/>
+    <link rel="stylesheet" href="styles/controls/new-task-table.css"/>
+    <link rel="stylesheet" href="styles/controls/piece-bar-map.css"/>
+    <link rel="stylesheet" href="styles/controls/chart.css"/>
+    <link rel="stylesheet" href="styles/controls/angular-promise-buttons.css"/>
+    <link rel="stylesheet" href="styles/theme/default.css">
+    <!-- endbuild -->
+</head>
+<body class="hold-transition skin-aria-ng sidebar-mini fixed">
+<div class="wrapper" ng-controller="MainController" ng-swipe-left="swipeActions.leftSwipe()" ng-swipe-right="swipeActions.rightSwipe()" ng-swipe-disable-mouse>
+    <header class="main-header">
+        <div class="logo">
+            <div class="logo-mini">AriaNg</div>
+            <div class="logo-lg" title="AriaNg {{ariaNgVersion}}">
+                <div class="dropdown">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="logo-lg-title">AriaNg</span><i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                    </span>
+                    <ul class="dropdown-menu dropdown-menu-right rpcselect-dropdown" role="menu">
+                        <li ng-repeat="setting in rpcSettings" ng-class="{'active': setting.isDefault}">
+                            <a class="pointer-cursor" ng-click="switchRpcSetting(setting)">
+                                <span ng-bind="(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)">RPC</span>
+                                <i class="fa" ng-class="{'fa-check': setting.isDefault}"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-toolbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="toolbar" title="{{'New' | translate}}" ng-href="#!/new">
+                            <i class="fa fa-plus"></i>
+                            <span translate>New</span>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="disabled" ng-class="{'disabled': !isSpecifiedTaskSelected('paused')}">
+                        <a class="toolbar" title="{{'Start' | translate}}" ng-click="changeTasksState('start')">
+                            <i class="fa fa-play"></i>
+                        </a>
+                    </li>
+                    <li class="disabled" ng-class="{'disabled': !isSpecifiedTaskSelected('active', 'waiting')}">
+                        <a class="toolbar" title="{{'Pause' | translate}}" ng-click="changeTasksState('pause')">
+                            <i class="fa fa-pause"></i>
+                        </a>
+                    </li>
+                    <li class="disabled" ng-class="{'disabled': !isTaskSelected() && !isSpecifiedTaskShowing('complete', 'error', 'removed')}">
+                        <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Delete' | translate}}">
+                            <i class="fa fa-trash-o"></i>
+                            <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-if="isTaskSelected()">
+                                <a class="pointer-cursor" ng-click="removeTasks()">
+                                    <span translate>Remove Task</span>
+                                </a>
+                            </li>
+                            <li ng-if="taskContext.enableSelectAll && isSpecifiedTaskShowing('complete', 'error', 'removed')">
+                                <a class="pointer-cursor" ng-click="clearStoppedTasks()">
+                                    <span translate>Clear Stopped Tasks</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="disabled" ng-class="{'disabled': !taskContext.enableSelectAll || !taskContext.list || taskContext.list.length < 1}">
+                        <a class="toolbar" title="{{'Select All' | translate}}" ng-click="selectAllTasks()">
+                            <i class="fa fa-th-large"></i>
+                        </a>
+                    </li>
+                    <li class="disabled" ng-class="{'disabled': !taskContext.enableSelectAll || !taskContext.list || taskContext.list.length < 1}">
+                        <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Display Order' | translate}}">
+                            <i class="fa fa-sort-alpha-asc"></i>
+                            <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('default:asc')">
+                                    <span translate>Default</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('default')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('name:asc')">
+                                    <span translate>By File Name</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('name')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('size:asc')">
+                                    <span translate>By File Size</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('size')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('percent:desc')">
+                                    <span translate>By Progress</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('percent')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('remain:asc')">
+                                    <span translate>By Remaining</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('remain')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('dspeed:desc')">
+                                    <span translate>By Download Speed</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('dspeed')}"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="changeDisplayOrder('uspeed:desc')">
+                                    <span translate>By Upload Speed</span>
+                                    <i class="fa" ng-class="{'fa-check': isSetDisplayOrder('uspeed')}"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="toolbar" title="{{'Help' | translate}}" href="https://github.com/mayswind/AriaNg" target="_blank">
+                            <i class="fa fa-question-circle-o"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-searchbar hidden-xs">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <input class="form-control" ng-placeholder="('Search' | translate)" title="{{'Search' | translate}}"
+                               ng-model="searchContext.text" />
+                        <div class="form-control-icon">
+                            <span class="fa fa-search form-control-feedback"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul id="siderbar-menu" class="sidebar-menu" data-widget="tree" data-animation-speed="300">
+                <li class="header" translate>Download</li>
+                <li data-href-match="/downloading">
+                    <a href="#!/downloading"><i class="fa fa-arrow-circle-o-down"></i> <span ng-bind="('Downloading' | translate) + (globalStat && globalStat.numActive > 0 ? ' (' + globalStat.numActive + ')' : '')">Downloading</span></a>
+                </li>
+                <li data-href-match="/waiting">
+                    <a href="#!/waiting"><i class="fa fa-clock-o"></i> <span ng-bind="('Waiting' | translate) + (globalStat && globalStat.numWaiting > 0 ? ' (' + globalStat.numWaiting + ')' : '')">Waiting</span></a>
+                </li>
+                <li data-href-match="/stopped">
+                    <a href="#!/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Finished / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Finished / Stopped</span></a>
+                </li>
+                <li class="header" translate>Settings</li>
+                <li data-href-match="/settings/ariang">
+                    <a href="#!/settings/ariang"><i class="fa fa-cog"></i> <span translate>AriaNg Settings</span></a>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-cogs"></i>
+                        <span translate>Aria2 Settings</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li data-href-match="/settings/aria2/basic">
+                            <a href="#!/settings/aria2/basic"> <span translate>Basic Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/http-ftp-sftp">
+                            <a href="#!/settings/aria2/http-ftp-sftp"> <span translate>HTTP/FTP/SFTP Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/http">
+                            <a href="#!/settings/aria2/http"> <span translate>HTTP Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/ftp-sftp">
+                            <a href="#!/settings/aria2/ftp-sftp"> <span translate>FTP/SFTP Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/bt">
+                            <a href="#!/settings/aria2/bt"> <span translate>BitTorrent Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/metalink">
+                            <a href="#!/settings/aria2/metalink"> <span translate>Metalink Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/rpc">
+                            <a href="#!/settings/aria2/rpc"> <span translate>RPC Settings</span></a>
+                        </li>
+                        <li data-href-match="/settings/aria2/advanced">
+                            <a href="#!/settings/aria2/advanced"> <span translate>Advanced Settings</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="ng-cloak" data-href-match="/debug" ng-if="enableDebugMode()">
+                    <a href="#!/debug"><i class="fa fa-wrench"></i> <span translate>AriaNg Debug Console</span></a>
+                </li>
+                <li data-href-match="/status">
+                    <a href="#!/status">
+                        <span class="label pull-right" ng-if="globalStatusContext.isEnabled || isCurrentRpcUseWebSocket" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Disconnected'}" ng-bind="taskContext.rpcStatus | translate"></span>
+                        <i class="fa fa-server"></i> <span translate>Aria2 Status</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <div id="content-wrapper" class="content-wrapper">
+        <div id="content-body" class="content-body">
+            <div ng-view cg-busy="{ promise: loadPromise, message: ('Loading' | translate) }"></div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <nav class="navbar" role="navigation">
+            <div class="navbar-toolbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a data-toggle="push-menu" role="button" title="{{'Toggle Navigation' | translate}}">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="dropup">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="{{'Shortcut' | translate}}">
+                            <i class="fa fa-wrench"></i>
+                            <span translate>Shortcut</span>
+                            <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="pointer-cursor" ng-click="showQuickSettingDialog('globalSpeedLimit', 'Global Rate Limit')">
+                                    <span translate>Global Rate Limit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
+                <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
+                   ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
+                <span class="realtime-speed">
+                    <i class="icon-download fa fa-arrow-down"></i>
+                    <span ng-bind="(globalStat.downloadSpeed | readableVolume) + '/s'"></span>
+                </span>
+                    <span class="realtime-speed">
+                    <i class="icon-upload fa fa-arrow-up"></i>
+                    <span ng-bind="(globalStat.uploadSpeed | readableVolume) + '/s'"></span>
+                </span>
+                </a>
+            </div>
+        </nav>
+    </footer>
+
+    <ng-setting-dialog setting="quickSettingContext"></ng-setting-dialog>
+</div>
+
+<!-- build:js js/jquery-3.3.1.min.js -->
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/angular-packages-1.6.10.min.js -->
+<script src="../node_modules/angular/angular.min.js"></script>
+<script src="../node_modules/angular-route/angular-route.min.js"></script>
+<script src="../node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="../node_modules/angular-touch/angular-touch.min.js"></script>
+<script src="../node_modules/angular-messages/angular-messages.min.js"></script>
+<script src="../node_modules/angular-cookies/angular-cookies.min.js"></script>
+<script src="../node_modules/angular-animate/angular-animate.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/bootstrap-3.4.1.min.js -->
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/moment-with-locales-2.24.0.min.js -->
+<script src="../node_modules/moment/min/moment.min.js"></script>
+<script src="../node_modules/moment/locale/zh-cn.js"></script>
+<script src="../node_modules/moment/locale/zh-tw.js"></script>
+<script src="../node_modules/moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/echarts-common-3.8.5.min.js -->
+<script src="../node_modules/echarts/dist/echarts.common.min.js"></script>
+<!-- endbuild -->
+<!-- build:js js/plugins.min.js -->
+<script src="../node_modules/admin-lte/dist/js/adminlte.js"></script>
+<script src="../node_modules/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../node_modules/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
+<script src="../node_modules/natural-compare/index.js"></script>
+<script src="../node_modules/angular-translate/dist/angular-translate.min.js"></script>
+<script src="../node_modules/angular-moment/angular-moment.min.js"></script>
+<script src="../node_modules/angular-websocket/dist/angular-websocket.min.js"></script>
+<script src="../node_modules/angular-utf8-base64/angular-utf8-base64.js"></script>
+<script src="../node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src="../node_modules/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+<script src="../node_modules/angular-bittorrent-peerid/angular-bittorrent-peerid.min.js"></script>
+<script src="../node_modules/angular-busy/dist/angular-busy.min.js"></script>
+<script src="../node_modules/angular-promise-buttons/dist/angular-promise-buttons.min.js"></script>
+<script src="../node_modules/angular-clipboard/angular-clipboard.js"></script>
+<script src="../node_modules/angular-input-dropdown/inputDropdown.js"></script>
+<script src="../node_modules/angularjs-dragula/dist/angularjs-dragula.min.js"></script>
+<script src="../node_modules/angular-sweetalert/SweetAlert.js"></script>
+<!-- endbuild -->
+<!-- build:js js/aria-ng.min.js -->
+<script src="scripts/core/__core.js"></script>
+<script src="scripts/core/__fix.js"></script>
+<script src="scripts/core/app.js"></script>
+<script src="scripts/core/router.js"></script>
+<script src="scripts/core/root.js"></script>
+<script src="scripts/config/constants.js"></script>
+<script src="scripts/config/buildConfiguration.js"></script>
+<script src="scripts/config/configuration.js"></script>
+<script src="scripts/config/fileTypes.js"></script>
+<script src="scripts/config/initiator.js"></script>
+<script src="scripts/config/languages.js"></script>
+<script src="scripts/config/defaultLanguage.js"></script>
+<script src="scripts/config/aria2Options.js"></script>
+<script src="scripts/config/aria2Errors.js"></script>
+<script src="scripts/config/aria2RpcConstants.js"></script>
+<script src="scripts/controllers/command.js"></script>
+<script src="scripts/controllers/debug.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/new.js"></script>
+<script src="scripts/controllers/list.js"></script>
+<script src="scripts/controllers/task-detail.js"></script>
+<script src="scripts/controllers/settings-ariang.js"></script>
+<script src="scripts/controllers/settings-aria2.js"></script>
+<script src="scripts/controllers/status.js"></script>
+<script src="scripts/directives/autoFocus.js"></script>
+<script src="scripts/directives/pieceBar.js"></script>
+<script src="scripts/directives/pieceMap.js"></script>
+<script src="scripts/directives/chart.js"></script>
+<script src="scripts/directives/indeterminate.js"></script>
+<script src="scripts/directives/placeholder.js"></script>
+<script src="scripts/directives/setting.js"></script>
+<script src="scripts/directives/settingDialog.js"></script>
+<script src="scripts/directives/tooltip.js"></script>
+<script src="scripts/directives/validUrls.js"></script>
+<script src="scripts/directives/blobDownload.js"></script>
+<script src="scripts/filters/dateDuration.js"></script>
+<script src="scripts/filters/fileOrderBy.js"></script>
+<script src="scripts/filters/longDate.js"></script>
+<script src="scripts/filters/peerOrderBy.js"></script>
+<script src="scripts/filters/percent.js"></script>
+<script src="scripts/filters/reverse.js"></script>
+<script src="scripts/filters/taskOrderBy.js"></script>
+<script src="scripts/filters/taskStatus.js"></script>
+<script src="scripts/filters/volume.js"></script>
+<script src="scripts/services/ariaNgAssetsCacheService.js"></script>
+<script src="scripts/services/ariaNgLanguageLoader.js"></script>
+<script src="scripts/services/ariaNgCommonService.js"></script>
+<script src="scripts/services/ariaNgNotificationService.js"></script>
+<script src="scripts/services/ariaNgLocalizationService.js"></script>
+<script src="scripts/services/ariaNgLogService.js"></script>
+<script src="scripts/services/ariaNgStorageService.js"></script>
+<script src="scripts/services/ariaNgFileService.js"></script>
+<script src="scripts/services/ariaNgSettingService.js"></script>
+<script src="scripts/services/ariaNgMonitorService.js"></script>
+<script src="scripts/services/ariaNgTitleService.js"></script>
+<script src="scripts/services/aria2HttpRpcService.js"></script>
+<script src="scripts/services/aria2WebSocketRpcService.js"></script>
+<script src="scripts/services/aria2RpcService.js"></script>
+<script src="scripts/services/aria2TaskService.js"></script>
+<script src="scripts/services/aria2SettingService.js"></script>
+<script src="scripts/views/templates.js"></script>
+<!-- endbuild -->
+<!-- AriaNg-Bundle:languages -->
+</body>
+</html>

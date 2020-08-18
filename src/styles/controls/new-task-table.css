@@ -1,0 +1,28 @@
+/* new-task-table */
+.new-task-table {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.new-task-table > div.row {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.new-task-table > div.row:first-child {
+    border-top: inherit;
+}
+
+.new-task-table .new-task-toollink > a {
+    margin-right: 20px;
+}
+
+@media (max-width: 767px) {
+    .new-task-table .new-task-toollink > a {
+        display: block;
+    }
+}
+
+.settings-table .new-task-filter-title {
+    padding-top: 6px;
+}

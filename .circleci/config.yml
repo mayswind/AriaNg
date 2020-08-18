@@ -1,0 +1,39 @@
+version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:6.14-browsers
+  working_directory: ~/AriaNg
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: npm install
+      - run: sudo npm install -g gulp
+      - run: gulp clean build
+      - save_cache:
+          key: v1-ariang-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/AriaNg
+  publish_daily_build:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          key: v1-ariang-{{ .Environment.CIRCLE_SHA1 }}
+      - add_ssh_keys:
+          fingerprints: 
+      - run: bash ./scripts/publish_dailybuild.sh
+
+workflows:
+  version: 2
+  build_and_publish:
+    jobs:
+      - build
+      - publish_daily_build:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

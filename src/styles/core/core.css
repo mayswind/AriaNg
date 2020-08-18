@@ -1,0 +1,263 @@
+/*!
+ * AriaNg
+ * https://github.com/mayswind/AriaNg
+ */
+
+/* basic */
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false);
+}
+
+.disable-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    cursor: not-allowed;
+}
+
+.main-header .logo {
+    overflow: visible;
+}
+
+.main-header .logo .dropdown-menu {
+    z-index: 2000;
+}
+
+.main-header .navbar .nav > li {
+    display: inline-block;
+}
+
+.main-header .navbar .nav > li > a {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.main-header .navbar .nav > li.disabled > a {
+    pointer-events: none !important;
+}
+
+.main-header .navbar .navbar-nav {
+    margin-left: 5px;
+}
+
+.main-header .navbar .navbar-searchbar {
+    padding-top: 8px;
+    padding-right: 20px;
+    float: right;
+}
+
+.main-header .logo .logo-mini {
+    font-size: 14px !important;
+}
+
+.main-header .logo .logo-lg {
+    cursor: pointer;
+}
+
+.main-header .rpcselect-dropdown {
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+.main-sidebar {
+    z-index: 1010;
+}
+
+.content-wrapper {
+    min-height: calc(100vh - 48px);
+}
+
+.content-wrapper, .right-side {
+    background-color: #fff;
+}
+
+.content-wrapper > .content-body {
+    overflow-y: scroll;
+}
+
+.main-footer > .navbar {
+    margin-bottom: 0;
+    min-height: inherit;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav {
+    float: left;
+    margin: 0;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav > li {
+    display: inline-block;
+    float: left;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav > li > a {
+    padding: 0 10px 0 10px;
+}
+
+.main-footer > .navbar > .navbar-toolbar > .nav > li:first-child > a {
+    padding-left: 0;
+}
+
+.dropdown-menu.right-align {
+    left: inherit;
+    right: 0;
+}
+
+.default-cursor {
+    cursor: default !important;
+}
+
+.pointer-cursor {
+    cursor: pointer !important;
+}
+
+.text-cursor {
+    cursor: text !important;
+}
+
+.allow-word-break {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.auto-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .open .dropdown-menu {
+        position: absolute;
+        border: 1px solid #eee;
+        background-color: #fff;
+    }
+
+    .main-footer > .navbar > .navbar-toolbar > .nav > li > a {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+/* toolbar */
+.toolbar {
+    cursor: pointer;
+}
+
+.toolbar:active {
+    -webkit-box-shadow: inset 0 2px 6px rgba(0, 0, 0, .125);
+    -moz-box-shadow: inset 0 2px 6px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, .125);
+}
+
+/* dropdown-submenu */
+.dropdown-menu small {
+    color: #999;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu > a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-menu > li.dropdown-submenu:hover {
+    background-color: #e1e3e9;
+}
+
+.dropdown-submenu:hover > a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    background-color: #c4d2db;
+    min-height: 28px;
+}
+
+::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active {
+    background-color: #d4dfe7;
+}
+
+@media (max-width: 767px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+}
+
+/* animation */
+.fade-in.ng-enter {
+    transition:0.3s linear all;
+    opacity:0;
+}
+.fade-in.ng-enter.ng-enter-active {
+    opacity:1;
+}
