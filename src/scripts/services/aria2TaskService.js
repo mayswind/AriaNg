@@ -27,7 +27,17 @@
                 return fileNameAndQueryString;
             }
 
-            return fileNameAndQueryString.substring(0, queryStringStartPos);
+            var fileName= fileNameAndQueryString.substring(0, queryStringStartPos);
+			
+			try{
+				//decode url encoded file name
+				fileName=decodeURI(fileName).trim();
+			}catch(e){
+				ariaNgLogService.error('failed to Url Decode file name',e);
+			}
+			
+			
+			return fileName;
         };
 
         var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {

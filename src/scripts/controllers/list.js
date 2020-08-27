@@ -71,6 +71,21 @@
                 }
 
                 $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list && $rootScope.taskContext.list.length > 0;
+				
+				//deocode file name for waiting list when file names was not decoded by aria2
+				if($rootScope.taskContext.list instanceof Array){
+					
+					for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
+						var task = $rootScope.taskContext.list[i];
+						try{
+							//decode url encoded taskName
+							task.taskName=decodeURI(task.taskName).trim();
+						}catch(e){
+							ariaNgLogService.warn('failed to Url Decode taskName ',e);
+						}
+					}
+				} 
+				
             }, silent);
         };
 
@@ -117,7 +132,6 @@
             }
         });
 
-		$scope.decodeURI=decodeURI;
 
         $rootScope.loadPromise = refreshDownloadTask(false);
     }]);
