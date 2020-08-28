@@ -17,6 +17,11 @@
         //     [max: 0,] //SUPPORT 'integer', 'float'
         //     [pattern: '']
         // }
+        'gid': {
+            type: 'string',
+            readonly: true,
+            required: true
+        },
         'dir': {
             type: 'string',
             required: true
