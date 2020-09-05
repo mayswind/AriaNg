@@ -9,9 +9,11 @@
             }
 
             var path = file.path;
+            var needUrlDecode = false;
 
             if (!path && file.uris && file.uris.length > 0) {
                 path = file.uris[0].uri;
+                needUrlDecode = true;
             }
 
             var index = path.lastIndexOf('/');
@@ -22,12 +24,21 @@
 
             var fileNameAndQueryString = path.substring(index + 1);
             var queryStringStartPos = fileNameAndQueryString.indexOf('?');
+            var fileName = fileNameAndQueryString;
 
-            if (queryStringStartPos <= 0) {
-                return fileNameAndQueryString;
+            if (queryStringStartPos > 0) {
+                fileName = fileNameAndQueryString.substring(0, queryStringStartPos);
             }
 
-            return fileNameAndQueryString.substring(0, queryStringStartPos);
+            if (needUrlDecode) {
+                try {
+                    fileName = decodeURI(fileName);
+                } catch (ex) {
+                    ariaNgLogService.warn('[aria2TaskService.getFileName] failed to url decode file name, original file name: ' + fileName, ex);
+                }
+            }
+
+            return fileName;
         };
 
         var calculateDownloadRemainTime = function (remainBytes, downloadSpeed) {
