@@ -1,0 +1,37 @@
+{
+	"name": "AriaNg",
+	"description": "AriaNg, a modern web frontend for aria2",
+	"icons": [
+		{
+			"src": "/images/icon-96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		}
+	],
+	"start_url": "/#!/downloading",
+	"scope": "/",
+	"display": "standalone",
+	"theme_color": "#3C4852",
+	"shortcuts": [
+		{
+			"name": "Add new...",
+			"url": "/#!new",
+			"icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
+		},
+		{
+			"name": "Waiting",
+			"url": "/#!waiting",
+			"icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
+		},
+		{
+			"name": "Finished/Stopped",
+			"url": "/#!stopped",
+			"icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
+		},
+		{
+			"name": "Status",
+			"url": "/#!status",
+			"icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
+    }
+	]
+}
