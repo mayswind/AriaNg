@@ -27,11 +27,6 @@
 			"name": "Finished/Stopped",
 			"url": "/#!stopped",
 			"icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
-		},
-		{
-			"name": "Status",
-			"url": "/#!status",
-			"icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
-    }
+		}
 	]
 }
