@@ -138,7 +138,18 @@
         };
 
         $scope.changeTasksState = function (state) {
-            var gids = $rootScope.taskContext.getSelectedTaskIds();
+            var tasks = $rootScope.taskContext.getSelectedTasks();
+            var gids = [];
+
+            var task = null;
+            for (let index = 0; index < tasks.length; index++) {
+                task = tasks[index];
+                if (state == 'start' && task.status != 'active' && task.status != 'waiting') {
+                    gids.push(task.gid)
+                }else if (state == 'pause' && task.status != 'paused'){
+                    gids.push(task.gid);
+                }
+            }
 
             if (!gids || gids.length < 1) {
                 return;
