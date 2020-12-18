@@ -521,6 +521,8 @@
                 'bt-tracker-interval.description': 'Set the interval in seconds between tracker requests. This completely overrides interval value and aria2 just uses this value and ignores the min interval and interval value in the response of tracker. If 0 is set, aria2 determines interval based on the response of tracker and the download progress.',
                 'bt-tracker-timeout.name': 'BitTorrent Tracker Timeout',
                 'bt-tracker-timeout.description': '',
+                'on-bt-download-complete.name': 'Bittorrent Download Complete Command',
+                'on-bt-download-complete.description': 'For BitTorrent, a command specified in --on-download-complete is called after download completed and seeding is over. On the other hand, this option set the command to be executed after download completed but before seeding.',
                 'dht-file-path.name': 'DHT (IPv4) File',
                 'dht-file-path.description': 'Change the IPv4 DHT routing table file to PATH.',
                 'dht-file-path6.name': 'DHT (IPv6) File',
@@ -678,7 +680,9 @@
                 'stop.name': 'Auto Shutdown Time',
                 'stop.description': 'Stop application after SEC seconds has passed. If 0 is given, this feature is disabled.',
                 'truncate-console-readout.name': 'Truncate Console Output',
-                'truncate-console-readout.description': 'Truncate console readout to fit in a single line.'
+                'truncate-console-readout.description': 'Truncate console readout to fit in a single line.',
+                'on-download-complete.name': 'Download Complete Command',
+                'on-download-complete.description': 'Set the command to be executed after download completed.'
             }
         };
 
