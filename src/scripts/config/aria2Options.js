@@ -502,6 +502,9 @@
             required: true,
             min: 0
         },
+        'on-bt-download-complete' : {
+            type: 'string'
+        },
         'follow-metalink': {
             type: 'option',
             options: ['true', 'false', 'mem'],
@@ -833,6 +836,9 @@
             type: 'boolean',
             readonly: true,
             defaultValue: 'true'
+        },
+        'on-download-complete': {
+            type: 'string'
         }
     }).constant('aria2GlobalAvailableOptions', {
         // Aria2 Setting Page Defination EXAMPLE:
@@ -866,7 +872,7 @@
             'bt-stop-timeout', 'bt-tracker', 'bt-tracker-connect-timeout', 'bt-tracker-interval', 'bt-tracker-timeout',
             'dht-file-path', 'dht-file-path6', 'dht-listen-port', 'dht-message-timeout', 'enable-dht', 'enable-dht6',
             'enable-peer-exchange', 'follow-torrent', 'listen-port', 'max-overall-upload-limit', 'max-upload-limit',
-            'peer-id-prefix', 'peer-agent', 'seed-ratio', 'seed-time'
+            'peer-id-prefix', 'peer-agent', 'seed-ratio', 'seed-time', 'on-bt-download-complete'
         ],
         metalinkOptions: [
             'follow-metalink', 'metalink-base-uri', 'metalink-language', 'metalink-location', 'metalink-os',
@@ -885,7 +891,7 @@
             'min-tls-version', 'log-level', 'optimize-concurrent-downloads', 'piece-length', 'show-console-readout',
             'summary-interval', 'max-overall-download-limit', 'max-download-limit', 'no-conf',
             'no-file-allocation-limit', 'parameterized-uri', 'quiet', 'realtime-chunk-checksum', 'remove-control-file',
-            'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout'
+            'save-session', 'save-session-interval', 'socket-recv-buffer-size', 'stop', 'truncate-console-readout', 'on-download-complete'
         ]
     }).constant('aria2QuickSettingsAvailableOptions', {
         globalSpeedLimitOptions: [
