@@ -503,7 +503,8 @@
             min: 0
         },
         'on-bt-download-complete' : {
-            type: 'string'
+            type: 'string',
+            readonly: true
         },
         'follow-metalink': {
             type: 'option',
@@ -838,7 +839,8 @@
             defaultValue: 'true'
         },
         'on-download-complete': {
-            type: 'string'
+            type: 'string',
+            readonly: true
         }
     }).constant('aria2GlobalAvailableOptions', {
         // Aria2 Setting Page Defination EXAMPLE:
