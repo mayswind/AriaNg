@@ -328,6 +328,7 @@
             if(ev.metaKey && ev.key == "v" && ev.target == document.body) {
                 navigator.clipboard.readText().then(function(text) {
                     $location.path('/new/' + btoa(text));
+                    ev.stopPropagation();
                 });
             }
         }
