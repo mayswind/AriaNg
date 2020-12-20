@@ -324,6 +324,14 @@
             }
         };
 
+        $rootScope.handleKeyboard = ev => {
+            if(ev.metaKey && ev.key == "v" && ev.target == document.body) {
+                navigator.clipboard.readText().then(text => {
+                    $location.path('/new/' + btoa(text));
+                });
+            }
+        }
+
         $rootScope.refreshPage = function () {
             $window.location.reload();
         };
