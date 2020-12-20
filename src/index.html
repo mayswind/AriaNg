@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="styles/theme/default.css">
     <!-- endbuild -->
 </head>
-<body class="hold-transition skin-aria-ng sidebar-mini fixed">
+<body class="hold-transition skin-aria-ng sidebar-mini fixed" ng-keydown="handleKeyboard($event)" tabindex=0>
 <div class="wrapper" ng-controller="MainController" ng-swipe-left="swipeActions.leftSwipe()" ng-swipe-right="swipeActions.rightSwipe()" ng-swipe-disable-mouse>
     <header class="main-header">
         <div class="logo">
