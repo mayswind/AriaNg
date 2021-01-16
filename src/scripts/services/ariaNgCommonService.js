@@ -83,6 +83,13 @@
                         result.push(line);
                     } else if (line.match(/^magnet:\?.+$/)) {
                         result.push(line);
+                    }else if (line.match(/^thunder:\?.+$/)) {
+			line = line.substring(10,);//把第十个字符(含第10个)开始到最后的字符赋值给自己 即去掉链接中 thunder://
+			var normal = window.atob(line);//base64解码
+			var len = normal.length-2;//获取长度
+			normal = normal.substring(2,len);
+			line = decodeURI(normal);//url解码
+                        result.push(line);
                     }
                 }
 
