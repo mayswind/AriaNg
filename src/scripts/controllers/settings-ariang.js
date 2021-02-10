@@ -56,6 +56,7 @@
             sessionSettings: ariaNgSettingService.getAllSessionOptions(),
             rpcSettings: ariaNgSettingService.getAllRpcSettings(),
             isSupportBlob: ariaNgFileService.isSupportBlob(),
+            isSupportMatchMedia: ariaNgSettingService.isBrowserSupportMatchMedia(),
             importSettings: null,
             exportSettings: null,
             exportSettingsCopied: false
@@ -136,6 +137,11 @@
             }
 
             $scope.updateTitlePreview();
+        };
+
+        $scope.setTheme = function (value) {
+            ariaNgSettingService.setTheme(value);
+            $rootScope.setTheme(value);
         };
 
         $scope.setDebugMode = function (value) {

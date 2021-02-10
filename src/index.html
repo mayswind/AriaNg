@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="styles/controls/chart.css"/>
     <link rel="stylesheet" href="styles/controls/angular-promise-buttons.css"/>
     <link rel="stylesheet" href="styles/theme/default.css">
+    <link rel="stylesheet" href="styles/theme/default-dark.css">
     <!-- endbuild -->
 </head>
 <body class="hold-transition skin-aria-ng sidebar-mini fixed">
@@ -282,7 +283,8 @@
             </div>
 
             <div class="pull-right ng-cloak" ng-if="globalStatusContext.isEnabled">
-                <a class="global-status" title="{{('Click to pin' | translate)}}" ng-pop-chart ng-data="globalStatusContext.data"
+                <a class="global-status" title="{{('Click to pin' | translate)}}"
+                   ng-pop-chart ng-data="globalStatusContext.data" ng-theme="currentTheme"
                    ng-container="body" ng-placement="top" ng-trigger="click hover" ng-popover-class="global-status-chart">
                 <span class="realtime-speed">
                     <i class="icon-download fa fa-arrow-down"></i>

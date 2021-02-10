@@ -6,12 +6,11 @@
             restrict: 'E',
             template: '<div></div>',
             scope: {
-                options: '=ngData'
+                options: '=ngData',
+                theme: '=ngTheme'
             },
             link: function (scope, element, attrs) {
-                var options = {
-                    ngTheme: 'default'
-                };
+                var options = {};
 
                 angular.extend(options, attrs);
 
@@ -22,7 +21,7 @@
                 var height = parseInt(attrs.height) || parentHeight || 200;
                 wrapper.css('height', height + 'px');
 
-                var chart = echarts.init(wrapper[0], chartTheme.get(options.ngTheme));
+                var chart = echarts.init(wrapper[0], chartTheme.get(scope.theme));
 
                 var setOptions = function (value) {
                     chart.setOption(value);
@@ -50,11 +49,11 @@
         return {
             restrict: 'A',
             scope: {
-                options: '=ngData'
+                options: '=ngData',
+                theme: '=ngTheme'
             },
             link: function (scope, element, attrs) {
                 var options = {
-                    ngTheme: 'default',
                     ngPopoverClass: '',
                     ngContainer: 'body',
                     ngTrigger: 'click',
@@ -83,7 +82,7 @@
                     var height = parseInt(attrs.height) || parentHeight || 200;
                     wrapper.css('height', height + 'px');
 
-                    chart = echarts.init(wrapper[0], chartTheme.get(options.ngTheme));
+                    chart = echarts.init(wrapper[0], chartTheme.get(scope.theme));
                 }).on('hide.bs.popover', function () {
                     if (chart && !chart.isDisposed()) {
                         chart.dispose();
@@ -105,14 +104,19 @@
                 }, true);
             }
         };
-    }]).factory('chartTheme', ['chartDefaultTheme', function (chartDefaultTheme) {
+    }]).factory('chartTheme', ['chartDefaultTheme', 'chartDarkTheme', function (chartDefaultTheme, chartDarkTheme) {
         var themes = {
-            defaultTheme: chartDefaultTheme
+            defaultTheme: chartDefaultTheme,
+            darkTheme: chartDarkTheme,
         };
 
         return {
             get: function (name) {
-                return themes[name + 'Theme'] ? themes[name + 'Theme'] : {};
+                if (name !== 'default' && themes[name + 'Theme']) {
+                    return angular.extend({}, themes.defaultTheme, themes[name + 'Theme']);
+                } else {
+                    return themes.defaultTheme;
+                }
             }
         };
     }]).factory('chartDefaultTheme', function () {
@@ -195,6 +199,64 @@
                 fontFamily: 'Hiragino Sans GB, Microsoft YaHei, STHeiti, Helvetica Neue, Helvetica, Arial, sans-serif'
             },
             animationDuration: 500
+        };
+    }).factory('chartDarkTheme', function () {
+        return {
+            tooltip: {
+                show: true,
+                trigger: 'axis',
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                axisPointer: {
+                    type: 'line',
+                    lineStyle: {
+                        color: '#ddd',
+                        type: 'dashed',
+                        width: 1
+                    },
+                    crossStyle: {
+                        color: '#ddd',
+                        width: 1
+                    },
+                    shadowStyle: {
+                        color: 'rgba(200,200,200,0.2)'
+                    }
+                }
+            },
+            categoryAxis: {
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            valueAxis: {
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#eee',
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                },
+                splitArea: {
+                    show: false
+                }
+            }
         };
     });
 }());

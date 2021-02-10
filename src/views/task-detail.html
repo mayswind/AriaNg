@@ -160,7 +160,7 @@
                     <div class="row no-hover no-background" ng-if="context.isEnableSpeedChart && task && task.status === 'active'">
                         <div class="col-sm-12">
                             <div class="task-status-chart-wrapper">
-                                <ng-chart ng-data="context.statusData" height="200"></ng-chart>
+                                <ng-chart ng-data="context.statusData" ng-theme="currentTheme" height="200"></ng-chart>
                             </div>
                         </div>
                     </div>

@@ -38,6 +38,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Theme</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.theme"
+                                    ng-change="setTheme(context.settings.theme)">
+                                <option value="light" translate>Light</option>
+                                <option value="dark" translate>Dark</option>
+                                <option ng-if="context.isSupportMatchMedia" value="system" translate>Follow system settings</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row" ng-if="context.showDebugMode">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Debug Mode</span>

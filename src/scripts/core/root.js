@@ -22,6 +22,42 @@
             return false;
         };
 
+        var setLightTheme = function () {
+            $rootScope.currentTheme = 'light';
+            angular.element('body').removeClass('theme-dark');
+        };
+
+        var setDarkTheme = function () {
+            $rootScope.currentTheme = 'dark';
+            angular.element('body').addClass('theme-dark');
+        };
+
+        var setThemeBySystemSettings = function () {
+            if (!ariaNgSettingService.isBrowserSupportMatchMedia()) {
+                setLightTheme();
+                return;
+            }
+
+            var matchPreferColorScheme = $window.matchMedia('(prefers-color-scheme: dark)');
+
+            ariaNgLogService.info(matchPreferColorScheme)
+            if (matchPreferColorScheme.matches) {
+                setDarkTheme();
+            } else {
+                setLightTheme();
+            }
+        };
+
+        var initTheme = function () {
+            if (ariaNgSettingService.getTheme() === 'system') {
+                setThemeBySystemSettings();
+            } else if (ariaNgSettingService.getTheme() === 'dark') {
+                setDarkTheme();
+            } else {
+                setLightTheme();
+            }
+        };
+
         var initCheck = function () {
             var browserFeatures = ariaNgSettingService.getBrowserFeatures();
 
@@ -89,6 +125,8 @@
         var isSidebarShowInSmallScreen = function () {
             return angular.element('body').hasClass('sidebar-open');
         };
+
+        $rootScope.currentTheme = 'light';
 
         $rootScope.searchContext = {
             text: ''
@@ -328,6 +366,16 @@
             $window.location.reload();
         };
 
+        $rootScope.setTheme = function (theme) {
+            if (theme === 'system') {
+                setThemeBySystemSettings();
+            } else if (theme === 'dark') {
+                setDarkTheme();
+            } else {
+                setLightTheme();
+            }
+        };
+
         ariaNgSettingService.onApplicationCacheUpdated(function () {
             ariaNgLocalizationService.notifyInPage('', 'Application cache has been updated, please reload the page for the changes to take effect.', {
                 delay: false,
@@ -402,6 +450,20 @@
             $document.unbind('keypress');
         });
 
+        if (ariaNgSettingService.isBrowserSupportMatchMedia()) {
+            var matchPreferColorScheme = $window.matchMedia('(prefers-color-scheme: dark)');
+            matchPreferColorScheme.addEventListener('change', function (e) {
+                if (ariaNgSettingService.getTheme() === 'system') {
+                    if (e.matches) {
+                        setDarkTheme();
+                    } else {
+                        setLightTheme();
+                    }
+                }
+            });
+        }
+
+        initTheme();
         initCheck();
         initNavbar();
     }]);

@@ -13,6 +13,7 @@
         })();
         var browserSupportStorage = browserFeatures.localStroage || browserFeatures.cookies;
         var browserSupportAppCache = !!$window.applicationCache;
+        var browserSupportMatchMedia = !!$window.matchMedia;
 
         var onAppCacheUpdatedCallbacks = [];
         var onFirstVisitCallbacks = [];
@@ -232,6 +233,9 @@
             isBrowserSupportApplicationCache: function () {
                 return browserSupportAppCache;
             },
+            isBrowserSupportMatchMedia: function () {
+                return browserSupportMatchMedia;
+            },
             getBrowserFeatures: function () {
                 return browserFeatures;
             },
@@ -341,6 +345,13 @@
                 }
 
                 setOption('language', value);
+                return true;
+            },
+            getTheme: function () {
+                return getOption('theme');
+            },
+            setTheme: function (value) {
+                setOption('theme', value);
                 return true;
             },
             isEnableDebugMode: function () {
