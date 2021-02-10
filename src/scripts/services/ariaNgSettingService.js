@@ -60,6 +60,10 @@
                     continue;
                 }
 
+                if (langName.toLowerCase() === alias.toLowerCase()) {
+                    return langName;
+                }
+
                 var language = ariaNgLanguages[langName];
                 var aliases = language.aliases;
 
@@ -68,7 +72,7 @@
                 }
 
                 for (var i = 0; i < aliases.length; i++) {
-                    if (aliases[i] === alias) {
+                    if (aliases[i].toLowerCase() === alias.toLowerCase()) {
                         return langName;
                     }
                 }
@@ -91,6 +95,19 @@
 
                 if (languageName) {
                     browserLang = languageName;
+                }
+            }
+
+            if (!ariaNgLanguages[browserLang] && browserLang.split('-').length > 1) { // maybe language-script-region
+                const langParts = browserLang.split('-');
+                browserLang = langParts[0] + '-' + langParts[1];
+
+                if (!ariaNgLanguages[browserLang]) {
+                    const languageName = getLanguageNameFromAlias(browserLang);
+
+                    if (languageName) {
+                        browserLang = languageName;
+                    }
                 }
             }
 
