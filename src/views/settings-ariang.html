@@ -137,6 +137,17 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Change Tasks Order by Drag-and-drop</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.dragAndDropTasks"
+                                    ng-change="setDragAndDropTasks(context.settings.dragAndDropTasks)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>RPC List Display Order</span>
                             <span class="asterisk">*</span>
                         </div>

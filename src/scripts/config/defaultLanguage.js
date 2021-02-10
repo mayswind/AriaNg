@@ -179,6 +179,7 @@
             'Are you sure you want to remove rpc setting "{{rpcName}}"?': 'Are you sure you want to remove rpc setting "{{rpcName}}"?',
             'Updating Global Stat Interval': 'Updating Global Stat Interval',
             'Updating Task Information Interval': 'Updating Task Information Interval',
+            'Change Tasks Order by Drag-and-drop': 'Change Tasks Order by Drag-and-drop',
             'Action After Creating New Tasks': 'Action After Creating New Tasks',
             'Navigate to Task List Page': 'Navigate to Task List Page',
             'Navigate to Task Detail Page': 'Navigate to Task Detail Page',

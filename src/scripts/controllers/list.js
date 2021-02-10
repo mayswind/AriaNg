@@ -79,6 +79,10 @@
         };
 
         $scope.isSupportDragTask = function () {
+            if (!ariaNgSettingService.getDragAndDropTasks()) {
+                return false;
+            }
+
             var displayOrder = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
 
             return location === 'waiting' && displayOrder.type === 'default';

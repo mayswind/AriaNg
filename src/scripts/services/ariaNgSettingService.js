@@ -391,6 +391,12 @@
             setDownloadTaskRefreshInterval: function (value) {
                 setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
             },
+            getDragAndDropTasks: function () {
+                return getOption('dragAndDropTasks');
+            },
+            setDragAndDropTasks: function (value) {
+                setOption('dragAndDropTasks', value);
+            },
             getRPCListDisplayOrder: function () {
                 return getOption('rpcListDisplayOrder');
             },

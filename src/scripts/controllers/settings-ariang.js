@@ -185,6 +185,10 @@
             ariaNgSettingService.setRPCListDisplayOrder(value);
         };
 
+        $scope.setDragAndDropTasks = function (value) {
+            ariaNgSettingService.setDragAndDropTasks(value);
+        };
+
         $scope.setAfterCreatingNewTask = function (value) {
             ariaNgSettingService.setAfterCreatingNewTask(value);
         };
