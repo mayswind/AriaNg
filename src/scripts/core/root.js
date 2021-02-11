@@ -40,7 +40,8 @@
 
             var matchPreferColorScheme = $window.matchMedia('(prefers-color-scheme: dark)');
 
-            ariaNgLogService.info(matchPreferColorScheme)
+            ariaNgLogService.info('[root.setThemeBySystemSettings] system uses ' + (matchPreferColorScheme.matches ? 'dark' : 'light') + ' theme');
+
             if (matchPreferColorScheme.matches) {
                 setDarkTheme();
             } else {
@@ -453,6 +454,8 @@
         if (ariaNgSettingService.isBrowserSupportMatchMedia()) {
             var matchPreferColorScheme = $window.matchMedia('(prefers-color-scheme: dark)');
             matchPreferColorScheme.addEventListener('change', function (e) {
+                ariaNgLogService.info('[root] system switches to ' + (e.matches ? 'dark' : 'light') + ' theme');
+
                 if (ariaNgSettingService.getTheme() === 'system') {
                     if (e.matches) {
                         setDarkTheme();

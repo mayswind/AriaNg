@@ -86,6 +86,7 @@
             var browserLang = $window.navigator.browserLanguage ? $window.navigator.browserLanguage : $window.navigator.language;
 
             if (!browserLang) {
+                ariaNgLogService.info('[ariaNgSettingService] cannot get browser language, use default language');
                 return ariaNgDefaultOptions.language;
             }
 
@@ -113,9 +114,11 @@
             }
 
             if (!ariaNgLanguages[browserLang]) {
+                ariaNgLogService.info('[ariaNgSettingService] browser language \"' + browserLang + '\" not support, use default language');
                 return ariaNgDefaultOptions.language;
             }
 
+            ariaNgLogService.info('[ariaNgSettingService] use browser language \"' + browserLang + '\" as current language');
             return browserLang;
         };
 
