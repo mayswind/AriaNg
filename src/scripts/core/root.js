@@ -33,7 +33,7 @@
         };
 
         var setThemeBySystemSettings = function () {
-            if (!ariaNgSettingService.isBrowserSupportMatchMedia()) {
+            if (!ariaNgSettingService.isBrowserSupportDarkMode()) {
                 setLightTheme();
                 return;
             }
@@ -451,7 +451,7 @@
             $document.unbind('keypress');
         });
 
-        if (ariaNgSettingService.isBrowserSupportMatchMedia()) {
+        if (ariaNgSettingService.isBrowserSupportDarkMode()) {
             var matchPreferColorScheme = $window.matchMedia('(prefers-color-scheme: dark)');
             matchPreferColorScheme.addEventListener('change', function (e) {
                 ariaNgLogService.info('[root] system switches to ' + (e.matches ? 'dark' : 'light') + ' theme');

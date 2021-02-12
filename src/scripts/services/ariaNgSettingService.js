@@ -14,6 +14,7 @@
         var browserSupportStorage = browserFeatures.localStroage || browserFeatures.cookies;
         var browserSupportAppCache = !!$window.applicationCache;
         var browserSupportMatchMedia = !!$window.matchMedia;
+        var browserSupportDarkMode = browserSupportMatchMedia && $window.matchMedia('(prefers-color-scheme: dark)') && $window.matchMedia('(prefers-color-scheme: dark)').media !== 'not all';
 
         var onAppCacheUpdatedCallbacks = [];
         var onFirstVisitCallbacks = [];
@@ -236,8 +237,8 @@
             isBrowserSupportApplicationCache: function () {
                 return browserSupportAppCache;
             },
-            isBrowserSupportMatchMedia: function () {
-                return browserSupportMatchMedia;
+            isBrowserSupportDarkMode: function () {
+                return browserSupportDarkMode;
             },
             getBrowserFeatures: function () {
                 return browserFeatures;

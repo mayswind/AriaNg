@@ -56,7 +56,7 @@
             sessionSettings: ariaNgSettingService.getAllSessionOptions(),
             rpcSettings: ariaNgSettingService.getAllRpcSettings(),
             isSupportBlob: ariaNgFileService.isSupportBlob(),
-            isSupportMatchMedia: ariaNgSettingService.isBrowserSupportMatchMedia(),
+            isSupportDarkMode: ariaNgSettingService.isBrowserSupportDarkMode(),
             importSettings: null,
             exportSettings: null,
             exportSettingsCopied: false

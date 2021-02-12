@@ -58,6 +58,10 @@
     border-color: #666;
 }
 
+.theme-dark.skin-aria-ng .progress {
+    background-color: #444;
+}
+
 .theme-dark.skin-aria-ng .nav-tabs-custom {
     background-color: #1a1a1a;
 }
@@ -316,6 +320,22 @@
     background-color: #333;
 }
 
+/* cg-busy */
+.theme-dark.skin-aria-ng .cg-busy-default-sign {
+    color: #eee;
+    border-color: #666;
+    background-color: #444;
+    text-shadow: 0 1px 1px #000;
+}
+
+.theme-dark.skin-aria-ng .cg-busy-default-text {
+    color: #eee;
+}
+
+.theme-dark.skin-aria-ng .cg-busy-default-spinner div {
+    background-color: #eee;
+}
+
 /* scrollbar */
 .theme-dark.skin-aria-ng ::-webkit-scrollbar-thumb {
     background-color: #3c4144;
@@ -353,6 +373,10 @@
 
 .theme-dark.skin-aria-ng .task-table > .task-table-body > div.row:hover {
     background-color: #2a2a2a;
+}
+
+.theme-dark.skin-aria-ng .task-table .progress span.progress-lower {
+    color: #eee;
 }
 
 /* settings-table */
