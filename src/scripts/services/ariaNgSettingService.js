@@ -102,11 +102,11 @@
             }
 
             if (!ariaNgLanguages[browserLang] && browserLang.split('-').length > 1) { // maybe language-script-region
-                const langParts = browserLang.split('-');
+                var langParts = browserLang.split('-');
                 browserLang = langParts[0] + '-' + langParts[1];
 
                 if (!ariaNgLanguages[browserLang]) {
-                    const languageName = getLanguageNameFromAlias(browserLang);
+                    var languageName = getLanguageNameFromAlias(browserLang);
 
                     if (languageName) {
                         browserLang = languageName;
