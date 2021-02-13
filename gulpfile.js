@@ -48,7 +48,7 @@ gulp.task('process-langs', ['prepare-langs'], function () {
 gulp.task('prepare-styles', function () {
     return gulp.src([
         'src/styles/**/*.css'
-    ]).pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+    ]).pipe($.autoprefixer())
         .pipe(gulp.dest('.tmp/styles'))
         .pipe(reload({stream: true}));
 });

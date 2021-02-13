@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/node:6.14-browsers
+    - image: circleci/node:10.23-browsers
   working_directory: ~/AriaNg
 
 jobs:
