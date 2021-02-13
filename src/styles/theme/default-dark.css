@@ -79,6 +79,12 @@
     background-color: #1a1a1a;
 }
 
+.theme-dark.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a:hover,
+.theme-dark.skin-aria-ng .nav-tabs-custom > .nav-tabs > li > a:active,
+.theme-dark.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.active > a {
+    color: #208fe5;
+}
+
 .theme-dark.skin-aria-ng .nav-tabs-custom > .nav-tabs > li.divider {
     border-color: #666;
 }
