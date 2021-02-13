@@ -13,10 +13,22 @@
     line-height: 11px;
 }
 
+@media screen and (orientation: landscape) {
+    .tab-pane > .piece-map {
+        padding-right: calc(2px + env(safe-area-inset-right));
+    }
+}
+
 .piece-legends {
     text-align: center;
     margin-top: 4px;
     margin-bottom: 4px;
+}
+
+@media screen and (orientation: landscape) {
+    .tab-pane > .piece-legends {
+        padding-right: env(safe-area-inset-right);
+    }
 }
 
 .piece-legend {

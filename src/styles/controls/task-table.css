@@ -4,6 +4,13 @@
     margin-right: 15px;
 }
 
+@media screen and (orientation: landscape) {
+    .content > .task-table,
+    .tab-pane > .task-table {
+        margin-right: calc(15px + env(safe-area-inset-right));
+    }
+}
+
 .task-table .task-table-title {
     font-size: 12px;
     padding-top: 4px;
@@ -20,6 +27,14 @@
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
+}
+
+@media screen and (orientation: landscape) {
+    .content > .task-table div.row,
+    .tab-pane > .task-table div.row {
+        margin-right: calc(-1 * calc(15px + env(safe-area-inset-right)));
+        padding-right: env(safe-area-inset-right);
+    }
 }
 
 .task-table > .task-table-body > div.row {

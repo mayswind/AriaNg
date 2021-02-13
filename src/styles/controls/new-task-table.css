@@ -4,9 +4,24 @@
     margin-right: 15px;
 }
 
+@media screen and (orientation: landscape) {
+    .content > .new-task-table,
+    .tab-pane > .new-task-table {
+        margin-right: calc(15px + env(safe-area-inset-right));
+    }
+}
+
 .new-task-table > div.row {
     padding-top: 8px;
     padding-bottom: 8px;
+}
+
+@media screen and (orientation: landscape) {
+    .content > .new-task-table > div.row,
+    .tab-pane > .new-task-table > div.row {
+        margin-right: calc(-1 * calc(15px + env(safe-area-inset-right)));
+        padding-right: env(safe-area-inset-right);
+    }
 }
 
 .new-task-table > div.row:first-child {

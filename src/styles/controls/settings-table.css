@@ -4,6 +4,13 @@
     margin-right: 15px;
 }
 
+@media screen and (orientation: landscape) {
+    .content > .settings-table,
+    .tab-pane > .settings-table {
+        margin-right: calc(15px + env(safe-area-inset-right));
+    }
+}
+
 .settings-table .settings-table-title {
     font-size: 12px;
     padding-top: 4px;
@@ -18,6 +25,14 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border-top: 1px solid #ddd;
+}
+
+@media screen and (orientation: landscape) {
+    .content > .settings-table > div.row,
+    .tab-pane > .settings-table > div.row {
+        margin-right: calc(-1 * calc(15px + env(safe-area-inset-right)));
+        padding-right: env(safe-area-inset-right);
+    }
 }
 
 .settings-table > div.row:first-child {
