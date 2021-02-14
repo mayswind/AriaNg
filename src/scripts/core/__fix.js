@@ -11,6 +11,10 @@
 
     $(window, '.wrapper').resize(function () {
         fixContentWrapperHeight();
+
+        setInterval(function(){
+            fixContentWrapperHeight();
+        }, 1);
     });
 
     fixContentWrapperHeight();
