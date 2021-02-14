@@ -37,6 +37,7 @@
         extendRpcServers: [],
         globalStatRefreshInterval: 1000,
         downloadTaskRefreshInterval: 1000,
+        swipeGesture: true,
         dragAndDropTasks: true,
         rpcListDisplayOrder: 'recentlyUsed',
         afterCreatingNewTask: 'task-list',

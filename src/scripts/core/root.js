@@ -345,6 +345,10 @@
 
         $rootScope.swipeActions = {
             leftSwipe: function () {
+                if (!ariaNgSettingService.getSwipeGesture()) {
+                    return;
+                }
+
                 if (isSidebarShowInSmallScreen()) {
                     hideSidebar();
                     return;
@@ -356,6 +360,10 @@
                 }
             },
             rightSwipe: function () {
+                if (!ariaNgSettingService.getSwipeGesture()) {
+                    return;
+                }
+
                 if (!this.extendRightSwipe ||
                     (angular.isFunction(this.extendRightSwipe) && !this.extendRightSwipe())) {
                     showSidebar();

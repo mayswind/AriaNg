@@ -175,6 +175,7 @@ Add New RPC Setting=添加新 RPC 设置
 Are you sure you want to remove rpc setting "{{rpcName}}"?=您是否要删除 RPC 设置 "{{rpcName}}"?
 Updating Global Stat Interval=全局状态更新间隔
 Updating Task Information Interval=任务信息更新间隔
+Swipe Gesture=滑动手势
 Change Tasks Order by Drag-and-drop=拖拽任务排序
 Action After Creating New Tasks=创建新任务后执行操作
 Navigate to Task List Page=转到任务列表页面

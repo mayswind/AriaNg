@@ -395,6 +395,12 @@
             setDownloadTaskRefreshInterval: function (value) {
                 setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
             },
+            getSwipeGesture: function () {
+                return getOption('swipeGesture');
+            },
+            setSwipeGesture: function (value) {
+                setOption('swipeGesture', value);
+            },
             getDragAndDropTasks: function () {
                 return getOption('dragAndDropTasks');
             },
