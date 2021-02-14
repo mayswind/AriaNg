@@ -350,14 +350,14 @@
                     return;
                 }
 
-                if (!this.extentLeftSwipe ||
-                    (angular.isFunction(this.extentLeftSwipe) && !this.extentLeftSwipe())) {
+                if (!this.extendLeftSwipe ||
+                    (angular.isFunction(this.extendLeftSwipe) && !this.extendLeftSwipe())) {
                     hideSidebar();
                 }
             },
             rightSwipe: function () {
-                if (!this.extentRightSwipe ||
-                    (angular.isFunction(this.extentRightSwipe) && !this.extentRightSwipe())) {
+                if (!this.extendRightSwipe ||
+                    (angular.isFunction(this.extendRightSwipe) && !this.extendRightSwipe())) {
                     showSidebar();
                 }
             }
@@ -430,8 +430,8 @@
 
             $rootScope.loadPromise = null;
 
-            delete $rootScope.swipeActions.extentLeftSwipe;
-            delete $rootScope.swipeActions.extentRightSwipe;
+            delete $rootScope.swipeActions.extendLeftSwipe;
+            delete $rootScope.swipeActions.extendRightSwipe;
 
             if (angular.isArray($rootScope.taskContext.list) && $rootScope.taskContext.list.length > 0) {
                 $rootScope.taskContext.list.length = 0;

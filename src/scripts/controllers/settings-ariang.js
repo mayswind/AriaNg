@@ -93,7 +93,7 @@
             $scope.context.titlePreview = getFinalTitle();
         };
 
-        $rootScope.swipeActions.extentLeftSwipe = function () {
+        $rootScope.swipeActions.extendLeftSwipe = function () {
             var tabIndex = -1;
 
             if (!$scope.isCurrentGlobalTab()) {
@@ -108,7 +108,7 @@
             }
         };
 
-        $rootScope.swipeActions.extentRightSwipe = function () {
+        $rootScope.swipeActions.extendRightSwipe = function () {
             var tabIndex = -1;
 
             if (!$scope.isCurrentGlobalTab()) {

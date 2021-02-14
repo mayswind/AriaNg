@@ -218,7 +218,7 @@
             $scope.context.currentTab = tabName;
         };
 
-        $rootScope.swipeActions.extentLeftSwipe = function () {
+        $rootScope.swipeActions.extendLeftSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
             if (tabIndex < tabOrders.length - 1) {
@@ -229,7 +229,7 @@
             }
         };
 
-        $rootScope.swipeActions.extentRightSwipe = function () {
+        $rootScope.swipeActions.extendRightSwipe = function () {
             var tabIndex = tabOrders.indexOf($scope.context.currentTab);
 
             if (tabIndex > 0) {
