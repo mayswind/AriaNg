@@ -19,12 +19,13 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
     * Tree view for multi-directory task
     * Download / upload speed chart for aria2 or single task
     * Full support for aria2 settings
-4. Url command line api support
-5. Download finished notification
-6. Multi-languages support
-7. Multi aria2 RPC host support
-8. Exporting and Importing settings support
-9. Less bandwidth usage, only requesting incremental data
+4. Dark theme
+5. Url command line api support
+6. Download finished notification
+7. Multi-languages support
+8. Multi aria2 RPC host support
+9. Exporting and Importing settings support
+10. Less bandwidth usage, only requesting incremental data
 
 ## Screenshots
 #### Desktop
