@@ -14,7 +14,10 @@
         var browserSupportStorage = browserFeatures.localStroage || browserFeatures.cookies;
         var browserSupportAppCache = !!$window.applicationCache;
         var browserSupportMatchMedia = !!$window.matchMedia;
-        var browserSupportDarkMode = browserSupportMatchMedia && $window.matchMedia('(prefers-color-scheme: dark)') && $window.matchMedia('(prefers-color-scheme: dark)').media !== 'not all';
+        var browserSupportDarkMode = browserSupportMatchMedia
+            && $window.matchMedia('(prefers-color-scheme: dark)')
+            && $window.matchMedia('(prefers-color-scheme: dark)').media !== 'not all'
+            && angular.isFunction($window.matchMedia('(prefers-color-scheme: dark)').addEventListener);
 
         var onAppCacheUpdatedCallbacks = [];
         var onFirstVisitCallbacks = [];
