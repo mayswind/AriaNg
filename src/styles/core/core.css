@@ -109,17 +109,19 @@ td {
     padding: 6px 5px 6px 41px;
 }
 
-@media screen and (orientation: landscape) {
-    .main-sidebar ul.sidebar-menu > li.header {
-        padding-left: max(15px, env(safe-area-inset-left));
-    }
+@supports (padding-left: max(15px, 0px)) {
+    @media screen and (orientation: landscape) {
+        .main-sidebar ul.sidebar-menu > li.header {
+            padding-left: max(15px, env(safe-area-inset-left));
+        }
 
-    .main-sidebar ul.sidebar-menu > li > a {
-        padding-left: max(15px, env(safe-area-inset-left));
-    }
+        .main-sidebar ul.sidebar-menu > li > a {
+            padding-left: max(15px, env(safe-area-inset-left));
+        }
 
-    .main-sidebar ul.sidebar-menu > li.treeview > ul.treeview-menu > li > a {
-        padding-left: max(41px, calc(26px + env(safe-area-inset-left)));
+        .main-sidebar ul.sidebar-menu > li.treeview > ul.treeview-menu > li > a {
+            padding-left: max(41px, calc(26px + env(safe-area-inset-left)));
+        }
     }
 }
 
