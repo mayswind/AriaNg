@@ -101,7 +101,7 @@
 }
 
 .btn-spinner:not(:required) {
-    margin-left: -22px;
+    margin-left: -17px;
     opacity: 0;
     transition: 0.4s margin ease-out, 0.2s opacity ease-out;
 }

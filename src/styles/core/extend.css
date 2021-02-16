@@ -3,6 +3,11 @@
     margin-left: 4px;
 }
 
+.btn-sm.promise-btn-style {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
 .progress-bar {
     -webkit-transition: initial !important;
     -moz-transition: initial !important;
