@@ -19,14 +19,12 @@
             var tasks = [];
 
             for (var i = 0; i < urls.length; i++) {
-                if (urls[i] === '' || urls[i].trim() === '') {
+                var url = urls[i].trim();
+                if (url === '') {
                     continue;
                 }
 
-                tasks.push({
-                    urls: [urls[i].trim()],
-                    options: options
-                });
+                tasks.push(ariaNgCommonService.parseUrlOptions(url, options));
             }
 
             saveDownloadPath(options);

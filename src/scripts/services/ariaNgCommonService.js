@@ -79,15 +79,90 @@
                 for (var i = 0; i < lines.length; i++) {
                     var line = lines[i];
 
-                    if (line.match(/^(http|https|ftp|sftp):\/\/.+$/)) {
-                        result.push(line);
-                    } else if (line.match(/^magnet:\?.+$/)) {
+                    if (line.match(/^(http|https|ftp|sftp):\/\/.+$/) 
+                    || line.match(/^magnet:\?.+$/) 
+                    || line.match(this.cmdLineMatchRegex)) {
                         result.push(line);
                     }
                 }
 
                 return result;
             },
+            
+            cmdLineMatchRegex : /^aria2c[\s]+\"((http|https):\/\/[^\"]+).+$/,
+            cmdArgsSpliters : [' ', '\t'],
+            cmdArgsQuots : ['\'', '\"'],
+
+            parseOneCmdArgs : function(s, idx){
+                idx = s.indexOf('--', idx);
+                
+                if(idx !== -1){
+                    var name = '';
+                    var val = '';
+                    idx += 2;
+                    
+                    for(;idx < s.length;idx++){
+                        if(this.cmdArgsSpliters.includes(s[idx]) || s[idx] === '=') break;
+                        name += s[idx];
+                    }
+
+                    if(s[idx] === '='){
+                        // etc. --max-download-limit=10k
+                        idx += 1;
+                    }else{
+                        // etc. --header "User-Agent:xxxx"
+                        for(;idx < s.length;idx++){
+                            if(!this.cmdArgsSpliters.includes(s[idx])) break;
+                        }
+                    }                 
+
+                    var startedQuot = s[idx];
+                    if(this.cmdArgsQuots.includes(startedQuot)){
+                        // quotations string
+                        idx += 1;
+                        for(;idx < s.length;idx++){
+                            if(s[idx] == startedQuot) break;
+                            val += s[idx];
+                        }
+                    }else{
+                        // pure string without quotation
+                        for(;idx < s.length;idx++){
+                            if(this.cmdArgsSpliters.includes(s[idx])) break;
+                            val += s[idx];
+                        }
+                    }
+                    
+                    return {idx:idx, name:name, val:val};
+                }else{
+                    return null;
+                }
+            },
+
+            parseUrlOptions: function(url, options) {
+                var result = url.match(this.cmdLineMatchRegex)
+                if (result) {
+                    options = {};
+                    var idx = 0;
+
+                    var kv = this.parseOneCmdArgs(url, idx);
+                    while(kv){
+                        idx = kv.idx;
+                        if(options[kv.name]){
+                            options[kv.name] += '\n' + kv.val;
+                        }else{
+                            options[kv.name] = kv.val;
+                        }
+                        kv = this.parseOneCmdArgs(url, idx);
+                    }
+
+                    url = result[1];
+                } 
+                return {
+                    urls: [url],
+                    options: options
+                };
+            },
+
             decodePercentEncodedString: function (s) {
                 if (!s) {
                     return s;
