@@ -282,7 +282,8 @@
                     'status',
                     'errorCode',
                     'verifiedLength',
-                    'verifyIntegrityPending'
+                    'verifyIntegrityPending',
+                    'uploadLength'
                 ];
             },
             getFullTaskParams: function () {

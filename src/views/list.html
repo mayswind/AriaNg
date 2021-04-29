@@ -2,7 +2,7 @@
     <div id="task-table" class="task-table">
         <div class="task-table-title">
             <div class="row">
-                <div class="col-md-8 col-sm-7">
+                <div class="col-md-5 col-sm-4">
                     <div class="row">
                         <div class="col-sm-8">
                             <a ng-click="changeDisplayOrder('name:asc', true)" translate>File Name</a>
@@ -30,13 +30,21 @@
                     <a ng-click="changeDisplayOrder('dspeed:desc', true)" translate>Download Speed</a>
                     <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('dspeed:desc')}"></i>
                 </div>
+                <div class="col-md-2 col-sm-2">
+                    <a ng-click="changeDisplayOrder('uspeed:desc', true)" translate>Upload Speed</a>
+                    <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('uspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('uspeed:desc')}"></i>
+                </div>
+                <div class="col-md-1 col-sm-1">
+                    <a  translate>Share Ratio</a>
+                    <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetDisplayOrder('uspeed:asc'), 'fa-sort-desc fa-order-desc': isSetDisplayOrder('uspeed:desc')}"></i>
+                </div>
             </div>
         </div>
         <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
             <div class="row pointer-cursor" ng-repeat="task in taskContext.list | filter: filterTask | taskOrderBy: getOrderType()"
                  data-gid="{{task.gid}}" data-selected="{{!!taskContext.selected[task.gid]}}" data-toggle="context" data-target="#task-table-contextmenu"
                  ng-click="taskContext.selected[task.gid] = !taskContext.selected[task.gid]">
-                <div class="col-md-8 col-sm-7 col-xs-12">
+                <div class="col-md-5 col-sm-4 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
                         <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
                         <label for="{{'task_' + task.gid}}">
@@ -65,13 +73,20 @@
                         <span class="task-last-time"
                               ng-bind="task.status === 'waiting' ? '--:--:--' : (task.status === 'paused' ? '' : (task.status === 'active' ? ((0 <= task.remainTime && task.remainTime < 86400) ? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)) : ''))"></span>
                         <span class="task-download-speed visible-xs-inline pull-right"
-                              ng-bind="(task.status === 'active' && !task.verifyIntegrityPending && !task.verifiedLength ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : (task | taskStatus: true | translate: {errorcode: task.errorCode, verifiedPercent: task.verifiedPercent}))"></span>
+                              ng-bind="(task.status === 'active' && !task.verifyIntegrityPending && !task.verifiedLength ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' + ' | ' + (task.uploadSpeed | readableVolume) + '/s' : '-' + ' | ' + (task.uploadSpeed | readableVolume) + '/s') + ' | ' + (task.shareRatio | number: 2) : (task | taskStatus: true | translate: {errorcode: task.errorCode, verifiedPercent: task.verifiedPercent}))"></span>
                         <span class="task-seeders pull-right" ng-bind="task.status === 'active' ? ((task.numSeeders ? (task.numSeeders + '/') : '') + task.connections) : ''"></span>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 hidden-xs">
                     <span class="task-download-speed" title="{{task.status === 'active' ? (('Download Speed' | translate) + ': ' + (task.downloadSpeed | readableVolume) + '/s') + (task.bittorrent ? ', ' + ('Upload Speed' | translate) + ': ' + (task.uploadSpeed | readableVolume) + '/s' : '') : ''}}"
                           ng-bind="(task.status === 'active' && !task.verifyIntegrityPending && !task.verifiedLength ? (!task.seeder || task.downloadSpeed > 0 ? (task.downloadSpeed | readableVolume) + '/s' : '-') : (task | taskStatus: true | translate: {errorcode: task.errorCode, verifiedPercent: task.verifiedPercent}))"></span>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs">
+                    <span class="task-download-speed" title="{{task.status === 'active' ? (('Upload Speed' | translate) + ': ' + (task.downloadSpeed | readableVolume) + '/s') + (task.bittorrent ? ', ' + ('Upload Speed' | translate) + ': ' + (task.uploadSpeed | readableVolume) + '/s' : '') : ''}}"
+                          ng-bind="(task.status === 'active' && !task.verifyIntegrityPending && !task.verifiedLength ? (task.seeder || task.uploadSpeed > 0 ? (task.uploadSpeed | readableVolume) + '/s' : '-') : (task | taskStatus: true | translate: {errorcode: task.errorCode, verifiedPercent: task.verifiedPercent}))"></span>
+                </div>
+                <div class="col-md-1 col-sm-1 hidden-xs">
+                    <span class="task-download-speed" ng-bind="(task.shareRatio | number: 2)"></span>
                 </div>
                 <div class="task-right-arrow visible-md visible-lg">
                     <a ng-href="#!/task/detail/{{task.gid}}" title="{{'Click to view task detail' | translate}}">
