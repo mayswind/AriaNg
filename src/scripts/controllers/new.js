@@ -24,7 +24,7 @@
                 }
 
                 tasks.push({
-                    urls: [urls[i].trim()],
+                    urls: urls[i].trim().split(/\s+/),
                     options: options
                 });
             }

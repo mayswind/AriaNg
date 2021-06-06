@@ -32,7 +32,7 @@
             }
 
             $rootScope.loadPromise = aria2TaskService.newUriTask({
-                urls: [url],
+                urls: url.split(/\s+/),
                 options: options
             }, isPaused, function (response) {
                 if (!response.success) {
