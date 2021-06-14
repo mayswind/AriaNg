@@ -2,10 +2,48 @@
     'use strict';
 
     angular.module('ariaNg').controller('TaskDetailController', ['$rootScope', '$scope', '$routeParams', '$interval', 'clipboard', 'aria2RpcErrors', 'ariaNgFileTypes', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgMonitorService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $interval, clipboard, aria2RpcErrors, ariaNgFileTypes, ariaNgCommonService, ariaNgSettingService, ariaNgMonitorService, aria2TaskService, aria2SettingService) {
-        var tabOrders = ['overview', 'pieces', 'filelist', 'btpeers'];
+        var tabStatusItems = [
+            {
+                name: 'overview',
+                show: true
+            },
+            {
+                name: 'pieces',
+                show: true
+            },
+            {
+                name: 'filelist',
+                show: true
+            },
+            {
+                name: 'btpeers',
+                show: true
+            }
+        ];
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
         var currentRowTriggeredMenu = null;
+
+        var getVisibleTabOrders = function () {
+            var items = [];
+
+            for (var i = 0; i < tabStatusItems.length; i++) {
+                if (tabStatusItems[i].show) {
+                    items.push(tabStatusItems[i].name);
+                }
+            }
+
+            return items;
+        };
+
+        var setTabItemShow = function (name, status) {
+            for (var i = 0; i < tabStatusItems.length; i++) {
+                if (tabStatusItems[i].name === name) {
+                    tabStatusItems[i].show = status;
+                    break;
+                }
+            }
+        };
 
         var getAvailableOptions = function (status, isBittorrent) {
             var keys = aria2SettingService.getAvailableTaskOptionKeys(status, isBittorrent);
@@ -20,11 +58,7 @@
                 return;
             }
 
-            if (task.status !== 'active' || !task.bittorrent) {
-                if (tabOrders.indexOf('btpeers') >= 0) {
-                    tabOrders.splice(tabOrders.indexOf('btpeers'), 1);
-                }
-            }
+            setTabItemShow('btpeers', task.status === 'active' && task.bittorrent);
 
             if (!$scope.task || $scope.task.status !== task.status) {
                 $scope.context.availableOptions = getAvailableOptions(task.status, !!task.bittorrent);
@@ -219,10 +253,11 @@
         };
 
         $rootScope.swipeActions.extendLeftSwipe = function () {
-            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+            var tabItems = getVisibleTabOrders();
+            var tabIndex = tabItems.indexOf($scope.context.currentTab);
 
-            if (tabIndex < tabOrders.length - 1) {
-                $scope.changeTab(tabOrders[tabIndex + 1]);
+            if (tabIndex < tabItems.length - 1) {
+                $scope.changeTab(tabItems[tabIndex + 1]);
                 return true;
             } else {
                 return false;
@@ -230,10 +265,11 @@
         };
 
         $rootScope.swipeActions.extendRightSwipe = function () {
-            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+            var tabItems = getVisibleTabOrders();
+            var tabIndex = tabItems.indexOf($scope.context.currentTab);
 
             if (tabIndex > 0) {
-                $scope.changeTab(tabOrders[tabIndex - 1]);
+                $scope.changeTab(tabItems[tabIndex - 1]);
                 return true;
             } else {
                 return false;
