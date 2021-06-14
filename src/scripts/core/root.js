@@ -2,6 +2,8 @@
     'use strict';
 
     angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
+        var autoRefreshAfterPageLoad = false;
+
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -375,6 +377,10 @@
             $window.location.reload();
         };
 
+        $rootScope.setAutoRefreshAfterPageLoad = function () {
+            autoRefreshAfterPageLoad = true;
+        };
+
         $rootScope.setTheme = function (theme) {
             if (theme === 'system') {
                 setThemeBySystemSettings();
@@ -473,6 +479,12 @@
                 }
             });
         }
+
+        $rootScope.$on('$locationChangeSuccess', function (event, newUrl) {
+            if (autoRefreshAfterPageLoad) {
+                $window.location.reload();
+            }
+        });
 
         initTheme();
         initCheck();
