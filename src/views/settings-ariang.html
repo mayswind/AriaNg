@@ -230,6 +230,21 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Show Pieces Info In Task Detail Page</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.showPiecesInfoInTaskDetailPage"
+                                    ng-change="setShowPiecesInfoInTaskDetailPage(context.settings.showPiecesInfoInTaskDetailPage)">
+                                <option value="always" translate>Always</option>
+                                <option value="le102400" translate translate-values="{value: '102,400'}">Pieces Amount is Less than or Equal to {value}</option>
+                                <option value="le10240" translate translate-values="{value: '10,240'}">Pieces Amount is Less than or Equal to {value}</option>
+                                <option value="le1024" translate translate-values="{value: '1,024'}">Pieces Amount is Less than or Equal to {value}</option>
+                                <option value="never" translate>Never</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Import / Export AriaNg Settings</span>
                         </div>
                         <div class="setting-value col-sm-8">

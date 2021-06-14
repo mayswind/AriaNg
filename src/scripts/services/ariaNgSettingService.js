@@ -440,6 +440,12 @@
             setIncludePrefixWhenCopyingFromTaskDetails: function (value) {
                 setOption('includePrefixWhenCopyingFromTaskDetails', value);
             },
+            getShowPiecesInfoInTaskDetailPage: function () {
+                return getOption('showPiecesInfoInTaskDetailPage');
+            },
+            setShowPiecesInfoInTaskDetailPage: function (value) {
+                setOption('showPiecesInfoInTaskDetailPage', value);
+            },
             getAfterRetryingTask: function () {
                 return getOption('afterRetryingTask');
             },

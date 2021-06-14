@@ -44,6 +44,7 @@
         removeOldTaskAfterRetrying: false,
         confirmTaskRemoval: true,
         includePrefixWhenCopyingFromTaskDetails: true,
+        showPiecesInfoInTaskDetailPage: 'le10240',
         afterRetryingTask: 'task-list-downloading',
         displayOrder: 'default:asc',
         fileListDisplayOrder: 'default:asc',

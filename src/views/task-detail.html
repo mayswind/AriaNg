@@ -4,7 +4,7 @@
             <li ng-class="{'active': context.currentTab === 'overview'}">
                 <a class="pointer-cursor" ng-click="changeTab('overview')" translate>Overview</a>
             </li>
-            <li ng-class="{'active': context.currentTab === 'pieces'}">
+            <li ng-class="{'active': context.currentTab === 'pieces'}" ng-if="context.showPiecesInfo">
                 <a class="pointer-cursor" ng-click="changeTab('pieces')" translate>Pieces</a>
             </li>
             <li ng-class="{'active': context.currentTab === 'filelist'}">
@@ -166,7 +166,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" ng-class="{'active': context.currentTab === 'pieces'}">
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'pieces'}" ng-if="context.showPiecesInfo">
                 <div class="piece-legends">
                     <div class="piece-legend" title="{{('format.task.pieceinfo' | translate: {completed: task.completedPieces, total: task.numPieces})}}">
                         <div class="piece piece-completed"></div><span translate>Completed</span>

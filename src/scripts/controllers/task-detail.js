@@ -53,11 +53,32 @@
             });
         };
 
+        var isShowPiecesInfo = function (task) {
+            var showPiecesInfoSetting = ariaNgSettingService.getShowPiecesInfoInTaskDetailPage();
+
+            if (!task || showPiecesInfoSetting === 'never') {
+                return false;
+            }
+
+            if (showPiecesInfoSetting === 'le102400') {
+                return task.numPieces <= 102400;
+            } else if (showPiecesInfoSetting === 'le10240') {
+                return task.numPieces <= 10240;
+            } else if (showPiecesInfoSetting === 'le1024') {
+                return task.numPieces <= 1024;
+            }
+
+            return true; // showPiecesInfoSetting === 'always'
+        };
+
         var processTask = function (task) {
             if (!task) {
                 return;
             }
 
+            $scope.context.showPiecesInfo = isShowPiecesInfo(task);
+
+            setTabItemShow('pieces', $scope.context.showPiecesInfo);
             setTabItemShow('btpeers', task.status === 'active' && task.bittorrent);
 
             if (!$scope.task || $scope.task.status !== task.status) {
@@ -233,6 +254,7 @@
         $scope.context = {
             currentTab: 'overview',
             isEnableSpeedChart: ariaNgSettingService.getDownloadTaskRefreshInterval() > 0,
+            showPiecesInfo: ariaNgSettingService.getShowPiecesInfoInTaskDetailPage() !== 'never',
             showChooseFilesToolbar: false,
             fileExtensions: [],
             collapsedDirs: {},
