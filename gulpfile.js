@@ -103,7 +103,13 @@ gulp.task('process-assets', ['process-html'], function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('process-assets-bundle', ['prepare-fonts', 'prepare-langs', 'prepare-html'], function () {
+gulp.task('prepare-assets-bundle', function () {
+    return gulp.src([
+        'src/favicon.png'
+    ]).pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('process-assets-bundle', ['prepare-fonts', 'prepare-langs', 'prepare-html', 'prepare-assets-bundle'], function () {
     return gulp.src('.tmp/index.html')
         .pipe($.replace(/<link rel="stylesheet" href="(css\/[a-zA-Z0-9\-_.]+\.css)">/g, function(match, fileName) {
             var content = fs.readFileSync('.tmp/' + fileName, 'utf8');
@@ -121,6 +127,15 @@ gulp.task('process-assets-bundle', ['prepare-fonts', 'prepare-langs', 'prepare-h
             var contentBuffer = fs.readFileSync('.tmp/' + fileName);
             var contentBase64 = contentBuffer.toString('base64');
             return 'url(data:application/x-font-woff;base64,' + contentBase64 + ')';
+        }))
+        .pipe($.replace(/<link rel="icon" href="([a-zA-Z0-9\-_.]+\.png)">/g, function(match, fileName) {
+            if (!fs.existsSync('.tmp/' + fileName)) {
+                return match;
+            }
+
+            var contentBuffer = fs.readFileSync('.tmp/' + fileName);
+            var contentBase64 = contentBuffer.toString('base64');
+            return '<link rel="icon" href="data:image/png;base64,' + contentBase64 + '">';
         }))
         .pipe($.replace('<!-- AriaNg-Bundle:languages -->', function() {
             var langDir = '.tmp/langs/';
@@ -150,7 +165,7 @@ gulp.task('process-assets-bundle', ['prepare-fonts', 'prepare-langs', 'prepare-h
 
             return result;
         }))
-        .pipe($.replace(/<[a-z]+( [a-z\-]+="[a-zA-Z0-9\- ]+")* [a-z\-]+="((favicon.ico)|(favicon.png)|(tileicon.png)|(touchicon.png))"\/?>/g, ''))
+        .pipe($.replace(/<[a-z]+( [a-z\-]+="[a-zA-Z0-9\- ]+")* [a-z\-]+="((favicon.ico)|(tileicon.png)|(touchicon.png))"\/?>/g, ''))
         .pipe(gulp.dest('dist'));
 });
 
