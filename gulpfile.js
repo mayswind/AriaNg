@@ -154,25 +154,6 @@ gulp.task('process-assets-bundle', ['prepare-fonts', 'prepare-langs', 'prepare-h
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('process-manifest', function () {
-    return gulp.src([
-        'dist/css/**',
-        'dist/js/**',
-        'dist/fonts/fontawesome-webfont.woff2',
-        'dist/*.html',
-        'dist/*.ico',
-        'dist/*.png'
-    ], {base: 'dist/'})
-        .pipe($.manifest({
-            hash: true,
-            preferOnline: true,
-            network: ['*'],
-            filename: 'index.manifest',
-            exclude: 'index.manifest'
-        }))
-        .pipe(gulp.dest('dist'));
-});
-
 gulp.task('process-full-extras', function () {
     return gulp.src([
         'LICENSE',
@@ -195,7 +176,7 @@ gulp.task('info', function () {
     ]).pipe($.size({title: 'build', gzip: true}));
 });
 
-gulp.task('build', $.sequence('lint', 'process-fonts', 'process-langs', 'process-assets', 'process-manifest', 'process-full-extras', 'info'));
+gulp.task('build', $.sequence('lint', 'process-fonts', 'process-langs', 'process-assets', 'process-full-extras', 'info'));
 
 gulp.task('build-bundle', $.sequence('lint', 'process-assets-bundle', 'process-tiny-extras', 'info'));
 
