@@ -18,13 +18,21 @@
             var options = angular.copy($scope.context.options);
             var tasks = [];
 
-            for (var i = 0; i < urls.length; i++) {
-                if (urls[i] === '' || urls[i].trim() === '') {
+            var infoHashRe = /^(?:[0-9a-f]{40}|[2-7a-z]{32})$/i;
+
+            for (var i = 0, url = ''; i < urls.length; i++) {
+                url = urls[i].trim();
+
+                if (url === '') {
                     continue;
                 }
 
+                if (infoHashRe.test(url) === true) {
+                    url = "magnet:?xt=urn:btih:" + url;
+                }
+
                 tasks.push({
-                    urls: [urls[i].trim()],
+                    urls: [url],
                     options: options
                 });
             }
