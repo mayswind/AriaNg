@@ -20,7 +20,9 @@
         errorTooltipDelay: 500,
         notificationInPageTimeout: 2000,
         historyMaxStoreCount: 10,
-        cachedDebugLogsLimit: 100
+        cachedDebugLogsLimit: 100,
+        defaultConfigPath: 'config.json',
+        defaultConfigStorageKey: 'fetchedDefaultConfig'
     }).constant('ariaNgDefaultOptions', {
         language: 'en',
         theme: 'light',

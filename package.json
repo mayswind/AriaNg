@@ -68,7 +68,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "gulp clean build"
+    "build": "gulp clean build",
+    "serve": "gulp serve"
   },
   "browsers": [
     "> 1%",

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgStorageService', function ($window, $location, $filter, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService, ariaNgStorageService) {
+    angular.module('ariaNg').factory('ariaNgSettingService', ['$window', '$location', '$filter', '$http', 'ariaNgConstants', 'ariaNgDefaultOptions', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgStorageService', function ($window, $location, $filter, $http, ariaNgConstants, ariaNgDefaultOptions, ariaNgLanguages, ariaNgCommonService, ariaNgLogService, ariaNgStorageService) {
         var browserFeatures = (function () {
             var supportLocalStroage = ariaNgStorageService.isLocalStorageSupported();
             var supportCookies = ariaNgStorageService.isCookiesSupported();
@@ -233,6 +233,84 @@
             return setting;
         };
 
+        var importAllOptions = function (options) {
+            var finalOptions = angular.copy(ariaNgDefaultOptions);
+
+            for (var key in options) {
+                if (!options.hasOwnProperty(key) || !finalOptions.hasOwnProperty(key)) {
+                    continue;
+                }
+
+                if (angular.isObject(options[key]) || angular.isArray(options[key])) {
+                    continue;
+                }
+
+                finalOptions[key] = options[key];
+            }
+
+            if (angular.isArray(options.extendRpcServers)) {
+                for (var i = 0; i < options.extendRpcServers.length; i++) {
+                    var rpcSetting = options.extendRpcServers[i];
+                    var finalRpcSetting = createNewRpcSetting();
+
+                    for (var key in rpcSetting) {
+                        if (!rpcSetting.hasOwnProperty(key) || !finalRpcSetting.hasOwnProperty(key)) {
+                            continue;
+                        }
+
+                        if (angular.isObject(rpcSetting[key]) || angular.isArray(rpcSetting[key])) {
+                            continue;
+                        }
+
+                        finalRpcSetting[key] = rpcSetting[key];
+                    }
+
+                    finalOptions.extendRpcServers.push(finalRpcSetting);
+                }
+            }
+
+            setOptions(finalOptions);
+        };
+
+        var saveLastDefaultConfigFetch = function () {
+            ariaNgStorageService.setToSessionStorage(ariaNgConstants.defaultConfigStorageKey, true);
+        }
+
+        var wasDefaultConfigFetched = function () {
+            try {
+                var storedValue = ariaNgStorageService.getFromSessionStorage(ariaNgConstants.defaultConfigStorageKey);
+                return JSON.parse(storedValue);
+            } catch (error) {
+                ariaNgLogService.error('[ariaNgSettingService] unable to parse defaultConfig', error)
+                return true;
+            }
+        }
+
+        var fetchDefaultConfigAndApply = function () {
+            $http({
+                url: ariaNgConstants.defaultConfigPath,
+                method: 'GET'
+            }).then(function onSuccess(response) {
+                if (!response || !response.data) {
+                    return;
+                }
+
+                var fetchedConfig = response.data;
+
+                importAllOptions(fetchedConfig);
+                saveLastDefaultConfigFetch();
+
+                $window.location.reload();
+            })
+                .catch(function onError(error) {
+                    ariaNgLogService.warn('[ariaNgSettingService] unable to apply default config', error)
+                });
+        }
+
+        if (!wasDefaultConfigFetched()) {
+            fetchDefaultConfigAndApply();
+        }
+
         return {
             isBrowserSupportStorage: function () {
                 return browserSupportStorage;
@@ -294,44 +372,7 @@
 
                 return result;
             },
-            importAllOptions: function (options) {
-                var finalOptions = angular.copy(ariaNgDefaultOptions);
-
-                for (var key in options) {
-                    if (!options.hasOwnProperty(key) || !finalOptions.hasOwnProperty(key)) {
-                        continue;
-                    }
-
-                    if (angular.isObject(options[key]) || angular.isArray(options[key])) {
-                        continue;
-                    }
-
-                    finalOptions[key] = options[key];
-                }
-
-                if (angular.isArray(options.extendRpcServers)) {
-                    for (var i = 0; i < options.extendRpcServers.length; i++) {
-                        var rpcSetting = options.extendRpcServers[i];
-                        var finalRpcSetting = createNewRpcSetting();
-
-                        for (var key in rpcSetting) {
-                            if (!rpcSetting.hasOwnProperty(key) || !finalRpcSetting.hasOwnProperty(key)) {
-                                continue;
-                            }
-
-                            if (angular.isObject(rpcSetting[key]) || angular.isArray(rpcSetting[key])) {
-                                continue;
-                            }
-
-                            finalRpcSetting[key] = rpcSetting[key];
-                        }
-
-                        finalOptions.extendRpcServers.push(finalRpcSetting);
-                    }
-                }
-
-                setOptions(finalOptions);
-            },
+            importAllOptions: importAllOptions,
             exportAllOptions: function () {
                 var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
 
