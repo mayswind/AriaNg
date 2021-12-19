@@ -184,9 +184,9 @@ gulp.task('serve', gulp.series('prepare-styles', 'prepare-scripts', 'prepare-fon
         '.tmp/fonts/**/*'
     ]).on('change', reload);
 
-    gulp.watch('src/styles/**/*.css', ['prepare-styles']);
-    gulp.watch('src/scripts/**/*.js', ['prepare-scripts']);
-    gulp.watch('src/fonts/**/*', ['prepare-fonts']);
+    gulp.watch('src/styles/**/*.css', gulp.series('prepare-styles'));
+    gulp.watch('src/scripts/**/*.js', gulp.series('prepare-scripts'));
+    gulp.watch('src/fonts/**/*', gulp.series('prepare-fonts'));
 }));
 
 gulp.task('serve:dist', () => {
