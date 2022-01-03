@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', 'ariaNgStorageService', function ($http, ariaNgConstants, ariaNgCommonService, ariaNgSettingService, ariaNgLogService, ariaNgStorageService) {
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var method = ariaNgSettingService.getCurrentRpcHttpMethod();
 
@@ -64,6 +64,18 @@
                     requestContext.data = context.requestBody;
                 } else if (requestContext.method === 'GET') {
                     requestContext.url = getUrlWithQueryString(requestContext.url, context.requestBody);
+                }
+
+                var options = ariaNgStorageService.get(ariaNgConstants.optionStorageKey);
+                if (options.httpHeader) {
+                    var lines = options.httpHeader.split("\n");
+                    requestContext.headers = {};
+                    angular.forEach(lines, function (item) {
+                        var entry = item.split(":");
+                        if (entry.length == 2) {
+                            requestContext.headers[entry[0].trim()] = entry[1].trim();
+                        }
+                    })
                 }
 
                 ariaNgLogService.debug('[aria2HttpRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'request start', requestContext);

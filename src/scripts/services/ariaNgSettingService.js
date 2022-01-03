@@ -220,7 +220,8 @@
                 rpcInterface: setting.rpcInterface,
                 protocol: setting.protocol,
                 httpMethod: setting.httpMethod,
-                secret: setting.secret
+                httpHeader: setting.httpHeader,
+                secret: setting.secret,
             };
         };
 
