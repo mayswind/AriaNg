@@ -466,7 +466,7 @@ ftp-type.description=
 ftp-reuse-connection.name=连接复用
 ftp-reuse-connection.description=
 ssh-host-key-md.name=SSH 公钥校验和
-ssh-host-key-md.description=设置 SSH 主机公钥的校验和. TYPE 为哈希类型. 支持的哈希类型为 sha-1 和 md5. DIGEST 是十六进制摘要. 例如: sha-1=b030503d4de4539dc7885e6f0f5e256704edf4c3. 此选项可以在使用 SFTP 时用来验证服务器的公钥. 如果此选项不设置, 即保留默认, 不会进行任何验证。
+ssh-host-key-md.description=设置 SSH 主机公钥的校验和. 选项值格式为 TYPE=DIGEST. TYPE 为哈希类型. 支持的哈希类型为 sha-1 和 md5. DIGEST 是十六进制摘要. 例如: sha-1=b030503d4de4539dc7885e6f0f5e256704edf4c3. 此选项可以在使用 SFTP 时用来验证服务器的公钥. 如果此选项不设置, 即保留默认, 不会进行任何验证。
 bt-detach-seed-only.name=分离仅做种任务
 bt-detach-seed-only.description=统计当前活动下载任务(参见 -j 选项) 时排除仅做种的任务. 这意味着, 如果参数设置为 -j3, 此选项打开并且当前有 3 个正在活动的任务, 并且其中有 1 个进入做种模式, 那么其会从正在下载的数量中排除(即数量会变为 2), 在队列中等待的下一个任务将会开始执行. 但要知道, 在 RPC 方法中, 做种的任务仍然被认为是活动的下载任务.
 bt-enable-hook-after-hash-check.name=启用哈希检查完成事件

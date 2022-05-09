@@ -486,7 +486,7 @@
                 'ftp-reuse-connection.name': 'Reuse Connection',
                 'ftp-reuse-connection.description': '',
                 'ssh-host-key-md.name': 'SSH Public Key Checksum',
-                'ssh-host-key-md.description': 'Set checksum for SSH host public key. TYPE is hash type. The supported hash type is sha-1 or md5. DIGEST is hex digest. For example: sha-1=b030503d4de4539dc7885e6f0f5e256704edf4c3. This option can be used to validate server\'s public key when SFTP is used. If this option is not set, which is default, no validation takes place.',
+                'ssh-host-key-md.description': 'Set checksum for SSH host public key. The option value format is TYPE=DIGEST. TYPE is hash type. The supported hash type is sha-1 or md5. DIGEST is hex digest. For example: sha-1=b030503d4de4539dc7885e6f0f5e256704edf4c3. This option can be used to validate server\'s public key when SFTP is used. If this option is not set, which is default, no validation takes place.',
                 'bt-detach-seed-only.name': 'Detach Seed Only',
                 'bt-detach-seed-only.description': 'Exclude seed only downloads when counting concurrent active downloads (See -j option). This means that if -j3 is given and this option is turned on and 3 downloads are active and one of those enters seed mode, then it is excluded from active download count (thus it becomes 2), and the next download waiting in queue gets started. But be aware that seeding item is still recognized as active download in RPC method.',
                 'bt-enable-hook-after-hash-check.name': 'Enable Hook After Hash Check',

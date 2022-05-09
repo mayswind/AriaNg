@@ -466,7 +466,7 @@ ftp-type.description=
 ftp-reuse-connection.name=連線復用
 ftp-reuse-connection.description=
 ssh-host-key-md.name=SSH 公鑰總和檢查碼
-ssh-host-key-md.description=設定 SSH 主機公鑰的總和檢查碼. TYPE 為雜湊類型. 支援的雜湊類型為 sha-1 和 md5. DIGEST 是十六進位摘要. 例如: sha-1=b030503d4de4539dc7885e6f0f5e256704edf4c3. 此選項可以在使用 SFTP 時用來驗證伺服器的公鑰. 如果此選項不設定, 即保留預設, 不會進行任何驗證。
+ssh-host-key-md.description=設定 SSH 主機公鑰的總和檢查碼. 選項值格式為 TYPE=DIGEST. TYPE 為雜湊類型. 支援的雜湊類型為 sha-1 和 md5. DIGEST 是十六進位摘要. 例如: sha-1=b030503d4de4539dc7885e6f0f5e256704edf4c3. 此選項可以在使用 SFTP 時用來驗證伺服器的公鑰. 如果此選項不設定, 即保留預設, 不會進行任何驗證。
 bt-detach-seed-only.name=分離僅做種工作
 bt-detach-seed-only.description=統計目前活動下載工作(參見 -j 選項) 時排除僅做種的工作. 這意味著, 如果參數設定為 -j3, 此選項打開並且目前有 3 個正在活動的工作, 並且其中有 1 個進入做種模式, 那麼其會從正在下載的數量中排除(即數量會變為 2), 在隊列中等待的下一個工作將會開始執行. 但要知道, 在 RPC 方法中, 做種的工作仍然被認為是活動的下載工作.
 bt-enable-hook-after-hash-check.name=啟用雜湊檢查完成事件
