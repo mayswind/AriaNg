@@ -54,6 +54,10 @@
         'all-proxy-passwd': {
             type: 'string'
         },
+        'checksum': {
+            type: 'string',
+            pattern: '^(md5|sha-(1|224|256|384|512))=[a-zA-Z0-9]+$'
+        },
         'connect-timeout': {
             type: 'integer',
             suffix: 'Seconds',
@@ -974,6 +978,10 @@
                 key: 'all-proxy-passwd',
                 category: 'http',
                 canUpdate: 'new|waiting|paused'
+            },
+            {
+                key: 'checksum',
+                category: 'http'
             },
             {
                 key: 'referer',

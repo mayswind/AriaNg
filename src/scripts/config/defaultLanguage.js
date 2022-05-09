@@ -387,6 +387,8 @@
                 'all-proxy-user.description': '',
                 'all-proxy-passwd.name': 'Proxy Password',
                 'all-proxy-passwd.description': '',
+                'checksum.name': 'Checksum',
+                'checksum.description': 'Set checksum. The option value format is TYPE=DIGEST. TYPE is hash type. The supported hash type is listed in Hash Algorithms in aria2c -v. DIGEST is hex digest. For example, setting sha-1 digest looks like this: sha-1=0192ba11326fe2298c8cb4de616f4d4140213838 This option applies only to HTTP(S)/FTP downloads.',
                 'connect-timeout.name': 'Connect Timeout',
                 'connect-timeout.description': 'Set the connect timeout in seconds to establish connection to HTTP/FTP/proxy server. After the connection is established, this option makes no effect and --timeout option is used instead.',
                 'dry-run.name': 'Dry Run',

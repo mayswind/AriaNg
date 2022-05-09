@@ -367,6 +367,8 @@ all-proxy-user.name=代理伺服器使用者名稱
 all-proxy-user.description=
 all-proxy-passwd.name=代理伺服器密碼
 all-proxy-passwd.description=
+checksum.name=總和檢查碼
+checksum.description=設定總和檢查碼. 選項值格式為 TYPE=DIGEST. TYPE 為雜湊類型. 支援的雜湊類型列在 aria2c -v 的 Hash Algorithms 中. DIGEST 是十六進位摘要. 例如, 設定 sha-1 摘要如同這樣: sha-1=0192ba11326fe2298c8cb4de616f4d4140213838 此選項僅對 HTTP(S)/FTP 下載生效.
 connect-timeout.name=連線超時時間
 connect-timeout.description=設定建立 HTTP/FTP/代理伺服器 連線的超時時間(秒). 當連線建立後, 此選項不再生效, 請使用 --timeout 選項.
 dry-run.name=模擬運行

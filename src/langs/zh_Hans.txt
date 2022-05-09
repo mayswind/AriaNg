@@ -367,6 +367,8 @@ all-proxy-user.name=代理服务器用户名
 all-proxy-user.description=
 all-proxy-passwd.name=代理服务器密码
 all-proxy-passwd.description=
+checksum.name=校验和
+checksum.description=设置校验和. 选项值格式为 TYPE=DIGEST. TYPE 为哈希类型. 支持的哈希类型列在 aria2c -v 的 Hash Algorithms 中. DIGEST 是十六进制摘要. 例如, 设置 sha-1 摘要如同这样: sha-1=0192ba11326fe2298c8cb4de616f4d4140213838 此选项仅对 HTTP(S)/FTP 下载生效.
 connect-timeout.name=连接超时时间
 connect-timeout.description=设置建立 HTTP/FTP/代理服务器 连接的超时时间(秒). 当连接建立后, 此选项不再生效, 请使用 --timeout 选项.
 dry-run.name=模拟运行
