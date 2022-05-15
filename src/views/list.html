@@ -34,7 +34,7 @@
         </div>
         <div class="task-table-body" ng-class="{'draggable': isSupportDragTask()}" dragula="'task-list'" dragula-model="taskContext.list">
             <div class="row pointer-cursor" ng-repeat="task in taskContext.list | filter: filterTask | taskOrderBy: getOrderType()"
-                 data-gid="{{task.gid}}" data-selected="{{!!taskContext.selected[task.gid]}}" data-toggle="context" data-target="#task-table-contextmenu"
+                 data-gid="{{task.gid}}" data-selected="{{!!taskContext.selected[task.gid]}}"
                  ng-click="taskContext.selected[task.gid] = !taskContext.selected[task.gid]">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
@@ -80,7 +80,8 @@
                 </div>
             </div>
         </div>
-        <div id="task-table-contextmenu">
+
+        <ng-context-menu id="task-table-contextmenu">
             <ul class="dropdown-menu" role="menu">
                 <li ng-if="isSelectedTaskRetryable()">
                     <a tabindex="-1" class="pointer-cursor" title="{{'Retry Selected Tasks' | translate}}" ng-click="retryTasks()">
@@ -190,6 +191,6 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </ng-context-menu>
     </div>
 </section>

@@ -22,7 +22,7 @@
         ];
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
-        var currentRowTriggeredMenu = null;
+        var currentTaskDetailRowInfo = null;
 
         var getVisibleTabOrders = function () {
             var items = [];
@@ -690,15 +690,22 @@
             }, true);
         };
 
-        $scope.copySelectedRowText = function () {
-            if (!currentRowTriggeredMenu) {
+        $scope.setCurrentSelectedRow = function (type, target) {
+            if (!target) {
+                currentTaskDetailRowInfo = null;
                 return;
             }
 
-            var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
+            var row = angular.element(target);
+
+            if (!row.hasClass('detail-info-item')) {
+                row = row.parents('.detail-info-item');
+            }
+
+            var name = row.find('.setting-key > span').text().trim();
             var value = "";
 
-            currentRowTriggeredMenu.find('.setting-value > span').each(function (i, element) {
+            row.find('.setting-value > span').each(function (i, element) {
                 if (i > 0) {
                     value += '\n';
                 }
@@ -706,12 +713,27 @@
                 value += angular.element(element).text().trim();
             });
 
+            currentTaskDetailRowInfo = {
+                name: name,
+                value: value
+            };
+        };
+
+        $scope.removeCurrentSelectedRow = function () {
+            currentTaskDetailRowInfo = null;
+        };
+
+        $scope.copySelectedRowText = function () {
+            if (!currentTaskDetailRowInfo) {
+                return;
+            }
+
             if (ariaNgSettingService.getIncludePrefixWhenCopyingFromTaskDetails()) {
-                var info = name + ': ' + value;
+                var info = currentTaskDetailRowInfo.name + ': ' + currentTaskDetailRowInfo.value;
                 clipboard.copyText(info);
             } else {
-                clipboard.copyText(value);
-            };
+                clipboard.copyText(currentTaskDetailRowInfo.value);
+            }
         };
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
@@ -729,19 +751,6 @@
             if (downloadTaskRefreshPromise) {
                 $interval.cancel(downloadTaskRefreshPromise);
             }
-        });
-
-        $scope.onOverviewMouseDown = function () {
-            angular.element('#overview-items .row[contextmenu-bind!="true"]').contextmenu({
-                target: '#task-overview-contextmenu',
-                before: function (e, context) {
-                    currentRowTriggeredMenu = context;
-                }
-            }).attr('contextmenu-bind', 'true');
-        };
-
-        angular.element('#task-overview-contextmenu').on('hide.bs.context', function () {
-            currentRowTriggeredMenu = null;
         });
 
         $rootScope.loadPromise = refreshDownloadTask(false);

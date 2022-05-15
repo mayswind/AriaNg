@@ -22,8 +22,8 @@
 
         <div class="tab-content no-padding">
             <div class="tab-pane" ng-class="{'active': context.currentTab === 'overview'}">
-                <div id="overview-items" class="settings-table striped hoverable" ng-mousedown="onOverviewMouseDown()" data-toggle="context" data-target="#task-overview-contextmenu">
-                    <div class="row" ng-if="task">
+                <div id="overview-items" class="settings-table striped hoverable">
+                    <div class="row detail-info-item" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Name</span>
                         </div>
@@ -32,7 +32,7 @@
                                   ng-tooltip="{{(task.bittorrent && task.bittorrent.comment) ? task.bittorrent.comment : task.taskName}}"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row detail-info-item" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Size</span>
                         </div>
@@ -43,7 +43,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row detail-info-item" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Task Status</span>
                         </div>
@@ -53,7 +53,7 @@
                                   ng-tooltip="{{task.errorMessage}}" ng-tooltip-container="body" ng-tooltip-placement="top"></i>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.status === 'error' && task.errorDescription">
+                    <div class="row detail-info-item" ng-if="task && task.status === 'error' && task.errorDescription">
                         <div class="setting-key col-sm-4">
                             <span translate>Error Description</span>
                         </div>
@@ -61,7 +61,7 @@
                             <span ng-bind="task.errorDescription | translate"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row detail-info-item" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="('Progress' | translate) + (task.status === 'active' && task.bittorrent ? ' (' + ('Health Percentage' | translate) + ')' : '')"></span>
                         </div>
@@ -69,7 +69,7 @@
                             <span ng-bind="(task.completePercent | percent: 2) + '%' + (task.status === 'active' && task.bittorrent ? ' (' + (context.healthPercent | percent: 2) + '%' + ')' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row detail-info-item" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download</span>
                         </div>
@@ -77,7 +77,7 @@
                             <span ng-bind="(task.completedLength | readableVolume) + (task.status === 'active' ? ' @ ' + (task.downloadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent">
+                    <div class="row detail-info-item" ng-if="task && task.bittorrent">
                         <div class="setting-key col-sm-4">
                             <span translate>Upload</span>
                         </div>
@@ -85,7 +85,7 @@
                             <span ng-bind="(task.uploadLength | readableVolume) + (task.status === 'active' ? ' @ ' + (task.uploadSpeed | readableVolume) + '/s' : '')"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent">
+                    <div class="row detail-info-item" ng-if="task && task.bittorrent">
                         <div class="setting-key col-sm-4">
                             <span translate>Share Ratio</span>
                         </div>
@@ -93,7 +93,7 @@
                             <span ng-bind="(task.shareRatio | number: 2)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.status === 'active' && task.completedLength < task.totalLength">
+                    <div class="row detail-info-item" ng-if="task && task.status === 'active' && task.completedLength < task.totalLength">
                         <div class="setting-key col-sm-4">
                             <span translate>Remaining</span>
                         </div>
@@ -101,7 +101,7 @@
                             <span ng-bind="0 <= task.remainTime && task.remainTime < 86400? (task.remainTime | dateDuration: 'second': 'HH:mm:ss') : ('More Than One Day' | translate)"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.status === 'active'">
+                    <div class="row detail-info-item" ng-if="task && task.status === 'active'">
                         <div class="setting-key col-sm-4">
                             <span ng-bind="(task.bittorrent ? ('Seeders' | translate) + ' / ' : '') + ('Connections' | translate)">Connections</span>
                         </div>
@@ -109,7 +109,7 @@
                             <span ng-bind="(task.numSeeders ? (task.numSeeders + ' / ') : '') + task.connections"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent && task.bittorrent.creationDate">
+                    <div class="row detail-info-item" ng-if="task && task.bittorrent && task.bittorrent.creationDate">
                         <div class="setting-key col-sm-4">
                             <span translate>Seed Creation Time</span>
                         </div>
@@ -117,7 +117,7 @@
                             <span ng-bind="task.bittorrent.creationDate | amFromUnix | longDate"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.infoHash">
+                    <div class="row detail-info-item" ng-if="task && task.infoHash">
                         <div class="setting-key col-sm-4">
                             <span translate>Info Hash</span>
                         </div>
@@ -125,7 +125,7 @@
                             <span class="allow-word-break" ng-bind="task.infoHash"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.singleUrl">
+                    <div class="row detail-info-item" ng-if="task && task.singleUrl">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Url</span>
                         </div>
@@ -133,7 +133,7 @@
                             <span class="allow-word-break" ng-bind="task.singleUrl"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task">
+                    <div class="row detail-info-item" ng-if="task">
                         <div class="setting-key col-sm-4">
                             <span translate>Download Dir</span>
                         </div>
@@ -141,7 +141,7 @@
                             <span class="allow-word-break" ng-bind="task.dir"></span>
                         </div>
                     </div>
-                    <div class="row" ng-if="task && task.bittorrent && task.bittorrent.announceList && task.bittorrent.announceList.length > 0">
+                    <div class="row detail-info-item" ng-if="task && task.bittorrent && task.bittorrent.announceList && task.bittorrent.announceList.length > 0">
                         <div class="setting-key col-sm-4">
                             <span translate>BT Tracker Servers</span>
                             <em class="description-inline" ng-bind="'format.settings.total-count' | translate: {count: task.bittorrent.announceList.length}"></em>
@@ -155,6 +155,17 @@
                                  ng-repeat="serverAddress in task.bittorrent.announceList | limitTo: (context.collapseTrackers ? 1 : task.bittorrent.announceList.length)"></span>
                         </div>
                     </div>
+
+                    <ng-context-menu id="task-overview-contextmenu" on-show-context-menu="setCurrentSelectedRow(type, target)" on-hide-context-menu="removeCurrentSelectedRow(type, target)">
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a id="mnu-overview-copy" tabindex="-1" class="mnu-copy pointer-cursor" title="{{'Copy' | translate}}" ng-click="copySelectedRowText()">
+                                    <i class="fa fa-copy fa-fw"></i>
+                                    <span translate>Copy</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </ng-context-menu>
                 </div>
                 <div class="settings-table">
                     <div class="row no-hover no-background" ng-if="context.isEnableSpeedChart && task && task.status === 'active'">
@@ -245,7 +256,6 @@
                     </div>
                     <div class="task-table-body">
                         <div class="row" ng-repeat="file in task.files | fileOrderBy: getFileListOrderType()"
-                             data-toggle="context" data-target="#task-filelist-contextmenu"
                              ng-if="!context.collapsedDirs[file.relativePath]" data-file-index="{{file.index}}">
                             <div class="col-sm-10" ng-if="file.isDir" style="{{(task.multiDir ? ('padding-left: ' + (file.level * 16) + 'px') : '')}}">
                                 <i class="icon-dir-expand pointer-cursor fa" ng-click="collapseDir(file)"
@@ -279,6 +289,61 @@
                             </div>
                         </div>
                     </div>
+
+                    <ng-context-menu id="task-filelist-contextmenu">
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-if="task.multiDir">
+                                <a tabindex="-1" class="pointer-cursor" title="{{'Expand All' | translate}}" ng-click="collapseAllDirs(false)">
+                                    <i class="fa fa-plus fa-fw"></i>
+                                    <span translate>Expand All</span>
+                                </a>
+                            </li>
+                            <li ng-if="task.multiDir">
+                                <a tabindex="-1" class="pointer-cursor" title="{{'Collapse All' | translate}}" ng-click="collapseAllDirs(true)">
+                                    <i class="fa fa-minus fa-fw"></i>
+                                    <span translate>Collapse All</span>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-submenu" ng-if="!task.multiDir">
+                                <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
+                                    <i class="fa fa-sort-alpha-asc fa-fw"></i>
+                                    <span translate>Display Order</span>
+                                </a>
+                                <ul class="dropdown-menu" style="right: 160px;">
+                                    <li>
+                                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('default:asc')">
+                                            <span translate>Default</span>
+                                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('default')}"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('name:asc')">
+                                            <span translate>By File Name</span>
+                                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('name')}"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('percent:desc')">
+                                            <span translate>By Progress</span>
+                                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('percent')}"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('size:asc')">
+                                            <span translate>By File Size</span>
+                                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('size')}"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('selected:desc')">
+                                            <span translate>By Selected Status</span>
+                                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('selected')}"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </ng-context-menu>
                 </div>
             </div>
             <div class="tab-pane" ng-class="{'active': context.currentTab === 'btpeers'}" ng-if="task && task.status === 'active' && task.bittorrent">
@@ -314,8 +379,7 @@
                         </div>
                     </div>
                     <div class="task-table-body">
-                        <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()"
-                             data-toggle="context" data-target="#task-peerlist-contextmenu">
+                        <div class="row" ng-repeat="peer in context.btPeers | peerOrderBy: getPeerListOrderType()">
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <div class="peer-name-wrapper auto-ellipsis" title="{{(peer.client ? peer.client.info : '') + (peer.seeder ? (peer.client.info ? ', ' : '') + ('Seeding' | translate) : '')}}">
                                     <span ng-bind="peer.name | translate"></span><i class="icon-seeder fa fa-angle-double-up" ng-if="peer && peer.seeder"></i>
@@ -352,6 +416,55 @@
                                 <span translate>No connected peers</span>
                             </div>
                         </div>
+
+                        <ng-context-menu id="task-peerlist-contextmenu">
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown dropdown-submenu">
+                                    <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
+                                        <i class="fa fa-sort-alpha-asc fa-fw"></i>
+                                        <span translate>Display Order</span>
+                                    </a>
+                                    <ul class="dropdown-menu" style="right: 160px;">
+                                        <li>
+                                            <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('default:asc')">
+                                                <span translate>Default</span>
+                                                <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('default')}"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('address:asc')">
+                                                <span translate>By Peer Address</span>
+                                                <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('address')}"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('client:asc')">
+                                                <span translate>By Client Name</span>
+                                                <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('client')}"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('percent:desc')">
+                                                <span translate>By Progress</span>
+                                                <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('percent')}"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('dspeed:desc')">
+                                                <span translate>By Download Speed</span>
+                                                <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('dspeed')}"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('uspeed:desc')">
+                                                <span translate>By Upload Speed</span>
+                                                <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('uspeed')}"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </ng-context-menu>
                     </div>
                 </div>
             </div>
@@ -364,118 +477,7 @@
             </div>
         </div>
     </div><!-- /.nav-tabs-custom -->
-    <div id="task-overview-contextmenu">
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                <a id="mnu-overview-copy" tabindex="-1" class="mnu-copy pointer-cursor" title="{{'Copy' | translate}}" ng-click="copySelectedRowText()">
-                    <i class="fa fa-copy fa-fw"></i>
-                    <span translate>Copy</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div id="task-filelist-contextmenu">
-        <ul class="dropdown-menu" role="menu">
-            <li ng-if="task.multiDir">
-                <a tabindex="-1" class="pointer-cursor" title="{{'Expand All' | translate}}" ng-click="collapseAllDirs(false)">
-                    <i class="fa fa-plus fa-fw"></i>
-                    <span translate>Expand All</span>
-                </a>
-            </li>
-            <li ng-if="task.multiDir">
-                <a tabindex="-1" class="pointer-cursor" title="{{'Collapse All' | translate}}" ng-click="collapseAllDirs(true)">
-                    <i class="fa fa-minus fa-fw"></i>
-                    <span translate>Collapse All</span>
-                </a>
-            </li>
-            <li class="dropdown dropdown-submenu" ng-if="!task.multiDir">
-                <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
-                    <i class="fa fa-sort-alpha-asc fa-fw"></i>
-                    <span translate>Display Order</span>
-                </a>
-                <ul class="dropdown-menu" style="right: 160px;">
-                    <li>
-                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('default:asc')">
-                            <span translate>Default</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('default')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('name:asc')">
-                            <span translate>By File Name</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('name')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('percent:desc')">
-                            <span translate>By Progress</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('percent')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('size:asc')">
-                            <span translate>By File Size</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('size')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changeFileListDisplayOrder('selected:desc')">
-                            <span translate>By Selected Status</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetFileListDisplayOrder('selected')}"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div id="task-peerlist-contextmenu">
-        <ul class="dropdown-menu" role="menu">
-            <li class="dropdown dropdown-submenu">
-                <a tabindex="-1" title="{{'Display Order' | translate}}" href="javascript:void(0);">
-                    <i class="fa fa-sort-alpha-asc fa-fw"></i>
-                    <span translate>Display Order</span>
-                </a>
-                <ul class="dropdown-menu" style="right: 160px;">
-                    <li>
-                        <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('default:asc')">
-                            <span translate>Default</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('default')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('address:asc')">
-                            <span translate>By Peer Address</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('address')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('client:asc')">
-                            <span translate>By Client Name</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('client')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('percent:desc')">
-                            <span translate>By Progress</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('percent')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('dspeed:desc')">
-                            <span translate>By Download Speed</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('dspeed')}"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="pointer-cursor" ng-click="changePeerListDisplayOrder('uspeed:desc')">
-                            <span translate>By Upload Speed</span>
-                            <i class="fa fa-fw" ng-class="{'fa-check': isSetPeerListDisplayOrder('uspeed')}"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+
     <div id="custom-choose-file-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
