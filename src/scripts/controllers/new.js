@@ -202,7 +202,7 @@
         $scope.urlTextboxKeyDown = function (event) {
             var keyCode = event.keyCode || event.which || event.charCode;
 
-            if (keyCode === 13 && event.ctrlKey && $scope.newTaskForm.$valid) {
+            if ((event.code === 'Enter' || keyCode === 13) && event.ctrlKey && $scope.newTaskForm.$valid) {
                 $scope.startDownload();
             }
         };
