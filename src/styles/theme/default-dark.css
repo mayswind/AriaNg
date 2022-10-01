@@ -415,3 +415,10 @@
 .theme-dark.skin-aria-ng .new-task-table {
     background-color: #1a1a1a;
 }
+
+/* misc */
+.theme-dark.skin-aria-ng .keyboard-key {
+    border: 1px solid #666;
+    background-color: #282828;
+    box-shadow: 1px 2px 2px #333;
+}

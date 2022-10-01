@@ -528,3 +528,10 @@
 .skin-aria-ng .new-task-table {
     background-color: #fff;
 }
+
+/* misc */
+.skin-aria-ng .keyboard-key {
+    border: 1px solid #aaa;
+    background-color: #f8f8f8;
+    box-shadow: 1px 2px 2px #ddd;
+}

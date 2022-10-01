@@ -121,6 +121,9 @@
             }
         });
 
+        $rootScope.keydownActions.selectAll = $scope.selectAllTasks;
+        $rootScope.keydownActions.delete = $scope.removeTasks;
+
         $rootScope.loadPromise = refreshDownloadTask(false);
     }]);
 }());

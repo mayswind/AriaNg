@@ -398,6 +398,12 @@
             setDownloadTaskRefreshInterval: function (value) {
                 setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
             },
+            getKeyboardShortcuts: function () {
+                return getOption('keyboardShortcuts');
+            },
+            setKeyboardShortcuts: function (value) {
+                setOption('keyboardShortcuts', value);
+            },
             getSwipeGesture: function () {
                 return getOption('swipeGesture');
             },
