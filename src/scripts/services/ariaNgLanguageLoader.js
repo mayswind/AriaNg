@@ -147,14 +147,14 @@
                 ariaNgStorageService.set(languageKey, languageObject);
 
                 if (languageUpdated) {
-                    ariaNgLogService.info("[ariaNgLanguageLoader] load language resource successfully, and resource is updated");
+                    ariaNgLogService.info('[ariaNgLanguageLoader] load language resource successfully, and resource is updated');
                     ariaNgLocalizationService.notifyInPage('', 'Language resource has been updated, please reload the page for the changes to take effect.', {
                         delay: false,
                         type: 'info',
                         templateUrl: 'views/notification-reloadable.html'
                     });
                 } else {
-                    ariaNgLogService.info("[ariaNgLanguageLoader] load language resource successfully, but resource is not updated");
+                    ariaNgLogService.info('[ariaNgLanguageLoader] load language resource successfully, but resource is not updated');
                 }
 
                 return deferred.resolve(languageObject);

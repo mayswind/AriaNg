@@ -696,7 +696,7 @@
             }
 
             var name = currentRowTriggeredMenu.find('.setting-key > span').text().trim();
-            var value = "";
+            var value = '';
 
             currentRowTriggeredMenu.find('.setting-value > span').each(function (i, element) {
                 if (i > 0) {
