@@ -400,11 +400,11 @@
 
             var keyCode = event.keyCode || event.which || event.charCode;
 
-            if ((event.code === 'KeyA' || keyCode === 65) && (event.ctrlKey || event.metaKey)) { // Select All Tasks
+            if ((event.code === 'KeyA' || keyCode === 65) && (event.ctrlKey || event.metaKey)) { // Ctrl+A / Command+A
                 if (angular.isFunction($rootScope.keydownActions.selectAll)) {
                     $rootScope.keydownActions.selectAll();
                 }
-            } else if (event.code === 'Delete' || keyCode === 46) { // Remove Selected Task
+            } else if (event.code === 'Delete' || keyCode === 46) { // Delete
                 if (angular.isFunction($rootScope.keydownActions.delete)) {
                     $rootScope.keydownActions.delete();
                 }
