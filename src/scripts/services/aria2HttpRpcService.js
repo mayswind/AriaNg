@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgConstants, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var method = ariaNgSettingService.getCurrentRpcHttpMethod();
 
@@ -57,7 +57,8 @@
 
                 var requestContext = {
                     url: rpcUrl,
-                    method: method
+                    method: method,
+                    timeout: ariaNgConstants.httpRequestTimeout
                 };
 
                 if (requestContext.method === 'POST') {

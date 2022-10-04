@@ -13,6 +13,7 @@
         defaultHost: 'localhost',
         defaultSecureProtocol: 'https',
         defaultPathSeparator: '/',
+        httpRequestTimeout: 20000,
         websocketAutoReconnect: true,
         globalStatStorageCapacity: 120,
         taskStatStorageCapacity: 300,
