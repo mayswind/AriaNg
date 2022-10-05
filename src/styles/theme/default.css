@@ -193,6 +193,10 @@
     }
 }
 
+.skin-aria-ng .sidebar .status-label {
+    max-width: 95px;
+}
+
 .skin-aria-ng .content-wrapper, .right-side {
     background-color: #fff;
 }

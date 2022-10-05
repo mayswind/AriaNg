@@ -13,6 +13,8 @@ False=否
 Connecting=連線中
 Connected=已連線
 Disconnected=未連線
+Reconnecting=重連中
+Waiting to reconnect=等待重連
 Global=全域
 New=新增
 Start=開始工作
@@ -160,6 +162,7 @@ Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag to ign
 Example: ${downspeed:noprefix:nosuffix:scale\=1}=示例: ${downspeed:noprefix:nosuffix:scale\=1}
 Updating Page Title Interval=頁面標題更新間隔
 Enable Browser Notification=啟用瀏覽器通知
+WebSocket Auto Reconnect Interval=WebSocket 自动重連線時間
 Aria2 RPC Alias=Aria2 RPC 別名
 Aria2 RPC Address=Aria2 RPC 位址
 Aria2 RPC Protocol=Aria2 RPC 協定
@@ -219,6 +222,7 @@ Hide Secret=隱藏金鑰
 Aria2 Version=Aria2 版本
 Enabled Features=已啟用的功能
 Operations=操作
+Reconnect=重新連線
 Save Session=儲存會話
 Shutdown Aria2=關閉 Aria2
 Confirm Shutdown=確認關閉

@@ -96,6 +96,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row" ng-if="context.isSupportReconnect">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>WebSocket Auto Reconnect Interval</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.webSocketReconnectInterval"
+                                    ng-change="setWebSocketReconnectInterval(context.settings.webSocketReconnectInterval)"
+                                    ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Updating Page Title Interval</span>

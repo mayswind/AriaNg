@@ -13,24 +13,29 @@
                 <span translate>Aria2 Status</span>
             </div>
             <div class="setting-value col-sm-8">
-                <span class="label" ng-class="{'label-primary': context.status === 'Connecting', 'label-success': context.status === 'Connected', 'label-danger': context.status === 'Disconnected'}"
-                      ng-bind="context.status | translate"></span>
+                <span class="label" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting' || taskContext.rpcStatus === 'Reconnecting', 'label-default': taskContext.rpcStatus === 'Waiting to reconnect', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Disconnected'}"
+                      ng-bind="taskContext.rpcStatus | translate"></span>
             </div>
         </div>
-        <div class="row ng-cloak" ng-if="context.serverStatus">
+        <div class="row ng-cloak">
             <div class="setting-key col-sm-4">
                 <span translate>Aria2 Version</span>
             </div>
             <div class="setting-value col-sm-8">
-                <span ng-bind="context.serverStatus.version"></span>
+                <span ng-if="!context.serverStatus && (taskContext.rpcStatus === 'Connecting' || taskContext.rpcStatus === 'Reconnecting' || taskContext.rpcStatus === 'Connected')"><i class="fa fa-spinner fa-spin"></i></span>
+                <span ng-if="!context.serverStatus && !(taskContext.rpcStatus === 'Connecting' || taskContext.rpcStatus === 'Reconnecting' || taskContext.rpcStatus === 'Connected')">-</span>
+                <span ng-if="context.serverStatus" ng-bind="context.serverStatus.version"></span>
             </div>
         </div>
-        <div class="row ng-cloak" ng-if="context.serverStatus">
+        <div class="row ng-cloak">
             <div class="setting-key col-sm-4">
                 <span translate>Enabled Features</span>
             </div>
             <div class="setting-value col-sm-8">
-                <div class="checkbox checkbox-primary checkbox-compact default-cursor" ng-repeat="feature in context.serverStatus.enabledFeatures">
+                <span ng-if="!context.serverStatus && (taskContext.rpcStatus === 'Connecting' || taskContext.rpcStatus === 'Reconnecting' || taskContext.rpcStatus === 'Connected')"><i class="fa fa-spinner fa-spin"></i></span>
+                <span ng-if="!context.serverStatus && !(taskContext.rpcStatus === 'Connecting' || taskContext.rpcStatus === 'Reconnecting' || taskContext.rpcStatus === 'Connected')">-</span>
+                <div class="checkbox checkbox-primary checkbox-compact default-cursor" ng-if="context.serverStatus"
+                     ng-repeat="feature in context.serverStatus.enabledFeatures">
                     <input id="{{'feature_' + $index}}" type="checkbox" checked="checked" disabled="disabled" class="default-cursor"/>
                     <label for="{{'feature_' + $index}}" class="text-cursor">
                         <span ng-bind="feature"></span>
@@ -38,13 +43,18 @@
                 </div>
             </div>
         </div>
-        <div class="row ng-cloak" ng-if="context.serverStatus">
+        <div class="row ng-cloak" ng-if="context.serverStatus || context.isSupportReconnect">
             <div class="setting-key setting-key-without-desc col-sm-4">
                 <span translate>Operations</span>
             </div>
             <div class="setting-value col-sm-8">
-                <button class="btn btn-sm btn-primary" ng-click="saveSession()" promise-btn><span translate>Save Session</span></button>
-                <button class="btn btn-sm btn-danger promise-btn-style" ng-click="shutdown()"><span translate>Shutdown Aria2</span></button>
+                <button class="btn btn-sm btn-primary" ng-if="context.isSupportReconnect"
+                        ng-disabled="taskContext.rpcStatus !== 'Disconnected' && taskContext.rpcStatus !== 'Waiting to reconnect'"
+                        ng-click="reconnect()" promise-btn><span translate>Reconnect</span></button>
+                <button class="btn btn-sm btn-primary" ng-if="context.serverStatus"
+                        ng-click="saveSession()" promise-btn><span translate>Save Session</span></button>
+                <button class="btn btn-sm btn-danger promise-btn-style" ng-if="context.serverStatus"
+                        ng-click="shutdown()"><span translate>Shutdown Aria2</span></button>
             </div>
         </div>
     </div>

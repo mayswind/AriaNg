@@ -1,9 +1,13 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', 'ariaNgConstants', 'ariaNgSettingService', 'ariaNgLogService', function ($q, $websocket, ariaNgConstants, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2WebSocketRpcService', ['$q', '$websocket', '$timeout', 'ariaNgConstants', 'ariaNgSettingService', 'ariaNgLogService', function ($q, $websocket, $timeout, ariaNgConstants, ariaNgSettingService, ariaNgLogService) {
+        var websocketStatusConnecting = 0;
+        var websocketStatusOpen = 1;
+
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var socketClient = null;
+        var pendingReconnect = null;
 
         var sendIdStates = {};
         var eventCallbacks = {};
@@ -73,7 +77,7 @@
             if (socketClient === null) {
                 try {
                     socketClient = $websocket(rpcUrl, {
-                        reconnectIfNotNormalClose: ariaNgConstants.websocketAutoReconnect
+                        maxTimeout: 1 // ms
                     });
 
                     socketClient.onMessage(function (message) {
@@ -107,7 +111,12 @@
                     socketClient.onClose(function (e) {
                         ariaNgLogService.warn('[aria2WebSocketRpcService.onClose] websocket is closed', e);
 
-                        if (context && context.connectionFailedCallback) {
+                        if (ariaNgSettingService.getWebSocketReconnectInterval() > 0 && context && context.connectionWaitingToReconnectCallback) {
+                            context.connectionWaitingToReconnectCallback({
+                                rpcUrl: rpcUrl
+                            });
+                            planToReconnect(context);
+                        } else if (context && context.connectionFailedCallback) {
                             context.connectionFailedCallback({
                                 rpcUrl: rpcUrl
                             });
@@ -128,6 +137,46 @@
             };
         };
 
+        var reconnect = function (context) {
+            if (!context || !socketClient) {
+                return;
+            }
+
+            if (context.connectionReconnectingCallback) {
+                context.connectionReconnectingCallback({
+                    rpcUrl: rpcUrl
+                });
+            }
+
+            socketClient.reconnect();
+        };
+
+        var planToReconnect = function (context) {
+            if (pendingReconnect) {
+                ariaNgLogService.warn('[aria2WebSocketRpcService.planToReconnect] another reconnection is pending');
+                return;
+            }
+
+            pendingReconnect = $timeout(function () {
+                if (socketClient == null) {
+                    ariaNgLogService.warn('[aria2WebSocketRpcService.planToReconnect] websocket is null');
+                    pendingReconnect = null;
+                    return;
+                }
+
+                if (socketClient.readyState === websocketStatusConnecting || socketClient.readyState === websocketStatusOpen) {
+                    ariaNgLogService.warn('[aria2WebSocketRpcService.planToReconnect] websocket current state is already ' + socketClient.readyState);
+                    pendingReconnect = null;
+                    return;
+                }
+
+                reconnect(context);
+                pendingReconnect = null;
+            }, ariaNgSettingService.getWebSocketReconnectInterval());
+
+            ariaNgLogService.debug('[aria2WebSocketRpcService.planToReconnect] next reconnection is pending in ' + ariaNgSettingService.getWebSocketReconnectInterval() + "ms");
+        }
+
         return {
             request: function (context) {
                 if (!context) {
@@ -135,7 +184,10 @@
                 }
 
                 var client = getSocketClient({
-                    connectionFailedCallback: context.connectionFailedCallback
+                    connectionSuccessCallback: context.connectionSuccessCallback,
+                    connectionFailedCallback: context.connectionFailedCallback,
+                    connectionReconnectingCallback: context.connectionReconnectingCallback,
+                    connectionWaitingToReconnectCallback: context.connectionWaitingToReconnectCallback
                 });
                 var uniqueId = context.uniqueId;
                 var requestBody = angular.toJson(context.requestBody);
@@ -162,6 +214,9 @@
                 }
 
                 return deferred.promise;
+            },
+            reconnect: function (context) {
+                reconnect(context);
             },
             on: function (eventName, callback) {
                 var callbacks = eventCallbacks[eventName];

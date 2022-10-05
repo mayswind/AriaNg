@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', '$timeout', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, $timeout, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
         var autoRefreshAfterPageLoad = false;
 
         var isUrlMatchUrl2 = function (url, url2) {
@@ -436,15 +436,35 @@
         });
 
         aria2TaskService.onConnectionSuccess(function () {
-            if ($rootScope.taskContext.rpcStatus !== 'Connected') {
-                $rootScope.taskContext.rpcStatus = 'Connected';
-            }
+            $timeout(function () {
+                if ($rootScope.taskContext.rpcStatus !== 'Connected') {
+                    $rootScope.taskContext.rpcStatus = 'Connected';
+                }
+            });
         });
 
         aria2TaskService.onConnectionFailed(function () {
-            if ($rootScope.taskContext.rpcStatus !== 'Disconnected') {
-                $rootScope.taskContext.rpcStatus = 'Disconnected';
-            }
+            $timeout(function () {
+                if ($rootScope.taskContext.rpcStatus !== 'Disconnected') {
+                    $rootScope.taskContext.rpcStatus = 'Disconnected';
+                }
+            });
+        });
+
+        aria2TaskService.onConnectionReconnecting(function () {
+            $timeout(function () {
+                if ($rootScope.taskContext.rpcStatus !== 'Reconnecting') {
+                    $rootScope.taskContext.rpcStatus = 'Reconnecting';
+                }
+            });
+        });
+
+        aria2TaskService.onConnectionWaitingToReconnect(function () {
+            $timeout(function () {
+                if ($rootScope.taskContext.rpcStatus !== 'Waiting to reconnect') {
+                    $rootScope.taskContext.rpcStatus = 'Waiting to reconnect';
+                }
+            });
         });
 
         aria2TaskService.onTaskCompleted(function (event) {

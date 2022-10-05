@@ -380,6 +380,12 @@
             setBrowserNotification: function (value) {
                 setOption('browserNotification', value);
             },
+            getWebSocketReconnectInterval: function () {
+                return getOption('webSocketReconnectInterval');
+            },
+            setWebSocketReconnectInterval: function (value) {
+                setOption('webSocketReconnectInterval', value);
+            },
             getTitleRefreshInterval: function () {
                 return getOption('titleRefreshInterval');
             },

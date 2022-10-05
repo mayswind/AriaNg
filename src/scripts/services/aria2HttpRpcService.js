@@ -116,6 +116,9 @@
                     }
                 });
             },
+            reconnect: function () {
+                //Not implement
+            },
             on: function (eventName, callback) {
                 //Not implement
             }

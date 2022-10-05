@@ -55,6 +55,7 @@
             settings: ariaNgSettingService.getAllOptions(),
             sessionSettings: ariaNgSettingService.getAllSessionOptions(),
             rpcSettings: ariaNgSettingService.getAllRpcSettings(),
+            isSupportReconnect: aria2SettingService.canReconnect(),
             isSupportBlob: ariaNgFileService.isSupportBlob(),
             isSupportDarkMode: ariaNgSettingService.isBrowserSupportDarkMode(),
             importSettings: null,
@@ -163,6 +164,11 @@
                     }
                 });
             }
+        };
+
+        $scope.setWebSocketReconnectInterval = function (value) {
+            setNeedRefreshPage();
+            ariaNgSettingService.setWebSocketReconnectInterval(value);
         };
 
         $scope.setTitleRefreshInterval = function (value) {

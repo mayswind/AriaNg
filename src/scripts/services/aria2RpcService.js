@@ -11,6 +11,8 @@
         var onOperationErrorCallbacks = [];
         var onConnectionSuccessCallbacks = [];
         var onConnectionFailedCallbacks = [];
+        var onConnectionReconnectingCallbacks = [];
+        var onConnectionWaitingToReconnectCallbacks = [];
         var onDownloadStartCallbacks = [];
         var onDownloadPauseCallbacks = [];
         var onDownloadStopCallbacks = [];
@@ -49,6 +51,8 @@
                 requestBody: requestBody,
                 connectionSuccessCallback: requestContext.connectionSuccessCallback,
                 connectionFailedCallback: requestContext.connectionFailedCallback,
+                connectionReconnectingCallback: requestContext.connectionReconnectingCallback,
+                connectionWaitingToReconnectCallback: requestContext.connectionWaitingToReconnectCallback,
                 successCallback: requestContext.successCallback,
                 errorCallback: requestContext.errorCallback
             };
@@ -142,6 +146,14 @@
 
             context.connectionFailedCallback = function () {
                 fireCustomEvent(onConnectionFailedCallbacks);
+            };
+
+            context.connectionReconnectingCallback = function () {
+                fireCustomEvent(onConnectionReconnectingCallbacks);
+            };
+
+            context.connectionWaitingToReconnectCallback = function () {
+                fireCustomEvent(onConnectionWaitingToReconnectCallbacks);
             };
 
             if (secret && !isSystemMethod) {
@@ -293,6 +305,13 @@
                 requestParams.push('infoHash');
 
                 return requestParams;
+            },
+            canReconnect: function () {
+                return ariaNgSettingService.isCurrentRpcUseWebSocket();
+            },
+            reconnect: function (context) {
+                ariaNgLogService.info("[aria2RpcService.reconnect] reconnect now");
+                rpcImplementService.reconnect(buildRequestContext('', context));
             },
             addUri: function (context, returnContextOnly) {
                 var urls = context.task.urls;
@@ -497,6 +516,12 @@
             },
             onConnectionFailed: function (context) {
                 onConnectionFailedCallbacks.push(context.callback);
+            },
+            onConnectionReconnecting: function (context) {
+                onConnectionReconnectingCallbacks.push(context.callback);
+            },
+            onConnectionWaitingToReconnect: function (context) {
+                onConnectionWaitingToReconnectCallbacks.push(context.callback);
             },
             onDownloadStart: function (context) {
                 onDownloadStartCallbacks.push(context.callback);

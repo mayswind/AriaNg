@@ -1,11 +1,19 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', 'ariaNgLocalizationService', 'ariaNgSettingService', 'aria2SettingService', function ($rootScope, $scope, ariaNgLocalizationService, ariaNgSettingService, aria2SettingService) {
+    angular.module('ariaNg').controller('Aria2StatusController', ['$rootScope', '$scope', '$timeout', 'ariaNgLocalizationService', 'ariaNgSettingService', 'aria2SettingService', function ($rootScope, $scope, $timeout, ariaNgLocalizationService, ariaNgSettingService, aria2SettingService) {
         $scope.context = {
             host: ariaNgSettingService.getCurrentRpcUrl(),
-            status: 'Connecting',
-            serverStatus: null
+            serverStatus: null,
+            isSupportReconnect: aria2SettingService.canReconnect()
+        };
+
+        $scope.reconnect = function () {
+            if (!$scope.context.isSupportReconnect || ($rootScope.taskContext.rpcStatus !== 'Disconnected' && $rootScope.taskContext.rpcStatus !== 'Waiting to reconnect')) {
+                return;
+            }
+
+            aria2SettingService.reconnect();
         };
 
         $scope.saveSession = function () {
@@ -26,15 +34,12 @@
             }, true);
         };
 
-        $rootScope.loadPromise = (function () {
-            return aria2SettingService.getAria2Status(function (response) {
-                if (response.success) {
-                    $scope.context.status = 'Connected';
-                    $scope.context.serverStatus = response.data;
-                } else {
-                    $scope.context.status = 'Disconnected';
-                }
-            });
-        })();
+        aria2SettingService.getAria2Status(function (response) {
+            if (response.success) {
+                $scope.context.serverStatus = response.data;
+            }
+        });
+
+        $rootScope.loadPromise = $timeout(function () {}, 100);
     }]);
 }());
