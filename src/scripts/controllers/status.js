@@ -34,9 +34,15 @@
             }, true);
         };
 
-        aria2SettingService.getAria2Status(function (response) {
-            if (response.success) {
-                $scope.context.serverStatus = response.data;
+        $rootScope.$watch('taskContext.rpcStatus', function (value) {
+            if (value === 'Connected') {
+                aria2SettingService.getAria2Status(function (response) {
+                    if (response.success) {
+                        $scope.context.serverStatus = response.data;
+                    }
+                });
+            } else {
+                $scope.context.serverStatus = null;
             }
         });
 
