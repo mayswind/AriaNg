@@ -200,9 +200,13 @@
         };
 
         $scope.urlTextboxKeyDown = function (event) {
+            if (!ariaNgSettingService.getKeyboardShortcuts()) {
+                return;
+            }
+
             var keyCode = event.keyCode || event.which || event.charCode;
 
-            if ((event.code === 'Enter' || keyCode === 13) && event.ctrlKey && $scope.newTaskForm.$valid) {
+            if ((event.code === 'Enter' || keyCode === 13) && (event.ctrlKey || event.metaKey) && $scope.newTaskForm.$valid) { // Ctrl+Enter
                 $scope.startDownload();
             }
         };
