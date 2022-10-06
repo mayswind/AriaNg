@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'aria2AllOptions', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, aria2AllOptions, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
+    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'aria2AllOptions', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, aria2AllOptions, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var rpcImplementService = ariaNgSettingService.isCurrentRpcUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
         var isConnected = false;
         var secret = ariaNgSettingService.getCurrentRpcSecret();
@@ -123,10 +123,10 @@
             ariaNgLogService.error('[aria2RpcService.processError] ' + error.message, error);
 
             if (aria2RpcErrors[error.message] && aria2RpcErrors[error.message].tipTextKey) {
-                ariaNgLocalizationService.showError(aria2RpcErrors[error.message].tipTextKey);
+                ariaNgCommonService.showError(aria2RpcErrors[error.message].tipTextKey);
                 return true;
             } else {
-                ariaNgLocalizationService.showError(error.message);
+                ariaNgCommonService.showError(error.message);
                 return true;
             }
         };
