@@ -182,6 +182,7 @@ Updating Global Stat Interval=全域狀態更新間隔
 Updating Task Information Interval=工作資訊更新間隔
 Keyboard Shortcuts=鍵盤快速鍵
 Supported Keyboard Shortcuts=支援的鍵盤快速鍵
+Set Focus On Search Box=將焦點設在搜尋框上
 Swipe Gesture=滑動手勢
 Change Tasks Order by Drag-and-drop=拖拽工作排序
 Action After Creating New Tasks=建立新工作後執行操作

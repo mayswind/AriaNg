@@ -186,6 +186,7 @@
             'Updating Task Information Interval': 'Updating Task Information Interval',
             'Keyboard Shortcuts': 'Keyboard Shortcuts',
             'Supported Keyboard Shortcuts': 'Supported Keyboard Shortcuts',
+            'Set Focus On Search Box': 'Set Focus On Search Box',
             'Swipe Gesture': 'Swipe Gesture',
             'Change Tasks Order by Drag-and-drop': 'Change Tasks Order by Drag-and-drop',
             'Action After Creating New Tasks': 'Action After Creating New Tasks',

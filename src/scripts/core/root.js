@@ -136,7 +136,10 @@
         $rootScope.currentTheme = 'light';
 
         $rootScope.searchContext = {
-            text: ''
+            text: '',
+            setSearchBoxFocused: function () {
+                angular.element('#search-box').focus();
+            }
         };
 
         $rootScope.taskContext = {
@@ -349,7 +352,17 @@
             return task && task.status === 'error' && task.errorDescription && !task.bittorrent;
         };
 
-        $rootScope.keydownActions = {};
+        $rootScope.keydownActions = {
+            find: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                }
+
+                $rootScope.searchContext.setSearchBoxFocused();
+
+                return false;
+            }
+        };
 
         $rootScope.swipeActions = {
             leftSwipe: function () {
@@ -407,6 +420,10 @@
             if (ariaNgKeyboardService.isCtrlAPressed(event) && !isTextboxOrTextareaFocus) {
                 if (angular.isFunction($rootScope.keydownActions.selectAll)) {
                     return $rootScope.keydownActions.selectAll(event);
+                }
+            } else if (ariaNgKeyboardService.isCtrlFPressed(event)) {
+                if (angular.isFunction($rootScope.keydownActions.find)) {
+                    return $rootScope.keydownActions.find(event);
                 }
             } else if (ariaNgKeyboardService.isDeletePressed(event) && !isTextboxOrTextareaFocus) {
                 if (angular.isFunction($rootScope.keydownActions.delete)) {
