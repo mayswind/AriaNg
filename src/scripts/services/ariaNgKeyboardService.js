@@ -25,6 +25,9 @@
         };
 
         return {
+            isMacKeyboardLike: function () {
+                return isMacLike;
+            },
             isCtrlAPressed: function (event) {
                 return (isModifierKeyPressed(event) && (event.code === 'KeyA' || getKeyCode(event) === 65)); // Ctrl+A / Command+A
             },

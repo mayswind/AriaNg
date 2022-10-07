@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'clipboard', 'ariaNgBuildConfiguration', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, clipboard, ariaNgBuildConfiguration, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'clipboard', 'ariaNgBuildConfiguration', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgKeyboardService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, clipboard, ariaNgBuildConfiguration, ariaNgLanguages, ariaNgCommonService, ariaNgKeyboardService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
         var extendType = $routeParams.extendType;
         var lastRefreshPageNotification = null;
 
@@ -55,6 +55,7 @@
             settings: ariaNgSettingService.getAllOptions(),
             sessionSettings: ariaNgSettingService.getAllSessionOptions(),
             rpcSettings: ariaNgSettingService.getAllRpcSettings(),
+            isMacKeyboardLike: ariaNgKeyboardService.isMacKeyboardLike(),
             isSupportReconnect: aria2SettingService.canReconnect(),
             isSupportBlob: ariaNgFileService.isSupportBlob(),
             isSupportDarkMode: ariaNgSettingService.isBrowserSupportDarkMode(),
