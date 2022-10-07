@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', '$timeout', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, $timeout, ariaNgCommonService, ariaNgNotificationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', '$timeout', 'ariaNgCommonService', 'ariaNgKeyboardService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, $timeout, ariaNgCommonService, ariaNgKeyboardService, ariaNgNotificationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
         var autoRefreshAfterPageLoad = false;
 
         var isUrlMatchUrl2 = function (url, url2) {
@@ -398,15 +398,13 @@
                 return;
             }
 
-            var keyCode = event.keyCode || event.which || event.charCode;
-
-            if ((event.code === 'KeyA' || keyCode === 65) && (event.ctrlKey || event.metaKey)) { // Ctrl+A / Command+A
+            if (ariaNgKeyboardService.isCtrlAPressed(event)) {
                 if (angular.isFunction($rootScope.keydownActions.selectAll)) {
-                    $rootScope.keydownActions.selectAll();
+                    return $rootScope.keydownActions.selectAll(event);
                 }
-            } else if (event.code === 'Delete' || keyCode === 46) { // Delete
+            } else if (ariaNgKeyboardService.isDeletePressed(event)) {
                 if (angular.isFunction($rootScope.keydownActions.delete)) {
-                    $rootScope.keydownActions.delete();
+                    return $rootScope.keydownActions.delete(event);
                 }
             }
         }, true);

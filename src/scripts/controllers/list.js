@@ -121,12 +121,13 @@
             }
         });
 
-        $rootScope.keydownActions.selectAll = function () {
+        $rootScope.keydownActions.selectAll = function (event) {
             $scope.$apply(function () {
                 $scope.selectAllTasks();
             });
         };
-        $rootScope.keydownActions.delete = function () {
+
+        $rootScope.keydownActions.delete = function (event) {
             $scope.$apply(function () {
                 $scope.removeTasks();
             });
