@@ -4,6 +4,10 @@
     angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', '$timeout', 'ariaNgCommonService', 'ariaNgKeyboardService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, $timeout, ariaNgCommonService, ariaNgKeyboardService, ariaNgNotificationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
         var autoRefreshAfterPageLoad = false;
 
+        var isAnyTextboxOrTextareaFocus = function () {
+            return angular.element('input[type="text"],textarea').is(':focus');
+        };
+
         var isUrlMatchUrl2 = function (url, url2) {
             if (url === url2) {
                 return true;
@@ -398,11 +402,13 @@
                 return;
             }
 
-            if (ariaNgKeyboardService.isCtrlAPressed(event)) {
+            var isTextboxOrTextareaFocus = isAnyTextboxOrTextareaFocus();
+
+            if (ariaNgKeyboardService.isCtrlAPressed(event) && !isTextboxOrTextareaFocus) {
                 if (angular.isFunction($rootScope.keydownActions.selectAll)) {
                     return $rootScope.keydownActions.selectAll(event);
                 }
-            } else if (ariaNgKeyboardService.isDeletePressed(event)) {
+            } else if (ariaNgKeyboardService.isDeletePressed(event) && !isTextboxOrTextareaFocus) {
                 if (angular.isFunction($rootScope.keydownActions.delete)) {
                     return $rootScope.keydownActions.delete(event);
                 }
