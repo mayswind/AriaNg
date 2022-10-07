@@ -122,15 +122,27 @@
         });
 
         $rootScope.keydownActions.selectAll = function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+
             $scope.$apply(function () {
                 $scope.selectAllTasks();
             });
+
+            return false;
         };
 
         $rootScope.keydownActions.delete = function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+
             $scope.$apply(function () {
                 $scope.removeTasks();
             });
+
+            return false;
         }
 
         $rootScope.loadPromise = refreshDownloadTask(false);
