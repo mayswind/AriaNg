@@ -97,9 +97,7 @@
                         data = {
                             id: '-1',
                             error: {
-                                // code: '-1',
-                                // message: 'Unknown Error',
-                                innerError: true
+                                message: 'Cannot connect to aria2!'
                             }
                         };
 

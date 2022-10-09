@@ -276,6 +276,7 @@
             'URL is not base64 encoded!': 'URL is not base64 encoded!',
             'Tap to configure and get started with AriaNg.': 'Tap to configure and get started with AriaNg.',
             'Cannot initialize WebSocket!': 'Cannot initialize WebSocket!',
+            'Cannot connect to aria2!': 'Cannot connect to aria2!',
             'Access Denied!': 'Access Denied!',
             'You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.': 'You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.',
             'error': {

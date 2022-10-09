@@ -271,6 +271,7 @@ RPC secret is not base64 encoded!=RPC 密钥不是 Base64 编码后的字符串!
 URL is not base64 encoded!=指定 URL 不是 Base64 编码后的字符串!
 Tap to configure and get started with AriaNg.=您还没有进行过设置, 点击这里进行设置.
 Cannot initialize WebSocket!=无法初始化 WebSocket!
+Cannot connect to aria2!=无法连接到 aria2!
 Access Denied!=拒绝访问!
 You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.=您无法使用 AriaNg, 因为这个浏览器不满足数据存储的最低要求.
 
