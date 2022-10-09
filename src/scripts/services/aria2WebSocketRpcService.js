@@ -196,12 +196,12 @@
 
                 var deferred = $q.defer();
 
-                sendIdStates[uniqueId] = {
-                    context: context,
-                    deferred: deferred
-                };
-
                 if (client.instance) {
+                    sendIdStates[uniqueId] = {
+                        context: context,
+                        deferred: deferred
+                    };
+
                     client.instance.send(requestBody);
                 } else {
                     deferred.reject({
