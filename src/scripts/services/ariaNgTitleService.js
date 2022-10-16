@@ -116,6 +116,10 @@
             getFinalTitle: function (context) {
                 var title = ariaNgSettingService.getTitle();
 
+                if (!title) {
+                    return ariaNgConstants.title;
+                }
+
                 context = angular.extend({
                     downloadingCount: 0,
                     waitingCount: 0,

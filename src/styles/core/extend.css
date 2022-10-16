@@ -8,6 +8,10 @@
     padding-bottom: 6px;
 }
 
+.btn.btn-xs:not(.is-loading) .btn-spinner:not(:required) {
+    margin-left: -21px;
+}
+
 .progress-bar {
     -webkit-transition: initial !important;
     -moz-transition: initial !important;

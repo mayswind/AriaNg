@@ -80,8 +80,8 @@
             showInfo: function (title, text, callback, extendSettings) {
                 this.showDialog(title, text, 'info', callback, extendSettings);
             },
-            showError: function (text, callback) {
-                this.showDialog('Error', text, 'error', callback);
+            showError: function (text, callback, extendSettings) {
+                this.showDialog('Error', text, 'error', callback, extendSettings);
             },
             showOperationSucceeded: function (text, callback) {
                 this.showDialog('Operation Succeeded', text, 'success', callback);

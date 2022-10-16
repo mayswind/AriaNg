@@ -6,10 +6,12 @@
         var globalStatRefreshPromise = null;
 
         var refreshPageTitle = function () {
-            $document[0].title = ariaNgTitleService.getFinalTitleByGlobalStat({
+            var title = ariaNgTitleService.getFinalTitleByGlobalStat({
                 globalStat: $scope.globalStat,
                 currentRpcProfile: getCurrentRPCProfile()
             });
+
+            $document[0].title = title;
         };
 
         var refreshGlobalStat = function (silent, callback) {
@@ -63,6 +65,7 @@
         $scope.quickSettingContext = null;
 
         $scope.rpcSettings = ariaNgSettingService.getAllRpcSettings();
+        $scope.currentRpcProfile = getCurrentRPCProfile();
         $scope.isCurrentRpcUseWebSocket = ariaNgSettingService.isCurrentRpcUseWebSocket();
 
         $scope.isTaskSelected = function () {

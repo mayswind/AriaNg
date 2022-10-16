@@ -75,6 +75,10 @@
                 options.type = 'primary';
             }
 
+            if (!options.positionY) {
+                options.positionY = 'top';
+            }
+
             return Notification[options.type](options);
         };
 
