@@ -2,8 +2,38 @@
     'use strict';
 
     angular.module('ariaNg').controller('NewTaskController', ['$rootScope', '$scope', '$location', '$timeout', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgKeyboardService', 'ariaNgFileService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($rootScope, $scope, $location, $timeout, ariaNgCommonService, ariaNgLogService, ariaNgKeyboardService, ariaNgFileService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
-        var tabOrders = ['links', 'options'];
+        var tabStatusItems = [
+            {
+                name: 'links',
+                show: true
+            },
+            {
+                name: 'options',
+                show: true
+            }
+        ];
         var parameters = $location.search();
+
+        var getVisibleTabOrders = function () {
+            var items = [];
+
+            for (var i = 0; i < tabStatusItems.length; i++) {
+                if (tabStatusItems[i].show) {
+                    items.push(tabStatusItems[i].name);
+                }
+            }
+
+            return items;
+        };
+
+        var setTabItemShow = function (name, status) {
+            for (var i = 0; i < tabStatusItems.length; i++) {
+                if (tabStatusItems[i].name === name) {
+                    tabStatusItems[i].show = status;
+                    break;
+                }
+            }
+        };
 
         var saveDownloadPath = function (options) {
             if (!options || !options.dir) {
@@ -35,9 +65,11 @@
         };
 
         var downloadByTorrent = function (pauseOnAdded, responseCallback) {
+            var options = angular.copy($scope.context.options);
+
             var task = {
                 content: $scope.context.uploadFile.base64Content,
-                options: angular.copy($scope.context.options)
+                options: options
             };
 
             saveDownloadPath(task.options);
@@ -94,10 +126,11 @@
         };
 
         $rootScope.swipeActions.extendLeftSwipe = function () {
-            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+            var tabItems = getVisibleTabOrders();
+            var tabIndex = tabItems.indexOf($scope.context.currentTab);
 
-            if (tabIndex < tabOrders.length - 1) {
-                $scope.changeTab(tabOrders[tabIndex + 1]);
+            if (tabIndex < tabItems.length - 1) {
+                $scope.changeTab(tabItems[tabIndex + 1]);
                 return true;
             } else {
                 return false;
@@ -105,10 +138,11 @@
         };
 
         $rootScope.swipeActions.extendRightSwipe = function () {
-            var tabIndex = tabOrders.indexOf($scope.context.currentTab);
+            var tabItems = getVisibleTabOrders();
+            var tabIndex = tabItems.indexOf($scope.context.currentTab);
 
             if (tabIndex > 0) {
-                $scope.changeTab(tabOrders[tabIndex - 1]);
+                $scope.changeTab(tabItems[tabIndex - 1]);
                 return true;
             } else {
                 return false;
@@ -153,6 +187,14 @@
             }, function (error) {
                 ariaNgCommonService.showError(error);
             }, angular.element('#file-holder'));
+        };
+
+        $scope.isNewTaskValid = function () {
+            if (!$scope.context.uploadFile) {
+                return $scope.newTaskForm.$valid;
+            }
+
+            return true;
         };
 
         $scope.startDownload = function (pauseOnAdded) {
