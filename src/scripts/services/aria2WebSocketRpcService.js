@@ -12,6 +12,41 @@
         var sendIdStates = {};
         var eventCallbacks = {};
 
+        var processRequestFailed = function (request) {
+            var content = angular.fromJson(request);
+
+            if (!content) {
+                return;
+            }
+
+            var uniqueId = content.id;
+
+            if (!uniqueId) {
+                return;
+            }
+
+            var state = sendIdStates[uniqueId];
+
+            if (!state) {
+                return;
+            }
+
+            var context = state.context;
+
+            state.deferred.reject({
+                success: false,
+                context: context
+            });
+
+            if (context.errorCallback) {
+                ariaNgLogService.debug('[aria2WebSocketRpcService.processRequestFailed] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'request failed');
+
+                context.errorCallback(context.id, { message: 'Cannot connect to aria2!' });
+            }
+
+            delete sendIdStates[uniqueId];
+        };
+
         var processMethodCallback = function (content) {
             var uniqueId = content.id;
 
@@ -39,13 +74,13 @@
             }
 
             if (content.result && context.successCallback) {
-                ariaNgLogService.debug('[aria2WebSocketRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response success', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.processMethodCallback] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response success', content);
 
                 context.successCallback(context.id, content.result);
             }
 
             if (content.error && context.errorCallback) {
-                ariaNgLogService.debug('[aria2WebSocketRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response error', content);
+                ariaNgLogService.debug('[aria2WebSocketRpcService.processMethodCallback] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'response error', content);
 
                 context.errorCallback(context.id, content.error);
             }
@@ -77,11 +112,15 @@
             if (socketClient === null) {
                 try {
                     socketClient = $websocket(rpcUrl, {
-                        maxTimeout: 1 // ms
+                        maxTimeout: 1, // ms
+                        reconnectInterval: ariaNgSettingService.getWebSocketReconnectInterval()
                     });
 
                     socketClient.onMessage(function (message) {
                         if (!message || !message.data) {
+                            if (message.request) {
+                                processRequestFailed(message.request);
+                            }
                             return;
                         }
 
@@ -111,11 +150,16 @@
                     socketClient.onClose(function (e) {
                         ariaNgLogService.warn('[aria2WebSocketRpcService.onClose] websocket is closed', e);
 
-                        if (ariaNgSettingService.getWebSocketReconnectInterval() > 0 && context && context.connectionWaitingToReconnectCallback) {
+                        var enableAutoReconnect = ariaNgSettingService.getWebSocketReconnectInterval() > 0;
+
+                        if (enableAutoReconnect) {
+                            planToReconnect(context);
+                        }
+
+                        if (enableAutoReconnect && context && context.connectionWaitingToReconnectCallback) {
                             context.connectionWaitingToReconnectCallback({
                                 rpcUrl: rpcUrl
                             });
-                            planToReconnect(context);
                         } else if (context && context.connectionFailedCallback) {
                             context.connectionFailedCallback({
                                 rpcUrl: rpcUrl
