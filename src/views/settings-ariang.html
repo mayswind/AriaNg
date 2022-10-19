@@ -7,8 +7,7 @@
             <li class="nav-tab-title-rpcname" ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
                 <a class="pointer-cursor" ng-click="changeRpcTab($index)">
                     <span class="nav-tab-rpcname" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? ' (' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) + ')' : '')" title="{{(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)}}">RPC</span>
-                </a>
-                <a class="pointer-cursor nav-tab-close" ng-if="!setting.isDefault" title="{{'Delete RPC Setting' | translate}}">
+                </a><a class="pointer-cursor nav-tab-close" ng-if="!setting.isDefault" title="{{'Delete RPC Setting' | translate}}">
                     <i class="fa fa-times" ng-click="removeRpcSetting(setting)"></i>
                 </a>
             </li>
