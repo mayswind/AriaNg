@@ -182,17 +182,20 @@
                     <div class="task-table-title">
                         <div class="row">
                             <div class="col-sm-8">
-                                <a ng-click="changeFileListDisplayOrder('name:asc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]" translate>File Name</a>
-                                <i ng-if="!task.multiDir" class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
+                                <a ng-click="changeFileListDisplayOrder('name:asc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]">
+                                    <span translate>File Name</span><i ng-if="!task.multiDir" class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('name:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('name:desc')}"></i>
+                                </a>
                                 <a ng-click="showChooseFilesToolbar()" ng-if="task && task.files && task.files.length > 1 && (task.status === 'waiting' || task.status === 'paused')" translate>(Choose Files)</a>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]" translate>Progress</a>
-                                <i ng-if="!task.multiDir" class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
+                                <a ng-click="changeFileListDisplayOrder('percent:desc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]">
+                                    <span translate>Progress</span><i ng-if="!task.multiDir" class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('percent:desc')}"></i>
+                                </a>
                             </div>
                             <div class="col-sm-2">
-                                <a ng-click="changeFileListDisplayOrder('size:asc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]" translate>File Size</a>
-                                <i ng-if="!task.multiDir" class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('size:desc')}"></i>
+                                <a ng-click="changeFileListDisplayOrder('size:asc', true)" ng-class="{true: 'default-cursor'}[task.multiDir]">
+                                    <span translate>File Size</span><i ng-if="!task.multiDir" class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetFileListDisplayOrder('size:asc'), 'fa-sort-desc fa-order-desc': isSetFileListDisplayOrder('size:desc')}"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -286,11 +289,13 @@
                     <div class="task-table-title">
                         <div class="row">
                             <div class="col-md-4 col-sm-4">
-                                <a ng-click="changePeerListDisplayOrder('address:asc', true)" translate>Address</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('address:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('address:desc')}"></i>
+                                <a ng-click="changePeerListDisplayOrder('address:asc', true)">
+                                    <span translate>Address</span><i class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('address:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('address:desc')}"></i>
+                                </a>
                                 <span>/</span>
-                                <a ng-click="changePeerListDisplayOrder('client:asc', true)" translate>Client</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('client:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('client:desc')}"></i>
+                                <a ng-click="changePeerListDisplayOrder('client:asc', true)">
+                                    <span translate>Client</span><i class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('client:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('client:desc')}"></i>
+                                </a>
                             </div>
                             <div class="col-md-5 col-sm-4">
                                 <div class="row">
@@ -298,17 +303,20 @@
                                         <span translate>Status</span>
                                     </div>
                                     <div class="col-sm-6 text-right">
-                                        <a ng-click="changePeerListDisplayOrder('percent:desc', true)" translate>Progress</a>
-                                        <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
+                                        <a ng-click="changePeerListDisplayOrder('percent:desc', true)">
+                                            <span translate>Progress</span><i class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('percent:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('percent:desc')}"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-4">
-                                <a ng-click="changePeerListDisplayOrder('dspeed:desc', true)" translate>Download</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('dspeed:desc')}"></i>
+                                <a ng-click="changePeerListDisplayOrder('dspeed:desc', true)">
+                                    <span translate>Download</span><i class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('dspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('dspeed:desc')}"></i>
+                                </a>
                                 <span>/</span>
-                                <a ng-click="changePeerListDisplayOrder('uspeed:desc', true)" translate>Upload</a>
-                                <i class="fa" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('uspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('uspeed:desc')}"></i>
+                                <a ng-click="changePeerListDisplayOrder('uspeed:desc', true)">
+                                    <span translate>Upload</span><i class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isSetPeerListDisplayOrder('uspeed:asc'), 'fa-sort-desc fa-order-desc': isSetPeerListDisplayOrder('uspeed:desc')}"></i>
+                                </a>
                                 <span translate>Speed</span>
                             </div>
                         </div>

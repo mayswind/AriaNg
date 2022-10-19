@@ -93,6 +93,10 @@
     bottom: -6px;
 }
 
+.fa-display-order {
+    margin-left: 3px;
+}
+
 .fa-order-asc, .fa-order-desc {
     position: relative;
 }
