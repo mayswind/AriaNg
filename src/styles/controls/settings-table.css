@@ -19,6 +19,12 @@
 
 .settings-table .settings-table-title a {
     color: #000;
+    cursor: pointer;
+}
+
+.settings-table .settings-table-title .settings-table-title-toolbar {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 .settings-table > div.row {

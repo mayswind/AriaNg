@@ -2,6 +2,31 @@
     'use strict';
 
     angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'moment', 'SweetAlert', 'ariaNgConstants', 'ariaNgLocalizationService', function ($location, $timeout, base64, moment, SweetAlert, ariaNgConstants, ariaNgLocalizationService) {
+        var getTimeOption = function (time) {
+            var name = '';
+            var value = time;
+
+            if (time < 1000) {
+                value = time;
+                name = (value === 1 ? 'format.time.millisecond' : 'format.time.milliseconds');
+            } else if (time < 1000 * 60) {
+                value = time / 1000;
+                name = (value === 1 ? 'format.time.second' : 'format.time.seconds');
+            } else if (time < 1000 * 60 * 24) {
+                value = time / 1000 / 60;
+                name = (value === 1 ? 'format.time.minute' : 'format.time.minutes');
+            } else {
+                value = time / 1000 / 60 / 24;
+                name = (value === 1 ? 'format.time.hour' : 'format.time.hours');
+            }
+
+            return {
+                name: name,
+                value: value,
+                optionValue: time
+            };
+        };
+
         var showDialog = function (title, text, type, callback, options) {
             $timeout(function () {
                 SweetAlert.swal({
@@ -273,6 +298,9 @@
             formatDateTime: function (datetime, format) {
                 return moment(datetime).format(format);
             },
+            getTimeOption: function (time) {
+                return getTimeOption(time);
+            },
             getTimeOptions: function (timeList, withDisabled) {
                 var options = [];
 
@@ -290,28 +318,9 @@
 
                 for (var i = 0; i < timeList.length; i++) {
                     var time = timeList[i];
-                    var name = '';
-                    var value = time;
+                    var option = getTimeOption(time);
 
-                    if (time < 1000) {
-                        value = time;
-                        name = (value === 1 ? 'format.time.millisecond' : 'format.time.milliseconds');
-                    } else if (time < 1000 * 60) {
-                        value = time / 1000;
-                        name = (value === 1 ? 'format.time.second' : 'format.time.seconds');
-                    } else if (time < 1000 * 60 * 24) {
-                        value = time / 1000 / 60;
-                        name = (value === 1 ? 'format.time.minute' : 'format.time.minutes');
-                    } else {
-                        value = time / 1000 / 60 / 24;
-                        name = (value === 1 ? 'format.time.hour' : 'format.time.hours');
-                    }
-
-                    options.push({
-                        name: name,
-                        value: value,
-                        optionValue: time
-                    });
+                    options.push(option);
                 }
 
                 return options;
