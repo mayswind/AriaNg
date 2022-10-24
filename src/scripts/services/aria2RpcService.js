@@ -314,8 +314,8 @@
                 rpcImplementService.reconnect(buildRequestContext('', context));
             },
             addUri: function (context, returnContextOnly) {
-                var urls = context.task.urls;
-                var options = buildRequestOptions(context.task.options, context);
+                var urls = context.task ? context.task.urls : null;
+                var options = buildRequestOptions(context.task ? context.task.options : {}, context);
 
                 return invoke(buildRequestContext('addUri', context, urls, options), !!returnContextOnly);
             },
@@ -335,14 +335,14 @@
                 return invokeMulti(this.addUri, contexts, context.callback);
             },
             addTorrent: function (context, returnContextOnly) {
-                var content = context.task.content;
-                var options = buildRequestOptions(context.task.options, context);
+                var content = context.task ? context.task.content : null;
+                var options = buildRequestOptions(context.task ? context.task.options : {}, context);
 
                 return invoke(buildRequestContext('addTorrent', context, content, [], options), !!returnContextOnly);
             },
             addMetalink: function (context, returnContextOnly) {
-                var content = context.task.content;
-                var options = buildRequestOptions(context.task.options, context);
+                var content = context.task ? context.task.content : null;
+                var options = buildRequestOptions(context.task ? context.task.options : {}, context);
 
                 return invoke(buildRequestContext('addMetalink', context, content, options), !!returnContextOnly);
             },
@@ -496,11 +496,14 @@
             saveSession: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('saveSession', context), !!returnContextOnly);
             },
-            multicall: function (context) {
-                return invoke(buildRequestContext('system.multicall', context, context.methods));
+            multicall: function (context, returnContextOnly) {
+                return invoke(buildRequestContext('system.multicall', context, context.methods), !!returnContextOnly);
             },
-            listMethods: function (context) {
-                return invoke(buildRequestContext('system.listMethods', context));
+            listMethods: function (context, returnContextOnly) {
+                return invoke(buildRequestContext('system.listMethods', context), !!returnContextOnly);
+            },
+            listNotifications: function (context, returnContextOnly) {
+                return invoke(buildRequestContext('system.listNotifications', context), !!returnContextOnly);
             },
             onFirstSuccess: function (context) {
                 onFirstSuccessCallbacks.push(context.callback);
