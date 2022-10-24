@@ -45,7 +45,7 @@
             currentTab: 'logs',
             logMaxCount: ariaNgConstants.cachedDebugLogsLimit,
             logAutoRefreshAvailableInterval: ariaNgCommonService.getTimeOptions([100, 200, 500, 1000, 2000], true),
-            logAutoRefreshInterval: 0,
+            logAutoRefreshInterval: 1000,
             logListDisplayOrder: 'time:desc',
             logLevelFilter: 'DEBUG',
             logs: [],
@@ -258,7 +258,7 @@
                 return;
             }
 
-            $scope.reloadLogs();
+            $scope.setAutoRefreshInterval($scope.context.logAutoRefreshInterval);
         }, 100);
     }]);
 }());
