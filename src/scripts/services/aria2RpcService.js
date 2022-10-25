@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'aria2AllOptions', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, aria2AllOptions, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
+    angular.module('ariaNg').factory('aria2RpcService', ['$location', '$q', 'aria2RpcConstants', 'aria2RpcErrors', 'aria2AllOptions', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($location, $q, aria2RpcConstants, aria2RpcErrors, aria2AllOptions, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var rpcImplementService = ariaNgSettingService.isCurrentRpcUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
         var isConnected = false;
         var secret = ariaNgSettingService.getCurrentRpcSecret();
@@ -133,6 +133,7 @@
 
         var buildRequestContext = function () {
             var methodName = arguments[0];
+            var requestInPage = $location.path();
             var isSystemMethod = checkIsSystemMethod(methodName);
             var finalParams = [];
 
@@ -186,8 +187,9 @@
 
                 context.errorCallback = function (id, error) {
                     var errorProcessed = false;
+                    var currentPage = $location.path();
 
-                    if (!innerContext.silent) {
+                    if (!innerContext.silent && currentPage === requestInPage) {
                         errorProcessed = processError(error);
                     }
 
