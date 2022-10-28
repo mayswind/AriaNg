@@ -173,7 +173,9 @@
             <div class="navbar-searchbar hidden-xs">
                 <ul class="nav navbar-nav">
                     <li>
-                        <input class="form-control" ng-placeholder="('Search' | translate)" title="{{'Search' | translate}}"
+                        <input id="search-box" class="form-control" type="text"
+                               ng-placeholder="('Search' | translate)"
+                               title="{{'Search' | translate}}"
                                ng-model="searchContext.text" />
                         <div class="form-control-icon">
                             <span class="fa fa-search form-control-feedback"></span>
@@ -241,7 +243,7 @@
                 </li>
                 <li data-href-match="/status">
                     <a href="#!/status">
-                        <span class="label pull-right" ng-if="globalStatusContext.isEnabled || isCurrentRpcUseWebSocket" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Disconnected'}" ng-bind="taskContext.rpcStatus | translate"></span>
+                        <span class="label status-label pull-right auto-ellipsis" ng-if="globalStatusContext.isEnabled || isCurrentRpcUseWebSocket" ng-class="{'label-primary': taskContext.rpcStatus === 'Connecting' || taskContext.rpcStatus === 'Reconnecting', 'label-default': taskContext.rpcStatus === 'Waiting to reconnect', 'label-success': taskContext.rpcStatus === 'Connected', 'label-danger': taskContext.rpcStatus === 'Disconnected'}" ng-bind="taskContext.rpcStatus | translate"></span>
                         <i class="fa fa-server"></i> <span translate>Aria2 Status</span>
                     </a>
                 </li>
@@ -383,16 +385,19 @@
 <script src="scripts/directives/blobDownload.js"></script>
 <script src="scripts/filters/dateDuration.js"></script>
 <script src="scripts/filters/fileOrderBy.js"></script>
+<script src="scripts/filters/logOrderBy.js"></script>
 <script src="scripts/filters/longDate.js"></script>
 <script src="scripts/filters/peerOrderBy.js"></script>
 <script src="scripts/filters/percent.js"></script>
 <script src="scripts/filters/reverse.js"></script>
 <script src="scripts/filters/taskOrderBy.js"></script>
 <script src="scripts/filters/taskStatus.js"></script>
+<script src="scripts/filters/timeDisplayName.js"></script>
 <script src="scripts/filters/volume.js"></script>
 <script src="scripts/services/ariaNgAssetsCacheService.js"></script>
 <script src="scripts/services/ariaNgLanguageLoader.js"></script>
 <script src="scripts/services/ariaNgCommonService.js"></script>
+<script src="scripts/services/ariaNgKeyboardService.js"></script>
 <script src="scripts/services/ariaNgNotificationService.js"></script>
 <script src="scripts/services/ariaNgLocalizationService.js"></script>
 <script src="scripts/services/ariaNgLogService.js"></script>
@@ -401,6 +406,7 @@
 <script src="scripts/services/ariaNgSettingService.js"></script>
 <script src="scripts/services/ariaNgMonitorService.js"></script>
 <script src="scripts/services/ariaNgTitleService.js"></script>
+<script src="scripts/services/ariaNgVersionService.js"></script>
 <script src="scripts/services/aria2HttpRpcService.js"></script>
 <script src="scripts/services/aria2WebSocketRpcService.js"></script>
 <script src="scripts/services/aria2RpcService.js"></script>

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgNotificationService', ['$window', 'Notification', 'ariaNgSettingService', function ($window, Notification, ariaNgSettingService) {
+    angular.module('ariaNg').factory('ariaNgNotificationService', ['$window', 'Notification', 'ariaNgLocalizationService', 'ariaNgSettingService', function ($window, Notification, ariaNgLocalizationService, ariaNgSettingService) {
         var isSupportBrowserNotification = !!$window.Notification;
 
         var isBrowserNotifactionGranted = function (permission) {
@@ -47,6 +47,41 @@
             new $window.Notification(title, options);
         };
 
+        var notifyViaBrowser = function (title, content, options) {
+            if (!options) {
+                options = {};
+            }
+
+            options.body = content;
+
+            if (isSupportBrowserNotification && ariaNgSettingService.getBrowserNotification()) {
+                showBrowserNotifaction(title, options);
+            }
+        };
+
+        var notifyInPage = function (title, content, options) {
+            if (!options) {
+                options = {};
+            }
+
+            if (!content) {
+                options.message = title;
+            } else {
+                options.title = title;
+                options.message = content;
+            }
+
+            if (!options.type || !Notification[options.type]) {
+                options.type = 'primary';
+            }
+
+            if (!options.positionY) {
+                options.positionY = 'top';
+            }
+
+            return Notification[options.type](options);
+        };
+
         return {
             isSupportBrowserNotification: function () {
                 return isSupportBrowserNotification;
@@ -74,33 +109,43 @@
                 });
             },
             notifyViaBrowser: function (title, content, options) {
-                if (!options) {
-                    options = {};
+                if (title) {
+                    title = ariaNgLocalizationService.getLocalizedText(title);
                 }
 
-                options.body = content;
-
-                if (isSupportBrowserNotification && ariaNgSettingService.getBrowserNotification()) {
-                    showBrowserNotifaction(title, options);
+                if (content) {
+                    content = ariaNgLocalizationService.getLocalizedText(content);
                 }
+
+                return notifyViaBrowser(title, content, options);
+            },
+            notifyTaskComplete: function (task) {
+                this.notifyViaBrowser('Download Completed', (task && task.taskName ? task.taskName : ''));
+            },
+            notifyBtTaskComplete: function (task) {
+                this.notifyViaBrowser('BT Download Completed', (task && task.taskName ? task.taskName : ''));
+            },
+            notifyTaskError: function (task) {
+                this.notifyViaBrowser('Download Error', (task && task.taskName ? task.taskName : ''));
             },
             notifyInPage: function (title, content, options) {
                 if (!options) {
                     options = {};
                 }
 
-                if (!content) {
-                    options.message = title;
-                } else {
-                    options.title = title;
-                    options.message = content;
+                if (title) {
+                    title = ariaNgLocalizationService.getLocalizedText(title, options.titleParams);
                 }
 
-                if (!options.type || !Notification[options.type]) {
-                    options.type = 'primary';
+                if (content) {
+                    content = ariaNgLocalizationService.getLocalizedText(content, options.contentParams);
+
+                    if (options.contentPrefix) {
+                        content = options.contentPrefix + content;
+                    }
                 }
 
-                return Notification[options.type](options);
+                return notifyInPage(title, content, options);
             },
             clearNotificationInPage: function () {
                 Notification.clearAll();

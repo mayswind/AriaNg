@@ -8,6 +8,10 @@
     padding-bottom: 6px;
 }
 
+.btn.btn-xs:not(.is-loading) .btn-spinner:not(:required) {
+    margin-left: -21px;
+}
+
 .progress-bar {
     -webkit-transition: initial !important;
     -moz-transition: initial !important;
@@ -87,6 +91,10 @@
     position: relative;
     right: 0;
     bottom: -6px;
+}
+
+.fa-display-order {
+    margin-left: 3px;
 }
 
 .fa-order-asc, .fa-order-desc {

@@ -380,6 +380,12 @@
             setBrowserNotification: function (value) {
                 setOption('browserNotification', value);
             },
+            getWebSocketReconnectInterval: function () {
+                return getOption('webSocketReconnectInterval');
+            },
+            setWebSocketReconnectInterval: function (value) {
+                setOption('webSocketReconnectInterval', value);
+            },
             getTitleRefreshInterval: function () {
                 return getOption('titleRefreshInterval');
             },
@@ -397,6 +403,12 @@
             },
             setDownloadTaskRefreshInterval: function (value) {
                 setOption('downloadTaskRefreshInterval', Math.max(parseInt(value), 0));
+            },
+            getKeyboardShortcuts: function () {
+                return getOption('keyboardShortcuts');
+            },
+            setKeyboardShortcuts: function (value) {
+                setOption('keyboardShortcuts', value);
             },
             getSwipeGesture: function () {
                 return getOption('swipeGesture');

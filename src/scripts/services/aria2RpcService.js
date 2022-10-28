@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2RpcService', ['$q', 'aria2RpcConstants', 'aria2RpcErrors', 'aria2AllOptions', 'ariaNgCommonService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($q, aria2RpcConstants, aria2RpcErrors, aria2AllOptions, ariaNgCommonService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
+    angular.module('ariaNg').factory('aria2RpcService', ['$location', '$q', 'aria2RpcConstants', 'aria2RpcErrors', 'aria2AllOptions', 'ariaNgCommonService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2HttpRpcService', 'aria2WebSocketRpcService', function ($location, $q, aria2RpcConstants, aria2RpcErrors, aria2AllOptions, ariaNgCommonService, ariaNgLogService, ariaNgSettingService, aria2HttpRpcService, aria2WebSocketRpcService) {
         var rpcImplementService = ariaNgSettingService.isCurrentRpcUseWebSocket() ? aria2WebSocketRpcService : aria2HttpRpcService;
         var isConnected = false;
         var secret = ariaNgSettingService.getCurrentRpcSecret();
@@ -11,6 +11,8 @@
         var onOperationErrorCallbacks = [];
         var onConnectionSuccessCallbacks = [];
         var onConnectionFailedCallbacks = [];
+        var onConnectionReconnectingCallbacks = [];
+        var onConnectionWaitingToReconnectCallbacks = [];
         var onDownloadStartCallbacks = [];
         var onDownloadPauseCallbacks = [];
         var onDownloadStopCallbacks = [];
@@ -49,6 +51,8 @@
                 requestBody: requestBody,
                 connectionSuccessCallback: requestContext.connectionSuccessCallback,
                 connectionFailedCallback: requestContext.connectionFailedCallback,
+                connectionReconnectingCallback: requestContext.connectionReconnectingCallback,
+                connectionWaitingToReconnectCallback: requestContext.connectionWaitingToReconnectCallback,
                 successCallback: requestContext.successCallback,
                 errorCallback: requestContext.errorCallback
             };
@@ -119,16 +123,17 @@
             ariaNgLogService.error('[aria2RpcService.processError] ' + error.message, error);
 
             if (aria2RpcErrors[error.message] && aria2RpcErrors[error.message].tipTextKey) {
-                ariaNgLocalizationService.showError(aria2RpcErrors[error.message].tipTextKey);
+                ariaNgCommonService.showError(aria2RpcErrors[error.message].tipTextKey);
                 return true;
             } else {
-                ariaNgLocalizationService.showError(error.message);
+                ariaNgCommonService.showError(error.message);
                 return true;
             }
         };
 
         var buildRequestContext = function () {
             var methodName = arguments[0];
+            var requestInPage = $location.path();
             var isSystemMethod = checkIsSystemMethod(methodName);
             var finalParams = [];
 
@@ -142,6 +147,14 @@
 
             context.connectionFailedCallback = function () {
                 fireCustomEvent(onConnectionFailedCallbacks);
+            };
+
+            context.connectionReconnectingCallback = function () {
+                fireCustomEvent(onConnectionReconnectingCallbacks);
+            };
+
+            context.connectionWaitingToReconnectCallback = function () {
+                fireCustomEvent(onConnectionWaitingToReconnectCallbacks);
             };
 
             if (secret && !isSystemMethod) {
@@ -174,8 +187,9 @@
 
                 context.errorCallback = function (id, error) {
                     var errorProcessed = false;
+                    var currentPage = $location.path();
 
-                    if (!innerContext.silent) {
+                    if (!innerContext.silent && currentPage === requestInPage) {
                         errorProcessed = processError(error);
                     }
 
@@ -294,9 +308,16 @@
 
                 return requestParams;
             },
+            canReconnect: function () {
+                return ariaNgSettingService.isCurrentRpcUseWebSocket();
+            },
+            reconnect: function (context) {
+                ariaNgLogService.info("[aria2RpcService.reconnect] reconnect now");
+                rpcImplementService.reconnect(buildRequestContext('', context));
+            },
             addUri: function (context, returnContextOnly) {
-                var urls = context.task.urls;
-                var options = buildRequestOptions(context.task.options, context);
+                var urls = context.task ? context.task.urls : null;
+                var options = buildRequestOptions(context.task ? context.task.options : {}, context);
 
                 return invoke(buildRequestContext('addUri', context, urls, options), !!returnContextOnly);
             },
@@ -316,14 +337,14 @@
                 return invokeMulti(this.addUri, contexts, context.callback);
             },
             addTorrent: function (context, returnContextOnly) {
-                var content = context.task.content;
-                var options = buildRequestOptions(context.task.options, context);
+                var content = context.task ? context.task.content : null;
+                var options = buildRequestOptions(context.task ? context.task.options : {}, context);
 
                 return invoke(buildRequestContext('addTorrent', context, content, [], options), !!returnContextOnly);
             },
             addMetalink: function (context, returnContextOnly) {
-                var content = context.task.content;
-                var options = buildRequestOptions(context.task.options, context);
+                var content = context.task ? context.task.content : null;
+                var options = buildRequestOptions(context.task ? context.task.options : {}, context);
 
                 return invoke(buildRequestContext('addMetalink', context, content, options), !!returnContextOnly);
             },
@@ -477,11 +498,14 @@
             saveSession: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('saveSession', context), !!returnContextOnly);
             },
-            multicall: function (context) {
-                return invoke(buildRequestContext('system.multicall', context, context.methods));
+            multicall: function (context, returnContextOnly) {
+                return invoke(buildRequestContext('system.multicall', context, context.methods), !!returnContextOnly);
             },
-            listMethods: function (context) {
-                return invoke(buildRequestContext('system.listMethods', context));
+            listMethods: function (context, returnContextOnly) {
+                return invoke(buildRequestContext('system.listMethods', context), !!returnContextOnly);
+            },
+            listNotifications: function (context, returnContextOnly) {
+                return invoke(buildRequestContext('system.listNotifications', context), !!returnContextOnly);
             },
             onFirstSuccess: function (context) {
                 onFirstSuccessCallbacks.push(context.callback);
@@ -497,6 +521,12 @@
             },
             onConnectionFailed: function (context) {
                 onConnectionFailedCallbacks.push(context.callback);
+            },
+            onConnectionReconnecting: function (context) {
+                onConnectionReconnectingCallbacks.push(context.callback);
+            },
+            onConnectionWaitingToReconnect: function (context) {
+                onConnectionWaitingToReconnectCallbacks.push(context.callback);
             },
             onDownloadStart: function (context) {
                 onDownloadStartCallbacks.push(context.callback);

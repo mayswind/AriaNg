@@ -259,6 +259,12 @@
                     }
                 });
             },
+            canReconnect: function () {
+                return aria2RpcService.canReconnect();
+            },
+            reconnect: function () {
+                return aria2RpcService.reconnect({});
+            },
             saveSession: function (callback, silent) {
                 return aria2RpcService.saveSession({
                     silent: !!silent,

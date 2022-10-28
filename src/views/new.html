@@ -18,15 +18,14 @@
                             <li><a class="pointer-cursor" ng-click="openTorrent()" translate>Open Torrent File</a></li>
                             <li><a class="pointer-cursor" ng-click="openMetalink()" translate>Open Metalink File</a></li>
                         </ul>
-                    </div>
-                    <div class="btn-group">
+                    </div><div class="btn-group">
                         <button type="submit" class="btn btn-sm"
-                                ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
-                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" translate>Download Now
+                                ng-class="{'btn-default': !isNewTaskValid(), 'btn-success': isNewTaskValid()}"
+                                ng-disabled="!isNewTaskValid()" translate>Download Now
                         </button>&nbsp;
                         <button type="button" class="btn btn-sm dropdown-toggle"
-                                ng-class="{'btn-default': !context.uploadFile && newTaskForm.$invalid, 'btn-success': context.uploadFile || !newTaskForm.$invalid}"
-                                ng-disabled="!context.uploadFile && newTaskForm.$invalid" data-toggle="dropdown">
+                                ng-class="{'btn-default': !isNewTaskValid(), 'btn-success': isNewTaskValid()}"
+                                ng-disabled="!isNewTaskValid()" data-toggle="dropdown">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu right-align">
@@ -68,16 +67,13 @@
                         <div class="settings-table-title new-task-filter-title">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <span translate>Filters</span><span>:&nbsp;</span>
-                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                    <span translate>Filters</span><span>:&nbsp;</span><div class="checkbox checkbox-inline checkbox-primary">
                                         <input id="optionFilterGlobal" type="checkbox" ng-model="context.optionFilter['global']"/>
                                         <label for="optionFilterGlobal" translate>Global</label>
-                                    </div>
-                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                    </div><div class="checkbox checkbox-inline checkbox-primary">
                                         <input id="optionFilterHttp" type="checkbox" ng-model="context.optionFilter['http']"/>
                                         <label for="optionFilterHttp" translate>Http</label>
-                                    </div>
-                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                    </div><div class="checkbox checkbox-inline checkbox-primary">
                                         <input id="optionFilterBittorrent" type="checkbox" ng-model="context.optionFilter['bittorrent']"/>
                                         <label for="optionFilterBittorrent" translate>BitTorrent</label>
                                     </div>

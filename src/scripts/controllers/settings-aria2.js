@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', 'ariaNgConstants', 'ariaNgLocalizationService', 'aria2SettingService', function ($rootScope, $scope, $location, ariaNgConstants, ariaNgLocalizationService, aria2SettingService) {
+    angular.module('ariaNg').controller('Aria2SettingsController', ['$rootScope', '$scope', '$location', 'ariaNgConstants', 'ariaNgCommonService', 'aria2SettingService', function ($rootScope, $scope, $location, ariaNgConstants, ariaNgCommonService, aria2SettingService) {
         var location = $location.path().substring($location.path().lastIndexOf('/') + 1);
 
         $scope.context = {
@@ -9,7 +9,7 @@
                 var keys = aria2SettingService.getAvailableGlobalOptionsKeys(type);
 
                 if (!keys) {
-                    ariaNgLocalizationService.showError('Type is illegal!');
+                    ariaNgCommonService.showError('Type is illegal!');
                     return;
                 }
 

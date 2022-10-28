@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'clipboard', 'ariaNgBuildConfiguration', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, clipboard, ariaNgBuildConfiguration, ariaNgLanguages, ariaNgCommonService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
+    angular.module('ariaNg').controller('AriaNgSettingsController', ['$rootScope', '$scope', '$routeParams', '$window', '$interval', '$timeout', '$filter', 'clipboard', 'ariaNgLanguages', 'ariaNgCommonService', 'ariaNgVersionService', 'ariaNgKeyboardService', 'ariaNgNotificationService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgFileService', 'ariaNgSettingService', 'ariaNgMonitorService', 'ariaNgTitleService', 'aria2SettingService', function ($rootScope, $scope, $routeParams, $window, $interval, $timeout, $filter, clipboard, ariaNgLanguages, ariaNgCommonService, ariaNgVersionService, ariaNgKeyboardService, ariaNgNotificationService, ariaNgLocalizationService, ariaNgLogService, ariaNgFileService, ariaNgSettingService, ariaNgMonitorService, ariaNgTitleService, aria2SettingService) {
         var extendType = $routeParams.extendType;
         var lastRefreshPageNotification = null;
 
@@ -32,7 +32,7 @@
                 return;
             }
 
-            lastRefreshPageNotification = ariaNgLocalizationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
+            lastRefreshPageNotification = ariaNgNotificationService.notifyInPage('', 'Configuration has been modified, please reload the page for the changes to take effect.', {
                 delay: false,
                 type: 'info',
                 templateUrl: 'views/notification-reloadable.html',
@@ -44,8 +44,8 @@
 
         $scope.context = {
             currentTab: 'global',
-            ariaNgVersion: ariaNgBuildConfiguration.buildVersion,
-            buildCommit: ariaNgBuildConfiguration.buildCommit,
+            ariaNgVersion: ariaNgVersionService.getBuildVersion(),
+            buildCommit: ariaNgVersionService.getBuildCommit(),
             languages: ariaNgLanguages,
             titlePreview: getFinalTitle(),
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
@@ -55,6 +55,8 @@
             settings: ariaNgSettingService.getAllOptions(),
             sessionSettings: ariaNgSettingService.getAllSessionOptions(),
             rpcSettings: ariaNgSettingService.getAllRpcSettings(),
+            isMacKeyboardLike: ariaNgKeyboardService.isMacKeyboardLike(),
+            isSupportReconnect: aria2SettingService.canReconnect(),
             isSupportBlob: ariaNgFileService.isSupportBlob(),
             isSupportDarkMode: ariaNgSettingService.isBrowserSupportDarkMode(),
             importSettings: null,
@@ -159,10 +161,15 @@
                 ariaNgNotificationService.requestBrowserPermission(function (result) {
                     if (!result.granted) {
                         $scope.context.settings.browserNotification = false;
-                        ariaNgLocalizationService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
+                        ariaNgCommonService.showError('You have disabled notification in your browser. You should change your browser\'s settings before you enable this function.');
                     }
                 });
             }
+        };
+
+        $scope.setWebSocketReconnectInterval = function (value) {
+            setNeedRefreshPage();
+            ariaNgSettingService.setWebSocketReconnectInterval(value);
         };
 
         $scope.setTitleRefreshInterval = function (value) {
@@ -183,6 +190,10 @@
         $scope.setRPCListDisplayOrder = function (value) {
             setNeedRefreshPage();
             ariaNgSettingService.setRPCListDisplayOrder(value);
+        };
+
+        $scope.setKeyboardShortcuts = function (value) {
+            ariaNgSettingService.setKeyboardShortcuts(value);
         };
 
         $scope.setSwipeGesture = function (value) {
@@ -234,7 +245,7 @@
             }, function (result) {
                 $scope.context.importSettings = result.content;
             }, function (error) {
-                ariaNgLocalizationService.showError(error);
+                ariaNgCommonService.showError(error);
             }, angular.element('#import-file-holder'));
         };
 
@@ -245,18 +256,18 @@
                 settingsObj = JSON.parse(settings);
             } catch (e) {
                 ariaNgLogService.error('[AriaNgSettingsController.importSettings] parse settings json error', e);
-                ariaNgLocalizationService.showError('Invalid settings data format!');
+                ariaNgCommonService.showError('Invalid settings data format!');
                 return;
             }
 
             if (!angular.isObject(settingsObj) || angular.isArray(settingsObj)) {
                 ariaNgLogService.error('[AriaNgSettingsController.importSettings] settings json is not object');
-                ariaNgLocalizationService.showError('Invalid settings data format!');
+                ariaNgCommonService.showError('Invalid settings data format!');
                 return;
             }
 
             if (settingsObj) {
-                ariaNgLocalizationService.confirm('Confirm Import', 'Are you sure you want to import all settings?', 'warning', function () {
+                ariaNgCommonService.confirm('Confirm Import', 'Are you sure you want to import all settings?', 'warning', function () {
                     ariaNgSettingService.importAllOptions(settingsObj);
                     $window.location.reload();
                 });
@@ -298,7 +309,7 @@
         $scope.removeRpcSetting = function (setting) {
             var rpcName = (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort);
 
-            ariaNgLocalizationService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{rpcName}"?', 'warning', function () {
+            ariaNgCommonService.confirm('Confirm Remove', 'Are you sure you want to remove rpc setting "{rpcName}"?', 'warning', function () {
                 setNeedRefreshPage();
 
                 var currentIndex = $scope.getCurrentRpcTabIndex();
@@ -330,14 +341,14 @@
         };
 
         $scope.resetSettings = function () {
-            ariaNgLocalizationService.confirm('Confirm Reset', 'Are you sure you want to reset all settings?', 'warning', function () {
+            ariaNgCommonService.confirm('Confirm Reset', 'Are you sure you want to reset all settings?', 'warning', function () {
                 ariaNgSettingService.resetSettings();
                 $window.location.reload();
             });
         };
 
         $scope.clearHistory = function () {
-            ariaNgLocalizationService.confirm('Confirm Clear', 'Are you sure you want to clear all settings history?', 'warning', function () {
+            ariaNgCommonService.confirm('Confirm Clear', 'Are you sure you want to clear all settings history?', 'warning', function () {
                 aria2SettingService.clearSettingsHistorys();
                 $window.location.reload();
             });

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
+    angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgConstants, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var method = ariaNgSettingService.getCurrentRpcHttpMethod();
 
@@ -57,7 +57,8 @@
 
                 var requestContext = {
                     url: rpcUrl,
-                    method: method
+                    method: method,
+                    timeout: ariaNgConstants.httpRequestTimeout
                 };
 
                 if (requestContext.method === 'POST') {
@@ -96,9 +97,7 @@
                         data = {
                             id: '-1',
                             error: {
-                                // code: '-1',
-                                // message: 'Unknown Error',
-                                innerError: true
+                                message: 'Cannot connect to aria2!'
                             }
                         };
 
@@ -114,6 +113,9 @@
                         context.errorCallback(data.id, data.error);
                     }
                 });
+            },
+            reconnect: function () {
+                //Not implement
             },
             on: function (eventName, callback) {
                 //Not implement

@@ -1,26 +1,134 @@
-<section class="content no-padding ng-cloak" ng-if="enableDebugMode()">
+<section class="content no-padding ng-cloak" ng-show="enableDebugMode()">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li class="active">
-                <a class="pointer-cursor" ng-bind="('format.debug.latest-logs' | translate: {count: logMaxCount})">Latest Logs</a>
+            <li ng-class="{'active': context.currentTab === 'logs'}">
+                <a class="pointer-cursor" ng-click="changeTab('logs')" ng-bind="('format.debug.latest-logs' | translate: {count: context.logMaxCount})">Latest Logs</a>
             </li>
-            <li class="slim">
-                <a class="pointer-cursor" ng-click="reloadLogs()">
-                    <i class="fa fa-refresh"></i>
-                </a>
+            <li ng-class="{'active': context.currentTab === 'rpc'}">
+                <a class="pointer-cursor" ng-click="changeTab('rpc')" translate>Aria2 RPC Debug</a>
             </li>
         </ul>
+
         <div class="tab-content no-padding">
-            <div class="settings-table striped hoverable">
-                <div class="row" ng-repeat="log in logs | reverse">
-                    <div class="col-sm-12">
-                        <span class="label label-default" ng-bind="'#' + ($index + 1)"></span>
-                        <span ng-bind="log.time | longDate"></span>
-                        <span class="label" ng-class="{'DEBUG':'label-default', 'INFO':'label-primary', 'WARN':'label-warning', 'ERROR':'label-danger'}[log.level]" ng-bind="log.level"></span>
-                        <span ng-bind="log.content"></span>
-                        <a class="pointer-cursor" ng-click="showLogDetail(log)" ng-if="log.attachment"><i class="fa fa-file-o"></i> <span translate>Show Detail</span></a>
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'logs'}">
+                <div class="settings-table striped hoverable">
+                    <div class="settings-table-title">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a ng-click="changeLogListDisplayOrder('time:asc', true)">
+                                    <span translate>Logging Time</span><i class="fa fa-display-order" ng-class="{'fa-sort-asc fa-order-asc': isLogListSetDisplayOrder('time:asc'), 'fa-sort-desc fa-order-desc': isLogListSetDisplayOrder('time:desc')}"></i>
+                                </a>
+                                <div class="settings-table-title-toolbar">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span translate>Log Level</span>:&nbsp;<span ng-bind="context.logLevelFilter | translate"></span>&nbsp;<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0);" ng-click="setLogLevelFilter('DEBUG')">
+                                                    <span translate>DEBUG</span>
+                                                    <i class="fa" ng-class="{'fa-check': isSetLogLevelFilter('DEBUG')}"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" ng-click="setLogLevelFilter('INFO')">
+                                                    <span translate>INFO</span>
+                                                    <i class="fa" ng-class="{'fa-check': isSetLogLevelFilter('INFO')}"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" ng-click="setLogLevelFilter('WARN')">
+                                                    <span translate>WARN</span>
+                                                    <i class="fa" ng-class="{'fa-check': isSetLogLevelFilter('WARN')}"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" ng-click="setLogLevelFilter('ERROR')">
+                                                    <span translate>ERROR</span>
+                                                    <i class="fa" ng-class="{'fa-check': isSetLogLevelFilter('ERROR')}"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>&nbsp;<div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span translate>Auto Refresh</span>:&nbsp;<span ng-bind="context.logAutoRefreshInterval | timeDisplayName: 'Disabled'"></span>&nbsp;<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li ng-repeat="interval in context.logAutoRefreshAvailableInterval">
+                                                <a href="javascript:void(0);" ng-click="setAutoRefreshInterval(interval.optionValue)">
+                                                    <span ng-bind="interval.name | translate: {value: interval.value}"></span>
+                                                    <i class="fa" ng-class="{'fa-check': context.logAutoRefreshInterval === interval.optionValue}"></i>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="javascript:void(0);" ng-click="reloadLogs()">
+                                                    <span translate>Refresh Now</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div><button class="btn btn-xs btn-default" ng-click="clearDebugLogs()">
+                                        <span translate>Clear Logs</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-repeat="log in context.logs | filter: filterLog | logOrderBy: getLogListOrderType()">
+                        <div class="col-sm-12">
+                            <span class="label label-default" ng-bind="'#' + log.id"></span>
+                            <span ng-bind="log.time | longDate"></span>
+                            <span class="label" ng-class="{'DEBUG':'label-default', 'INFO':'label-primary', 'WARN':'label-warning', 'ERROR':'label-danger'}[log.level]" ng-bind="log.level"></span>
+                            <span ng-bind="log.content"></span>
+                            <a class="pointer-cursor" ng-click="showLogDetail(log)" ng-if="log.attachment"><i class="fa fa-file-o"></i> <span translate>Show Detail</span></a>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': context.currentTab === 'rpc'}">
+                <form name="executeMethodForm" ng-submit="executeAria2Method()" novalidate>
+                    <div class="settings-table striped hoverable">
+                        <div class="row">
+                            <div class="setting-key setting-key-without-desc col-sm-4">
+                                <span translate>Aria2 RPC Request Method</span>
+                            </div>
+                            <div class="setting-value col-sm-8">
+                                <select name="method" class="form-control" style="width: 100%;" ng-required="true"
+                                        ng-model="context.rpcRequestMethod"
+                                        ng-options="method as method for method in context.availableRpcMethods">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="setting-key setting-key-without-desc col-sm-4">
+                                <span translate>Aria2 RPC Request Parameters</span>
+                            </div>
+                            <div class="setting-value col-sm-8">
+                                <textarea name="parameters" class="form-control" rows="6" ng-required="true"
+                                          ng-keydown="requestParametersTextboxKeyDown($event)"
+                                          ng-model="context.rpcRequestParameters"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="setting-key setting-key-without-desc col-sm-4">
+                                <span translate>Aria2 RPC Response</span>
+                            </div>
+                            <div class="setting-value col-sm-8">
+                                <textarea class="form-control" rows="10" readonly="readonly"
+                                          ng-model="context.rpcResponse"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="setting-key setting-key-without-desc col-sm-4"></div>
+                            <div class="setting-value col-sm-8">
+                                <button class="btn btn-sm btn-primary" ng-disabled="!executeMethodForm.$valid"
+                                        ng-click="executeAria2Method()" promise-btn>
+                                    <span translate>Execute</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -36,14 +144,14 @@
                     <div class="settings-table striped">
                         <div class="row">
                             <div class="col-sm-12">
-                                <span ng-bind="currentLog.time | longDate"></span>
-                                <span class="label" ng-class="{'DEBUG':'label-default', 'INFO':'label-primary', 'WARN':'label-warning', 'ERROR':'label-danger'}[currentLog.level]" ng-bind="currentLog.level"></span>
-                                <span ng-bind="currentLog.content"></span>
+                                <span ng-bind="context.currentLog.time | longDate"></span>
+                                <span class="label" ng-class="{'DEBUG':'label-default', 'INFO':'label-primary', 'WARN':'label-warning', 'ERROR':'label-danger'}[context.currentLog.level]" ng-bind="context.currentLog.level"></span>
+                                <span ng-bind="context.currentLog.content"></span>
                             </div>
                         </div>
-                        <div class="row" ng-if="currentLog.attachment">
+                        <div class="row" ng-if="context.currentLog.attachment">
                             <div class="col-sm-12">
-                                <pre ng-bind="currentLog.attachment | json"></pre>
+                                <pre ng-bind="context.currentLog.attachment | json"></pre>
                             </div>
                         </div>
                     </div>

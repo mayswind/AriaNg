@@ -7,8 +7,7 @@
             <li class="nav-tab-title-rpcname" ng-repeat="setting in context.rpcSettings" ng-class="{'active': isCurrentRpcTab($index)}">
                 <a class="pointer-cursor" ng-click="changeRpcTab($index)">
                     <span class="nav-tab-rpcname" ng-bind="'RPC' + (setting.rpcAlias || setting.rpcHost ? ' (' + (setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort) + ')' : '')" title="{{(setting.rpcAlias ? setting.rpcAlias : setting.rpcHost + ':' + setting.rpcPort)}}">RPC</span>
-                </a>
-                <a class="pointer-cursor nav-tab-close" ng-if="!setting.isDefault" title="{{'Delete RPC Setting' | translate}}">
+                </a><a class="pointer-cursor nav-tab-close" ng-if="!setting.isDefault" title="{{'Delete RPC Setting' | translate}}">
                     <i class="fa fa-times" ng-click="removeRpcSetting(setting)"></i>
                 </a>
             </li>
@@ -96,6 +95,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row" ng-if="context.isSupportReconnect">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>WebSocket Auto Reconnect Interval</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.webSocketReconnectInterval"
+                                    ng-change="setWebSocketReconnectInterval(context.settings.webSocketReconnectInterval)"
+                                    ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Updating Page Title Interval</span>
@@ -132,6 +144,24 @@
                                     ng-model="context.settings.downloadTaskRefreshInterval"
                                     ng-change="setDownloadTaskRefreshInterval(context.settings.downloadTaskRefreshInterval)"
                                     ng-options="time.optionValue as (time.name | translate: {value: time.value}) for time in context.availableTime">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Keyboard Shortcuts</span>
+                            <i class="icon-primary fa fa-question-circle" data-toggle="popover"
+                               data-trigger="hover" data-placement="auto right" data-container="body" data-html="true"
+                               data-content="{{('Supported Keyboard Shortcuts' | translate) + ':<br/>' +
+                               ('Remove Selected Task' | translate) + ': <span class=\'keyboard-key\'>Delete</span><br/>' +
+                               ('Select All Tasks' | translate) + ': ' + (!context.isMacKeyboardLike ? '<span class=\'keyboard-key\'>Ctrl</span>+<span class=\'keyboard-key\'>A</span>' : '<span class=\'keyboard-key\'>Command</span>+<span class=\'keyboard-key\'>A</span>') + '<br/>' +
+                               ('Set Focus On Search Box' | translate) + ': ' + (!context.isMacKeyboardLike ? '<span class=\'keyboard-key\'>Ctrl</span>+<span class=\'keyboard-key\'>F</span>' : '<span class=\'keyboard-key\'>Command</span>+<span class=\'keyboard-key\'>F</span>') + '<br/>' +
+                               ('Download Now' | translate) + ': ' + (!context.isMacKeyboardLike ? '<span class=\'keyboard-key\'>Ctrl</span>+<span class=\'keyboard-key\'>Enter</span>' : '<span class=\'keyboard-key\'>Command</span>+<span class=\'keyboard-key\'>Return</span>')}}"></i>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.keyboardShortcuts"
+                                    ng-change="setKeyboardShortcuts(context.settings.keyboardShortcuts)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
                             </select>
                         </div>
                     </div>
