@@ -119,7 +119,7 @@ gulp.task('process-assets-bundle', gulp.series('prepare-fonts', 'prepare-langs',
 
         if (fileNames.length > 0) {
             result = '<script type="application/javascript">' +
-                'angular.module("ariaNg").config(["ariaNgAssetsCacheServiceProvider", () => {';
+                'angular.module("ariaNg").config(["ariaNgAssetsCacheServiceProvider",function(e){';
 
             for (const fileName of fileNames) {
                 let content = fs.readFileSync(langDir + fileName, 'utf8');
