@@ -263,7 +263,6 @@
             'Never': 'Never',
             'BitTorrent': 'BitTorrent',
             'Changes to the settings take effect after refreshing page.': 'Changes to the settings take effect after refreshing page.',
-            'Latest {{count}} Logs': 'Latest {{count}} Logs',
             'Logging Time': 'Logging Time',
             'Log Level': 'Log Level',
             'Auto Refresh': 'Auto Refresh',
