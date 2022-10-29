@@ -218,7 +218,6 @@ Downloading Count=正在下载数量
 Waiting Count=正在等待数量
 Stopped Count=已停止数量
 You have disabled notification in your browser. You should change your browser's settings before you enable this function.=您已经在浏览器中禁用通知功能. 如需使用此功能, 请修改您浏览器的设置.
-Application cache has been updated, please reload the page for the changes to take effect.=应用缓存已经更新, 请重新加载页面使其生效.
 Language resource has been updated, please reload the page for the changes to take effect.=语言资源已经更新, 请重新加载页面使其生效.
 Configuration has been modified, please reload the page for the changes to take effect.=配置已经修改, 请重新加载页面使其生效.
 Reload AriaNg=重新加载 AriaNg

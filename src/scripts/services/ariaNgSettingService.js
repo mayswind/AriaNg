@@ -12,29 +12,17 @@
             };
         })();
         var browserSupportStorage = browserFeatures.localStroage || browserFeatures.cookies;
-        var browserSupportAppCache = !!$window.applicationCache;
         var browserSupportMatchMedia = !!$window.matchMedia;
         var browserSupportDarkMode = browserSupportMatchMedia
             && $window.matchMedia('(prefers-color-scheme: dark)')
             && $window.matchMedia('(prefers-color-scheme: dark)').media !== 'not all'
             && angular.isFunction($window.matchMedia('(prefers-color-scheme: dark)').addEventListener);
 
-        var onAppCacheUpdatedCallbacks = [];
         var onFirstVisitCallbacks = [];
         var firstVisitCallbackFired = false;
         var sessionSettings = {
             debugMode: false
         };
-
-        if (browserSupportAppCache) {
-            var appCache = $window.applicationCache;
-            appCache.addEventListener('updateready', function (e) {
-                for (var i = 0; i < onAppCacheUpdatedCallbacks.length; i++) {
-                    var callback = onAppCacheUpdatedCallbacks[i];
-                    callback();
-                }
-            }, false);
-        }
 
         var fireFirstVisitEvent = function () {
             if (!browserSupportStorage) {
@@ -236,9 +224,6 @@
         return {
             isBrowserSupportStorage: function () {
                 return browserSupportStorage;
-            },
-            isBrowserSupportApplicationCache: function () {
-                return browserSupportAppCache;
             },
             isBrowserSupportDarkMode: function () {
                 return browserSupportDarkMode;
@@ -688,13 +673,6 @@
             },
             resetSettings: function () {
                 clearAll();
-            },
-            onApplicationCacheUpdated: function (callback) {
-                if (!callback) {
-                    return;
-                }
-
-                onAppCacheUpdatedCallbacks.push(callback);
             },
             onFirstAccess: function (callback) {
                 if (!callback) {

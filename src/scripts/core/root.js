@@ -432,14 +432,6 @@
             }
         }, true);
 
-        ariaNgSettingService.onApplicationCacheUpdated(function () {
-            ariaNgNotificationService.notifyInPage('', 'Application cache has been updated, please reload the page for the changes to take effect.', {
-                delay: false,
-                type: 'info',
-                templateUrl: 'views/notification-reloadable.html'
-            });
-        });
-
         ariaNgSettingService.onFirstAccess(function () {
             ariaNgNotificationService.notifyInPage('', 'Tap to configure and get started with AriaNg.', {
                 delay: false,
