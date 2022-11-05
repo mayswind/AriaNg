@@ -50,9 +50,11 @@
                 };
 
                 angular.element('#quickSettingModal').on('hidden.bs.modal', function () {
-                    scope.setting = null;
-                    scope.context.availableOptions = [];
-                    scope.context.globalOptions = [];
+                    scope.$apply(function () {
+                        scope.setting = null;
+                        scope.context.availableOptions = [];
+                        scope.context.globalOptions = [];
+                    });
                 });
 
                 scope.$watch('setting', function (setting) {
