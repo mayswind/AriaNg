@@ -109,12 +109,16 @@
                 });
             },
             notifyViaBrowser: function (title, content, options) {
+                if (!options) {
+                    options = {};
+                }
+
                 if (title) {
-                    title = ariaNgLocalizationService.getLocalizedText(title);
+                    title = ariaNgLocalizationService.getLocalizedText(title, options.titleParams);
                 }
 
                 if (content) {
-                    content = ariaNgLocalizationService.getLocalizedText(content);
+                    content = ariaNgLocalizationService.getLocalizedText(content, options.contentParams);
                 }
 
                 return notifyViaBrowser(title, content, options);
