@@ -39,6 +39,10 @@ td {
     vertical-align: middle !important;
 }
 
+.modal textarea {
+    resize: none;
+}
+
 .blur {
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
