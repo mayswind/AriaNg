@@ -61,7 +61,8 @@
             isSupportDarkMode: ariaNgSettingService.isBrowserSupportDarkMode(),
             importSettings: null,
             exportSettings: null,
-            exportSettingsCopied: false
+            exportSettingsCopied: false,
+            exportCommandApiOptions: null
         };
 
         $scope.context.titlePreview = getFinalTitle();
@@ -329,6 +330,13 @@
                     rpcName: rpcName
                 }
             });
+        };
+
+        $scope.showExportCommandAPIModal = function (setting) {
+            $scope.context.exportCommandApiOptions = {
+                type: 'setting',
+                data: setting
+            };
         };
 
         $scope.setDefaultRpcSetting = function (setting) {

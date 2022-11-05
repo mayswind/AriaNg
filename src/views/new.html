@@ -30,6 +30,8 @@
                         </button>
                         <ul class="dropdown-menu right-align">
                             <li><a class="pointer-cursor" ng-click="startDownload(true)" translate>Download Later</a></li>
+                            <li ng-if="context.taskType === 'urls'" class="divider"></li>
+                            <li ng-if="context.taskType === 'urls'"><a class="pointer-cursor" ng-click="showExportCommandAPIModal()" translate>Export Command API</a></li>
                         </ul>
                     </div>
                 </li>
@@ -87,5 +89,6 @@
                 </div>
             </div>
         </div>
+        <ng-export-command-api-dialog options="context.exportCommandApiOptions"></ng-export-command-api-dialog>
     </form>
 </section>

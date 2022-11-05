@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgCommonService', ['$location', '$timeout', 'base64', 'moment', 'SweetAlert', 'ariaNgConstants', 'ariaNgLocalizationService', function ($location, $timeout, base64, moment, SweetAlert, ariaNgConstants, ariaNgLocalizationService) {
+    angular.module('ariaNg').factory('ariaNgCommonService', ['$window', '$location', '$timeout', 'base64', 'moment', 'SweetAlert', 'ariaNgConstants', 'ariaNgLocalizationService', function ($window, $location, $timeout, base64, moment, SweetAlert, ariaNgConstants, ariaNgLocalizationService) {
         var getTimeOption = function (time) {
             var name = '';
             var value = time;
@@ -70,11 +70,20 @@
         }
 
         return {
+            getFullPageUrl: function () {
+                return $window.location.protocol + '//'
+                    + $window.location.host
+                    + $window.location.pathname
+                    + ($window.location.search ? $window.location.search : '');
+            },
             base64Encode: function (value) {
                 return base64.encode(value);
             },
             base64Decode: function (value) {
                 return base64.decode(value);
+            },
+            base64UrlEncode: function (value) {
+                return base64.urlencode(value);
             },
             base64UrlDecode: function (value) {
                 return base64.urldecode(value);

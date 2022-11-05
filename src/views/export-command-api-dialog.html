@@ -1,0 +1,54 @@
+<div id="exportCommandAPIModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    <span translate>Export Command API</span>
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+                <div class="settings-table striped">
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-2">
+                            <span translate>AriaNg Url</span>
+                        </div>
+                        <div class="setting-value col-sm-10">
+                            <input class="form-control" type="text" ng-model="context.baseUrl"
+                                   ng-change="generateCommandAPIUrl()"/>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="options.type === 'new-task'">
+                        <div class="setting-key setting-key-without-desc col-sm-2">
+                            <span translate>Pause After Task Created</span>
+                        </div>
+                        <div class="setting-value col-sm-10">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.pauseOnAdded"
+                                    ng-change="generateCommandAPIUrl()"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-2">
+                            <span translate>Command API Url</span>
+                            <span class="description">
+                                <a class="pointer-cursor" title="{{'Copy' | translate}}" ng-click="copyCommandAPI()">
+                                    <i class="icon-primary fa fa-copy"></i>
+                                </a>
+                                <span class="label label-default fade-in" ng-if="context.isCopied" translate>Copied</span>
+                            </span>
+                        </div>
+                        <div class="setting-value col-sm-10">
+                            <textarea class="form-control" ng-model="context.commandAPIUrl" rows="4" readonly="readonly"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" translate>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -376,6 +376,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Export Command API</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <button class="btn btn-sm btn-default" ng-click="showExportCommandAPIModal(setting)">
+                                <span translate>Export</span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="row tip no-background no-hover">
                         <span class="asterisk">*</span>
                         <span translate>Changes to the settings take effect after refreshing page.</span>
@@ -447,4 +457,5 @@
             </div>
         </div>
     </div>
+    <ng-export-command-api-dialog options="context.exportCommandApiOptions"></ng-export-command-api-dialog>
 </section>
