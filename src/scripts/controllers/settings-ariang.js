@@ -168,6 +168,14 @@
             }
         };
 
+        $scope.setBrowserNotificationSound = function (value) {
+            ariaNgSettingService.setBrowserNotificationSound(value);
+        };
+
+        $scope.setBrowserNotificationFrequency = function (value) {
+            ariaNgSettingService.setBrowserNotificationFrequency(value);
+        };
+
         $scope.setWebSocketReconnectInterval = function (value) {
             setNeedRefreshPage();
             ariaNgSettingService.setWebSocketReconnectInterval(value);

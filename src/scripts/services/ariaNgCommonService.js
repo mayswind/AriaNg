@@ -304,6 +304,9 @@
             getLongTimeFromUnixTime: function (unixTime) {
                 return moment(unixTime, 'X').format('HH:mm:ss');
             },
+            isUnixTimeAfter: function (datetime, duration, unit) {
+                return moment(datetime, 'X').isAfter(moment().add(duration, unit));
+            },
             formatDateTime: function (datetime, format) {
                 return moment(datetime).format(format);
             },

@@ -172,6 +172,12 @@ Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag to ign
 Example: ${downspeed:noprefix:nosuffix:scale\=1}=示例: ${downspeed:noprefix:nosuffix:scale\=1}
 Updating Page Title Interval=页面标题更新间隔
 Enable Browser Notification=启用浏览器通知
+Browser Notification Sound=浏览器通知声音
+Browser Notification Frequency=浏览器通知频次
+Unlimited=无限制
+High (Up to 10 Notifications / 1 Minute)=高 (最多 10 条通知 / 每分钟)
+Middle (Up to 1 Notification / 1 Minute)=中 (最多 1 条通知 / 每分钟)
+Low (Up to 1 Notification / 5 Minutes)=低 (最多 1 条通知 / 每5分钟)
 WebSocket Auto Reconnect Interval=WebSocket 自动重连时间
 Aria2 RPC Alias=Aria2 RPC 别名
 Aria2 RPC Address=Aria2 RPC 地址

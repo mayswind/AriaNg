@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').factory('ariaNgNotificationService', ['$window', 'Notification', 'ariaNgLocalizationService', 'ariaNgSettingService', function ($window, Notification, ariaNgLocalizationService, ariaNgSettingService) {
+    angular.module('ariaNg').factory('ariaNgNotificationService', ['$window', 'Notification', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgStorageService', 'ariaNgLocalizationService', 'ariaNgLogService', 'ariaNgSettingService', function ($window, Notification, ariaNgConstants, ariaNgCommonService, ariaNgStorageService, ariaNgLocalizationService, ariaNgLogService, ariaNgSettingService) {
         var isSupportBrowserNotification = !!$window.Notification;
 
         var isBrowserNotifactionGranted = function (permission) {
@@ -31,6 +31,69 @@
             });
         };
 
+        var isReachBrowserNotificationFrequencyLimit = function () {
+            if (!ariaNgSettingService.getBrowserNotificationFrequency() || ariaNgSettingService.getBrowserNotificationFrequency() === 'unlimited') {
+                return false;
+            }
+
+            var lastNotifications = ariaNgStorageService.get(ariaNgConstants.browserNotificationHistoryStorageKey) || [];
+
+            if (!angular.isArray(lastNotifications)) {
+                return false;
+            }
+
+            if (lastNotifications.length < 1) {
+                return false;
+            }
+
+            var oldestTime = null;
+            var isReachLimit = false;
+
+            if (ariaNgSettingService.getBrowserNotificationFrequency() === 'high') {
+                if (lastNotifications.length < 10) {
+                    return false;
+                }
+
+                oldestTime = lastNotifications[lastNotifications.length - 10].time;
+                isReachLimit = ariaNgCommonService.isUnixTimeAfter(oldestTime, '-1', 'minute');
+            } else if (ariaNgSettingService.getBrowserNotificationFrequency() === 'middle') {
+                oldestTime = lastNotifications[lastNotifications.length - 1].time;
+                isReachLimit = ariaNgCommonService.isUnixTimeAfter(oldestTime, '-1', 'minute');
+            } else if (ariaNgSettingService.getBrowserNotificationFrequency() === 'low') {
+                oldestTime = lastNotifications[lastNotifications.length - 1].time;
+                isReachLimit = ariaNgCommonService.isUnixTimeAfter(oldestTime, '-5', 'minute');
+            }
+
+            if (isReachLimit) {
+                ariaNgLogService.debug('[ariaNgNotificationService.isReachBrowserNotificationFrequencyLimit] reach frequency limit'
+                    + (oldestTime ? ', the oldest time is ' + oldestTime : ''));
+            }
+
+            return isReachLimit;
+        };
+
+        var recordBrowserNotificationHistory = function () {
+            if (!ariaNgSettingService.getBrowserNotificationFrequency() || ariaNgSettingService.getBrowserNotificationFrequency() === 'unlimited') {
+                return;
+            }
+
+            var lastNotifications = ariaNgStorageService.get(ariaNgConstants.browserNotificationHistoryStorageKey) || [];
+
+            if (!angular.isArray(lastNotifications)) {
+                lastNotifications = [];
+            }
+
+            lastNotifications.push({
+                time: ariaNgCommonService.getCurrentUnixTime()
+            });
+
+            if (lastNotifications.length > 10) {
+                lastNotifications.splice(0, lastNotifications.length - 10);
+            }
+
+            ariaNgStorageService.set(ariaNgConstants.browserNotificationHistoryStorageKey, lastNotifications);
+        };
+
         var showBrowserNotifaction = function (title, options) {
             if (!$window.Notification) {
                 return;
@@ -40,9 +103,15 @@
                 return;
             }
 
+            if (isReachBrowserNotificationFrequencyLimit()) {
+                return;
+            }
+
             options = angular.extend({
                 icon: 'tileicon.png'
             }, options);
+
+            recordBrowserNotificationHistory();
 
             new $window.Notification(title, options);
         };
@@ -53,6 +122,10 @@
             }
 
             options.body = content;
+
+            if (!ariaNgSettingService.getBrowserNotificationSound()) {
+                options.silent = true;
+            }
 
             if (isSupportBrowserNotification && ariaNgSettingService.getBrowserNotification()) {
                 showBrowserNotifaction(title, options);

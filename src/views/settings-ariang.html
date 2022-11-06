@@ -95,6 +95,32 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row" ng-if="isSupportNotification() && context.settings.browserNotification">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Browser Notification Sound</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;"
+                                    ng-model="context.settings.browserNotificationSound"
+                                    ng-change="setBrowserNotificationSound(context.settings.browserNotificationSound)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="isSupportNotification() && context.settings.browserNotification">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Browser Notification Frequency</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.browserNotificationFrequency"
+                                    ng-change="setBrowserNotificationFrequency(context.settings.browserNotificationFrequency)">
+                                <option value="unlimited" translate>Unlimited</option>
+                                <option value="high" translate>High (Up to 10 Notifications / 1 Minute)</option>
+                                <option value="middle" translate>Middle (Up to 1 Notification / 1 Minute)</option>
+                                <option value="low" translate>Low (Up to 1 Notification / 5 Minutes)</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row" ng-if="context.isSupportReconnect">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>WebSocket Auto Reconnect Interval</span>
