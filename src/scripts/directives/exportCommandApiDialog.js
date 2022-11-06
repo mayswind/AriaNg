@@ -83,12 +83,12 @@
 
                 scope.copyCommandAPI = function () {
                     clipboard.copyText(scope.context.commandAPIUrl, {
-                        container: angular.element('#exportCommandAPIModal')[0]
+                        container: angular.element(element)[0]
                     });
                     scope.context.isCopied = true;
                 };
 
-                angular.element('#exportCommandAPIModal').on('hidden.bs.modal', function () {
+                angular.element(element).on('hidden.bs.modal', function () {
                     scope.$apply(function () {
                         scope.options = null;
                         scope.context.commandAPIUrl = null;
@@ -101,7 +101,7 @@
                         scope.generateCommandAPIUrl();
                         scope.context.isCopied = false;
 
-                        angular.element('#exportCommandAPIModal').modal('show');
+                        angular.element(element).modal('show');
                     }
                 }, true);
             }

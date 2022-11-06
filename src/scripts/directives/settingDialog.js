@@ -49,7 +49,7 @@
                     });
                 };
 
-                angular.element('#quickSettingModal').on('hidden.bs.modal', function () {
+                angular.element(element).on('hidden.bs.modal', function () {
                     scope.$apply(function () {
                         scope.setting = null;
                         scope.context.availableOptions = [];
@@ -62,7 +62,7 @@
                         loadOptions(setting.type);
                         loadAria2OptionsValue();
 
-                        angular.element('#quickSettingModal').modal('show');
+                        angular.element(element).modal('show');
                     }
                 }, true);
             }
