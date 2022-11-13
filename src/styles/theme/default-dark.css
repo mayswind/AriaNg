@@ -395,6 +395,10 @@
     background-color: #1a1a1a;
 }
 
+.theme-dark.skin-aria-ng .settings-table .settings-table-title a {
+    color: #eee;
+}
+
 .theme-dark.skin-aria-ng .settings-table > div.row {
     border-color: #333;
 }
