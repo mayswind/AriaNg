@@ -4,6 +4,7 @@
     angular.module('ariaNg').factory('aria2HttpRpcService', ['$http', 'ariaNgConstants', 'ariaNgCommonService', 'ariaNgSettingService', 'ariaNgLogService', function ($http, ariaNgConstants, ariaNgCommonService, ariaNgSettingService, ariaNgLogService) {
         var rpcUrl = ariaNgSettingService.getCurrentRpcUrl();
         var method = ariaNgSettingService.getCurrentRpcHttpMethod();
+        var requestHeaders = ariaNgSettingService.getCurrentRpcRequestHeaders();
 
         var getUrlWithQueryString = function (url, parameters) {
             if (!url || url.length < 1) {
@@ -65,6 +66,26 @@
                     requestContext.data = context.requestBody;
                 } else if (requestContext.method === 'GET') {
                     requestContext.url = getUrlWithQueryString(requestContext.url, context.requestBody);
+                }
+
+                if (requestHeaders) {
+                    var lines = requestHeaders.split('\n');
+                    var headers = {};
+
+                    for (var i = 0; i < lines.length; i++) {
+                        var items = lines[i].split(':');
+
+                        if (items.length !== 2) {
+                            continue;
+                        }
+
+                        var name = items[0].trim();
+                        var value = items[1].trim();
+
+                        headers[name] = value;
+                    }
+
+                    requestContext.headers = headers;
                 }
 
                 ariaNgLogService.debug('[aria2HttpRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'request start', requestContext);

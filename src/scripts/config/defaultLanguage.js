@@ -188,6 +188,8 @@
             'Aria2 RPC Protocol': 'Aria2 RPC Protocol',
             'Aria2 RPC Http Request Method': 'Aria2 RPC Http Request Method',
             'POST method only supports aria2 v1.15.2 and above.': 'POST method only supports aria2 v1.15.2 and above.',
+            'Aria2 RPC Request Headers': 'Aria2 RPC Request Headers',
+            'Support multiple request headers, one header per line, each line containing "header name: header value".': 'Support multiple request headers, one header per line, each line containing "header name: header value".',
             'Aria2 RPC Secret Token': 'Aria2 RPC Secret Token',
             'Activate': 'Activate',
             'Reset Settings': 'Reset Settings',

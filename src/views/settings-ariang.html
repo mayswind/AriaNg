@@ -385,6 +385,17 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row" ng-if="setting.protocol === 'http' || setting.protocol === 'https'">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Aria2 RPC Request Headers</span>
+                            <span class="asterisk">*</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <textarea class="form-control" style="width: 100%;" rows="4" ng-model="setting.rpcRequestHeaders"
+                                      ng-change="updateRpcSetting(setting, 'rpcRequestHeaders')"
+                                      ng-placeholder="'Support multiple request headers, one header per line, each line containing &quot;header name: header value&quot;.' | translate"></textarea>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Aria2 RPC Secret Token</span>
