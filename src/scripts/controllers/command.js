@@ -84,6 +84,7 @@
                 rpcInterface: rpcInterface,
                 protocol: rpcProtocol,
                 httpMethod: ariaNgDefaultOptions.httpMethod,
+                rpcRequestHeaders: '',
                 secret: secret
             };
 
