@@ -4,7 +4,7 @@
     "node": ">=14"
   },
   "dependencies": {
-    "admin-lte": "2.4.18",
+    "admin-lte": "3.1.0",
     "angular": "1.6.10",
     "angular-animate": "1.6.10",
     "angular-bittorrent-peerid": "^1.3.4",
