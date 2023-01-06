@@ -1031,6 +1031,10 @@
                 canShow: 'new'
             },
             {
+                key: 'check-integrity',
+                category: 'global'
+            },
+            {
                 key: 'file-allocation',
                 category: 'global',
                 canShow: 'new'
