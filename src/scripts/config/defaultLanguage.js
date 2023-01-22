@@ -691,7 +691,7 @@
                 'max-download-result.description': 'Set maximum number of download result kept in memory. The download results are completed/error/removed downloads. The download results are stored in FIFO queue and it can store at most NUM download results. When queue is full and new download result is created, oldest download result is removed from the front of the queue and new one is pushed to the back. Setting big number in this option may result high memory consumption after thousands of downloads. Specifying 0 means no download result is kept. Note that unfinished downloads are kept in memory regardless of this option value. See --keep-unfinished-download-result option.',
                 'max-mmap-limit.name': 'Max MMap Limit',
                 'max-mmap-limit.description': 'Set the maximum file size to enable mmap (see --enable-mmap option). The file size is determined by the sum of all files contained in one download. For example, if a download contains 5 files, then file size is the total size of those files. If file size is strictly greater than the size specified in this option, mmap will be disabled.',
-                'max-resume-failure-tries.name': 'Max Resume Failture Try Times',
+                'max-resume-failure-tries.name': 'Max Resume Failure Try Times',
                 'max-resume-failure-tries.description': 'When used with --always-resume=false, aria2 downloads file from scratch when aria2 detects N number of URIs that does not support resume. If N is 0, aria2 downloads file from scratch when all given URIs do not support resume. See --always-resume option.',
                 'min-tls-version.name': 'Min TLS Version',
                 'min-tls-version.description': 'Specify minimum SSL/TLS version to enable.',
