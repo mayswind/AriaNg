@@ -59,18 +59,19 @@
                 var requestContext = {
                     url: rpcUrl,
                     method: method,
+                    headers: {},
                     timeout: ariaNgConstants.httpRequestTimeout
                 };
 
                 if (requestContext.method === 'POST') {
-                    requestContext.data = context.requestBody;
+                    requestContext.data = angular.toJson(context.requestBody);
+                    requestContext.headers['Content-Type'] = 'application/json';
                 } else if (requestContext.method === 'GET') {
                     requestContext.url = getUrlWithQueryString(requestContext.url, context.requestBody);
                 }
 
                 if (requestHeaders) {
                     var lines = requestHeaders.split('\n');
-                    var headers = {};
 
                     for (var i = 0; i < lines.length; i++) {
                         var items = lines[i].split(':');
@@ -82,10 +83,8 @@
                         var name = items[0].trim();
                         var value = items[1].trim();
 
-                        headers[name] = value;
+                        requestContext.headers[name] = value;
                     }
-
-                    requestContext.headers = headers;
                 }
 
                 ariaNgLogService.debug('[aria2HttpRpcService.request] ' + (context && context.requestBody && context.requestBody.method ? context.requestBody.method + ' ' : '') + 'request start', requestContext);
