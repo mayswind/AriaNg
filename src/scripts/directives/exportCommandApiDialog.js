@@ -18,8 +18,18 @@
                     isCopied: false
                 };
 
+                var getBaseUrl = function () {
+                    var baseUrl = scope.context.baseUrl;
+
+                    if (baseUrl.indexOf('#') >= 0) {
+                        baseUrl = baseUrl.substring(0, baseUrl.indexOf('#'));
+                    }
+
+                    return baseUrl;
+                };
+
                 var getNewTaskCommandAPIUrl = function (task) {
-                    var commandAPIUrl = scope.context.baseUrl + '#!/new/task?' +
+                    var commandAPIUrl = getBaseUrl() + '#!/new/task?' +
                         'url=' + ariaNgCommonService.base64UrlEncode(task.urls[0]);
 
                     if (scope.context.pauseOnAdded) {
@@ -54,7 +64,7 @@
                 };
 
                 var getSettingCommandAPIUrl = function (setting) {
-                    var commandAPIUrl = scope.context.baseUrl + '#!/settings/rpc/set?' +
+                    var commandAPIUrl = getBaseUrl() + '#!/settings/rpc/set?' +
                         'protocol=' + setting.protocol +
                         '&host=' + setting.rpcHost +
                         '&port=' + setting.rpcPort +
