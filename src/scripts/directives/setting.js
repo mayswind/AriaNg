@@ -17,6 +17,7 @@
             link: function (scope, element, attrs, ngModel) {
                 var pendingSaveRequest = null;
                 var options = {
+                    showPlaceholderCount: false,
                     deleteKeyAlwaysChangeValue: false,
                     lazySaveTimeout: ariaNgConstants.lazySaveTimeout,
                     errorTooltipPlacement: 'top',
@@ -85,7 +86,7 @@
                 };
 
                 var getTotalCount = function (itemsText, separator, trim) {
-                    if (!itemsText || !angular.isString(itemsText)) {
+                    if (!itemsText || !separator || !angular.isString(itemsText)) {
                         return 0;
                     }
 
@@ -179,6 +180,10 @@
                 scope.getTotalCount = function () {
                     var fixedValueCount = getTotalCount(scope.fixedValue, scope.option.separator, scope.option.trimCount);
                     var inputValueCount = getTotalCount(scope.optionValue, scope.option.separator, scope.option.trimCount);
+
+                    if (!scope.optionValue && scope.showPlaceholderCount && scope.placeholderItemCount) {
+                        inputValueCount = scope.placeholderItemCount;
+                    }
 
                     return fixedValueCount + inputValueCount;
                 };
@@ -313,8 +318,15 @@
                     }
 
                     scope.placeholder = getHumanReadableValue(displayValue);
+
+                    if (scope.option) {
+                        scope.placeholderItemCount = getTotalCount(scope.placeholder, scope.option.separator, scope.option.trimCount);
+                    } else {
+                        scope.placeholderItemCount = 0;
+                    }
                 });
 
+                scope.showPlaceholderCount = options.showPlaceholderCount === true || options.showPlaceholderCount === 'true';
                 loadHistory();
             }
         };
