@@ -26,6 +26,11 @@
 
                 return !!option;
             },
+            isOptionKeyRequired: function (key) {
+                var option = aria2AllOptions[key];
+
+                return option && option.required;
+            },
             getAvailableGlobalOptionsKeys: function (type) {
                 if (type === 'basic') {
                     return aria2GlobalAvailableOptions.basicOptions;

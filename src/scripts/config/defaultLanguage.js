@@ -422,7 +422,7 @@
                 'continue.name': 'Resume Download',
                 'continue.description': 'Continue downloading a partially downloaded file. Use this option to resume a download started by a web browser or another program which downloads files sequentially from the beginning. Currently this option is only applicable to HTTP(S)/FTP downloads.',
                 'all-proxy.name': 'Proxy Server',
-                'all-proxy.description': 'Use a proxy server for all protocols. To override a previously defined proxy, use "". You also can override this setting and specify a proxy server for a particular protocol using --http-proxy, --https-proxy and --ftp-proxy  This affects all downloads. The format of PROXY is [http://][USER:PASSWORD@]HOST[:PORT].',
+                'all-proxy.description': 'Use a proxy server for all protocols. You also can override this setting and specify a proxy server for a particular protocol using --http-proxy, --https-proxy and --ftp-proxy  This affects all downloads. The format of PROXY is [http://][USER:PASSWORD@]HOST[:PORT].',
                 'all-proxy-user.name': 'Proxy User Name',
                 'all-proxy-user.description': '',
                 'all-proxy-passwd.name': 'Proxy Password',

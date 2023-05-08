@@ -37,6 +37,9 @@
             isCtrlEnterPressed: function (event) {
                 return (isModifierKeyPressed(event) && (event.code === 'Enter' || getKeyCode(event) === 13)); // Ctrl+Enter / Command+Return
             },
+            isBackspacePressed: function (event) {
+                return (event.code === 'Backspace' || getKeyCode(event) === 8); // Backspace
+            },
             isDeletePressed: function (event) {
                 return (event.code === 'Delete' || getKeyCode(event) === 46); // Delete
             }

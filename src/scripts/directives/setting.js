@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$q', 'ariaNgConstants', 'ariaNgLocalizationService', 'aria2SettingService', function ($timeout, $q, ariaNgConstants, ariaNgLocalizationService, aria2SettingService) {
+    angular.module('ariaNg').directive('ngSetting', ['$timeout', '$q', 'ariaNgConstants', 'ariaNgLocalizationService', 'ariaNgKeyboardService', 'aria2SettingService', function ($timeout, $q, ariaNgConstants, ariaNgLocalizationService, ariaNgKeyboardService, aria2SettingService) {
         return {
             restrict: 'E',
             templateUrl: 'views/setting.html',
@@ -16,6 +16,7 @@
             link: function (scope, element, attrs, ngModel) {
                 var pendingSaveRequest = null;
                 var options = {
+                    deleteKeyAlwaysChangeValue: false,
                     lazySaveTimeout: ariaNgConstants.lazySaveTimeout,
                     errorTooltipDelay: ariaNgConstants.errorTooltipDelay
                 };
@@ -233,6 +234,18 @@
                             }, options.lazySaveTimeout);
                         } else {
                             invokeChange();
+                        }
+                    }
+                };
+
+                scope.inputKeyUp = function (event, lazySave) {
+                    if (options.deleteKeyAlwaysChangeValue === true || options.deleteKeyAlwaysChangeValue === 'true') {
+                        if (ariaNgKeyboardService.isBackspacePressed(event) || ariaNgKeyboardService.isDeletePressed(event)) {
+                            if (scope.optionValue && scope.optionValue !== '') {
+                                return; // onChange event has been triggered
+                            }
+
+                            scope.changeValue('', lazySave);
                         }
                     }
                 };
