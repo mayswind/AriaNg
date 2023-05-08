@@ -49,6 +49,7 @@
                         }
 
                         angular.element(element).tooltip({
+                            animation: false,
                             title: ariaNgLocalizationService.getLocalizedText(cause, causeParams),
                             trigger: 'focus',
                             placement: 'auto ' + options.errorTooltipPlacement,
