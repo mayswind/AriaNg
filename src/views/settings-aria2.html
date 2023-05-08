@@ -2,6 +2,7 @@
     <div class="settings-table striped hoverable">
         <ng-setting ng-repeat="option in context.availableOptions" option="option"
                     ng-model="context.globalOptions[option.key]" default-value="option.defaultValue"
+                    error-tooltip-placement="{{$index > 0 ? 'top': 'bottom'}}"
                     on-change-value="setGlobalOption(key, value, optionStatus)"></ng-setting>
     </div>
 </section>

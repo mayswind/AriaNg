@@ -18,6 +18,7 @@
                 var options = {
                     deleteKeyAlwaysChangeValue: false,
                     lazySaveTimeout: ariaNgConstants.lazySaveTimeout,
+                    errorTooltipPlacement: 'top',
                     errorTooltipDelay: ariaNgConstants.errorTooltipDelay
                 };
 
@@ -50,7 +51,7 @@
                         angular.element(element).tooltip({
                             title: ariaNgLocalizationService.getLocalizedText(cause, causeParams),
                             trigger: 'focus',
-                            placement: 'auto top',
+                            placement: 'auto ' + options.errorTooltipPlacement,
                             container: element,
                             template:
                             '<div class="tooltip' + (type ? ' tooltip-' + type : '') + '" role="tooltip">' +
