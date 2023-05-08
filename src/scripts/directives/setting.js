@@ -177,8 +177,8 @@
                 })();
 
                 scope.getTotalCount = function () {
-                    var fixedValueCount = getTotalCount(scope.fixedValue, scope.option.split, scope.option.trimCount);
-                    var inputValueCount = getTotalCount(scope.optionValue, scope.option.split, scope.option.trimCount);
+                    var fixedValueCount = getTotalCount(scope.fixedValue, scope.option.separator, scope.option.trimCount);
+                    var inputValueCount = getTotalCount(scope.optionValue, scope.option.separator, scope.option.trimCount);
 
                     return fixedValueCount + inputValueCount;
                 };

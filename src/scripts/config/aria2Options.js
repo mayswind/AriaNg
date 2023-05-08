@@ -9,11 +9,11 @@
         //     [readonly: true|false,] //default: false
         //     [defaultValue: '',]
         //     [required: true|false,] //default: false
-        //     [split: '',] //SUPPORT 'text' type
+        //     [separator: '',] //SUPPORT 'text' type
         //     [overrideMode: 'override|append',] //default: override
-        //     [submitFormat: 'string|array'] //default: string, parameter 'split' is required
-        //     [showCount: true|false,] //SUPPORT 'text' type, parameter 'split' is required, default: false
-        //     [trimCount: true|false,] //SUPPORT 'text' type, parameter 'split', 'showCount' is required, default: false
+        //     [submitFormat: 'string|array',] //default: string, parameter 'separator' is required
+        //     [showCount: true|false,] //SUPPORT 'text' type, parameter 'separator' is required, default: false
+        //     [trimCount: true|false,] //SUPPORT 'text' type, parameter 'separator', 'showCount' is required, default: false
         //     [options: [],] //SUPPORT 'option' type
         //     [min: 0,] //SUPPORT 'integer', 'float' type
         //     [max: 0,] //SUPPORT 'integer', 'float' type
@@ -117,7 +117,7 @@
         },
         'no-proxy': {
             type: 'text',
-            split: ',',
+            separator: ',',
             showCount: true
         },
         'out': {
@@ -241,7 +241,7 @@
         },
         'header': {
             type: 'text',
-            split: '\n',
+            separator: '\n',
             overrideMode: 'append',
             submitFormat: 'array',
             showCount: true,
@@ -317,7 +317,7 @@
         },
         'bt-exclude-tracker': {
             type: 'text',
-            split: ',',
+            separator: ',',
             showCount: true
         },
         'bt-external-ip': {
@@ -401,7 +401,7 @@
         },
         'bt-tracker': {
             type: 'text',
-            split: ',',
+            separator: ',',
             showCount: true
         },
         'bt-tracker-connect-timeout': {

@@ -255,7 +255,7 @@
         };
 
         var buildArrayOption = function (option, optionSetting) {
-            var items = option.split(optionSetting.split);
+            var items = option.split(optionSetting.separator);
             var result = [];
 
             for (var i = 0; i < items.length; i++) {
