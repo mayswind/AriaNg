@@ -11,6 +11,7 @@
                 option: '=',
                 ngModel: '=',
                 defaultValue: '=?',
+                fixedValue: '=?',
                 onChangeValue: '&'
             },
             link: function (scope, element, attrs, ngModel) {
@@ -81,6 +82,25 @@
                     }
 
                     return size + sizeUnits[unitIndex];
+                };
+
+                var getTotalCount = function (itemsText, separator, trim) {
+                    if (!itemsText || !angular.isString(itemsText)) {
+                        return 0;
+                    }
+
+                    var items = itemsText.split(separator);
+                    var totalCount = items.length;
+
+                    if (trim) {
+                        for (var i = 0; i < items.length; i++) {
+                            if (!items[i] || items[i] === '' || items[i].trim() === '') {
+                                totalCount--;
+                            }
+                        }
+                    }
+
+                    return totalCount;
                 };
 
                 var getHumanReadableValue = function (value) {
@@ -157,22 +177,10 @@
                 })();
 
                 scope.getTotalCount = function () {
-                    if (!scope.optionValue && !angular.isString(scope.optionValue)) {
-                        return 0;
-                    }
+                    var fixedValueCount = getTotalCount(scope.fixedValue, scope.option.split, scope.option.trimCount);
+                    var inputValueCount = getTotalCount(scope.optionValue, scope.option.split, scope.option.trimCount);
 
-                    var items = scope.optionValue.split(scope.option.split);
-                    var totalCount = items.length;
-
-                    if (scope.option.trimCount) {
-                        for (var i = 0; i < items.length; i++) {
-                            if (!items[i] || items[i] === '' || items[i].trim() === '') {
-                                totalCount--;
-                            }
-                        }
-                    }
-
-                    return totalCount;
+                    return fixedValueCount + inputValueCount;
                 };
 
                 scope.changeValue = function (optionValue, lazySave) {

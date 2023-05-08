@@ -10,6 +10,7 @@
         //     [defaultValue: '',]
         //     [required: true|false,] //default: false
         //     [split: '',] //SUPPORT 'text' type
+        //     [overrideMode: 'override|append',] //default: override
         //     [submitFormat: 'string|array'] //default: string, parameter 'split' is required
         //     [showCount: true|false,] //SUPPORT 'text' type, parameter 'split' is required, default: false
         //     [trimCount: true|false,] //SUPPORT 'text' type, parameter 'split', 'showCount' is required, default: false
@@ -241,6 +242,7 @@
         'header': {
             type: 'text',
             split: '\n',
+            overrideMode: 'append',
             submitFormat: 'array',
             showCount: true,
             trimCount: true

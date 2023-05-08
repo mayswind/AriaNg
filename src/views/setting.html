@@ -4,13 +4,14 @@
         <em ng-bind="'(' + option.key + ')'"></em>
         <i class="icon-primary fa fa-question-circle" ng-if="(option.descriptionKey | translate) !== ''"
            data-toggle="popover" data-trigger="hover" data-placement="auto top" data-container="body" data-content="{{option.descriptionKey | translate}}"></i>
-        <span class="description" ng-if="option.showCount && option.split && optionValue"
+        <span class="description" ng-if="option.showCount && option.split && (optionValue || fixedValue)"
               ng-bind="'format.settings.total-count' | translate: {count: getTotalCount()}"></span>
         <i class="icon-primary fa fa-info-circle" ng-if="(option.since && option.since !== '')" ng-tooltip="{{('format.requires.aria2-version' | translate: {version: option.since})}}" ng-tooltip-container="body" ng-tooltip-placement="right"></i>
     </div>
     <div class="setting-value col-sm-8">
         <div ng-class="{'input-group': !!option.suffix}">
             <div class="form-group has-feedback" ng-class="[optionStatus.getStatusFeedbackStyle()]">
+                <pre ng-if="fixedValue" ng-bind="fixedValue"></pre>
                 <input class="form-control" type="text" placeholder="{{placeholder}}" ng-disabled="!!option.readonly"
                        ng-if="(option.type === 'string' && !option.showHistory) || option.type === 'integer' || option.type === 'float'"
                        ng-model="optionValue" ng-change="changeValue(optionValue, true)" ng-keyup="inputKeyUp($event, true)"/>
