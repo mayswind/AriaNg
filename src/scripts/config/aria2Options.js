@@ -12,6 +12,7 @@
         //     [split: '',] //SUPPORT 'text' type
         //     [submitFormat: 'string|array'] //default: string, parameter 'split' is required
         //     [showCount: true|false,] //SUPPORT 'text' type, parameter 'split' is required, default: false
+        //     [trimCount: true|false,] //SUPPORT 'text' type, parameter 'split', 'showCount' is required, default: false
         //     [options: [],] //SUPPORT 'option' type
         //     [min: 0,] //SUPPORT 'integer', 'float' type
         //     [max: 0,] //SUPPORT 'integer', 'float' type
@@ -241,7 +242,8 @@
             type: 'text',
             split: '\n',
             submitFormat: 'array',
-            showCount: true
+            showCount: true,
+            trimCount: true
         },
         'save-cookies': {
             type: 'string'

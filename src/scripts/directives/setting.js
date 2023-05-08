@@ -160,7 +160,18 @@
                         return 0;
                     }
 
-                    return scope.optionValue.split(scope.option.split).length;
+                    var items = scope.optionValue.split(scope.option.split);
+                    var totalCount = items.length;
+
+                    if (scope.option.trimCount) {
+                        for (var i = 0; i < items.length; i++) {
+                            if (!items[i] || items[i] === '' || items[i].trim() === '') {
+                                totalCount--;
+                            }
+                        }
+                    }
+
+                    return totalCount;
                 };
 
                 scope.changeValue = function (optionValue, lazySave) {
