@@ -11,7 +11,7 @@
     <div class="setting-value col-sm-8">
         <div ng-class="{'input-group': !!option.suffix}">
             <div class="form-group has-feedback" ng-class="[optionStatus.getStatusFeedbackStyle()]">
-                <pre ng-if="fixedValue" ng-bind="fixedValue"></pre>
+                <pre ng-if="fixedValue && fixedValue.trim()" ng-bind="fixedValue"></pre>
                 <input class="form-control" type="text" placeholder="{{placeholder}}" ng-disabled="!!option.readonly"
                        ng-if="(option.type === 'string' && !option.showHistory) || option.type === 'integer' || option.type === 'float'"
                        ng-model="optionValue" ng-change="changeValue(optionValue, true)" ng-keyup="inputKeyUp($event, true)"/>
