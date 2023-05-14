@@ -119,6 +119,11 @@
 }
 
 /* awesome-bootstrap-checkbox extend */
+.checkbox input[type="checkbox"]:focus + label::before,
+.checkbox input[type="radio"]:focus + label::before {
+    outline: none !important;
+}
+
 .checkbox.checkbox-hide {
     padding-left: 0;
 }
