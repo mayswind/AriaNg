@@ -1,4 +1,13 @@
 /* bootstrap */
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+    outline: none !important;
+}
+
 .btn-group + .btn {
     margin-left: 4px;
 }
