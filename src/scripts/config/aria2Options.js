@@ -58,6 +58,7 @@
         },
         'checksum': {
             type: 'string',
+            required: true,
             pattern: '^(md5|sha-(1|224|256|384|512))=[a-zA-Z0-9]+$'
         },
         'connect-timeout': {
