@@ -75,7 +75,7 @@
         };
 
         $scope.getOrderType = function () {
-            return ariaNgSettingService.getDisplayOrder();
+            return ariaNgSettingService.getDisplayOrder(location);
         };
 
         $scope.isSupportDragTask = function () {
@@ -83,7 +83,7 @@
                 return false;
             }
 
-            var displayOrder = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var displayOrder = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder(location));
 
             return location === 'waiting' && displayOrder.type === 'default';
         };

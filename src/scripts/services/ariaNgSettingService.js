@@ -655,8 +655,28 @@
 
                 return true;
             },
-            getDisplayOrder: function () {
-                var value = getOption('displayOrder');
+            getTaskListIndependentDisplayOrder: function () {
+                return getOption('taskListIndependentDisplayOrder');
+            },
+            setTaskListIndependentDisplayOrder: function (value) {
+                setOption('taskListIndependentDisplayOrder', value);
+            },
+            getTaskListDisplayOrderKey: function (taskListPageType) {
+                var optionKey = 'displayOrder';
+
+                if (this.getTaskListIndependentDisplayOrder()) {
+                    if (taskListPageType === 'waiting') {
+                        optionKey = 'waitingTaskListPageDisplayOrder';
+                    } else if (taskListPageType === 'stopped') {
+                        optionKey = 'stoppedTaskListPageDisplayOrder';
+                    }
+                }
+
+                return optionKey;
+            },
+            getDisplayOrder: function (taskListPageType) {
+                var optionKey = this.getTaskListDisplayOrderKey(taskListPageType);
+                var value = getOption(optionKey);
 
                 if (!value) {
                     value = 'default:asc';
@@ -664,8 +684,9 @@
 
                 return value;
             },
-            setDisplayOrder: function (value) {
-                setOption('displayOrder', value);
+            setDisplayOrder: function (value, taskListPageType) {
+                var optionKey = this.getTaskListDisplayOrderKey(taskListPageType);
+                setOption(optionKey, value);
             },
             getFileListDisplayOrder: function () {
                 var value = getOption('fileListDisplayOrder');

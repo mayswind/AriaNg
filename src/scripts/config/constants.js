@@ -52,7 +52,10 @@
         includePrefixWhenCopyingFromTaskDetails: true,
         showPiecesInfoInTaskDetailPage: 'le10240',
         afterRetryingTask: 'task-list-downloading',
+        taskListIndependentDisplayOrder: false,
         displayOrder: 'default:asc',
+        waitingTaskListPageDisplayOrder: 'default:asc',
+        stoppedTaskListPageDisplayOrder: 'default:asc',
         fileListDisplayOrder: 'default:asc',
         peerListDisplayOrder: 'default:asc'
     });

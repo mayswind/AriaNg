@@ -228,6 +228,17 @@
                     </div>
                     <div class="row">
                         <div class="setting-key setting-key-without-desc col-sm-4">
+                            <span translate>Each Task List Page Uses Independent Display Order</span>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                            <select class="form-control" style="width: 100%;" ng-model="context.settings.taskListIndependentDisplayOrder"
+                                    ng-change="setTaskListIndependentDisplayOrder(context.settings.taskListIndependentDisplayOrder)"
+                                    ng-options="option.value as (option.name | translate) for option in context.trueFalseOptions">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Action After Creating New Tasks</span>
                         </div>
                         <div class="setting-value col-sm-8">

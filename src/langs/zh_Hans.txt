@@ -215,6 +215,7 @@ Include Prefix When Copying From Task Details=任务详情页复制时包括前�
 Show Pieces Info In Task Detail Page=任务详情页显示区块信息
 Pieces Amount is Less than or Equal to {value}=区块数量小于等于 {{value}}
 RPC List Display Order=RPC 列表显示顺序
+Each Task List Page Uses Independent Display Order=各任务列表页面使用独立显示顺序
 Recently Used=最近使用
 RPC Alias=RPC 别名
 Import / Export AriaNg Settings=导入 / 导出 AriaNg 设置

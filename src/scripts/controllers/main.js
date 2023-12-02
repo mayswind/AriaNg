@@ -5,6 +5,16 @@
         var pageTitleRefreshPromise = null;
         var globalStatRefreshPromise = null;
 
+        var getTaskListPageType = function () {
+            var location = $location.path().substring(1);
+
+            if (location === 'downloading' || location === 'waiting' || location === 'stopped') {
+                return location;
+            } else {
+                return '';
+            }
+        };
+
         var refreshPageTitle = function () {
             var title = ariaNgTitleService.getFinalTitleByGlobalStat({
                 globalStat: $scope.globalStat,
@@ -391,18 +401,20 @@
         };
 
         $scope.changeDisplayOrder = function (type, autoSetReverse) {
-            var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var taskListPageType = getTaskListPageType();
+            var oldType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder(taskListPageType));
             var newType = ariaNgCommonService.parseOrderType(type);
 
             if (autoSetReverse && newType.type === oldType.type) {
                 newType.reverse = !oldType.reverse;
             }
 
-            ariaNgSettingService.setDisplayOrder(newType.getValue());
+            ariaNgSettingService.setDisplayOrder(newType.getValue(), taskListPageType);
         };
 
         $scope.isSetDisplayOrder = function (type) {
-            var orderType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder());
+            var taskListPageType = getTaskListPageType();
+            var orderType = ariaNgCommonService.parseOrderType(ariaNgSettingService.getDisplayOrder(taskListPageType));
             var targetType = ariaNgCommonService.parseOrderType(type);
 
             return orderType.equals(targetType);
