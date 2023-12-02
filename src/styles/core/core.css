@@ -105,6 +105,30 @@ td {
     overflow-x: hidden;
 }
 
+@media (min-height: 360px) {
+    .main-header .rpcselect-dropdown {
+        max-height: 260px;
+    }
+}
+
+@media (min-height: 480px) {
+    .main-header .rpcselect-dropdown {
+        max-height: 360px;
+    }
+}
+
+@media (min-height: 600px) {
+    .main-header .rpcselect-dropdown {
+        max-height: 480px;
+    }
+}
+
+@media (min-height: 720px) {
+    .main-header .rpcselect-dropdown {
+        max-height: 600px;
+    }
+}
+
 .main-sidebar {
     z-index: 1010;
 }
