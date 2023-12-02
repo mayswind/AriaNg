@@ -314,6 +314,10 @@ td {
     min-height: 28px;
 }
 
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
 ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active {
     background-color: #d4dfe7;
 }

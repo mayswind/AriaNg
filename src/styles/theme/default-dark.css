@@ -348,6 +348,10 @@
 }
 
 /* scrollbar */
+.theme-dark.skin-aria-ng ::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+}
+
 .theme-dark.skin-aria-ng ::-webkit-scrollbar-thumb {
     background-color: #3c4144;
 }
