@@ -77,6 +77,10 @@
     display: table-cell;
 }
 
+.label {
+    font-size: 85%;
+}
+
 /* font-awesome extend */
 .fa-half {
     font-size: 0.5em;
