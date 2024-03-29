@@ -587,7 +587,7 @@ enable-peer-exchange.description=Enable Peer Exchange extension. If a private fl
 follow-torrent.name=Follow Torrent
 follow-torrent.description=If true or mem is specified, when a file whose suffix is .torrent or content type is application/x-bittorrent is downloaded, aria2 parses it as a torrent file and downloads files mentioned in it. If mem is specified, a torrent file is not written to the disk, but is just kept in memory. If false is specified, the .torrent file is downloaded to the disk, but is not parsed as a torrent and its contents are not downloaded.
 listen-port.name=Listen Port
-listen-port.description=Set TCP port number for BitTorrent downloads. Multiple ports can be specified by using ,, for example: 6881,6885. You can also use - to specify a range: 6881-6999. , and - can be used together: 6881-6889,6999.
+listen-port.description=Set TCP port number for BitTorrent downloads. Multiple ports can be specified by using "," for example: 6881,6885. You can also use - to specify a range: 6881-6999. , and - can be used together: 6881-6889,6999.
 max-overall-upload-limit.name=Global Max Upload Limit
 max-overall-upload-limit.description=Set max overall upload speed in bytes/sec. 0 means unrestricted. You can append K or M (1K = 1024, 1M = 1024K).
 max-upload-limit.name=Max Upload Limit
@@ -727,4 +727,4 @@ socket-recv-buffer-size.description=Set the maximum socket receive buffer in byt
 stop.name=Auto Shutdown Time
 stop.description=Stop application after SEC seconds has passed. If 0 is given, this feature is disabled.
 truncate-console-readout.name=Truncate Console Output
-truncate-console-readout.description=Truncate console readout to fit in a single line.'
+truncate-console-readout.description=Truncate console readout to fit in a single line.
