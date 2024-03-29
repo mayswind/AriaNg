@@ -59,6 +59,12 @@ The builds will be placed in the dist directory.
 #### Usage Notes
 Since AriaNg standard version loads language resources asynchronously, you may not open index.html directly on the local file system to run AriaNg. It is recommended that you can use the all-in-one version or deploy AriaNg in a web container or download [AriaNg Native](https://github.com/mayswind/AriaNg-Native) that does not require a browser to run.
 
+## Translating
+
+Everyone is welcome to contribute translations. All translations files are put in `/src/langs/`. You can just modify and commit a new pull request.
+
+If you want to translate AriaNg to a new language, you can add language configuration to `/src/scripts/config/languages.js`, then copy `/i18n/en.sample.txt` to `/src/langs/` and rename it to the language code to be translated, then you can start the translation work.
+
 ## Documents
 1. [English](http://ariang.mayswind.net)
 2. [Simplified Chinese (简体中文)](http://ariang.mayswind.net/zh_Hans)
