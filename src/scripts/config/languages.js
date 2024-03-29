@@ -18,8 +18,7 @@
         },
         'it_IT': {
             name: 'Italian',
-            displayName: 'Italiano',
-            aliases: ['it_IT']
+            displayName: 'Italiano'
         }
     });
 }());
