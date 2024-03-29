@@ -73,7 +73,7 @@
 
                 var pair = getKeyValuePair(line);
 
-                if (pair && pair.key) {
+                if (pair && pair.key && pair.value && pair.value !== '') {
                     currentCatagory[pair.key] = pair.value;
                 }
             }
