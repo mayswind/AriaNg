@@ -344,7 +344,8 @@
             'languages': {
                 'English': 'English',
                 'Simplified Chinese': 'Simplified Chinese',
-                'Traditional Chinese': 'Traditional Chinese'
+                'Traditional Chinese': 'Traditional Chinese',
+                'Italian': 'Italian'
             },
             'format': {
                 'longdate': 'MM/DD/YYYY HH:mm:ss',

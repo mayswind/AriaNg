@@ -343,6 +343,7 @@ checksum.failed=檔案校驗失敗.
 English=英語
 Simplified Chinese=簡體中文
 Traditional Chinese=繁體中文
+Italian=義大利語
 
 [format]
 longdate=YYYY年MM月DD日 HH:mm:ss
