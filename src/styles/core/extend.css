@@ -128,6 +128,11 @@
     outline: none !important;
 }
 
+.checkbox input[type="checkbox"],
+.checkbox input[type="radio"] {
+    cursor: pointer;
+}
+
 .checkbox.checkbox-hide {
     padding-left: 0;
 }
