@@ -133,6 +133,10 @@
     cursor: pointer;
 }
 
+.checkbox input.disable-clickable {
+    pointer-events: none !important;
+}
+
 .checkbox.checkbox-hide {
     padding-left: 0;
 }

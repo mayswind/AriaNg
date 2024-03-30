@@ -43,7 +43,7 @@
                  ng-click="taskContext.selected[task.gid] = !taskContext.selected[task.gid]">
                 <div class="col-md-8 col-sm-7 col-xs-12">
                     <div class="checkbox checkbox-primary" ng-class="{'checkbox-hide': !taskContext.selected[task.gid]}">
-                        <input id="{{'task_' + task.gid}}" type="checkbox" ng-model="taskContext.selected[task.gid]"/>
+                        <input id="{{'task_' + task.gid}}" type="checkbox" class="disable-clickable" ng-model="taskContext.selected[task.gid]"/>
                         <label for="{{'task_' + task.gid}}">
                             <span class="task-name auto-ellipsis" ng-bind="task.taskName" title="{{task.taskName}}"></span>
                         </label>
