@@ -341,7 +341,7 @@ checksum.failed=Errore di verifica del checksum del file.
 
 [languages]
 English=Inglese
-Simplified Chinese=Cinese semplificato
+Simplified Chinese=Cinese Semplificato
 Traditional Chinese=Cinese Tradizionale
 Italian=Italiano
 
