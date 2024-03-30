@@ -46,7 +46,29 @@
             currentTab: 'global',
             ariaNgVersion: ariaNgVersionService.getBuildVersion(),
             buildCommit: ariaNgVersionService.getBuildCommit(),
-            languages: ariaNgLanguages,
+            languages: (function () {
+                var languages = [];
+
+                for (var langName in ariaNgLanguages) {
+                    if (!ariaNgLanguages.hasOwnProperty(langName)) {
+                        continue;
+                    }
+
+                    var language = ariaNgLanguages[langName];
+
+                    languages.push({
+                        type: langName,
+                        name: language.name,
+                        displayName: language.displayName
+                    });
+                }
+
+                languages.sort(function (lang1, lang2) {
+                    return String.naturalCompare(lang1.type, lang2.type);
+                });
+
+                return languages;
+            })(),
             titlePreview: getFinalTitle(),
             availableTime: ariaNgCommonService.getTimeOptions([1000, 2000, 3000, 5000, 10000, 30000, 60000], true),
             trueFalseOptions: [{name: 'Enabled', value: true}, {name: 'Disabled', value: false}],

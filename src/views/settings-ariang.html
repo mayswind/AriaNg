@@ -32,7 +32,7 @@
                         </div>
                         <div class="setting-value col-sm-8">
                             <select class="form-control" style="width: 100%;" ng-model="context.settings.language"
-                                    ng-options="type as (((('languages.' + language.name) | translate) !== ('languages.' + language.name) ? (('languages.' + language.name) | translate) : language.name) + ' (' + language.displayName + ')') for (type, language) in context.languages"
+                                    ng-options="language.type as (((('languages.' + language.name) | translate) !== ('languages.' + language.name) ? (('languages.' + language.name) | translate) : language.name) + ' (' + language.displayName + ')') for language in context.languages"
                                     ng-change="setLanguage(context.settings.language)">
                             </select>
                         </div>
