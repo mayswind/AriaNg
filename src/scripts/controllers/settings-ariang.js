@@ -169,6 +169,11 @@
             $rootScope.setTheme(value);
         };
 
+        $scope.setHostProxyPattern = function (value) {
+            ariaNgSettingService.setHostProxyPattern(value);
+            $rootScope.setProxyHostPattern(value);
+        };
+
         $scope.setDebugMode = function (value) {
             ariaNgSettingService.setDebugMode(value);
         };
