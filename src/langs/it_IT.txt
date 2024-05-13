@@ -306,7 +306,8 @@ Cannot initialize WebSocket!=Impossibile inizializzare WebSocket!
 Cannot connect to aria2!=Impossibile connettersi a aria2!
 Access Denied!=Accesso negato!
 You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.=Non puoi utilizzare AriaNg perché questo browser non soddisfa i requisiti minimi di archiviazione dati.
-
+hostProxyPatternName=Modello proxy host
+hostProxyPatternDescription=Specificare il modello regex host per il proxy per riga. Se l'host corrisponde al modello, verrà utilizzato il proxy. Esempio: .*\.example\.com|proxy.com:8080  .*\.example\.org|proxy.org:8080
 [error]
 unknown=Errore sconosciuto.
 operation.timeout=Operazione scaduta.

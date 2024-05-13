@@ -310,6 +310,8 @@
             'Cannot connect to aria2!': 'Cannot connect to aria2!',
             'Access Denied!': 'Access Denied!',
             'You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.': 'You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.',
+            'hostProxyPatternName': 'Host Proxy Pattern',
+            'hostProxyPatternDescription': 'Specify host regex pattern for proxy per line. If the host matches the pattern, the proxy will be used. Example: .*\\.example\\.com|proxy.com:8080  .*\\.example\\.org|proxy.org:8080',
             'error': {
                 'unknown': 'Unknown error occurred.',
                 'operation.timeout': 'Operation timed out.',

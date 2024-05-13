@@ -83,6 +83,18 @@
                             <em>[<span translate>Preview</span>] <span ng-bind="context.titlePreview"></span></em>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="setting-key setting-key-without-desc col-sm-4">
+                         <span>{{ 'hostProxyPatternName' | translate }}</span>
+                         <i class="icon-primary fa fa-question-circle" data-toggle="popover"
+                               data-trigger="hover" data-placement="auto right" data-container="body" data-html="true"
+                               data-content="{{ 'hostProxyPatternDescription' | translate }}"></i>
+                        </div>
+                        <div class="setting-value col-sm-8">
+                        <textarea class="form-control" rows="4" ng-model="context.settings.hostProxyPattern"
+                          ng-change="setHostProxyPattern(context.settings.hostProxyPattern)" ng-keyup="inputKeyUp($event, true)"></textarea>
+                        </div>
+                    </div>
                     <div class="row" ng-if="isSupportNotification()">
                         <div class="setting-key setting-key-without-desc col-sm-4">
                             <span translate>Enable Browser Notification</span>
