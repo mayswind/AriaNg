@@ -3,77 +3,77 @@
 [![Lastest Build](https://img.shields.io/circleci/project/github/mayswind/AriaNg.svg?style=flat)](https://circleci.com/gh/mayswind/AriaNg/tree/master)
 [![Lastest Release](https://img.shields.io/github/release/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/releases)
 
-## Introduction
-AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) easier to use. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
+# #的介绍
+AriaNg是一个现代的web前端，使[aria2](https://github.com/aria2/aria2)更容易使用。AriaNg是用纯html和javascript编写的，因此它不需要任何编译器或运行时环境。你可以把AriaNg放在你的网络服务器上，然后在浏览器中打开它。AriaNg使用响应式布局，支持任何桌面或移动设备。
 
-## Features
-1. Pure Html & Javascript, no runtime required
-2. Responsive design, supporting desktop and mobile devices
-3. User-friendly interface
-    * Sort tasks (by name, size, progress, remaining time, download speed, etc.), files, bittorrent peers
-    * Search tasks
-    * Retry tasks
-    * Adjust task order by dragging
-    * More information of tasks (health percentage, client information of bt peers, etc.)
-    * Filter files by specified file types (videos, audios, pictures, documents, applications, archives, etc.) or file extensions
-    * Tree view for multi-directory task
-    * Download / upload speed chart for aria2 or single task
-    * Full support for aria2 settings
-4. Dark theme
-5. Url command line api support
-6. Download finished notification
-7. Multi-languages support
-8. Multi aria2 RPC host support
-9. Exporting and Importing settings support
-10. Less bandwidth usage, only requesting incremental data
+# #特性
+1. 纯Html和Javascript，不需要运行时
+2. 响应式设计，支持桌面和移动设备
+3. 友好的用户界面
+*排序任务(按名称，大小，进度，剩余时间，下载速度等)，文件，bittorrent同行
+*搜索任务
+*重试任务
+*通过拖动调整任务顺序
+*任务的更多信息(运行状况百分比、bt对等体的客户端信息等)
+*按指定的文件类型(视频、音频、图片、文档、应用程序、档案等)或文件扩展名过滤文件
+*多目录任务树视图
+*下载/上传aria2或单个任务的速度表
+*完全支持aria2设置
+4. 黑暗的主题
+5. Url命令行api支持
+6. 下载完成通知
+7. 多语言支持
+8. 多aria2 RPC主机支持
+9. 导出和导入设置支持
+10. 更少的带宽使用，只请求增量数据
 
-## Screenshots
-#### Desktop
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
-#### Mobile Device
-![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/mobile.png)
+# #截图
+# # # #桌面
+! [AriaNg] (https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
+####移动设备
+! [AriaNg] (https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/mobile.png)
 
-## Installation
-AriaNg now provides three versions, standard version, all-in-one version and [AriaNg Native](https://github.com/mayswind/AriaNg-Native). Standard version is suitable for deployment in the web server, and provides on-demand loading. All-In-One version is suitable for local using, and you can download it and just open the only html file in browser. [AriaNg Native](https://github.com/mayswind/AriaNg-Native) is also suitable for local using, and is no need for browser. 
+# #安装
+AriaNg现在提供三个版本，标准版、一体化版和[AriaNg Native](https://github.com/mayswind/AriaNg-Native)。标准版本适合部署在web服务器中，并提供按需加载。All-In-One版本适合本地使用，您可以下载并在浏览器中打开唯一的html文件。【AriaNg Native】(https://github.com/mayswind/AriaNg-Native)也适合本地使用，不需要浏览器。
 
-#### Prebuilt release
-Latest Release: [https://github.com/mayswind/AriaNg/releases](https://github.com/mayswind/AriaNg/releases)
+####预构建版本
+最新版本:[https://github.com/mayswind/AriaNg/releases](https://github.com/mayswind/AriaNg/releases]
 
-Latest Daily Build (Standard Version): [https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip](https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip)
+最新每日构建(标准版本):[https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip](https://github.com/mayswind/AriaNg-DailyBuild/archive/master.zip]
 
-#### Building from source
-Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Gulp](https://gulpjs.com/) installed. Then download the source code, and follow these steps.
+####从源代码构建
+确保你已经安装了[Node.js](https://nodejs.org/)， [NPM](https://www.npmjs.com/)和[Gulp](https://gulpjs.com/)。然后下载源代码，并按照以下步骤操作。
 
-##### Standard Version
+#####标准版本
 
-    $ npm install
-    $ gulp clean build
+$ NPM install
+$ gulp clean build
 
-##### All-In-One Version
+#####一体化版本
 
-    $ npm install
-    $ gulp clean build-bundle
+$ NPM install
+$ gulp清理build-bundle
 
-The builds will be placed in the dist directory.
+构建将放在dist目录中。
 
-#### Usage Notes
-Since AriaNg standard version loads language resources asynchronously, you may not open index.html directly on the local file system to run AriaNg. It is recommended that you can use the all-in-one version or deploy AriaNg in a web container or download [AriaNg Native](https://github.com/mayswind/AriaNg-Native) that does not require a browser to run.
+####使用说明
+由于AriaNg标准版本是异步加载语言资源的，所以你不能直接在本地文件系统上打开index.html来运行AriaNg。建议您使用一体化版本或将AriaNg部署在web容器中，或下载[AriaNg Native](https://github.com/mayswind/AriaNg-Native)，不需要浏览器运行。
 
-## Translating
+# #翻译
 
-Everyone is welcome to contribute translations. All translations files are put in `/src/langs/`. You can just modify and commit a new pull request.
+欢迎每个人贡献翻译。所有的翻译文件都放在' /src/langs/ '中。你可以修改并提交一个新的拉取请求。
 
-If you want to translate AriaNg to a new language, you can add language configuration to `/src/scripts/config/languages.js`, then copy `/i18n/en.sample.txt` to `/src/langs/` and rename it to the language code to be translated, then you can start the translation work.
+如果你想将AriaNg翻译成一种新的语言，你可以将语言配置添加到' /src/scripts/config/languages.js '中，然后将' /i18n/en.sample.txt '复制到' /src/langs/ '并将其重命名为要翻译的语言代码，然后你就可以开始翻译工作了。
 
-## Documents
-1. [English](http://ariang.mayswind.net)
-2. [Simplified Chinese (简体中文)](http://ariang.mayswind.net/zh_Hans)
+# #文件
+1. (英语)(http://ariang.mayswind.net)
+2. [简体中文(简体中文)](http://ariang.mayswind.net/zh_Hans)
 
-## Demo
-Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
+# #演示
+请访问[http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest]
 
-## Third Party Extensions
-There are some third-party applications based on AriaNg, so you can use AriaNg in more scenarios or devices. Please visit [Third Party Extensions](http://ariang.mayswind.net/3rd-extensions.html) for more information.
+第三方扩展
+有一些基于AriaNg的第三方应用程序，所以你可以在更多的场景或设备中使用AriaNg。请访问[第三方扩展](http://ariang.mayswind.net/3rd-extensions.html)了解更多信息。
 
-## License
-[MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
+# #许可证
+(MIT)(https://github.com/mayswind/AriaNg/blob/master/LICENSE)
