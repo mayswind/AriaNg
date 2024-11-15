@@ -19,6 +19,10 @@
         'it_IT': {
             name: 'Italian',
             displayName: 'Italiano'
+        },
+        'fr_FR': {
+            name: 'French',
+            displayName: 'Français'
         }
     });
 }());
