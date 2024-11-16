@@ -344,6 +344,7 @@ English=Inglese
 Simplified Chinese=Cinese Semplificato
 Traditional Chinese=Cinese Tradizionale
 Italian=Italiano
+French=Francese
 
 [format]
 longdate=DD/MM/YYYY HH:mm:ss

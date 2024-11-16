@@ -344,6 +344,7 @@ English=英語
 Simplified Chinese=簡體中文
 Traditional Chinese=繁體中文
 Italian=義大利語
+French=法語
 
 [format]
 longdate=YYYY年MM月DD日 HH:mm:ss

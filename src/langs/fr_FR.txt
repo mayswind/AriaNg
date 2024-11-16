@@ -162,13 +162,13 @@ Copied=Copié
 Pause After Task Created=Pause après création de la tâche
 Language=Langage
 Theme=Thème
-Light=Calir
+Light=Clair
 Dark=Sombre
 Follow system settings=Similaire aux réglages système
 Debug Mode=Mode de débogage
 Page Title=Titre de la page
 Preview=Prévisualisation
-Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag to ignore the suffix, and "scale\=n" tag to set the decimal precision.=Astuce : Vous pouvez utiliser le tag "noprefix" pour ignorer le préfixe, le tag "nosuffix" pour ignorer le suffixe, et le tag "scale\n" pour régler à la décimale près. 
+Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag to ignore the suffix, and "scale\=n" tag to set the decimal precision.=Astuce : Vous pouvez utiliser le tag "noprefix" pour ignorer le préfixe, le tag "nosuffix" pour ignorer le suffixe, et le tag "scale\n" pour régler à la décimale près.
 Example: ${downspeed:noprefix:nosuffix:scale\=1}=Exemple: ${downspeed:noprefix:nosuffix:scale\=1}
 Updating Page Title Interval=Actualisation de l'intervalle du titre de la page
 Enable Browser Notification=Activer les notification dans le navigateur
