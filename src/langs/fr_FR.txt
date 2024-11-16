@@ -135,6 +135,7 @@ No connected peers=Aucun peer connecté
 Failed to change some tasks state.=Echec lors du changement d'etat des tâches.
 Confirm Retry=Confirmer nouvel essai
 Are you sure you want to retry the selected task? AriaNg will create same task after clicking OK.=Ëtes-vous sûr de vouloir la tâche sélectionnée? AriaNg va créer la même tâche après confirmation.
+Failed to retry this task.=
 {successCount} tasks have been retried and {failedCount} tasks are failed.={successCount} tâches ont été relancées et {failedCount} tâches ont échouées.
 Confirm Remove=Confirmer suppression
 Are you sure you want to remove the selected task?=Ëtes-vous sûr de vouloir supprimer la tâche sélectionnée?
@@ -167,7 +168,7 @@ Follow system settings=Similaire aux réglages système
 Debug Mode=Mode de débogage
 Page Title=Titre de la page
 Preview=Prévisualisation
-Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag to ignore the suffix, and "scale\=n" tag to set the decimal precision.=Astuce : Vous pouvez utiliser le tag "noprefix" pour ignorer le préfixe, le tag "nosuffix" pour ignorer le suffixe, et le tag "scale\n" pour régler à la décimale près. 
+Tips: You can use the "noprefix" tag to ignore the prefix, "nosuffix" tag to ignore the suffix, and "scale\=n" tag to set the decimal precision.=Astuce : Vous pouvez utiliser le tag "noprefix" pour ignorer le préfixe, le tag "nosuffix" pour ignorer le suffixe, et le tag "scale\n" pour régler à la décimale près.
 Example: ${downspeed:noprefix:nosuffix:scale\=1}=Exemple: ${downspeed:noprefix:nosuffix:scale\=1}
 Updating Page Title Interval=Actualisation de l'intervalle du titre de la page
 Enable Browser Notification=Activer les notification dans le navigateur
