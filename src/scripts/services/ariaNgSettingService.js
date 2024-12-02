@@ -360,6 +360,12 @@
             setTitle: function (value) {
                 setOption('title', value);
             },
+            getHostProxyPattern: function () {
+                return getOption('hostProxyPattern');
+            },
+            setHostProxyPattern: function (value) {
+                setOption('hostProxyPattern', value);
+            },
             getBrowserNotification: function () {
                 return getOption('browserNotification');
             },
