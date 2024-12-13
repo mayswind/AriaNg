@@ -347,7 +347,7 @@ Italian=Italiano
 French=Français
 
 [format]
-longdate=MOIS/JOURS/ANNEE HEURE:MINUTES:SECONDES
+longdate=DD/MM/YYYY HH:mm:ss
 time.millisecond={{value}} milliseconde
 time.milliseconds={{value}} millisecondes
 time.second={{value}} seconde
