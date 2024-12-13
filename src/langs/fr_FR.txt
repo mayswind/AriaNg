@@ -341,10 +341,11 @@ checksum.failed=La vérification du checksum a échoué.
 
 [languages]
 English=Inglese
+French=Français
+Italian=Italiano
+Russian=Russe
 Simplified Chinese=Cinese Semplificato
 Traditional Chinese=Cinese Tradizionale
-Italian=Italiano
-French=Français
 
 [format]
 longdate=DD/MM/YYYY HH:mm:ss

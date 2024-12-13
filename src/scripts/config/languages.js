@@ -6,6 +6,18 @@
             name: 'English',
             displayName: 'English'
         },
+        'fr_FR': {
+            name: 'French',
+            displayName: 'Français'
+        },
+        'it_IT': {
+            name: 'Italian',
+            displayName: 'Italiano'
+        },
+        'ru_RU': {
+            name: 'Russian',
+            displayName: 'Русский'
+        },
         'zh_Hans': {
             name: 'Simplified Chinese',
             displayName: '简体中文',
@@ -15,14 +27,6 @@
             name: 'Traditional Chinese',
             displayName: '繁體中文',
             aliases: ['zh_CHT', 'zh_TW', 'zh_HK', 'zh_MO']
-        },
-        'it_IT': {
-            name: 'Italian',
-            displayName: 'Italiano'
-        },
-        'fr_FR': {
-            name: 'French',
-            displayName: 'Français'
         }
     });
 }());
