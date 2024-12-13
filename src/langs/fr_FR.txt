@@ -340,12 +340,12 @@ rpc.request.parse.failed=Echec dans l'analyse de la requête JSON-RPC.
 checksum.failed=La vérification du checksum a échoué.
 
 [languages]
-English=Inglese
+English=Anglais
 French=Français
-Italian=Italiano
+Italian=Italien
 Russian=Russe
-Simplified Chinese=Cinese Semplificato
-Traditional Chinese=Cinese Tradizionale
+Simplified Chinese=Chinois Simplifié
+Traditional Chinese=Chinois Traditionnel
 
 [format]
 longdate=DD/MM/YYYY HH:mm:ss
