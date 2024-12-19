@@ -318,6 +318,21 @@
             addUri: function (context, returnContextOnly) {
                 var urls = context.task ? context.task.urls : null;
                 var options = buildRequestOptions(context.task ? context.task.options : {}, context);
+                var proxyRegex= ariaNgSettingService.getHostProxyPattern().trim();
+                if (proxyRegex) {
+                    var patterns = proxyRegex.split('\n');
+                    for (var i = 0; i < patterns.length; i++) {
+                        patterns[i] = patterns[i].trim()
+                        if (patterns[i]) {
+                            var lastIndex = patterns[i].lastIndexOf('|');
+                            if (lastIndex === -1) continue
+                            var hostRegex = patterns[i].slice(0, lastIndex).trim();
+                            var httpProxy = patterns[i].slice(lastIndex + 1).trim();
+                            if (urls[0].match(hostRegex)) options['all-proxy'] = httpProxy
+                            
+                        }
+                    }
+                }
 
                 return invoke(buildRequestContext('addUri', context, urls, options), !!returnContextOnly);
             },
