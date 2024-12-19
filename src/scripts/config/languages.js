@@ -19,6 +19,10 @@
         'it_IT': {
             name: 'Italian',
             displayName: 'Italiano'
+        },
+        'es_AR': {
+            name: 'Argentinian Spanish',
+            displayName: 'Español Argentino'
         }
     });
 }());
