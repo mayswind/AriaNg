@@ -6,6 +6,10 @@
             name: 'English',
             displayName: 'English'
         },
+        'es_AR': {
+            name: 'Spanish (Argentinian)',
+            displayName: 'Español (Argentino)'
+        },
         'fr_FR': {
             name: 'French',
             displayName: 'Français'
