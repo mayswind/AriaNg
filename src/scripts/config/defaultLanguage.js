@@ -344,9 +344,11 @@
             },
             'languages': {
                 'English': 'English',
+                'French': 'French',
+                'Italian': 'Italian',
+                'Russian': 'Russian',
                 'Simplified Chinese': 'Simplified Chinese',
-                'Traditional Chinese': 'Traditional Chinese',
-                'Italian': 'Italian'
+                'Traditional Chinese': 'Traditional Chinese'
             },
             'format': {
                 'longdate': 'MM/DD/YYYY HH:mm:ss',
