@@ -92,11 +92,20 @@
                 }
             }
 
-            if (!ariaNgLanguages[browserLang] && browserLang.split('-').length > 1) { // maybe language-script-region
-                var langParts = browserLang.split('-');
-                browserLang = langParts[0] + '-' + langParts[1];
+            if (!ariaNgLanguages[browserLang] && browserLang.split('_').length > 1) { // maybe language-script-region
+                var langParts = browserLang.split('_');
+                browserLang = langParts[0] + '_' + langParts[1];
 
                 if (!ariaNgLanguages[browserLang]) {
+                    var languageName = getLanguageNameFromAlias(browserLang);
+
+                    if (languageName) {
+                        browserLang = languageName;
+                    }
+                }
+
+                if (!ariaNgLanguages[browserLang]) {
+                    browserLang = langParts[0];
                     var languageName = getLanguageNameFromAlias(browserLang);
 
                     if (languageName) {
