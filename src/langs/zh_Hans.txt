@@ -341,6 +341,7 @@ checksum.failed=文件校验失败.
 
 [languages]
 English=英语
+Spanish=西班牙语
 French=法语
 Italian=意大利语
 Russian=俄语

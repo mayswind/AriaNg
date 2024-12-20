@@ -344,6 +344,7 @@
             },
             'languages': {
                 'English': 'English',
+                'Spanish': 'Spanish',
                 'French': 'French',
                 'Italian': 'Italian',
                 'Russian': 'Russian',

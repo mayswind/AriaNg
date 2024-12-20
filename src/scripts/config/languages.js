@@ -6,9 +6,9 @@
             name: 'English',
             displayName: 'English'
         },
-        'es_AR': {
-            name: 'Spanish (Argentinian)',
-            displayName: 'Español (Argentino)'
+        'es': {
+            name: 'Spanish',
+            displayName: 'Español'
         },
         'fr_FR': {
             name: 'French',

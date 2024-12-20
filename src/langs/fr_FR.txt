@@ -341,6 +341,7 @@ checksum.failed=La vérification du checksum a échoué.
 
 [languages]
 English=Anglais
+Spanish=Espagnol
 French=Français
 Italian=Italien
 Russian=Russe
