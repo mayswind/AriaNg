@@ -306,7 +306,8 @@ Cannot initialize WebSocket!=无法初始化 WebSocket!
 Cannot connect to aria2!=无法连接到 aria2!
 Access Denied!=拒绝访问!
 You cannot use AriaNg because this browser does not meet the minimum requirements for data storage.=您无法使用 AriaNg, 因为这个浏览器不满足数据存储的最低要求.
-
+hostProxyPatternName=主机代理模式
+hostProxyPatternDescription=为每行代理指定主机正则表达式模式。如果主机与该模式匹配，则将使用代理。示例：.*\.example\.com|proxy.com:8080 .*\.example\.org|proxy.org:8080
 [error]
 unknown=未知错误.
 operation.timeout=操作超时.
