@@ -690,44 +690,44 @@ keep-unfinished-download-result.description=Conservar los resultados de descarga
 max-download-result.name=Resultado de descarga máxima
 max-download-result.description=Establezca el número máximo de resultados de descarga que se guardan en la memoria. Los resultados de la descarga son descargas completadas/con error/eliminadas. Los resultados de la descarga se almacenan en la cola FIFO y puede almacenar como máximo NUM resultados de descarga. Cuando la cola está llena y se crea un nuevo resultado de descarga, el resultado de descarga más antiguo se elimina del frente de la cola y el nuevo se coloca al final. Establecer un número grande en esta opción puede resultar en un alto consumo de memoria después de miles de descargas. Especificar 0 significa que no se guarda ningún resultado de descarga. Tenga en cuenta que las descargas sin terminar se mantienen en la memoria independientemente del valor de esta opción. Consulte la opción --keep-unfinished-download-result.
 max-mmap-limit.name=Límite máximo de MMap
-max-mmap-limit.description=Set the maximum file size to enable mmap (see --enable-mmap option). The file size is determined by the sum of all files contained in one download. For example, if a download contains 5 files, then file size is the total size of those files. If file size is strictly greater than the size specified in this option, mmap will be disabled.
-max-resume-failure-tries.name=Max Resume Failure Try Times
-max-resume-failure-tries.description=When used with --always-resume=false, aria2 downloads file from scratch when aria2 detects N number of URIs that does not support resume. If N is 0, aria2 downloads file from scratch when all given URIs do not support resume. See --always-resume option.
-min-tls-version.name=Min TLS Version
-min-tls-version.description=Specify minimum SSL/TLS version to enable.
-log-level.name=Log Level
+max-mmap-limit.description=Establezca el tamaño máximo de archivo para habilitar mmap (consulte la opción --enable-mmap). El tamaño de archivo se determina por la suma de todos los archivos incluidos en una descarga. Por ejemplo, si una descarga contiene 5 archivos, el tamaño del archivo será el tamaño total de esos archivos. Si el tamaño del archivo es estrictamente mayor que el tamaño especificado en esta opción, se deshabilitará mmap.
+max-resume-failure-tries.name=Máximo número de intentos de error de reanudación
+max-resume-failure-tries.description=Cuando se utiliza con --always-resume=false, aria2 descarga el archivo desde cero cuando detecta N cantidad de URI que no admiten la reanudación. Si N es 0, aria2 descarga el archivo desde cero cuando ninguna de las URI proporcionadas admite la reanudación. Consulte la opción --always-resume.
+min-tls-version.name=Versión mínima de TLS
+min-tls-version.description=Especifique la versión mínima de SSL/TLS para habilitar.
+log-level.name=Nivel de registro
 log-level.description=
-optimize-concurrent-downloads.name=Optimize Concurrent Downloads
-optimize-concurrent-downloads.description=Optimizes the number of concurrent downloads according to the bandwidth available. aria2 uses the download speed observed in the previous downloads to adapt the number of downloads launched in parallel according to the rule N = A + B Log10(speed in Mbps). The coefficients A and B can be customized in the option arguments with A and B separated by a colon. The default values (A=5, B=25) lead to using typically 5 parallel downloads on 1Mbps networks and above 50 on 100Mbps networks. The number of parallel downloads remains constrained under the maximum defined by the --max-concurrent-downloads parameter.
-piece-length.name=Piece Length
-piece-length.description=Set a piece length for HTTP/FTP downloads. This is the boundary when aria2 splits a file. All splits occur at multiple of this length. This option will be ignored in BitTorrent downloads. It will be also ignored if Metalink file contains piece hashes.
-show-console-readout.name=Show Console Output
+optimize-concurrent-downloads.name=Optimizar descargas simultáneas
+optimize-concurrent-downloads.description=Optimizar la cantidad de descargas simultáneas según el ancho de banda disponible. aria2 utiliza la velocidad de descarga observada en las descargas anteriores para adaptar la cantidad de descargas lanzadas en paralelo según la regla N = A + B Log10 (velocidad en Mbps). Los coeficientes A y B se pueden personalizar en los argumentos de la opción con A y B separados por dos puntos. Los valores predeterminados (A=5, B=25) llevan a usar típicamente 5 descargas paralelas en redes de 1Mbps y más de 50 en redes de 100Mbps. La cantidad de descargas paralelas permanece restringida por debajo del máximo definido por el parámetro --max-concurrent-downloads.
+piece-length.name=Longitud de la pieza
+piece-length.description=Establezca una longitud de fragmento para las descargas HTTP/FTP. Este es el límite cuando aria2 divide un archivo. Todas las divisiones se producen en múltiplos de esta longitud. Esta opción se ignorará en las descargas de BitTorrent. También se ignorará si el archivo Metalink contiene hashes de fragmentos.
+show-console-readout.name=Mostrar salida de consola
 show-console-readout.description=
-summary-interval.name=Download Summary Output Interval
-summary-interval.description=Set interval in seconds to output download progress summary. Setting 0 suppresses the output.
-max-overall-download-limit.name=Global Max Download Limit
-max-overall-download-limit.description=Set max overall download speed in bytes/sec. 0 means unrestricted. You can append K or M (1K = 1024, 1M = 1024K).
-max-download-limit.name=Max Download Limit
-max-download-limit.description=Set max download speed per each download in bytes/sec. 0 means unrestricted. You can append K or M (1K = 1024, 1M = 1024K).
-no-conf.name=Disable Configuration File
+summary-interval.name=Descargar resumen del intervalo de salida
+summary-interval.description=Establezca el intervalo en segundos para mostrar el resumen del progreso de la descarga. Si se configura en 0, se suprime la visualización.
+max-overall-download-limit.name=Límite máximo de descarga global
+max-overall-download-limit.description=Establezca la velocidad máxima de descarga general en bytes/seg. 0 significa sin restricciones. Puede agregar K o M (1K = 1024, 1M = 1024K).
+max-download-limit.name=Límite máximo de descarga
+max-download-limit.description=Establezca la velocidad máxima de descarga por cada descarga en bytes por segundo. 0 significa sin restricciones. Puede agregar K o M (1K = 1024, 1M = 1024K).
+no-conf.name=Deshabilitar archivo de configuración
 no-conf.description=
-no-file-allocation-limit.name=No File Allocation Limit
-no-file-allocation-limit.description=No file allocation is made for files whose size is smaller than SIZE. You can append K or M (1K = 1024, 1M = 1024K).
-parameterized-uri.name=Enable Parameterized URI
-parameterized-uri.description=Enable parameterized URI support. You can specify set of parts: http://{sv1,sv2,sv3}/foo.iso. Also you can specify numeric sequences with step counter: http://host/image[000-100:2].img. A step counter can be omitted. If all URIs do not point to the same file, such as the second example above, -Z option is required.
-quiet.name=Disable Console Output
+no-file-allocation-limit.name=Sin límite de asignación de archivos
+no-file-allocation-limit.description=No se realiza ninguna asignación de archivos para archivos cuyo tamaño sea menor que TAMAÑO. Puede agregar K o M (1K = 1024, 1M = 1024K).
+parameterized-uri.name=Habilitar URI parametrizada
+parameterized-uri.description=Habilitar la compatibilidad con URI parametrizada. Puede especificar un conjunto de partes: http://{sv1,sv2,sv3}/foo.iso. También puede especificar secuencias numéricas con contador de pasos: http://host/image[000-100:2].img. Se puede omitir un contador de pasos. Si todas las URI no apuntan al mismo archivo, como en el segundo ejemplo anterior, se requiere la opción -Z.
+quiet.name=Deshabilitar la salida de la consola
 quiet.description=
-realtime-chunk-checksum.name=Realtime Data Chunk Validation
-realtime-chunk-checksum.description=Validate chunk of data by calculating checksum while downloading a file if chunk checksums are provided.
-remove-control-file.name=Remove Control File
-remove-control-file.description=Remove control file before download. Using with --allow-overwrite=true, download always starts from scratch. This will be useful for users behind proxy server which disables resume.
-save-session.name=Session Save File
-save-session.description=Save error/unfinished downloads to FILE on exit. You can pass this output file to aria2c with --input-file option on restart. If you like the output to be gzipped append a .gz extension to the file name. Please note that downloads added by aria2.addTorrent() and aria2.addMetalink() RPC method and whose meta data could not be saved as a file are not saved. Downloads removed using aria2.remove() and aria2.forceRemove() will not be saved.
-save-session-interval.name=Save Session Interval
-save-session-interval.description=Save error/unfinished downloads to a file specified by --save-session option every SEC seconds. If 0 is given, file will be saved only when aria2 exits.
-socket-recv-buffer-size.name=Socket Receive Buffer Size
-socket-recv-buffer-size.description=Set the maximum socket receive buffer in bytes. Specifing 0 will disable this option. This value will be set to socket file descriptor using SO_RCVBUF socket option with setsockopt() call.
-stop.name=Auto Shutdown Time
-stop.description=Stop application after SEC seconds has passed. If 0 is given, this feature is disabled.
-truncate-console-readout.name=Truncate Console Output
-truncate-console-readout.description=Truncate console readout to fit in a single line.
+realtime-chunk-checksum.name=Validación de fragmentos de datos en tiempo real
+realtime-chunk-checksum.description=Validar un fragmento de datos calculando la suma de comprobación al descargar un archivo si se proporcionan sumas de comprobación de fragmentos.
+remove-control-file.name=Eliminar archivo de control
+remove-control-file.description=Eliminar el archivo de control antes de la descarga. Si se utiliza con --allow-overwrite=true, la descarga siempre comienza desde cero. Esto será útil para los usuarios que estén detrás de un servidor proxy que deshabilita la reanudación.
+save-session.name=Archivo de guardado de sesión
+save-session.description=Guardar las descargas con errores o sin terminar en un ARCHIVO al salir. Puedes pasar este archivo de salida a aria2c con la opción --input-file al reiniciar. Si deseas que la salida esté comprimida en gzip, agrega una extensión .gz al nombre del archivo. Ten en cuenta que las descargas agregadas por los métodos RPC aria2.addTorrent() y aria2.addMetalink() y cuyos metadatos no se pudieron guardar como archivo no se guardan. Las descargas eliminadas con aria2.remove() y aria2.forceRemove() no se guardarán.
+save-session-interval.name=Intervalo de guardar sesión
+save-session-interval.description=Guardar las descargas con errores o sin finalizar en un archivo especificado con la opción --save-session cada SEC segundos. Si se especifica 0, el archivo se guardará solo cuando aria2 salga.
+socket-recv-buffer-size.name=Tamaño del búfer de recepción del socket
+socket-recv-buffer-size.description=Establezca el búfer de recepción de socket máximo en bytes. Si se especifica 0, se deshabilitará esta opción. Este valor se establecerá en el descriptor de archivo de socket mediante la opción de socket SO_RCVBUF con la llamada setsockopt().
+stop.name=Tiempo de apagado automático
+stop.description=Detener la aplicación después de que transcurran 10 segundos. Si se especifica 0, esta función se deshabilita.
+truncate-console-readout.name=Truncar la salida de la consola
+truncate-console-readout.description=Truncar la lectura de la consola para que quepa en una sola línea.
