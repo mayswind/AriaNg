@@ -340,6 +340,7 @@ rpc.request.parse.failed=No se pudo analizar la solicitud JSON-RPC.
 checksum.failed=La validación de la suma de comprobación falló.
 
 [languages]
+Czech=Checo
 English=Inglés
 Spanish=Español
 French=Francés

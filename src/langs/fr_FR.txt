@@ -340,6 +340,7 @@ rpc.request.parse.failed=Echec dans l'analyse de la requête JSON-RPC.
 checksum.failed=La vérification du checksum a échoué.
 
 [languages]
+Czech=Tchèque
 English=Anglais
 Spanish=Espagnol
 French=Français

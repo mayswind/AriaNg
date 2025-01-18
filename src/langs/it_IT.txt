@@ -340,6 +340,7 @@ rpc.request.parse.failed=Errore durante l'analisi della richiesta RPC.
 checksum.failed=Errore di verifica del checksum del file.
 
 [languages]
+Czech=Ceco
 English=Inglese
 Spanish=Spagnolo
 French=Francese

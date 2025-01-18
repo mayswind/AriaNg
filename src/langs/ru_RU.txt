@@ -340,6 +340,7 @@ rpc.request.parse.failed=Ошибка при разборе RPC-запроса.
 checksum.failed=Ошибка проверки контрольной суммы файла.
 
 [languages]
+Czech=Че́шский
 English=Английский
 Spanish=испанский
 French=Французский

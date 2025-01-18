@@ -340,6 +340,7 @@ rpc.request.parse.failed=处理 RPC 请求失败.
 checksum.failed=文件校验失败.
 
 [languages]
+Czech=捷克语
 English=英语
 Spanish=西班牙语
 French=法语
