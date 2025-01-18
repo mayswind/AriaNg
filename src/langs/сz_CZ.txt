@@ -340,6 +340,7 @@ rpc.request.parse.failed=Nepodařilo se analyzovat JSON-RPC požadavek.
 checksum.failed=Validace kontrolního součtu selhala.
 
 [languages]
+Czech=Čeština
 English=Angličtina
 Spanish=Španělština
 French=Francouzština
@@ -347,7 +348,6 @@ Italian=Italština
 Russian=Ruština
 Simplified Chinese=Zjednodušená čínština
 Traditional Chinese=Tradiční čínština
-Czech=Čeština
 
 [format]
 longdate=MM/DD/RRRR HH:mm:ss

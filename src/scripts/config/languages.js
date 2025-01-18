@@ -2,6 +2,10 @@
     'use strict';
 
     angular.module('ariaNg').constant('ariaNgLanguages', {
+        'cz_CZ': {
+            name: 'Czech',
+            displayName: 'Čeština'
+        },
         'en': {
             name: 'English',
             displayName: 'English'
@@ -32,9 +36,5 @@
             displayName: '繁體中文',
             aliases: ['zh_CHT', 'zh_TW', 'zh_HK', 'zh_MO']
         }
-         'cz_CZ': {
-            name: 'Czech',
-            displayName: 'Čeština'
-        },
     });
 }());
