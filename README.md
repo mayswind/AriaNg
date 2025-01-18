@@ -23,6 +23,7 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
 5. Url command line api support
 6. Download finished notification
 7. Multi-languages support
+    * Czech
     * English
     * Spanish
     * French
