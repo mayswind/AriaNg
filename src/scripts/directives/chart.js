@@ -195,9 +195,6 @@
                 smooth: true,
                 symbolSize: 6
             },
-            textStyle: {
-                fontFamily: 'Hiragino Sans GB, Microsoft YaHei, STHeiti, Helvetica Neue, Helvetica, Arial, sans-serif'
-            },
             animationDuration: 500
         };
     }).factory('chartDarkTheme', function () {
