@@ -732,3 +732,4 @@ stop.name=Auto Shutdown Time
 stop.description=Stop application after SEC seconds has passed. If 0 is given, this feature is disabled.
 truncate-console-readout.name=Truncate Console Output
 truncate-console-readout.description=Truncate console readout to fit in a single line.
+?
