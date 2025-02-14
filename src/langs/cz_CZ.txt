@@ -413,44 +413,44 @@ TLSv1.1=TLSv1.1
 TLSv1.2=TLSv1.2
 
 [options]
-dir.name=Stahování cesta  
+dir.name=Stahování cesta
 dir.description=Udává ředitelství, do kterého budou stažené soubory uloženy.
-log.name=Soubor logu  
-log.description=Název souboru logu. Pokud je zadáno "-", log se zapisuje na standardní výstup. Pokud je zadán prázdný řetězec (""), nebo pokud je tato volba vynechána, log se vůbec nezapisuje na disk.  
-max-concurrent-downloads.name=Maximální počet současných stahování  
+log.name=Soubor logu
+log.description=Název souboru logu. Pokud je zadáno "-", log se zapisuje na standardní výstup. Pokud je zadán prázdný řetězec (""), nebo pokud je tato volba vynechána, log se vůbec nezapisuje na disk.
+max-concurrent-downloads.name=Maximální počet současných stahování
 max-concurrent-downloads.description=Nastavuje maximální počet souborů, které bude aria2 stahovat najednou.
-check-integrity.name=Kontrola integrity  
-check-integrity.description=Ověřuje integritu souboru validací hashů částí nebo celého souboru. Tato volba má účinek pouze u stahování BitTorrent, Metalink s kontrolními součty nebo u HTTP(S)/FTP stahování s volbou --checksum.  
-continue.name=Obnovit stahování  
-continue.description=Pokračuje ve stahování částečně staženého souboru. Použijte tuto volbu pro obnovení stahování, které bylo zahájeno webovým prohlížečem nebo jiným programem, který stahuje soubory sekvenčně od začátku. Tato volba je momentálně použitelná pouze pro HTTP(S)/FTP stahování.  
-all-proxy.name=Proxy server  
-all-proxy.description=Použít proxy server pro všechny protokoly. Také můžete tuto konfiguraci přepsat a specifikovat proxy server pro konkrétní protokol pomocí --http-proxy, --https-proxy a --ftp-proxy. Toto ovlivňuje všechna stahování. Formát PROXY je [http://][UŽIVATEL:HESLO@]HOST[:PORT].  
-all-proxy-user.name=Uživatelské jméno proxy  
-all-proxy-user.description=Určuje uživatelské jméno pro autentifikace při připojení ke všem proxy serverům.  
-all-proxy-passwd.name=Heslo proxy  
+check-integrity.name=Kontrola integrity
+check-integrity.description=Ověřuje integritu souboru validací hashů částí nebo celého souboru. Tato volba má účinek pouze u stahování BitTorrent, Metalink s kontrolními součty nebo u HTTP(S)/FTP stahování s volbou --checksum.
+continue.name=Obnovit stahování
+continue.description=Pokračuje ve stahování částečně staženého souboru. Použijte tuto volbu pro obnovení stahování, které bylo zahájeno webovým prohlížečem nebo jiným programem, který stahuje soubory sekvenčně od začátku. Tato volba je momentálně použitelná pouze pro HTTP(S)/FTP stahování.
+all-proxy.name=Proxy server
+all-proxy.description=Použít proxy server pro všechny protokoly. Také můžete tuto konfiguraci přepsat a specifikovat proxy server pro konkrétní protokol pomocí --http-proxy, --https-proxy a --ftp-proxy. Toto ovlivňuje všechna stahování. Formát PROXY je [http://][UŽIVATEL:HESLO@]HOST[:PORT].
+all-proxy-user.name=Uživatelské jméno proxy
+all-proxy-user.description=Určuje uživatelské jméno pro autentifikace při připojení ke všem proxy serverům.
+all-proxy-passwd.name=Heslo proxy
 all-proxy-passwd.description=Určuje heslo pro autentifikace při připojení ke všem proxy serverům.
-checksum.name=Kontrolní součet  
-checksum.description=Nastavit kontrolní součet. Formát hodnoty volby je TYP=DIGEST. TYP je typ hash. Podporované typy hash jsou uvedeny v Hash Algorithms v aria2c -v. DIGEST je hexadecimální digest. Například nastavení sha-1 digestu vypadá takto: sha-1=0192ba11326fe2298c8cb4de616f4d4140213838. Tato volba platí pouze pro HTTP(S)/FTP stahování.  
-connect-timeout.name=Časový limit připojení  
-connect-timeout.description=Nastavte časový limit připojení v sekundách pro navázání spojení s HTTP/FTP/proxy serverem. Po navázání spojení tato volba přestane mít účinek a použije se volba --timeout.  
-dry-run.name=Zkušební start 
-dry-run.description=Pokud je zadáno "Pravda", aria2 pouze zkontroluje, zda je vzdálený soubor dostupný, a nestahuje žádná data. Tato volba má účinek pouze u HTTP/FTP stahování. Stahování BitTorrentu se zruší, pokud je zadáno "Pravda".  
-lowest-speed-limit.name=Nejnižší rychlost stahování  
-lowest-speed-limit.description=Ukončit spojení, pokud je rychlost stahování nižší nebo rovna této hodnotě (bajty za sekundu). 0 znamená, že aria2 nemá žádný limit na nejnižší rychlost. Můžete připojit K nebo M (1K = 1024, 1M = 1024K). Tato volba neovlivňuje stahování BitTorrentu.  
-max-connection-per-server.name=Maximální počet připojení na server  
-max-connection-per-server.description=Nastavuje maximální počet spojení, které může aria2 současně instalovat s jedním serverem pro stažení jednoho souboru. To pomáhá optimalizovat rychlost stahování tím, že zabraňuje přílišnému zatížení serveru.  
-max-file-not-found.name=Maximální počet pokusů o nalezení souboru  
-max-file-not-found.description=Pokud aria2 obdrží stav "soubor nenalezen" od vzdálených HTTP/FTP serverů NUM krát bez získání jediného bajtu, vynutí selhání stahování. Zadejte 0 pro deaktivaci této volby. Tato volba je účinná pouze při použití HTTP/FTP serverů. Počet pokusů se počítá do --max-tries, takže by měla být také nastavena.  
-max-tries.name=Maximální počet pokusů  
-max-tries.description=Nastavit počet pokusů. 0 znamená neomezený počet.  
-min-split-size.name=Minimální velikost části  
-min-split-size.description=aria2 nerozdělí méně než 2*SIZE bajtů. Například, pokud stahujete 20MiB soubor a SIZE je 10M, aria2 může rozdělit soubor na 2 rozsahy [0-10MiB) a [10MiB-20MiB) a stáhnout je pomocí 2 zdrojů (pokud --split >= 2, samozřejmě). Pokud je SIZE 15M, protože 2*15M > 20MiB, aria2 nerozdělí soubor a stáhne ho pomocí 1 zdroje. Můžete připojit K nebo M (1K = 1024, 1M = 1024K). Možné hodnoty: 1M-1024M.  
-netrc-path.name=Cesta k .netrc  
+checksum.name=Kontrolní součet
+checksum.description=Nastavit kontrolní součet. Formát hodnoty volby je TYP=DIGEST. TYP je typ hash. Podporované typy hash jsou uvedeny v Hash Algorithms v aria2c -v. DIGEST je hexadecimální digest. Například nastavení sha-1 digestu vypadá takto: sha-1=0192ba11326fe2298c8cb4de616f4d4140213838. Tato volba platí pouze pro HTTP(S)/FTP stahování.
+connect-timeout.name=Časový limit připojení
+connect-timeout.description=Nastavte časový limit připojení v sekundách pro navázání spojení s HTTP/FTP/proxy serverem. Po navázání spojení tato volba přestane mít účinek a použije se volba --timeout.
+dry-run.name=Zkušební start
+dry-run.description=Pokud je zadáno "Pravda", aria2 pouze zkontroluje, zda je vzdálený soubor dostupný, a nestahuje žádná data. Tato volba má účinek pouze u HTTP/FTP stahování. Stahování BitTorrentu se zruší, pokud je zadáno "Pravda".
+lowest-speed-limit.name=Nejnižší rychlost stahování
+lowest-speed-limit.description=Ukončit spojení, pokud je rychlost stahování nižší nebo rovna této hodnotě (bajty za sekundu). 0 znamená, že aria2 nemá žádný limit na nejnižší rychlost. Můžete připojit K nebo M (1K = 1024, 1M = 1024K). Tato volba neovlivňuje stahování BitTorrentu.
+max-connection-per-server.name=Maximální počet připojení na server
+max-connection-per-server.description=Nastavuje maximální počet spojení, které může aria2 současně instalovat s jedním serverem pro stažení jednoho souboru. To pomáhá optimalizovat rychlost stahování tím, že zabraňuje přílišnému zatížení serveru.
+max-file-not-found.name=Maximální počet pokusů o nalezení souboru
+max-file-not-found.description=Pokud aria2 obdrží stav "soubor nenalezen" od vzdálených HTTP/FTP serverů NUM krát bez získání jediného bajtu, vynutí selhání stahování. Zadejte 0 pro deaktivaci této volby. Tato volba je účinná pouze při použití HTTP/FTP serverů. Počet pokusů se počítá do --max-tries, takže by měla být také nastavena.
+max-tries.name=Maximální počet pokusů
+max-tries.description=Nastavit počet pokusů. 0 znamená neomezený počet.
+min-split-size.name=Minimální velikost části
+min-split-size.description=aria2 nerozdělí méně než 2*SIZE bajtů. Například, pokud stahujete 20MiB soubor a SIZE je 10M, aria2 může rozdělit soubor na 2 rozsahy [0-10MiB) a [10MiB-20MiB) a stáhnout je pomocí 2 zdrojů (pokud --split >= 2, samozřejmě). Pokud je SIZE 15M, protože 2*15M > 20MiB, aria2 nerozdělí soubor a stáhne ho pomocí 1 zdroje. Můžete připojit K nebo M (1K = 1024, 1M = 1024K). Možné hodnoty: 1M-1024M.
+netrc-path.name=Cesta k .netrc
 netrc-path.description=Udává cestu k souboru .netrc, který bude použit pro autentifikaci při připojení k serveru.
-no-netrc.name=Zakázat netrc  
+no-netrc.name=Zakázat netrc
 no-netrc.description=Vypíná použití souboru .netrc pro autentifikaci. Pokud je instalováno, aria2 nebude vyhledávat a používat tento soubor k autentifikaci.
-no-proxy.name=Seznam bez proxy  
-no-proxy.description=Specifikujte seznam názvů hostitelů, domén a síťových adres oddělených čárkami s nebo bez masky podsítě, kde se proxy nemá používat.  
+no-proxy.name=Seznam bez proxy
+no-proxy.description=Specifikujte seznam názvů hostitelů, domén a síťových adres oddělených čárkami s nebo bez masky podsítě, kde se proxy nemá používat.
 out.name=Název souboru
 out.description=Název staženého souboru. Vždy je relativní k adresáři uvedenému v možnosti --dir. Při použití možnosti --force-sequential je tato možnost ignorována.
 proxy-method.name=Metoda proxy
