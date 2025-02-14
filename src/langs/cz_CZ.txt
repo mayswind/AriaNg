@@ -345,6 +345,7 @@ English=Angličtina
 Spanish=Španělština
 French=Francouzština
 Italian=Italština
+Polish=Polština
 Russian=Ruština
 Simplified Chinese=Zjednodušená čínština
 Traditional Chinese=Tradiční čínština

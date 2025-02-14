@@ -22,6 +22,10 @@
             name: 'Italian',
             displayName: 'Italiano'
         },
+        'pl_PL': {
+            name: 'Polish',
+            displayName: 'Polski'
+        },
         'ru_RU': {
             name: 'Russian',
             displayName: 'Русский'

@@ -345,6 +345,7 @@ English=英語
 Spanish=西班牙語
 French=法語
 Italian=義大利語
+Polish=波蘭語
 Russian=俄語
 Simplified Chinese=簡體中文
 Traditional Chinese=繁體中文
