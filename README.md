@@ -28,6 +28,7 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
     * Spanish
     * French
     * Italian
+    * Polish
     * Russian
     * Chinese (Simplified Chinese / Traditional Chinese)
 8. Multi aria2 RPC host support
