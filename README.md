@@ -24,6 +24,7 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
 6. Download finished notification
 7. Multi-languages support
     * Czech
+    * German
     * English
     * Spanish
     * French
@@ -31,7 +32,6 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
     * Polish
     * Russian
     * Chinese (Simplified Chinese / Traditional Chinese)
-    * German
 8. Multi aria2 RPC host support
 9. Exporting and Importing settings support
 10. Less bandwidth usage, only requesting incremental data

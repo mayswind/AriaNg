@@ -341,6 +341,7 @@ checksum.failed=La validación de la suma de comprobación falló.
 
 [languages]
 Czech=Checo
+German=Alemán
 English=Inglés
 Spanish=Español
 French=Francés

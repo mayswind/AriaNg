@@ -344,6 +344,7 @@
             },
             'languages': {
                 'Czech': 'Czech',
+                'German': 'German',
                 'English': 'English',
                 'Spanish': 'Spanish',
                 'French': 'French',

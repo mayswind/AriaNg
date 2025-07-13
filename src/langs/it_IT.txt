@@ -341,6 +341,7 @@ checksum.failed=Errore di verifica del checksum del file.
 
 [languages]
 Czech=Ceco
+German=Tedesco
 English=Inglese
 Spanish=Spagnolo
 French=Francese

@@ -341,6 +341,7 @@ checksum.failed=Validace kontrolního součtu selhala.
 
 [languages]
 Czech=Čeština
+German=Němčina
 English=Angličtina
 Spanish=Španělština
 French=Francouzština

@@ -341,6 +341,7 @@ checksum.failed=Ошибка проверки контрольной суммы 
 
 [languages]
 Czech=Че́шский
+German=Немецкий
 English=Английский
 Spanish=испанский
 French=Французский

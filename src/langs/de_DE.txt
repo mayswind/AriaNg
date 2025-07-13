@@ -341,6 +341,7 @@ checksum.failed=Prüfsummenvalidierung ist fehlgeschlagen.
 
 [languages]
 Czech=Tschechisch
+German=Deutsch
 English=Englisch
 Spanish=Spanisch
 French=Französisch

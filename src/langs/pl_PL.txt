@@ -341,6 +341,7 @@ checksum.failed=Weryfikacja sumy kontrolnej nie powiodła się.
 
 [languages]
 Czech=Czeski
+German=Niemiecki
 English=Angielski
 Spanish=Hiszpański
 French=Francuski
