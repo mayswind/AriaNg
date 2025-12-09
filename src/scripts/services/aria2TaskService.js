@@ -295,7 +295,7 @@
 
             task.totalLength = parseInt(task.totalLength);
             task.completedLength = parseInt(task.completedLength);
-            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : 0);
+            task.completePercent = (task.totalLength > 0 ? task.completedLength / task.totalLength * 100 : (task.status === 'complete' ? 100 : 0));
             task.remainLength = task.totalLength - task.completedLength;
             task.remainPercent = 100 - task.completePercent;
             task.uploadLength = (task.uploadLength ? parseInt(task.uploadLength) : 0);
@@ -336,7 +336,7 @@
                     file.length = parseInt(file.length);
                     file.selected = (file.selected === true || file.selected === 'true');
                     file.completedLength = parseInt(file.completedLength);
-                    file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : 0);
+                    file.completePercent = (file.length > 0 ? file.completedLength / file.length * 100 : (task.status === 'complete' ? 100 : 0));
 
                     if (addVirtualFileNode) {
                         file.relativePath = getRelativePath(task, file);
