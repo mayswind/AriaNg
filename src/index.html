@@ -162,6 +162,64 @@
                             </li>
                         </ul>
                     </li>
+                    <li ng-if="isAllTasksView()">
+                        <a class="toolbar dropdown-toggle" data-toggle="dropdown" title="{{'Filter by Status' | translate}}"
+                           ng-class="{'toolbar-active': hasAllTasksFilters()}">
+                            <i class="fa fa-filter"></i>
+                            <i class="fa fa-caret-right fa-right-bottom fa-rotate-45 fa-half" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" style="min-width: 160px;">
+                            <li>
+                                <a class="pointer-cursor" ng-click="selectAllFilters(); $event.stopPropagation();">
+                                    <i class="fa fa-check-square-o fa-fw"></i>
+                                    <span translate>Select All</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="deselectAllFilters(); $event.stopPropagation();">
+                                    <i class="fa fa-square-o fa-fw"></i>
+                                    <span translate>Deselect All</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="toggleStatusFilter('active'); $event.stopPropagation();">
+                                    <i class="fa fa-fw" ng-class="{'fa-check-square-o': isStatusFilterActive('active'), 'fa-square-o': !isStatusFilterActive('active')}"></i>
+                                    <span translate>Downloading</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="toggleStatusFilter('waiting'); $event.stopPropagation();">
+                                    <i class="fa fa-fw" ng-class="{'fa-check-square-o': isStatusFilterActive('waiting'), 'fa-square-o': !isStatusFilterActive('waiting')}"></i>
+                                    <span translate>Waiting</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="toggleStatusFilter('paused'); $event.stopPropagation();">
+                                    <i class="fa fa-fw" ng-class="{'fa-check-square-o': isStatusFilterActive('paused'), 'fa-square-o': !isStatusFilterActive('paused')}"></i>
+                                    <span translate>Paused</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="toggleStatusFilter('complete'); $event.stopPropagation();">
+                                    <i class="fa fa-fw" ng-class="{'fa-check-square-o': isStatusFilterActive('complete'), 'fa-square-o': !isStatusFilterActive('complete')}"></i>
+                                    <span translate>Completed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="toggleStatusFilter('error'); $event.stopPropagation();">
+                                    <i class="fa fa-fw" ng-class="{'fa-check-square-o': isStatusFilterActive('error'), 'fa-square-o': !isStatusFilterActive('error')}"></i>
+                                    <span translate>Error</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer-cursor" ng-click="toggleStatusFilter('removed'); $event.stopPropagation();">
+                                    <i class="fa fa-fw" ng-class="{'fa-check-square-o': isStatusFilterActive('removed'), 'fa-square-o': !isStatusFilterActive('removed')}"></i>
+                                    <span translate>Removed</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="divider"></li>
                     <li>
                         <a class="toolbar" title="{{'Help' | translate}}" href="https://github.com/mayswind/AriaNg" target="_blank">
@@ -198,6 +256,9 @@
                 </li>
                 <li data-href-match="/stopped">
                     <a href="#!/stopped"><i class="fa fa-check-circle-o"></i> <span ng-bind="('Finished / Stopped' | translate) + (globalStat && globalStat.numStopped > 0 ? ' (' + globalStat.numStopped + ')' : '')">Finished / Stopped</span></a>
+                </li>
+                <li data-href-match="/all">
+                    <a href="#!/all"><i class="fa fa-list"></i> <span ng-bind="('All Tasks' | translate) + (getAllTasksCount() > 0 ? ' (' + getAllTasksCount() + ')' : '')">All Tasks</span><span class="label label-primary pull-right" style="margin-top: 2px;" ng-if="hasAllTasksFilters()" translate>Filtered</span></a>
                 </li>
                 <li class="header" translate>Settings</li>
                 <li data-href-match="/settings/ariang">

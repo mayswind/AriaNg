@@ -491,6 +491,51 @@
                     }
                 });
             },
+            getAllTaskList: function (full, callback, silent) {
+                var that = this;
+                var methods = [
+                    aria2RpcService.tellActive({
+                        requestWholeInfo: full,
+                        requestParams: full ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams()
+                    }, true),
+                    aria2RpcService.tellWaiting({
+                        requestWholeInfo: full,
+                        requestParams: full ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams()
+                    }, true),
+                    aria2RpcService.tellStopped({
+                        requestWholeInfo: full,
+                        requestParams: full ? aria2RpcService.getFullTaskParams() : aria2RpcService.getBasicTaskParams()
+                    }, true)
+                ];
+
+                return aria2RpcService.multicall({
+                    methods: methods,
+                    silent: !!silent,
+                    callback: function (response) {
+                        if (!callback) {
+                            ariaNgLogService.warn('[aria2TaskService.getAllTaskList] callback is null');
+                            return;
+                        }
+
+                        if (response.success && response.data) {
+                            var allTasks = [];
+
+                            // Merge results from all three endpoints
+                            for (var i = 0; i < response.data.length; i++) {
+                                if (response.data[i] && response.data[i][0]) {
+                                    allTasks = allTasks.concat(response.data[i][0]);
+                                }
+                            }
+
+                            response.data = allTasks;
+                            response.context = response.context || {};
+                            response.context.requestWholeInfo = full;
+                        }
+
+                        callback(response);
+                    }
+                });
+            },
             getTaskStatus: function (gid, callback, silent, addVirtualFileNode) {
                 return aria2RpcService.tellStatus({
                     gid: gid,

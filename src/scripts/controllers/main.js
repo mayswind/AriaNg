@@ -8,7 +8,7 @@
         var getTaskListPageType = function () {
             var location = $location.path().substring(1);
 
-            if (location === 'downloading' || location === 'waiting' || location === 'stopped') {
+            if (location === 'downloading' || location === 'waiting' || location === 'stopped' || location === 'all') {
                 return location;
             } else {
                 return '';
@@ -77,6 +77,70 @@
         $scope.rpcSettings = ariaNgSettingService.getAllRpcSettings();
         $scope.currentRpcProfile = getCurrentRPCProfile();
         $scope.isCurrentRpcUseWebSocket = ariaNgSettingService.isCurrentRpcUseWebSocket();
+
+        // Initialize global status filters (persists across page navigation)
+        if (!$rootScope.allTasksFilters) {
+            $rootScope.allTasksFilters = {
+                active: true,
+                waiting: true,
+                paused: true,
+                complete: true,
+                error: true,
+                removed: true
+            };
+        }
+
+        // Check if current view is All Tasks
+        $scope.isAllTasksView = function () {
+            return $location.path() === '/all';
+        };
+
+        // Get total count of all tasks
+        $scope.getAllTasksCount = function () {
+            if (!$scope.globalStat) {
+                return 0;
+            }
+            return (parseInt($scope.globalStat.numActive) || 0) + 
+                   (parseInt($scope.globalStat.numWaiting) || 0) + 
+                   (parseInt($scope.globalStat.numStopped) || 0);
+        };
+
+        // Check if All Tasks view has active filters
+        $scope.hasAllTasksFilters = function () {
+            var filters = $rootScope.allTasksFilters;
+            var allSelected = filters.active && filters.waiting && filters.paused && filters.complete && filters.error && filters.removed;
+            return !allSelected;
+        };
+
+        // Toggle a status filter
+        $scope.toggleStatusFilter = function (status) {
+            $rootScope.allTasksFilters[status] = !$rootScope.allTasksFilters[status];
+        };
+
+        // Check if a filter is active
+        $scope.isStatusFilterActive = function (status) {
+            return $rootScope.allTasksFilters[status];
+        };
+
+        // Select all filters
+        $scope.selectAllFilters = function () {
+            $rootScope.allTasksFilters.active = true;
+            $rootScope.allTasksFilters.waiting = true;
+            $rootScope.allTasksFilters.paused = true;
+            $rootScope.allTasksFilters.complete = true;
+            $rootScope.allTasksFilters.error = true;
+            $rootScope.allTasksFilters.removed = true;
+        };
+
+        // Deselect all filters
+        $scope.deselectAllFilters = function () {
+            $rootScope.allTasksFilters.active = false;
+            $rootScope.allTasksFilters.waiting = false;
+            $rootScope.allTasksFilters.paused = false;
+            $rootScope.allTasksFilters.complete = false;
+            $rootScope.allTasksFilters.error = false;
+            $rootScope.allTasksFilters.removed = false;
+        };
 
         $scope.isTaskSelected = function () {
             return $rootScope.taskContext.getSelectedTaskIds().length > 0;

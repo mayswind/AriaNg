@@ -6,72 +6,124 @@
         var downloadTaskRefreshPromise = null;
         var pauseDownloadTaskRefresh = false;
         var needRequestWholeInfo = true;
+        var isAllTasksView = location === 'all';
+
+        $scope.isAllTasksView = isAllTasksView;
+
+        // Filter tasks by selected statuses (uses global filters from $rootScope)
+        var filterTasksByStatus = function (tasks) {
+            if (!isAllTasksView || !tasks) {
+                return tasks;
+            }
+
+            var filters = $rootScope.allTasksFilters;
+            return tasks.filter(function (task) {
+                if (task.status === 'active' && filters.active) {
+                    return true;
+                }
+                if (task.status === 'waiting' && filters.waiting) {
+                    return true;
+                }
+                if (task.status === 'paused' && filters.paused) {
+                    return true;
+                }
+                if (task.status === 'complete' && filters.complete) {
+                    return true;
+                }
+                if (task.status === 'error' && filters.error) {
+                    return true;
+                }
+                if (task.status === 'removed' && filters.removed) {
+                    return true;
+                }
+                return false;
+            });
+        };
 
         var refreshDownloadTask = function (silent) {
             if (pauseDownloadTaskRefresh) {
                 return;
             }
 
-            return aria2TaskService.getTaskList(location, needRequestWholeInfo, function (response) {
-                if (pauseDownloadTaskRefresh) {
-                    return;
+            var taskListMethod;
+            
+            if (isAllTasksView) {
+                taskListMethod = function() {
+                    return aria2TaskService.getAllTaskList(needRequestWholeInfo, function (response) {
+                        handleTaskListResponse(response, silent);
+                    }, silent);
+                };
+            } else {
+                taskListMethod = function() {
+                    return aria2TaskService.getTaskList(location, needRequestWholeInfo, function (response) {
+                        handleTaskListResponse(response, silent);
+                    }, silent);
+                };
+            }
+
+            return taskListMethod();
+        };
+
+        var handleTaskListResponse = function (response, silent) {
+            if (pauseDownloadTaskRefresh) {
+                return;
+            }
+
+            if (!response.success) {
+                if (response.data.message === aria2RpcErrors.Unauthorized.message) {
+                    $interval.cancel(downloadTaskRefreshPromise);
                 }
 
-                if (!response.success) {
-                    if (response.data.message === aria2RpcErrors.Unauthorized.message) {
-                        $interval.cancel(downloadTaskRefreshPromise);
+                return;
+            }
+
+            var isRequestWholeInfo = response.context.requestWholeInfo;
+            var taskList = response.data;
+
+            if (isRequestWholeInfo) {
+                $rootScope.taskContext.list = filterTasksByStatus(taskList);
+                needRequestWholeInfo = false;
+            } else {
+                if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
+                    for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
+                        var task = $rootScope.taskContext.list[i];
+                        delete task.verifiedLength;
+                        delete task.verifyIntegrityPending;
                     }
-
-                    return;
                 }
 
-                var isRequestWholeInfo = response.context.requestWholeInfo;
-                var taskList = response.data;
-
-                if (isRequestWholeInfo) {
-                    $rootScope.taskContext.list = taskList;
+                var filteredList = filterTasksByStatus(taskList);
+                if (ariaNgCommonService.extendArray(filteredList, $rootScope.taskContext.list, 'gid')) {
                     needRequestWholeInfo = false;
                 } else {
-                    if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
-                        for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
-                            var task = $rootScope.taskContext.list[i];
-                            delete task.verifiedLength;
-                            delete task.verifyIntegrityPending;
+                    needRequestWholeInfo = true;
+                }
+            }
+
+            if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
+                aria2TaskService.processDownloadTasks($rootScope.taskContext.list);
+
+                if (!isRequestWholeInfo) {
+                    var hasFullStruct = false;
+
+                    for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
+                        var task = $rootScope.taskContext.list[i];
+
+                        if (task.hasTaskName || task.files || task.bittorrent) {
+                            hasFullStruct = true;
+                            break;
                         }
                     }
 
-                    if (ariaNgCommonService.extendArray(taskList, $rootScope.taskContext.list, 'gid')) {
-                        needRequestWholeInfo = false;
-                    } else {
+                    if (!hasFullStruct) {
                         needRequestWholeInfo = true;
+                        $rootScope.taskContext.list.length = 0;
+                        return;
                     }
                 }
+            }
 
-                if ($rootScope.taskContext.list && $rootScope.taskContext.list.length > 0) {
-                    aria2TaskService.processDownloadTasks($rootScope.taskContext.list);
-
-                    if (!isRequestWholeInfo) {
-                        var hasFullStruct = false;
-
-                        for (var i = 0; i < $rootScope.taskContext.list.length; i++) {
-                            var task = $rootScope.taskContext.list[i];
-
-                            if (task.hasTaskName || task.files || task.bittorrent) {
-                                hasFullStruct = true;
-                                break;
-                            }
-                        }
-
-                        if (!hasFullStruct) {
-                            needRequestWholeInfo = true;
-                            $rootScope.taskContext.list.length = 0;
-                            return;
-                        }
-                    }
-                }
-
-                $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list && $rootScope.taskContext.list.length > 0;
-            }, silent);
+            $rootScope.taskContext.enableSelectAll = $rootScope.taskContext.list && $rootScope.taskContext.list.length > 0;
         };
 
         $scope.getOrderType = function () {
@@ -87,6 +139,16 @@
 
             return location === 'waiting' && displayOrder.type === 'default';
         };
+
+        // Watch for filter changes to refresh task list (uses global filters)
+        $scope.$watch(function() {
+            return $rootScope.allTasksFilters;
+        }, function (newVal, oldVal) {
+            if (newVal !== oldVal && isAllTasksView) {
+                needRequestWholeInfo = true;
+                refreshDownloadTask(false);
+            }
+        }, true);
 
         if (ariaNgSettingService.getDownloadTaskRefreshInterval() > 0) {
             downloadTaskRefreshPromise = $interval(function () {
