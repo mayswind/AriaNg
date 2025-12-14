@@ -1031,6 +1031,11 @@
                 canUpdate: 'new|waiting|paused'
             },
             {
+                key: 'pause-metadata',
+                category: 'bittorrent',
+                canUpdate: 'new'
+            },
+            {
                 key: 'conditional-get',
                 category: 'global',
                 canShow: 'new'
