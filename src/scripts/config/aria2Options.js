@@ -989,6 +989,11 @@
                 category: 'http'
             },
             {
+                key: 'continue',
+                category: 'http',
+                canUpdate: 'new|waiting|paused'
+            },
+            {
                 key: 'referer',
                 category: 'http',
                 canUpdate: 'new'
