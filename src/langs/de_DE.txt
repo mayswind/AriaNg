@@ -346,6 +346,7 @@ English=Englisch
 Spanish=Spanisch
 French=Französisch
 Italian=Italienisch
+Japanese=Japanisch
 Polish=Polisch
 Russian=Russisch
 Simplified Chinese=Einfaches Chinesisch
