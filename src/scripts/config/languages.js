@@ -43,6 +43,10 @@
             name: 'Traditional Chinese',
             displayName: '繁體中文',
             aliases: ['zh_CHT', 'zh_TW', 'zh_HK', 'zh_MO']
+        },
+        'ja_JP': {
+            name: 'Japanese',
+            displayName: '日本語'
         }
     });
 }());
