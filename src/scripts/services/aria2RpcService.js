@@ -359,12 +359,11 @@
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
-                        silent: !!context.silent,
-                        gid: context.gids[i]
+                        'methodName': 'aria2.forceRemove', 'params': [context.gids[i]]
                     });
                 }
 
-                return invokeMulti(this.forceRemove, contexts, context.callback);
+                return this.multicall({'methods': contexts});
             },
             pause: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('pause', context, context.gid), !!returnContextOnly);
@@ -380,12 +379,11 @@
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
-                        silent: !!context.silent,
-                        gid: context.gids[i]
+                        'methodName': 'aria2.forcePause', 'params': [context.gids[i]]
                     });
                 }
 
-                return invokeMulti(this.forcePause, contexts, context.callback);
+                return this.multicall({'methods': contexts});
             },
             forcePauseAll: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('forcePauseAll', context), !!returnContextOnly);
@@ -398,12 +396,11 @@
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
-                        silent: !!context.silent,
-                        gid: context.gids[i]
+                        'methodName': 'aria2.unpause', 'params': [context.gids[i]]
                     });
                 }
 
-                return invokeMulti(this.unpause, contexts, context.callback);
+                return this.multicall({'methods': contexts});
             },
             unpauseAll: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('unpauseAll', context), !!returnContextOnly);
@@ -476,12 +473,11 @@
 
                 for (var i = 0; i < context.gids.length; i++) {
                     contexts.push({
-                        silent: !!context.silent,
-                        gid: context.gids[i]
+                        'methodName': 'aria2.removeDownloadResult', 'params': [context.gids[i]]
                     });
                 }
 
-                return invokeMulti(this.removeDownloadResult, contexts, context.callback);
+                return this.multicall({'methods': contexts});
             },
             getVersion: function (context, returnContextOnly) {
                 return invoke(buildRequestContext('getVersion', context), !!returnContextOnly);
