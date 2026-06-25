@@ -70,6 +70,8 @@
                     requestContext.url = getUrlWithQueryString(requestContext.url, context.requestBody);
                 }
 
+                requestContext.headers['Accept-Encoding'] = 'gzip';
+
                 if (requestHeaders) {
                     var lines = requestHeaders.split('\n');
 
