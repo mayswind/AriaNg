@@ -71,7 +71,7 @@
 
             saveDownloadPath(options);
 
-            return aria2TaskService.newUriTasks(tasks, pauseOnAdded, responseCallback);
+            return aria2TaskService.newUriTasksSequentially(tasks, pauseOnAdded, responseCallback);
         };
 
         var downloadByTorrent = function (pauseOnAdded, responseCallback) {

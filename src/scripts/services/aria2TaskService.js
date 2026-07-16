@@ -608,6 +608,68 @@
                     callback: callback
                 });
             },
+            newUriTasksSequentially: function (tasks, pauseOnAdded, callback, silent) {
+                var newUriTaskFunc = this.newUriTask;
+
+                var deferred = $q.defer();
+                var lastPromise = null;
+
+                var results = [];
+                var hasSuccess = false;
+                var hasError = false;
+                var completedCount = 0;
+
+                var doAddFunc = function (task, index) {
+                    return newUriTaskFunc(task, pauseOnAdded, function (response) {
+                        results.push(response);
+
+                        if (response.success) {
+                            hasSuccess = true;
+                        } else {
+                            hasError = true;
+                        }
+
+                        completedCount++;
+
+                        if (completedCount === tasks.length) {
+                            var finalResponse = {
+                                hasSuccess: hasSuccess,
+                                hasError: hasError,
+                                results: results,
+                                successCount: results.filter(function (r) { return r.success; }).length,
+                                failedCount: results.filter(function (r) { return !r.success; }).length
+                            };
+
+                            deferred.resolve(finalResponse);
+
+                            if (callback) {
+                                callback(finalResponse);
+                            }
+                        }
+                    }, silent);
+                };
+
+                for (var i = 0; i < tasks.length; i++) {
+                    var task = tasks[i];
+                    var currentPromise = null;
+
+                    if (!lastPromise) {
+                        currentPromise = doAddFunc(task, i);
+                    } else {
+                        currentPromise = (function (task, index) {
+                            return lastPromise.then(function onSuccess() {
+                                return doAddFunc(task, index);
+                            }).catch(function onError() {
+                                return doAddFunc(task, index);
+                            });
+                        })(task, i);
+                    }
+
+                    lastPromise = currentPromise;
+                }
+
+                return deferred.promise;
+            },
             newTorrentTask: function (task, pauseOnAdded, callback, silent) {
                 return aria2RpcService.addTorrent({
                     task: task,
