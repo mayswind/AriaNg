@@ -2,6 +2,7 @@
 [![License](https://img.shields.io/github/license/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
 [![Lastest Build](https://img.shields.io/circleci/project/github/mayswind/AriaNg.svg?style=flat)](https://circleci.com/gh/mayswind/AriaNg/tree/master)
 [![Lastest Release](https://img.shields.io/github/release/mayswind/AriaNg.svg?style=flat)](https://github.com/mayswind/AriaNg/releases)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmayswind%2FAriaNg.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmayswind%2FAriaNg?ref=badge_shield)
 
 ## Introduction
 AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) easier to use. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
@@ -95,3 +96,6 @@ There are some third-party applications based on AriaNg, so you can use AriaNg i
 
 ## License
 [MIT](https://github.com/mayswind/AriaNg/blob/master/LICENSE)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmayswind%2FAriaNg.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmayswind%2FAriaNg?ref=badge_large)
