@@ -69,6 +69,12 @@
             });
         }
 
+        var engineEnabledFeatures = [];
+
+        var isEngineFeatureSupported = function (featureName) {
+            return engineEnabledFeatures.indexOf(featureName) !== -1;
+        };
+
         return {
             getFullPageUrl: function () {
                 return $window.location.protocol + '//'
@@ -148,6 +154,10 @@
 
                 return filePath.substring(filePath.lastIndexOf('.'));
             },
+            setEngineEnabledFeatures: function (features) {
+                engineEnabledFeatures = angular.isArray(features) ? features : [];
+            },
+            isEngineFeatureSupported: isEngineFeatureSupported,
             parseUrlsFromOriginInput: function (s) {
                 if (!s) {
                     return [];
@@ -159,7 +169,7 @@
                 for (var i = 0; i < lines.length; i++) {
                     var line = lines[i];
 
-                    if (line.match(/^(http|https|ftp|sftp|ed2k):\/\/.+$/)) {
+                    if (line.match(/^(http|https|ftp|sftp):\/\/.+$/) || (line.match(/^ed2k:\/\/.+$/) && isEngineFeatureSupported('ED2K'))) {
                         result.push(line);
                     } else if (line.match(/^magnet:\?.+$/)) {
                         result.push(line);

@@ -1,8 +1,15 @@
 (function () {
     'use strict';
 
-    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', '$timeout', 'ariaNgCommonService', 'ariaNgKeyboardService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', function ($window, $rootScope, $location, $document, $timeout, ariaNgCommonService, ariaNgKeyboardService, ariaNgNotificationService, ariaNgLogService, ariaNgSettingService, aria2TaskService) {
+    angular.module('ariaNg').run(['$window', '$rootScope', '$location', '$document', '$timeout', 'ariaNgCommonService', 'ariaNgKeyboardService', 'ariaNgNotificationService', 'ariaNgLogService', 'ariaNgSettingService', 'aria2TaskService', 'aria2SettingService', function ($window, $rootScope, $location, $document, $timeout, ariaNgCommonService, ariaNgKeyboardService, ariaNgNotificationService, ariaNgLogService, ariaNgSettingService, aria2TaskService, aria2SettingService) {
         var autoRefreshAfterPageLoad = false;
+
+        var refreshEngineEnabledFeatures = function () {
+            aria2SettingService.getAria2Status(function (response) {
+                var features = response && response.success && response.data ? response.data.enabledFeatures : null;
+                ariaNgCommonService.setEngineEnabledFeatures(features);
+            }, true);
+        };
 
         var isAnyTextboxOrTextareaFocus = function () {
             return angular.element('input[type="text"],textarea').is(':focus');
@@ -452,6 +459,7 @@
             $timeout(function () {
                 if ($rootScope.taskContext.rpcStatus !== 'Connected') {
                     $rootScope.taskContext.rpcStatus = 'Connected';
+                    refreshEngineEnabledFeatures();
                 }
             });
         });
@@ -460,6 +468,7 @@
             $timeout(function () {
                 if ($rootScope.taskContext.rpcStatus !== 'Disconnected') {
                     $rootScope.taskContext.rpcStatus = 'Disconnected';
+                    ariaNgCommonService.setEngineEnabledFeatures(null);
                 }
             });
         });
