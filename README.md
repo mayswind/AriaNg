@@ -56,6 +56,9 @@ Make sure you have [Node.js](https://nodejs.org/), [NPM](https://www.npmjs.com/)
 
 The builds will be placed in the dist directory.
 
+#### Docker (community image)
+[Easypanel](https://easypanel.io/) has an [official one-click template](https://easypanel.io/templates/ariang) that deploys AriaNg bundled with aria2 using the community [hurlenko/aria2-ariang](https://hub.docker.com/r/hurlenko/aria2-ariang) image.
+
 #### Usage Notes
 Since AriaNg standard version loads language resources asynchronously, you may not open index.html directly on the local file system to run AriaNg. It is recommended that you can use the all-in-one version or deploy AriaNg in a web container or download [AriaNg Native](https://github.com/mayswind/AriaNg-Native) that does not require a browser to run.
 
