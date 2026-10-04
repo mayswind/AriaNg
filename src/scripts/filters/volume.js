@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ariaNg').filter('readableVolume', ['$filter', function ($filter) {
-        var units = [ 'B', 'KB', 'MB', 'GB' ];
+        var units = [ 'B', 'KiB', 'MiB', 'GiB' ];
         var defaultFractionSize = 2;
 
         var getAutoFractionSize = function (value) {
