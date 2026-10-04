@@ -87,32 +87,63 @@
         };
 
         var invokeMulti = function (methodFunc, contexts, callback) {
-            var promises = [];
-
-            var hasSuccess = false;
-            var hasError = false;
-            var results = [];
+            var methods = [];
+            var allSilent = true;
 
             for (var i = 0; i < contexts.length; i++) {
-                contexts[i].callback = function (response) {
-                    results.push(response);
+                var requestContext = methodFunc(contexts[i], true);
 
-                    hasSuccess = hasSuccess || response.success;
-                    hasError = hasError || !response.success;
-                };
+                if (!contexts[i].silent) {
+                    allSilent = false;
+                }
 
-                promises.push(methodFunc(contexts[i]));
+                methods.push({
+                    methodName: requestContext.methodName,
+                    params: requestContext.params || []
+                });
             }
 
-            return $q.all(promises).finally(function () {
+            if (methods.length > 0) {
+                return invoke(buildRequestContext('system.multicall', {
+                    silent: allSilent,
+                    callback: function (response) {
+                        if (callback) {
+                            var results = [];
+                            var hasSuccess = !!response.success;
+                            var hasError = !!response.error;
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var result = response.data[i];
+
+                                if (result && angular.isArray(result) && result.length > 0 && result[0]) {
+                                    hasSuccess = true;
+                                    results.push({
+                                        data: result[0]
+                                    });
+                                } else {
+                                    hasError = true;
+                                }
+                            }
+
+                            callback({
+                                hasSuccess: hasSuccess,
+                                hasError: hasError,
+                                results: results
+                            });
+                        }
+                    }
+                }, methods));
+            } else {
                 if (callback) {
                     callback({
-                        hasSuccess: !!hasSuccess,
-                        hasError: !!hasError,
-                        results: results
+                        hasSuccess: false,
+                        hasError: false,
+                        results: []
                     });
                 }
-            });
+
+                return $q.all([]);
+            }
         };
 
         var processError = function (error) {
