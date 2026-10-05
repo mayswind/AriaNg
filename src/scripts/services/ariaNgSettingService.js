@@ -218,7 +218,8 @@
                 protocol: setting.protocol,
                 httpMethod: setting.httpMethod,
                 rpcRequestHeaders: setting.rpcRequestHeaders,
-                secret: setting.secret
+                secret: setting.secret,
+                settingHistory: angular.copy(setting.settingHistory || {})
             };
         };
 
@@ -328,7 +329,15 @@
                 setOptions(finalOptions);
             },
             exportAllOptions: function () {
-                var options = angular.extend({}, ariaNgDefaultOptions, getOptions());
+                var options = angular.copy(angular.extend({}, ariaNgDefaultOptions, getOptions()));
+
+                delete options['settingHistory'];
+
+                if (angular.isArray(options.extendRpcServers)) {
+                    for (var i = 0; i < options.extendRpcServers.length; i++) {
+                        delete options.extendRpcServers[i]['settingHistory'];
+                    }
+                }
 
                 return options;
             },
@@ -506,6 +515,44 @@
             getCurrentRpcSecret: function () {
                 var value = getOption('secret');
                 return (value ? ariaNgCommonService.base64Decode(value) : value);
+            },
+            getCurrentRpcSettingHistory: function (key) {
+                var allHistories = getOption('settingHistory');
+                var history = (allHistories && angular.isObject(allHistories) && angular.isArray(allHistories[key])) ? angular.copy(allHistories[key]) : [];
+                var newHistory = [];
+
+                for (var i = 0; i < Math.min(history.length, ariaNgConstants.historyMaxStoreCount); i++) {
+                    newHistory.push(history[i]);
+                }
+
+                return newHistory;
+            },
+            addCurrentRpcSettingHistory: function (key, value) {
+                var allHistories = getOption('settingHistory');
+                var history = (allHistories && angular.isObject(allHistories) && angular.isArray(allHistories[key])) ? angular.copy(allHistories[key]) : [];
+                var newHistory = [];
+                newHistory.push(value);
+
+                for (var i = 0; i < Math.min(history.length, ariaNgConstants.historyMaxStoreCount - 1); i++) {
+                    if (history[i] !== value) {
+                        newHistory.push(history[i]);
+                    }
+                }
+
+                allHistories[key] = newHistory;
+                setOption('settingHistory', allHistories);
+            },
+            clearAllRpcSettingsHistory: function () {
+                var options = getOptions();
+                options['settingHistory'] = {};
+
+                if (angular.isArray(options.extendRpcServers)) {
+                    for (var i = 0; i < options.extendRpcServers.length; i++) {
+                        options.extendRpcServers[i]['settingHistory'] = {};
+                    }
+                }
+
+                setOptions(options);
             },
             addNewRpcSetting: function () {
                 var options = getOptions();

@@ -40,7 +40,7 @@
                 return;
             }
 
-            aria2SettingService.addSettingHistory('dir', options.dir);
+            ariaNgSettingService.addCurrentRpcSettingHistory('dir', options.dir);
         };
 
         var getDownloadTasksByLinks = function (options) {

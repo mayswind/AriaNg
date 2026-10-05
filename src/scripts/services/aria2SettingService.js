@@ -16,10 +16,6 @@
             return stat;
         };
 
-        var getSettingHistoryKey = function (key) {
-            return ariaNgConstants.settingHistoryKeyPrefix + '.' + key;
-        };
-
         return {
             isOptionKeyValid: function (key) {
                 var option = aria2AllOptions[key];
@@ -185,48 +181,6 @@
                 }
 
                 return options;
-            },
-            getSettingHistory: function (key) {
-                if (!this.isOptionKeyValid(key)) {
-                    return [];
-                }
-
-                var storageKey = getSettingHistoryKey(key);
-                var history = ariaNgStorageService.get(storageKey) || [];
-                var newHistory = [];
-
-                for (var i = 0; i < Math.min(history.length, ariaNgConstants.historyMaxStoreCount); i++) {
-                    newHistory.push(history[i]);
-                }
-
-                return newHistory;
-            },
-            addSettingHistory: function (key, value) {
-                if (!this.isOptionKeyValid(key)) {
-                    return [];
-                }
-
-                var storageKey = getSettingHistoryKey(key);
-                var history = ariaNgStorageService.get(storageKey) || [];
-                var newHistory = [];
-                newHistory.push(value);
-
-                for (var i = 0; i < Math.min(history.length, ariaNgConstants.historyMaxStoreCount - 1); i++) {
-                    if (history[i] !== value) {
-                        newHistory.push(history[i]);
-                    }
-                }
-
-                ariaNgStorageService.set(storageKey, newHistory);
-
-                return newHistory;
-            },
-            clearSettingsHistorys: function () {
-                var keys = ariaNgStorageService.keys(ariaNgConstants.settingHistoryKeyPrefix + '.');
-
-                for (var i = 0; i < keys.length; i++) {
-                    ariaNgStorageService.remove(keys[i]);
-                }
             },
             getGlobalOption: function (callback, silent) {
                 return aria2RpcService.getGlobalOption({
