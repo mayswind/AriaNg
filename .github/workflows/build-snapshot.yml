@@ -1,0 +1,76 @@
+name: Build Snapshot
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install -g gulp
+
+      - name: Build all-in-one version
+        run: |
+          gulp clean build-bundle
+
+      - name: Upload all-in-one artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ariang-dev-package-${{ github.run_id }}-all-in-one
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
+
+      - name: Build standard version
+        run: |
+          gulp clean build
+
+      - name: Upload standard artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ariang-dev-package-${{ github.run_id }}-standard
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
+
+      - name: Checkout daily build repository
+        if: ${{ github.repository == 'mayswind/AriaNg' }}
+        uses: actions/checkout@v6
+        with:
+          repository: mayswind/AriaNg-DailyBuild
+          ref: master
+          token: ${{ secrets.DAILYBUILD_REPO_TOKEN }}
+          path: AriaNg-DailyBuild
+
+      - name: Update daily build files
+        if: ${{ github.repository == 'mayswind/AriaNg' }}
+        run: |
+          rm -rf AriaNg-DailyBuild/*
+          cp dist/* AriaNg-DailyBuild/ -r;
+
+      - name: Commit and push
+        if: ${{ github.repository == 'mayswind/AriaNg' }}
+        working-directory: AriaNg-DailyBuild
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "daily build #$GITHUB_SHA"
+            git push origin master
+          fi

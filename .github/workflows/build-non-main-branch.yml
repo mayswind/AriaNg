@@ -1,0 +1,47 @@
+name: Build for Non-Main Branches
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install -g gulp
+
+      - name: Build all-in-one version
+        run: |
+          gulp clean build-bundle
+
+      - name: Upload all-in-one artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ariang-dev-package-${{ github.run_id }}-all-in-one
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
+
+      - name: Build standard version
+        run: |
+          gulp clean build
+
+      - name: Upload standard artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ariang-dev-package-${{ github.run_id }}-standard
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
